@@ -1,0 +1,412 @@
+0000.002 (0) Opened log file at time: Fri, 14 Jul 2023 19:11:44 +0000 on https://www.earthday.usineb.com
+0000.013 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.23.7 WP: 6.2.2 PHP: 8.1.17 (cgi-fcgi, Linux lamar 5.4.32-grsec-grsec-plus+ #1 SMP Sat Apr 18 03:13:45 UTC 2020 x86_64) MySQL: 8.0.28-0ubuntu0.20.04.3 (max packet size=33554432) WPLANG: en_US Server: Apache safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 39.2M | 40M) multisite: N openssl: OpenSSL 1.1.1  11 Sep 2018 mcrypt: N LANG:  ZipArchive::addFile: Y
+0000.015 (0) Free space on disk containing Updraft's temporary directory: 510511.7 MB
+0000.018 (0) Tasks: Backup files: 1 (schedule: manual) Backup DB: 1 (schedule: manual)
+0000.021 (0) Requesting semaphore lock (fd) (apparently not via scheduler)
+0000.026 (0) Set semaphore last lock (fd) time to 2023-07-14 19:11:44
+0000.027 (0) Semaphore lock (fd) complete
+0000.033 (0) Backup run: resumption=0, nonce=03ba4d5347b4, file_nonce=03ba4d5347b4 begun at=1689361904 (0s ago), job type=backup
+0000.036 (0) Scheduling a resumption (1) after 300 seconds (1689362204) in case this run gets aborted
+0000.052 (0) Checking if we have a zip executable available
+0000.054 (0) Testing: /usr/bin/zip
+0000.174 (0) Output: zip warning: binziptest/test.zip not found or empty
+0000.178 (0) Output: adding: binziptest/subdir1/	(in=0) (out=0) (stored 0%)
+0000.180 (0) Output: adding: binziptest/subdir1/subdir2/	(in=0) (out=0) (stored 0%)
+0000.181 (0) Output: adding: binziptest/subdir1/subdir2/test.html	(in=131) (out=107) (deflated 18%)
+0000.182 (0) Output: total bytes=131, compressed=107 -> 18% savings
+0000.238 (0) Output: adding: binziptest/subdir1/subdir2/test2.html	(in=138) (out=113) (deflated 18%)
+0000.242 (0) Output: total bytes=269, compressed=220 -> 18% savings
+0000.253 (0) Working binary zip found: /usr/bin/zip
+0000.256 (0) Zip engine: found/will use a binary zip: /usr/bin/zip
+0000.258 (0) Creation of backups of directories: beginning
+0000.265 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0013.306 (0) Total entities for the zip file: 1720 directories, 8102 files (0 skipped as non-modified), 209.6 MB
+0013.311 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 2.0 seconds have passed since the last write (0.2 MB, 1 (1) files added so far); re-opening (prior size: 0 KB)
+0013.674 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 0.50 MB
+0013.687 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 100 files added (on-disk size: 545.2 KB)
+0013.699 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 200 files added (on-disk size: 545.2 KB)
+0013.714 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 300 files added (on-disk size: 545.2 KB)
+0013.726 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 400 files added (on-disk size: 545.2 KB)
+0013.741 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 500 files added (on-disk size: 545.2 KB)
+0013.755 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 600 files added (on-disk size: 545.2 KB)
+0013.768 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 700 files added (on-disk size: 545.2 KB)
+0013.788 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 800 files added (on-disk size: 545.2 KB)
+0013.801 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 900 files added (on-disk size: 545.2 KB)
+0013.826 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1000 files added (on-disk size: 545.2 KB)
+0013.828 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (16.8 MB, 8102 files batched, 1001 (1002) added so far); re-opening (prior size: 545.2 KB)
+0029.063 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 6.10 MB
+0029.085 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1100 files added (on-disk size: 6235.3 KB)
+0029.101 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1200 files added (on-disk size: 6235.3 KB)
+0029.123 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1300 files added (on-disk size: 6235.3 KB)
+0029.136 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1400 files added (on-disk size: 6235.3 KB)
+0029.141 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 MB added on this batch (25 MB, 8102 files batched, 429 (1431) added so far); re-opening (prior size: 6235.3 KB)
+0037.120 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 11.40 MB
+0037.124 (0) A useful amount of data was added after this amount of zip processing: 8.8 s (normalised: 8.8 s, rate: 2919.2 KB/s)
+0037.135 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1500 files added (on-disk size: 11665.8 KB)
+0037.148 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1600 files added (on-disk size: 11665.8 KB)
+0037.161 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1700 files added (on-disk size: 11665.8 KB)
+0037.184 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1800 files added (on-disk size: 11665.8 KB)
+0037.196 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 1900 files added (on-disk size: 11665.8 KB)
+0037.214 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2000 files added (on-disk size: 11665.8 KB)
+0037.226 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2100 files added (on-disk size: 11665.8 KB)
+0037.240 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2200 files added (on-disk size: 11665.8 KB)
+0037.255 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2300 files added (on-disk size: 11665.8 KB)
+0037.270 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2400 files added (on-disk size: 11665.8 KB)
+0037.279 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (18.6 MB, 8102 files batched, 1001 (2432) added so far); re-opening (prior size: 11665.8 KB)
+0045.985 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 17.80 MB
+0046.023 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2500 files added (on-disk size: 18242.5 KB)
+0046.059 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2600 files added (on-disk size: 18242.5 KB)
+0046.109 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2700 files added (on-disk size: 18242.5 KB)
+0046.156 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2800 files added (on-disk size: 18242.5 KB)
+0046.202 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 2900 files added (on-disk size: 18242.5 KB)
+0046.218 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3000 files added (on-disk size: 18242.5 KB)
+0046.251 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 MB added on this batch (25.1 MB, 8102 files batched, 623 (3055) added so far); re-opening (prior size: 18242.5 KB)
+0053.836 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 26.50 MB
+0053.862 (0) A useful amount of data was added after this amount of zip processing: 8.5 s (normalised: 8.5 s, rate: 3015.2 KB/s)
+0053.872 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3100 files added (on-disk size: 27096.4 KB)
+0053.893 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3200 files added (on-disk size: 27096.4 KB)
+0053.917 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3300 files added (on-disk size: 27096.4 KB)
+0053.932 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3400 files added (on-disk size: 27096.4 KB)
+0053.944 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3500 files added (on-disk size: 27096.4 KB)
+0053.957 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3600 files added (on-disk size: 27096.4 KB)
+0053.968 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3700 files added (on-disk size: 27096.4 KB)
+0053.980 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3800 files added (on-disk size: 27096.4 KB)
+0053.992 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 3900 files added (on-disk size: 27096.4 KB)
+0054.006 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4000 files added (on-disk size: 27096.4 KB)
+0054.014 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (21.3 MB, 8102 files batched, 1001 (4056) added so far); re-opening (prior size: 27096.4 KB)
+0060.721 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 34.30 MB
+0060.732 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4100 files added (on-disk size: 35123.5 KB)
+0060.744 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4200 files added (on-disk size: 35123.5 KB)
+0060.756 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4300 files added (on-disk size: 35123.5 KB)
+0060.769 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4400 files added (on-disk size: 35123.5 KB)
+0060.781 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4500 files added (on-disk size: 35123.5 KB)
+0060.784 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 25 MB added on this batch (27.3 MB, 8102 files batched, 459 (4515) added so far); re-opening (prior size: 35123.5 KB)
+0066.572 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 44.10 MB
+0066.633 (0) A useful amount of data was added after this amount of zip processing: 6.3 s (normalised: 5.8 s, rate: 4446.5 KB/s)
+0066.656 (0) Performance is good - will increase the amount of data we attempt to batch (time=6.2843849658966, normalised_time=5.7572873684972, max_time=66.649176836014, data points known=1, old_max_bytes=26214400, new_max_bytes=182082435)
+0066.694 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4600 files added (on-disk size: 45168.7 KB)
+0066.733 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4700 files added (on-disk size: 45168.7 KB)
+0066.771 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4800 files added (on-disk size: 45168.7 KB)
+0066.809 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 4900 files added (on-disk size: 45168.7 KB)
+0066.837 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5000 files added (on-disk size: 45168.7 KB)
+0066.866 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5100 files added (on-disk size: 45168.7 KB)
+0066.908 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5200 files added (on-disk size: 45168.7 KB)
+0066.926 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5300 files added (on-disk size: 45168.7 KB)
+0066.954 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5400 files added (on-disk size: 45168.7 KB)
+0066.986 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5500 files added (on-disk size: 45168.7 KB)
+0067.006 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (30.5 MB, 8102 files batched, 1001 (5516) added so far); re-opening (prior size: 45168.7 KB)
+0077.438 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: size is now: 54.40 MB
+0077.466 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5600 files added (on-disk size: 55707.6 KB)
+0077.479 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5700 files added (on-disk size: 55707.6 KB)
+0077.501 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5800 files added (on-disk size: 55707.6 KB)
+0077.530 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 5900 files added (on-disk size: 55707.6 KB)
+0077.551 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6000 files added (on-disk size: 55707.6 KB)
+0077.593 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6100 files added (on-disk size: 55707.6 KB)
+0077.610 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6200 files added (on-disk size: 55707.6 KB)
+0077.652 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6300 files added (on-disk size: 55707.6 KB)
+0077.669 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6400 files added (on-disk size: 55707.6 KB)
+0077.706 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6500 files added (on-disk size: 55707.6 KB)
+0077.712 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (20.6 MB, 8102 files batched, 1001 (6517) added so far); re-opening (prior size: 55707.6 KB)
+0085.857 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6600 files added (on-disk size: 61530.8 KB)
+0085.883 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6700 files added (on-disk size: 61530.8 KB)
+0085.899 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6800 files added (on-disk size: 61530.8 KB)
+0085.913 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 6900 files added (on-disk size: 61530.8 KB)
+0085.928 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7000 files added (on-disk size: 61530.8 KB)
+0085.945 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7100 files added (on-disk size: 61530.8 KB)
+0085.961 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7200 files added (on-disk size: 61530.8 KB)
+0085.979 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7300 files added (on-disk size: 61530.8 KB)
+0085.992 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7400 files added (on-disk size: 61530.8 KB)
+0086.008 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7500 files added (on-disk size: 61530.8 KB)
+0086.013 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (17.5 MB, 8102 files batched, 1001 (7518) added so far); re-opening (prior size: 61530.8 KB)
+0095.349 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7600 files added (on-disk size: 69763.1 KB)
+0095.386 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7700 files added (on-disk size: 69763.1 KB)
+0095.400 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7800 files added (on-disk size: 69763.1 KB)
+0095.436 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 7900 files added (on-disk size: 69763.1 KB)
+0095.450 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 8000 files added (on-disk size: 69763.1 KB)
+0095.485 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.tmp: 8100 files added (on-disk size: 69763.1 KB)
+0104.059 (0) Creating zip file manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.list-temp.tmp)
+0104.140 (0) Successfully created zip file manifest (size: 658777)
+0105.732 (0) Created plugins zip (0) - 73467.8 KB in 105.5 s (696.7 KB/s) (sha1: 653d78f735bf180e012d9fa0c4e744840360c5f0, sha256: daf62f13f2b91501748841f2116b59e34d7df0c43678170475874866aa1ead7b)
+0105.751 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0105.752 (0) No remote despatch: user chose no remote backup service
+0105.755 (0) Recording as successfully uploaded: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip
+0105.758 (0) Deleting zip manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip.list.tmp)
+0105.762 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=4, retain_db=4
+0105.765 (0) Number of backup sets in history: 2; groups (db): 1
+0105.766 (0) Examining (for databases) backup set with group_id=0, nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0105.767 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0105.769 (0) Examining (for databases) backup set with group_id=0, nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0105.769 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0105.769 (0) Number of backup sets in history: 2; groups (files): 1
+0105.771 (0) Examining (for files) backup set with nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0105.771 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0105.773 (0) Examining (for files) backup set with nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0105.773 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0105.773 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0105.781 (0) Beginning creation of dump of themes (split every: 400 MB)
+0107.492 (0) Total entities for the zip file: 269 directories, 1330 files (0 skipped as non-modified), 31.6 MB
+0107.522 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0107.541 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 200 files added (on-disk size: 0 KB)
+0107.566 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 300 files added (on-disk size: 0 KB)
+0107.590 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 400 files added (on-disk size: 0 KB)
+0107.619 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 500 files added (on-disk size: 0 KB)
+0107.653 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 600 files added (on-disk size: 0 KB)
+0107.678 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 700 files added (on-disk size: 0 KB)
+0107.702 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 800 files added (on-disk size: 0 KB)
+0107.729 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 900 files added (on-disk size: 0 KB)
+0107.765 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0107.769 (0) Adding batch to zip file (UpdraftPlus_BinZip): over 1000 files added on this batch (27.9 MB, 1330 files batched, 1001 (1001) added so far); re-opening (prior size: 0 KB)
+0121.178 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: size is now: 17.80 MB
+0121.201 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 1100 files added (on-disk size: 18189.4 KB)
+0121.218 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 1200 files added (on-disk size: 18189.4 KB)
+0121.238 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.tmp: 1300 files added (on-disk size: 18189.4 KB)
+0122.092 (0) Creating zip file manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.list-temp.tmp)
+0122.125 (0) Successfully created zip file manifest (size: 96862)
+0122.752 (0) Created themes zip (0) - 19961.3 KB in 17 s (1176.5 KB/s) (sha1: f7e964223761f3c21977054baa109b8169e479bd, sha256: 2df3c09ea9a152d26d33e371f29ffc5e7bf75b34fae75ae96eadaf557450e1ee)
+0122.792 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0122.795 (0) No remote despatch: user chose no remote backup service
+0122.800 (0) Recording as successfully uploaded: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip
+0122.803 (0) Deleting zip manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip.list.tmp)
+0122.844 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=4, retain_db=4
+0122.852 (0) Number of backup sets in history: 2; groups (db): 1
+0122.854 (0) Examining (for databases) backup set with group_id=0, nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0122.858 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0122.874 (0) Examining (for databases) backup set with group_id=0, nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0122.874 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0122.874 (0) Number of backup sets in history: 2; groups (files): 1
+0122.892 (0) Examining (for files) backup set with nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0122.892 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0122.895 (0) Examining (for files) backup set with nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0122.895 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0122.895 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0122.946 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots
+0122.950 (0) Looking for candidates to backup in: /home/dh_t9pev6/earthday/wp-content/uploads
+0122.955 (0) finding files: 2023: adding to list (1)
+0122.967 (0) finding files: ur-logs: adding to list (2)
+0122.989 (0) finding files: user_registration_uploads: adding to list (3)
+0122.996 (0) finding files: elementor: adding to list (4)
+0122.999 (0) finding files: wpcf7_uploads: adding to list (5)
+0123.001 (0) finding files: essential-addons-elementor: adding to list (6)
+0123.005 (0) finding files: 2020: adding to list (7)
+0123.006 (0) finding files: 2021: adding to list (8)
+0123.007 (0) finding files: ti_theme_onboarding.log: adding to list (9)
+0123.024 (0) finding files: themeisle-gutenberg: adding to list (10)
+0123.046 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0123.219 (0) Total entities for the zip file: 19 directories, 96 files (0 skipped as non-modified), 10.9 MB
+0124.490 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-uploads.zip.tmp: size is now: 10.90 MB
+0124.519 (0) Creating zip file manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-uploads.zip.list-temp.tmp)
+0124.534 (0) Successfully created zip file manifest (size: 6786)
+0124.930 (0) Created uploads zip (0) - 11133.7 KB in 1.9 s (5949.3 KB/s) (sha1: 82a690cf46df6a4fad1d46e98a821b089cc46e7e, sha256: bb4b4fecc5ee22586c70f2ec20f0bcea25e26a575f676e6f0afde8c9056dc260)
+0124.939 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0124.941 (0) No remote despatch: user chose no remote backup service
+0124.942 (0) Recording as successfully uploaded: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-uploads.zip
+0124.946 (0) Deleting zip manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-uploads.zip.list.tmp)
+0124.951 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=4, retain_db=4
+0124.954 (0) Number of backup sets in history: 2; groups (db): 1
+0124.955 (0) Examining (for databases) backup set with group_id=0, nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0124.955 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0124.956 (0) Examining (for databases) backup set with group_id=0, nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0124.957 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0124.957 (0) Number of backup sets in history: 2; groups (files): 1
+0124.958 (0) Examining (for files) backup set with nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0124.958 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0124.959 (0) Examining (for files) backup set with nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0124.959 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0124.959 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0124.968 (0) Beginning backup of other directories found in the content directory (index: 0)
+0124.970 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log
+0124.971 (0) Looking for candidates to backup in: /home/dh_t9pev6/earthday/wp-content
+0124.973 (0) finding files: themes: skipping: this is the themes directory
+0124.974 (0) finding files: plugins: skipping: this is the plugins directory
+0124.975 (0) finding files: uploads: skipping: this is the uploads directory
+0124.977 (0) finding files: upgrade: skipping: excluded by options
+0124.978 (0) finding files: wp-cache-config.php: adding to list (1)
+0124.979 (0) finding files: .gitignore: adding to list (2)
+0124.981 (0) finding files: index.php: adding to list (3)
+0124.985 (0) finding files: languages: adding to list (4)
+0124.986 (0) finding files: fonts: adding to list (5)
+0124.988 (0) finding files: updraft: skipping: this is the updraft directory
+0125.166 (0) Total entities for the zip file: 8 directories, 168 files (0 skipped as non-modified), 4.6 MB
+0125.199 (0) Zip: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-others.zip.tmp: 100 files added (on-disk size: 0 KB)
+0126.451 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-others.zip.tmp: size is now: 1.50 MB
+0126.461 (0) Creating zip file manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-others.zip.list-temp.tmp)
+0126.468 (0) Successfully created zip file manifest (size: 11054)
+0126.569 (0) Created others zip (0) - 1569.2 KB in 1.6 s (997.2 KB/s) (sha1: 586362bafd58f1ec83ddb97343ca80a54493cab0, sha256: c33673f8b8f5889efa534bb8f9b519448daa3cbf3b8b66da092e9d4b8aeb6e4f)
+0126.584 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0126.616 (0) No remote despatch: user chose no remote backup service
+0126.626 (0) Recording as successfully uploaded: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-others.zip
+0126.632 (0) Deleting zip manifest (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-others.zip.list.tmp)
+0126.678 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=4, retain_db=4
+0126.684 (0) Number of backup sets in history: 2; groups (db): 1
+0126.694 (0) Examining (for databases) backup set with group_id=0, nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0126.725 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0126.731 (0) Examining (for databases) backup set with group_id=0, nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0126.731 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0126.731 (0) Number of backup sets in history: 2; groups (files): 1
+0126.735 (0) Examining (for files) backup set with nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0126.735 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0126.736 (0) Examining (for files) backup set with nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0126.736 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0126.737 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0126.835 (0) Saving backup status to database (elements: 8)
+0126.890 (0) Beginning creation of database dump (WordPress DB)
+0126.893 (0) SQL compatibility mode is: NO_ENGINE_SUBSTITUTION
+0126.899 (0) Testing potential mysqldump binary: /usr/bin/mysqldump
+0127.025 (0) Output: /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE='+00:00' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\nDROP TABLE IF EXISTS `wp_79j92z_options`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8  (truncated - 1586 bytes total)
+0127.028 (0) Working binary mysqldump found: /usr/bin/mysqldump
+0127.062 (0) Table wp_79j92z_options: Total expected rows (via COUNT): 459
+0127.064 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.507 (0) Table wp_79j92z_options: Rows added in this batch (next record: 1402): 455 (uncompressed bytes in this segment=3238409) in 0.46 seconds
+0127.521 (0) Table wp_79j92z_options: finishing file(s) (2, 528.6 KB)
+0127.536 (0) Table wp_79j92z_users: Total expected rows (via COUNT): 7
+0127.537 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.542 (0) Table wp_79j92z_users: Rows added in this batch (next record: 7): 7 (uncompressed bytes in this segment=2413) in 0.01 seconds
+0127.551 (0) Table wp_79j92z_users: finishing file(s) (2, 1 KB)
+0127.568 (0) Table wp_79j92z_usermeta: Total expected rows (via COUNT): 133
+0127.570 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.576 (0) Table wp_79j92z_usermeta: Rows added in this batch (next record: 138): 133 (uncompressed bytes in this segment=10967) in 0.02 seconds
+0127.589 (0) Table wp_79j92z_usermeta: finishing file(s) (2, 3.7 KB)
+0127.606 (0) Table wp_79j92z_commentmeta: Total expected rows (via COUNT): 0
+0127.610 (0) Table wp_79j92z_commentmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=719) in 0.01 seconds
+0127.632 (0) Table wp_79j92z_commentmeta: finishing file(s) (2, 0.4 KB)
+0127.648 (0) Table wp_79j92z_comments: Total expected rows (via COUNT): 1
+0127.650 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.655 (0) Table wp_79j92z_comments: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=2170) in 0.01 seconds
+0127.666 (0) Table wp_79j92z_comments: finishing file(s) (2, 0.8 KB)
+0127.681 (0) Table wp_79j92z_links: Total expected rows (via COUNT): 0
+0127.685 (0) Table wp_79j92z_links: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1340) in 0.01 seconds
+0127.697 (0) Table wp_79j92z_links: finishing file(s) (2, 0.5 KB)
+0127.717 (0) Table wp_79j92z_postmeta: Total expected rows (via COUNT): 871
+0127.728 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.800 (0) Table wp_79j92z_postmeta: Rows added in this batch (next record: 1001): 871 (uncompressed bytes in this segment=373688) in 0.09 seconds
+0127.832 (0) Table wp_79j92z_postmeta: finishing file(s) (2, 20 KB)
+0127.851 (0) Table wp_79j92z_posts: Total expected rows (via COUNT): 183
+0127.852 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.918 (0) Table wp_79j92z_posts: Rows added in this batch (next record: 382): 183 (uncompressed bytes in this segment=354993) in 0.08 seconds
+0127.930 (0) Table wp_79j92z_posts: finishing file(s) (2, 30.5 KB)
+0127.944 (0) Table wp_79j92z_term_relationships: Total expected rows (approximate): 29
+0127.965 (0) Table wp_79j92z_term_relationships: Rows added in this batch (next record: 100000): 27 (uncompressed bytes in this segment=1102) in 0.02 seconds
+0127.975 (0) Table wp_79j92z_term_relationships: finishing file(s) (2, 0.5 KB)
+0127.992 (0) Table wp_79j92z_term_taxonomy: Total expected rows (via COUNT): 6
+0127.993 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0127.998 (0) Table wp_79j92z_term_taxonomy: Rows added in this batch (next record: 6): 6 (uncompressed bytes in this segment=1128) in 0.01 seconds
+0128.009 (0) Table wp_79j92z_term_taxonomy: finishing file(s) (2, 0.5 KB)
+0128.025 (0) Table wp_79j92z_termmeta: Total expected rows (via COUNT): 0
+0128.042 (0) Table wp_79j92z_termmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=692) in 0.02 seconds
+0128.054 (0) Table wp_79j92z_termmeta: finishing file(s) (2, 0.4 KB)
+0128.067 (0) Table wp_79j92z_terms: Total expected rows (via COUNT): 6
+0128.069 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0128.074 (0) Table wp_79j92z_terms: Rows added in this batch (next record: 6): 6 (uncompressed bytes in this segment=970) in 0.01 seconds
+0128.084 (0) Table wp_79j92z_terms: finishing file(s) (2, 0.5 KB)
+0128.100 (0) Table wp_79j92z_e_events: Total expected rows (via COUNT): 11
+0128.102 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0128.105 (0) Table wp_79j92z_e_events: Rows added in this batch (next record: 11): 11 (uncompressed bytes in this segment=2759) in 0.01 seconds
+0128.116 (0) Table wp_79j92z_e_events: finishing file(s) (2, 0.7 KB)
+0128.132 (0) Table wp_79j92z_social_users: Total expected rows (via COUNT): 0
+0128.136 (0) Table wp_79j92z_social_users: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=807) in 0.01 seconds
+0128.146 (0) Table wp_79j92z_social_users: finishing file(s) (2, 0.4 KB)
+0128.159 (0) Table wp_79j92z_user_registration_sessions: Total expected rows (approximate): 2
+0128.161 (0) Table wp_79j92z_user_registration_sessions: Rows added in this batch (next record: 1000): 2 (uncompressed bytes in this segment=968) in 0.01 seconds
+0128.171 (0) Table wp_79j92z_user_registration_sessions: finishing file(s) (2, 0.5 KB)
+0128.190 (0) Table wp_79j92z_volunteer_emails: Total expected rows (via COUNT): 0
+0128.193 (0) Table wp_79j92z_volunteer_emails: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=564) in 0.01 seconds
+0128.203 (0) Table wp_79j92z_volunteer_emails: finishing file(s) (2, 0.3 KB)
+0128.245 (0) Table wp_79j92z_volunteer_rsvps: Total expected rows (via COUNT): 3
+0128.247 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0128.256 (0) Table wp_79j92z_volunteer_rsvps: Rows added in this batch (next record: 3): 3 (uncompressed bytes in this segment=812) in 0.04 seconds
+0128.267 (0) Table wp_79j92z_volunteer_rsvps: finishing file(s) (2, 0.4 KB)
+0128.284 (0) Table wp_79j92z_wpuf_subscribers: Total expected rows (via COUNT): 0
+0128.289 (0) Table wp_79j92z_wpuf_subscribers: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1020) in 0.01 seconds
+0128.298 (0) Table wp_79j92z_wpuf_subscribers: finishing file(s) (2, 0.4 KB)
+0128.327 (0) Table wp_79j92z_wpuf_transaction: Total expected rows (via COUNT): 0
+0128.331 (0) Table wp_79j92z_wpuf_transaction: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1492) in 0.01 seconds
+0128.356 (0) Table wp_79j92z_wpuf_transaction: finishing file(s) (2, 0.5 KB)
+0128.359 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_commentmeta
+0128.361 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_comments
+0128.362 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_links
+0128.363 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_options
+0128.364 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_postmeta
+0128.366 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_posts
+0128.367 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_term_relationships
+0128.368 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_term_taxonomy
+0128.369 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_termmeta
+0128.371 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_terms
+0128.373 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_usermeta
+0128.374 (0) Skipping table (lacks our prefix (wp_79j92z_)): wp_mtsa8i_users
+0128.384 (0) PHP event: code E_WARNING: filemtime(): stat failed for /home/dh_t9pev6/earthday/wp-content/updraft/backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db.gz (line 1976, wp-content/plugins/updraftplus/backup.php)
+0128.390 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_options.table.tmpr1403.gz (1/31/fopen): adding to final database dump
+0128.417 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_options.table.gz (2/31/fopen): adding to final database dump
+0128.419 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_users.table.tmpr8.gz (3/31/fopen): adding to final database dump
+0128.421 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_users.table.gz (4/31/fopen): adding to final database dump
+0128.422 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_usermeta.table.tmpr139.gz (5/31/fopen): adding to final database dump
+0128.424 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_usermeta.table.gz (6/31/fopen): adding to final database dump
+0128.425 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_commentmeta.table.tmpr0.gz (7/31/fopen): adding to final database dump
+0128.427 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_commentmeta.table.gz (8/31/fopen): adding to final database dump
+0128.428 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_comments.table.tmpr2.gz (9/31/fopen): adding to final database dump
+0128.430 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_comments.table.gz (10/31/fopen): adding to final database dump
+0128.432 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_links.table.tmpr0.gz (11/31/fopen): adding to final database dump
+0128.434 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_links.table.gz (12/31/fopen): adding to final database dump
+0128.435 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_postmeta.table.tmpr1002.gz (13/31/fopen): adding to final database dump
+0128.438 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_postmeta.table.gz (14/31/fopen): adding to final database dump
+0128.440 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_posts.table.tmpr383.gz (15/31/fopen): adding to final database dump
+0128.442 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_posts.table.gz (16/31/fopen): adding to final database dump
+0128.444 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_term_relationships.table.tmpr100001.gz (17/31/fopen): adding to final database dump
+0128.446 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_term_relationships.table.gz (18/31/fopen): adding to final database dump
+0128.448 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_term_taxonomy.table.tmpr7.gz (19/31/fopen): adding to final database dump
+0128.449 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_term_taxonomy.table.gz (20/31/fopen): adding to final database dump
+0128.451 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_termmeta.table.tmpr0.gz (21/31/fopen): adding to final database dump
+0128.453 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_termmeta.table.gz (22/31/fopen): adding to final database dump
+0128.455 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_terms.table.tmpr7.gz (23/31/fopen): adding to final database dump
+0128.456 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_terms.table.gz (24/31/fopen): adding to final database dump
+0128.458 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_e_events.table.tmpr12.gz (25/31/fopen): adding to final database dump
+0128.459 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_e_events.table.gz (26/31/fopen): adding to final database dump
+0128.460 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_social_users.table.tmpr0.gz (27/31/fopen): adding to final database dump
+0128.461 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_social_users.table.gz (28/31/fopen): adding to final database dump
+0128.463 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_user_registration_sessions.table.tmpr1001.gz (29/31/fopen): adding to final database dump
+0128.468 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_user_registration_sessions.table.gz (30/31/fopen): adding to final database dump
+0128.469 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_volunteer_emails.table.tmpr0.gz (31/31/fopen): adding to final database dump
+0128.471 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_volunteer_emails.table.gz (32/31/fopen): adding to final database dump
+0128.473 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_volunteer_rsvps.table.tmpr4.gz (33/31/fopen): adding to final database dump
+0128.475 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_volunteer_rsvps.table.gz (34/31/fopen): adding to final database dump
+0128.476 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_wpuf_subscribers.table.tmpr0.gz (35/31/fopen): adding to final database dump
+0128.478 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_wpuf_subscribers.table.gz (36/31/fopen): adding to final database dump
+0128.479 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_wpuf_transaction.table.tmpr0.gz (37/31/fopen): adding to final database dump
+0128.480 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db-table-wp_79j92z_wpuf_transaction.table.gz (38/31/fopen): adding to final database dump
+0128.492 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db.gz: finished writing out complete database file (590.8 KB)
+0128.526 (0) Total database tables backed up: 19 (backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db.gz, size: 605069, sha1: 201f355be5e0d6fecca1f17cc369c73f2d3faed1, sha256: 5a6bd87a20256a7dd737ffb95b4dd9074d4fa289d3c9af9a1c22d79c09b7958d)
+0128.560 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-plugins.zip: plugins: This file has already been successfully uploaded
+0128.562 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-themes.zip: themes: This file has already been successfully uploaded
+0128.563 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-uploads.zip: uploads: This file has already been successfully uploaded
+0128.565 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-others.zip: others: This file has already been successfully uploaded
+0128.566 (0) backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db.gz: db: This file has not yet been successfully uploaded: will queue
+0128.567 (0) Saving backup history. Total backup size: 104.2 MB
+0128.573 (0) Requesting upload of the files that have not yet been successfully uploaded (1)
+0128.580 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0128.581 (0) No remote despatch: user chose no remote backup service
+0128.583 (0) Recording as successfully uploaded: backup_2023-07-14-1911_Helping_one_veggie_at_a_time_03ba4d5347b4-db.gz
+0128.591 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=4, retain_db=4
+0128.595 (0) Number of backup sets in history: 3; groups (db): 1
+0128.597 (0) Examining (for databases) backup set with group_id=0, nonce=03ba4d5347b4, datestamp=1689361904 (Jul 14 2023 19:11:44)
+0128.597 (0) This backup set is the backup set just made, so will not be deleted.
+0128.597 (0) Examining (for databases) backup set with group_id=0, nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0128.597 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0128.598 (0) Examining (for databases) backup set with group_id=0, nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0128.598 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0128.598 (0) Number of backup sets in history: 3; groups (files): 1
+0128.600 (0) Examining (for files) backup set with nonce=03ba4d5347b4, datestamp=1689361904 (Jul 14 2023 19:11:44)
+0128.600 (0) This backup set is the backup set just made, so will not be deleted.
+0128.601 (0) This backup set is the backup set just made, so will not be deleted.
+0128.601 (0) This backup set is the backup set just made, so will not be deleted.
+0128.601 (0) This backup set is the backup set just made, so will not be deleted.
+0128.601 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0128.602 (0) Examining (for files) backup set with nonce=e42f65a7423a, datestamp=1689357484 (Jul 14 2023 17:58:04)
+0128.602 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0128.603 (0) Examining (for files) backup set with nonce=655a66129b83, datestamp=1689344772 (Jul 14 2023 14:26:12)
+0128.603 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0128.603 (0) Retain: saving new backup history (sets now: 3) and finishing retain operation
+0128.608 (0) Resume backup (03ba4d5347b4, 0): finish run
+0128.611 (0) Decremented the semaphore (fd) by 1
+0128.614 (0) Semaphore (fd) unlocked
+0128.616 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0128.621 (0) No email will/can be sent - the user has not configured an email address.
+0128.622 (0) The backup apparently succeeded and is now complete

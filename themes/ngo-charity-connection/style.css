@@ -1,0 +1,205 @@
+/*
+Theme Name: NGO Charity Connection
+Template: bizberg
+Text Domain: ngo-charity-connection
+Author: Bizberg Themes
+Author URI: https://bizbergthemes.com
+Theme URI: https://bizbergthemes.com/downloads/ngo-charity-connection/
+License: GNU General Public License v3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Description: NGO Charity Connection, a child theme of Bizberg WordPress Theme, is a clean and feature-rich WordPress Charity Theme that caters specifically to NGOs, nonprofits, charities, fundraising initiatives, philanthropy projects, and social causes. With its responsive design and compatibility across various browsers, this theme is a perfect fit for any organization in need of a professional website.Equipped with an extensive range of features, NGO Charity Connection serves as an exceptional platform for promoting activism, engaging volunteers, and accepting donations. Its seamless integration with Elementor, a popular page builder, allows for effortless customization of the theme's various sections, making it easy to highlight your nonprofit's mission and showcase the impact of your humanitarian work.Designed to support the diverse needs of nonprofit agencies and organizations, NGO Charity Connection serves as a comprehensive solution, offering a wide range of templates and layouts tailored specifically for nonprofits and NGOs. Its user-friendly interface, built on the Bootstrap framework, ensures ease of use and accessibility for website administrators, while its translation-ready and SEO-friendly nature helps to extend your reach and impact.When faced with any challenges, you can rely on the theme's extensive documentation and the dedicated support team, who are always available to provide assistance and guidance. In summary, NGO Charity Connection is a versatile and powerful NGO WordPress theme that offers a comprehensive solution for nonprofits, making it the ideal choice for creating impactful and professional nonprofit websites.
+Tags: custom-logo,custom-menu,featured-images,threaded-comments,translation-ready,left-sidebar,right-sidebar,grid-layout,theme-options,blog,news,portfolio
+Version: 0.4
+Requires PHP: 5.6
+Tested up to: 6.2
+*/
+
+.navbar-default .navbar-nav > li > a {
+    letter-spacing: 0;
+}
+
+.blog-lists.blog-nosidebar-1 .blog-listing.no-sidebars .blog-post.blog-large .entry-header {
+    margin-top: 0 !important;
+}
+
+.services_outer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.services_outer .item {
+    display: flex;
+    padding: 30px;
+    border: 4px solid #eee;
+    column-gap: 25px;
+}
+
+.services_wrapper {
+    padding: 80px 0;
+}
+
+.services_outer .item .icon {
+    font-size: 40px;
+}
+
+.services_outer .item h3 {
+    font-family: 'MontserratRegular';
+    color: #000;
+    font-size: 23px;
+}
+
+.services_outer .item .right {
+    row-gap: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.services_outer .item:hover {
+    background: #e0be53;
+    color: #fff;
+    border-color: #e0be53;
+}
+
+.services_outer .item:hover h3{
+    color: #fff !important;
+}
+
+.events_wrapper .title {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.events_wrapper .title h4{
+    text-transform: uppercase;
+    font-family: 'Poppins';
+    font-weight: 600;
+    color: #e0be53;
+    font-size: 16px;
+    letter-spacing: 0px;
+}
+
+.events_wrapper .title h3 {
+    font-family: 'Poppins';
+    font-size: 35px;
+    color: #000;
+}
+
+.events_outer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 40px;
+    column-gap: 30px;
+}
+
+.events_wrapper{
+    background: #f9f9f9;
+    padding: 80px 0;
+}
+
+.events_outer .item{
+    display: flex;
+}
+
+.events_outer .item span.map {
+    font-family: 'Poppins';
+}
+
+.events_outer .item span.map i{
+    padding-right: 10px;
+    color: #e0be53;
+}
+
+.events_outer .item .image{
+    width: 40%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.events_outer .item .content{
+        padding: 40px 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 60%;
+     background: #fff;
+}
+
+.events_outer .item .date {
+    background: #e0be53;
+    display: inline-block;
+    padding: 3px 15px;
+    color: #fff;
+    font-family: 'MontserratRegular';
+}
+
+.events_outer .item h3 {
+        font-family: 'Poppins';
+    line-height: 1.5em;
+    color: #000;
+}
+
+@media (max-width: 991px){
+    .services_outer{
+        grid-template-columns: 1fr 1fr;
+    }
+    .events_outer {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+}
+
+@media (max-width: 400px){
+    .services_outer{
+        grid-template-columns: 1fr;
+    }
+    .events_outer {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+    .events_outer .item .image {
+        width: 100%;
+        height: 200px;
+    }
+    .events_outer .item {
+        flex-direction: column;
+    }
+    .events_outer .item .content{
+        width: 100%;
+    }
+}
+
+/** 
+* Givewp CSS
+*/
+
+.single-give_forms .give_forms{
+    padding-top: 0;
+}
+
+.detail-content.single_page.eb_page .give_error, 
+.detail-content.single_page.eb_page .give_success, 
+.detail-content.single_page.eb_page .give_warning {
+    padding: 1em 1.5em 1em 2em;
+}
+
+#give_donation_receipt th {
+    padding: 15px;
+}
+
+#give_donation_receipt td {
+    padding: 12px 20px;
+}
+
+form#give-email-access-form {
+    display: flex;
+    flex-direction: column;
+}
+
+form#give-email-access-form input#give-email {
+    width: 100%;
+}
