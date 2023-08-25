@@ -79,7 +79,7 @@ class Block_Quote extends Widget_Base {
 	 *
 	 */
 	public function get_categories() {
-		return array( 'xpro-themer' );
+		return array( 'xpro-widgets' );
 	}
 
 	/**

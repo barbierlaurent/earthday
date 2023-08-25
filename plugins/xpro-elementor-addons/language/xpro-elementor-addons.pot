@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Xpro Elementor Addons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Xpro Elementor Addons 1.3.7\n"
+"Project-Id-Version: Xpro Elementor Addons 1.3.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/xpro-elementor-addons\n"
-"POT-Creation-Date: 2023-07-07 07:23:49+00:00\n"
+"POT-Creation-Date: 2023-07-25 11:22:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -162,7 +162,7 @@ msgstr ""
 #: inc/controls/select.php:33 inc/templates/template-library.php:115
 #: widgets/search/layout/frontend.php:6 widgets/search/search.php:48
 #: widgets/search/search.php:148 widgets/search/search.php:214
-#: xpro-elementor-addons.php:269
+#: xpro-elementor-addons.php:273
 msgid "Search"
 msgstr ""
 
@@ -355,11 +355,11 @@ msgstr ""
 msgid "Preview Source"
 msgstr ""
 
-#: inc/preview-settings.php:82 xpro-elementor-addons.php:267
+#: inc/preview-settings.php:82 xpro-elementor-addons.php:271
 msgid "Singular"
 msgstr ""
 
-#: inc/preview-settings.php:86 xpro-elementor-addons.php:268
+#: inc/preview-settings.php:86 xpro-elementor-addons.php:272
 msgid "Archives"
 msgstr ""
 
@@ -452,6 +452,26 @@ msgstr ""
 msgid "Contact Form: Placeholder"
 msgstr ""
 
+#: inc/wpml/widgets/hero-slider.php:31
+msgid "Hero Slider: Subtitle"
+msgstr ""
+
+#: inc/wpml/widgets/hero-slider.php:33
+msgid "Hero Slider: Title"
+msgstr ""
+
+#: inc/wpml/widgets/hero-slider.php:35
+msgid "Hero Slider: Description"
+msgstr ""
+
+#: inc/wpml/widgets/hero-slider.php:37
+msgid "Hero Slider: Primary Button"
+msgstr ""
+
+#: inc/wpml/widgets/hero-slider.php:39
+msgid "Hero Slider: Secondary Button"
+msgstr ""
+
 #: inc/wpml/widgets/horizontal-timeline.php:31
 msgid "Horizontal Timeline: Title"
 msgstr ""
@@ -524,275 +544,279 @@ msgstr ""
 msgid "Social Share: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:42
+#: inc/wpml/wpml-compatibility.php:43
+msgid "Animated Link: Text"
+msgstr ""
+
+#: inc/wpml/wpml-compatibility.php:53
 msgid "Author Box: Name"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:47
+#: inc/wpml/wpml-compatibility.php:58
 msgid "Author Box: BIO"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:52
+#: inc/wpml/wpml-compatibility.php:63
 msgid "Author Box: Link Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:62
+#: inc/wpml/wpml-compatibility.php:73
 msgid "AI Content: Editor"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:72
+#: inc/wpml/wpml-compatibility.php:83
 msgid "Before After: Before Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:77
+#: inc/wpml/wpml-compatibility.php:88
 msgid "Before After: After Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:87
+#: inc/wpml/wpml-compatibility.php:98
 msgid "Block Quote: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:92
+#: inc/wpml/wpml-compatibility.php:103
 msgid "Block Quote: Designation"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:97
+#: inc/wpml/wpml-compatibility.php:108
 msgid "Block Quote: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:107
+#: inc/wpml/wpml-compatibility.php:118
 msgid "Business Hour: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:112
+#: inc/wpml/wpml-compatibility.php:123
 msgid "Business Hour: Sub Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:123
+#: inc/wpml/wpml-compatibility.php:134
 msgid "Button: Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:133
+#: inc/wpml/wpml-compatibility.php:144
 msgid "Contact Form: Form Name"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:138
+#: inc/wpml/wpml-compatibility.php:149
 msgid "Contact Form: Button Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:143
+#: inc/wpml/wpml-compatibility.php:154
 msgid "Contact Form: Success Message"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:148
+#: inc/wpml/wpml-compatibility.php:159
 msgid "Contact Form: Error Message"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:153
+#: inc/wpml/wpml-compatibility.php:164
 msgid "Contact Form: Require Field Message"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:158
+#: inc/wpml/wpml-compatibility.php:169
 msgid "Contact Form: Captcha Message"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:169
+#: inc/wpml/wpml-compatibility.php:180
 msgid "Content Toggle: Primary Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:174
+#: inc/wpml/wpml-compatibility.php:185
 msgid "Content Toggle: Primary Editor"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:179
+#: inc/wpml/wpml-compatibility.php:190
 msgid "Content Toggle: Secondary Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:184
+#: inc/wpml/wpml-compatibility.php:195
 msgid "Content Toggle: Secondary Editor"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:194
+#: inc/wpml/wpml-compatibility.php:205
 msgid "Counter: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:199
+#: inc/wpml/wpml-compatibility.php:210
 msgid "Counter: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:204
+#: inc/wpml/wpml-compatibility.php:215
 msgid "Counter: Badge Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:214
+#: inc/wpml/wpml-compatibility.php:225
 msgid "Course Grid: Read More Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:219
+#: inc/wpml/wpml-compatibility.php:230
 msgid "Course Grid: Author Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:229
+#: inc/wpml/wpml-compatibility.php:240
 msgid "Custom Field: Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:239
+#: inc/wpml/wpml-compatibility.php:250
 msgid "Drop Cap: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:249
+#: inc/wpml/wpml-compatibility.php:260
 msgid "Simple Heading: Title Before"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:254
+#: inc/wpml/wpml-compatibility.php:265
 msgid "Simple Heading: Title Center"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:259
+#: inc/wpml/wpml-compatibility.php:270
 msgid "Simple Heading: Title After"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:278
+#: inc/wpml/wpml-compatibility.php:289
 msgid "Icon Box: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:283
+#: inc/wpml/wpml-compatibility.php:294
 msgid "Icon Box: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:288
+#: inc/wpml/wpml-compatibility.php:299
 msgid "Icon Box: Badge Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:303
+#: inc/wpml/wpml-compatibility.php:314
 msgid "News Ticker: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:314
+#: inc/wpml/wpml-compatibility.php:325
 msgid "Post Grid: Read More"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:319
+#: inc/wpml/wpml-compatibility.php:330
 msgid "Post Grid: Author Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:324
+#: inc/wpml/wpml-compatibility.php:335
 msgid "Post Grid: Prev Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:329
+#: inc/wpml/wpml-compatibility.php:340
 msgid "Post Grid: Next Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:339
+#: inc/wpml/wpml-compatibility.php:350
 msgid "Pricing: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:344
+#: inc/wpml/wpml-compatibility.php:355
 msgid "Pricing: Price"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:349
+#: inc/wpml/wpml-compatibility.php:360
 msgid "Pricing: Period"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:354
+#: inc/wpml/wpml-compatibility.php:365
 msgid "Pricing: Features Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:359
+#: inc/wpml/wpml-compatibility.php:370
 msgid "Pricing: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:364
+#: inc/wpml/wpml-compatibility.php:375
 msgid "Pricing: Button Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:369
+#: inc/wpml/wpml-compatibility.php:380
 msgid "Pricing: Badge Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:380
+#: inc/wpml/wpml-compatibility.php:391
 msgid "Progress Bar: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:390
+#: inc/wpml/wpml-compatibility.php:401
 msgid "Promo Box: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:395
+#: inc/wpml/wpml-compatibility.php:406
 msgid "Promo Box: Sub Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:400
+#: inc/wpml/wpml-compatibility.php:411
 msgid "Promo Box: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:405
+#: inc/wpml/wpml-compatibility.php:416
 msgid "Promo Box: Badge Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:410
+#: inc/wpml/wpml-compatibility.php:421
 msgid "Promo Box: Button Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:420
+#: inc/wpml/wpml-compatibility.php:431
 msgid "Search: Placeholder"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:425
+#: inc/wpml/wpml-compatibility.php:436
 msgid "Search: Button Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:455
+#: inc/wpml/wpml-compatibility.php:466
 msgid "Step Flow: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:460
+#: inc/wpml/wpml-compatibility.php:471
 msgid "Step Flow: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:465
+#: inc/wpml/wpml-compatibility.php:476
 msgid "Step Flow: Badge Text"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:475
+#: inc/wpml/wpml-compatibility.php:486
 msgid "Team: Name"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:480
+#: inc/wpml/wpml-compatibility.php:491
 msgid "Team: Designation"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:485
+#: inc/wpml/wpml-compatibility.php:496
 msgid "Team: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:495
+#: inc/wpml/wpml-compatibility.php:506
 msgid "Testimonial: Name"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:500
+#: inc/wpml/wpml-compatibility.php:511
 msgid "Testimonial: Designation"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:505
+#: inc/wpml/wpml-compatibility.php:516
 msgid "Testimonial: Description"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:515
+#: inc/wpml/wpml-compatibility.php:526
 msgid "Product Grid: Prev Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:520
+#: inc/wpml/wpml-compatibility.php:531
 msgid "Product Grid: Next Label"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:530
+#: inc/wpml/wpml-compatibility.php:541
 msgid "Pie Chart: Title"
 msgstr ""
 
-#: inc/wpml/wpml-compatibility.php:535
+#: inc/wpml/wpml-compatibility.php:546
 msgid "Pie Chart: Description"
 msgstr ""
 
@@ -800,7 +824,7 @@ msgstr ""
 msgid "Ai ChatGPT"
 msgstr ""
 
-#: libs/auto-content/auto-content.php:84 plugin.php:605
+#: libs/auto-content/auto-content.php:84 plugin.php:585
 msgid "Server is busy please try again later."
 msgstr ""
 
@@ -1007,6 +1031,7 @@ msgstr ""
 #: widgets/donation-form-grid/donation-form-grid.php:361
 #: widgets/drop-cap/drop-cap.php:135
 #: widgets/gravity-forms/gravity-forms.php:111
+#: widgets/hero-slider/hero-slider.php:1382
 #: widgets/horizontal-menu/horizontal-menu.php:111
 #: widgets/horizontal-timeline/horizontal-timeline.php:144
 #: widgets/image-scroller/image-scroller.php:145
@@ -1046,7 +1071,7 @@ msgstr ""
 msgid "Xpro Addons Settings"
 msgstr ""
 
-#: libs/dashboard/dashboard.php:133 plugin.php:756
+#: libs/dashboard/dashboard.php:133 plugin.php:740
 msgid "Xpro Addons"
 msgstr ""
 
@@ -1099,7 +1124,7 @@ msgid "Dashboard"
 msgstr ""
 
 #: libs/dashboard/views/settings-init.php:13
-#: libs/dashboard/views/settings-init.php:161
+#: libs/dashboard/views/settings-init.php:159
 #: libs/dashboard/views/settings-widgets.php:22
 #: libs/starter-sites/classes/class-starter-sites-admin.php:1078
 msgid "Widgets"
@@ -1114,32 +1139,33 @@ msgstr ""
 msgid "User Data"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:111
+#: libs/dashboard/views/settings-init.php:109
 msgid "Need Help?"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:113
+#: libs/dashboard/views/settings-init.php:111
 msgid "Expert Support"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:115
+#: libs/dashboard/views/settings-init.php:113
 msgid "Feel like consulting our support team? Contact our 24/7 user support and we will happily assist you with any."
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:117
+#: libs/dashboard/views/settings-init.php:115
 msgid "Contact Us"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:128
+#: libs/dashboard/views/settings-init.php:126
 msgid "Our Social"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:153
+#: libs/dashboard/views/settings-init.php:151
 msgid "Overview"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:168
+#: libs/dashboard/views/settings-init.php:166
 #: widgets/course-grid/course-grid.php:1815
+#: widgets/hero-slider/hero-slider.php:2348
 #: widgets/horizontal-menu/horizontal-menu.php:478
 #: widgets/horizontal-menu/horizontal-menu.php:714
 #: widgets/horizontal-menu/horizontal-menu.php:1217
@@ -1154,79 +1180,79 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:176 widgets/pricing/pricing.php:416
+#: libs/dashboard/views/settings-init.php:174 widgets/pricing/pricing.php:416
 #: widgets/pricing/pricing.php:1257
 msgid "Inactive"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:182
+#: libs/dashboard/views/settings-init.php:180
 msgid "Explore Widgets"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:188
+#: libs/dashboard/views/settings-init.php:186
 msgid "Featured Widgets"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:193
+#: libs/dashboard/views/settings-init.php:191
 msgid "Multi Layer Slider"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:195
+#: libs/dashboard/views/settings-init.php:193
 msgid "Powerful slider to create eye-popping slides for your websites."
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:199
+#: libs/dashboard/views/settings-init.php:197
 msgid "Advanced Portfolio"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:201
+#: libs/dashboard/views/settings-init.php:199
 msgid "Design amazing portfolios using our premium layouts & hover effects."
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:205
+#: libs/dashboard/views/settings-init.php:203
 msgid "Advanced Gallery"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:207
+#: libs/dashboard/views/settings-init.php:205
 msgid "The most advanced gallery widget to create beautiful layouts."
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:222
+#: libs/dashboard/views/settings-init.php:220
 msgid "Discove More"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:233 plugin.php:835
+#: libs/dashboard/views/settings-init.php:231 plugin.php:819
 msgid "Documentation"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:236
+#: libs/dashboard/views/settings-init.php:234
 msgid "We have prepared comprehensive documentation for you to get the most of our powerful Elementor Widgets. Let’s understand how our widgets work."
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:238 plugin.php:835
+#: libs/dashboard/views/settings-init.php:236 plugin.php:819
 msgid "View Documentation"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:254
-#: libs/dashboard/views/settings-init.php:262
+#: libs/dashboard/views/settings-init.php:252
+#: libs/dashboard/views/settings-init.php:260
 msgid "Go Premium"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:255
+#: libs/dashboard/views/settings-init.php:253
 msgid "Activate"
+msgstr ""
+
+#: libs/dashboard/views/settings-init.php:255
+#: libs/dashboard/views/settings-init.php:263
+msgid "pro version"
 msgstr ""
 
 #: libs/dashboard/views/settings-init.php:257
 #: libs/dashboard/views/settings-init.php:265
-msgid "pro version"
-msgstr ""
-
-#: libs/dashboard/views/settings-init.php:259
-#: libs/dashboard/views/settings-init.php:267
 msgid "to unlock our premium features!"
 msgstr ""
 
-#: libs/dashboard/views/settings-init.php:263
+#: libs/dashboard/views/settings-init.php:261
 msgid "Purchase"
 msgstr ""
 
@@ -1725,7 +1751,8 @@ msgstr ""
 #: libs/starter-sites/classes/class-starter-sites-admin.php:988
 #: widgets/block-quote/block-quote.php:216
 #: widgets/block-quote/block-quote.php:561 widgets/counter/counter.php:191
-#: widgets/counter/counter.php:573
+#: widgets/counter/counter.php:573 widgets/hero-slider/hero-slider.php:798
+#: widgets/hero-slider/hero-slider.php:1582
 #: widgets/horizontal-timeline/horizontal-timeline.php:299
 #: widgets/horizontal-timeline/horizontal-timeline.php:1617
 #: widgets/icon-box/icon-box.php:220 widgets/icon-box/icon-box.php:758
@@ -1800,9 +1827,10 @@ msgstr ""
 msgid "Installing Default Options."
 msgstr ""
 
-#: libs/starter-sites/classes/class-starter-sites-admin.php:1109 plugin.php:858
+#: libs/starter-sites/classes/class-starter-sites-admin.php:1109 plugin.php:842
 #: widgets/before-after/before-after.php:239
 #: widgets/contact-form/contact-form.php:482
+#: widgets/hero-slider/hero-slider.php:1258
 #: widgets/horizontal-timeline/horizontal-timeline.php:697
 #: widgets/news-ticker/news-ticker.php:365
 msgid "Settings"
@@ -2008,7 +2036,10 @@ msgstr ""
 #: widgets/gravity-forms/gravity-forms.php:260
 #: widgets/gravity-forms/gravity-forms.php:584
 #: widgets/gravity-forms/gravity-forms.php:857 widgets/heading/heading.php:352
-#: widgets/heading/heading.php:484
+#: widgets/heading/heading.php:484 widgets/hero-slider/hero-slider.php:1709
+#: widgets/hero-slider/hero-slider.php:1908
+#: widgets/hero-slider/hero-slider.php:2118
+#: widgets/hero-slider/hero-slider.php:2319
 #: widgets/horizontal-menu/horizontal-menu.php:363
 #: widgets/horizontal-menu/horizontal-menu.php:651
 #: widgets/horizontal-menu/horizontal-menu.php:1136
@@ -2064,6 +2095,7 @@ msgstr ""
 #: widgets/donation-form-grid/donation-form-grid.php:513
 #: widgets/featured-image/featured-image.php:305
 #: widgets/featured-image/featured-image.php:340
+#: widgets/hero-slider/hero-slider.php:364
 #: widgets/image-scroller/image-scroller.php:537
 #: widgets/image-scroller/image-scroller.php:572
 #: widgets/logo-grid/logo-grid.php:500 widgets/logo-grid/logo-grid.php:535
@@ -2074,6 +2106,7 @@ msgstr ""
 
 #: modules/background-overlay/background-overlay.php:83
 #: widgets/heading/heading.php:349 widgets/heading/heading.php:481
+#: widgets/hero-slider/hero-slider.php:336
 #: widgets/image-scroller/image-scroller.php:602
 msgid "Blend Mode"
 msgstr ""
@@ -2095,6 +2128,9 @@ msgstr ""
 #: widgets/featured-image/featured-image.php:333
 #: widgets/gravity-forms/gravity-forms.php:616
 #: widgets/gravity-forms/gravity-forms.php:891
+#: widgets/hero-slider/hero-slider.php:1740
+#: widgets/hero-slider/hero-slider.php:1939
+#: widgets/hero-slider/hero-slider.php:2158
 #: widgets/horizontal-menu/horizontal-menu.php:398
 #: widgets/horizontal-menu/horizontal-menu.php:683
 #: widgets/horizontal-menu/horizontal-menu.php:1184
@@ -2173,6 +2209,11 @@ msgstr ""
 
 #: modules/entrance-animation/entrance-animation.php:64
 #: modules/entrance-animation/entrance-animation.php:82
+#: widgets/hero-slider/hero-slider.php:563
+#: widgets/hero-slider/hero-slider.php:733
+#: widgets/hero-slider/hero-slider.php:855
+#: widgets/hero-slider/hero-slider.php:1017
+#: widgets/hero-slider/hero-slider.php:1171
 msgid "Reveal Color"
 msgstr ""
 
@@ -2441,7 +2482,9 @@ msgstr ""
 
 #: modules/reading-progress-bar/reading-progress-bar.php:149
 #: widgets/block-quote/block-quote.php:120 widgets/counter/counter.php:668
-#: widgets/hot-spot/hot-spot.php:321 widgets/icon-box/icon-box.php:854
+#: widgets/hero-slider/hero-slider.php:492
+#: widgets/hero-slider/hero-slider.php:2091 widgets/hot-spot/hot-spot.php:321
+#: widgets/icon-box/icon-box.php:854
 #: widgets/image-scroller/image-scroller.php:699
 #: widgets/pricing/pricing.php:225 widgets/pricing/pricing.php:314
 #: widgets/pricing/pricing.php:495 widgets/pricing/pricing.php:546
@@ -2454,6 +2497,7 @@ msgstr ""
 #: modules/reading-progress-bar/reading-progress-bar.php:154
 #: widgets/before-after/before-after.php:469
 #: widgets/before-after/before-after.php:586
+#: widgets/hero-slider/hero-slider.php:427
 #: widgets/horizontal-timeline/horizontal-timeline.php:617
 #: widgets/hot-spot/hot-spot.php:327 widgets/info-list/info-list.php:648
 #: widgets/table/table.php:743 widgets/table/table.php:1051
@@ -2463,6 +2507,7 @@ msgstr ""
 #: modules/reading-progress-bar/reading-progress-bar.php:155
 #: widgets/before-after/before-after.php:477
 #: widgets/before-after/before-after.php:594
+#: widgets/hero-slider/hero-slider.php:435
 #: widgets/horizontal-timeline/horizontal-timeline.php:621
 #: widgets/hot-spot/hot-spot.php:329 widgets/info-list/info-list.php:656
 #: widgets/table/table.php:751 widgets/table/table.php:1059
@@ -2478,6 +2523,7 @@ msgstr ""
 #: widgets/donation-form-grid/donation-form-grid.php:430
 #: widgets/donation-form-grid/donation-form-grid.php:928
 #: widgets/featured-image/featured-image.php:211
+#: widgets/hero-slider/hero-slider.php:2242
 #: widgets/horizontal-timeline/horizontal-timeline.php:1913
 #: widgets/hot-spot/hot-spot.php:466 widgets/icon-box/icon-box.php:403
 #: widgets/image-scroller/image-scroller.php:501
@@ -2545,6 +2591,13 @@ msgstr ""
 #: widgets/donation-form-grid/donation-form-grid.php:673
 #: widgets/drop-cap/drop-cap.php:181 widgets/drop-cap/drop-cap.php:212
 #: widgets/gravity-forms/gravity-forms.php:422
+#: widgets/hero-slider/hero-slider.php:1495
+#: widgets/hero-slider/hero-slider.php:1716
+#: widgets/hero-slider/hero-slider.php:1747
+#: widgets/hero-slider/hero-slider.php:1915
+#: widgets/hero-slider/hero-slider.php:1946
+#: widgets/hero-slider/hero-slider.php:2125
+#: widgets/hero-slider/hero-slider.php:2165
 #: widgets/horizontal-menu/horizontal-menu.php:878
 #: widgets/horizontal-menu/horizontal-menu.php:1071
 #: widgets/horizontal-timeline/horizontal-timeline.php:960
@@ -2674,6 +2727,10 @@ msgstr ""
 #: widgets/gravity-forms/gravity-forms.php:303
 #: widgets/gravity-forms/gravity-forms.php:603
 #: widgets/gravity-forms/gravity-forms.php:635
+#: widgets/hero-slider/hero-slider.php:1727
+#: widgets/hero-slider/hero-slider.php:1758
+#: widgets/hero-slider/hero-slider.php:1926
+#: widgets/hero-slider/hero-slider.php:1957
 #: widgets/horizontal-menu/horizontal-menu.php:889
 #: widgets/horizontal-menu/horizontal-menu.php:978
 #: widgets/horizontal-menu/horizontal-menu.php:1082
@@ -2893,7 +2950,9 @@ msgstr ""
 #: widgets/animated-link/animated-link.php:165
 #: widgets/author-box/author-box.php:216 widgets/author-box/author-box.php:247
 #: widgets/button/button.php:147 widgets/custom-field/custom-field.php:179
-#: widgets/heading/heading.php:182 widgets/hot-spot/hot-spot.php:368
+#: widgets/heading/heading.php:182 widgets/hero-slider/hero-slider.php:666
+#: widgets/hero-slider/hero-slider.php:959
+#: widgets/hero-slider/hero-slider.php:1113 widgets/hot-spot/hot-spot.php:368
 #: widgets/info-list/info-list.php:420 widgets/lottie/lottie.php:189
 #: widgets/pricing/pricing.php:530 widgets/promo-box/promo-box.php:331
 #: widgets/site-logo/site-logo.php:156 widgets/site-logo/site-logo.php:169
@@ -2908,26 +2967,26 @@ msgstr ""
 msgid "Xpro Icons"
 msgstr ""
 
-#: plugin.php:764
+#: plugin.php:748
 msgid "Xpro Theme Builder"
 msgstr ""
 
 #. translators: 1: Elementor, 2: Link to plugin review
 
-#: plugin.php:786
+#: plugin.php:770
 msgid "Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!"
 msgstr ""
 
-#: plugin.php:787 xpro-elementor-addons.php:181 xpro-elementor-addons.php:189
-#: xpro-elementor-addons.php:216 xpro-elementor-addons.php:241
+#: plugin.php:771 xpro-elementor-addons.php:185 xpro-elementor-addons.php:193
+#: xpro-elementor-addons.php:220 xpro-elementor-addons.php:245
 msgid "Xpro Elementor Addons"
 msgstr ""
 
-#: plugin.php:862
+#: plugin.php:846
 msgid "Rate Us"
 msgstr ""
 
-#: plugin.php:864
+#: plugin.php:848
 msgid "Go Pro"
 msgstr ""
 
@@ -2941,6 +3000,8 @@ msgstr ""
 
 #: widgets/animated-link/animated-link.php:119
 #: widgets/content-toggle/content-toggle.php:300
+#: widgets/hero-slider/hero-slider.php:2046
+#: widgets/hero-slider/hero-slider.php:2231
 #: widgets/horizontal-timeline/horizontal-timeline.php:1686
 #: widgets/horizontal-timeline/horizontal-timeline.php:1902
 #: widgets/news-ticker/news-ticker.php:151 widgets/pie-chart/pie-chart.php:133
@@ -2951,6 +3012,8 @@ msgstr ""
 
 #: widgets/animated-link/animated-link.php:120
 #: widgets/content-toggle/content-toggle.php:301
+#: widgets/hero-slider/hero-slider.php:2047
+#: widgets/hero-slider/hero-slider.php:2232
 #: widgets/horizontal-timeline/horizontal-timeline.php:1687
 #: widgets/horizontal-timeline/horizontal-timeline.php:1903
 #: widgets/news-ticker/news-ticker.php:152 widgets/pie-chart/pie-chart.php:134
@@ -2961,6 +3024,8 @@ msgstr ""
 
 #: widgets/animated-link/animated-link.php:121
 #: widgets/content-toggle/content-toggle.php:302
+#: widgets/hero-slider/hero-slider.php:2048
+#: widgets/hero-slider/hero-slider.php:2233
 #: widgets/horizontal-timeline/horizontal-timeline.php:1688
 #: widgets/horizontal-timeline/horizontal-timeline.php:1904
 #: widgets/news-ticker/news-ticker.php:153
@@ -2971,6 +3036,7 @@ msgstr ""
 
 #: widgets/animated-link/animated-link.php:122
 #: widgets/content-toggle/content-toggle.php:303
+#: widgets/hero-slider/hero-slider.php:2049
 #: widgets/horizontal-timeline/horizontal-timeline.php:1689
 #: widgets/progress-bar/progress-bar.php:139 widgets/team/team.php:130
 #: widgets/testimonial/testimonial.php:128
@@ -2979,6 +3045,7 @@ msgstr ""
 
 #: widgets/animated-link/animated-link.php:123
 #: widgets/content-toggle/content-toggle.php:304
+#: widgets/hero-slider/hero-slider.php:2050
 #: widgets/horizontal-timeline/horizontal-timeline.php:1690
 #: widgets/progress-bar/progress-bar.php:140 widgets/team/team.php:131
 #: widgets/testimonial/testimonial.php:129
@@ -2987,6 +3054,7 @@ msgstr ""
 
 #: widgets/animated-link/animated-link.php:124
 #: widgets/content-toggle/content-toggle.php:305
+#: widgets/hero-slider/hero-slider.php:2051
 #: widgets/horizontal-timeline/horizontal-timeline.php:1691
 #: widgets/progress-bar/progress-bar.php:141 widgets/team/team.php:132
 #: widgets/testimonial/testimonial.php:130
@@ -2994,6 +3062,7 @@ msgid "Style 6"
 msgstr ""
 
 #: widgets/animated-link/animated-link.php:125
+#: widgets/hero-slider/hero-slider.php:2052
 #: widgets/horizontal-timeline/horizontal-timeline.php:1692
 #: widgets/progress-bar/progress-bar.php:142 widgets/team/team.php:133
 #: widgets/testimonial/testimonial.php:131
@@ -3174,6 +3243,7 @@ msgstr ""
 #: widgets/featured-image/featured-image.php:267
 #: widgets/featured-image/featured-image.php:444
 #: widgets/gravity-forms/gravity-forms.php:538 widgets/heading/heading.php:234
+#: widgets/hero-slider/hero-slider.php:396
 #: widgets/horizontal-menu/horizontal-menu.php:188
 #: widgets/horizontal-menu/horizontal-menu.php:266
 #: widgets/horizontal-menu/horizontal-menu.php:812
@@ -3225,6 +3295,7 @@ msgstr ""
 #: widgets/featured-image/featured-image.php:271
 #: widgets/featured-image/featured-image.php:448
 #: widgets/gravity-forms/gravity-forms.php:542 widgets/heading/heading.php:238
+#: widgets/hero-slider/hero-slider.php:400
 #: widgets/horizontal-menu/horizontal-menu.php:192
 #: widgets/horizontal-menu/horizontal-menu.php:816
 #: widgets/horizontal-timeline/horizontal-timeline.php:1341
@@ -3278,6 +3349,7 @@ msgstr ""
 #: widgets/featured-image/featured-image.php:275
 #: widgets/featured-image/featured-image.php:452
 #: widgets/gravity-forms/gravity-forms.php:546 widgets/heading/heading.php:242
+#: widgets/hero-slider/hero-slider.php:404
 #: widgets/horizontal-menu/horizontal-menu.php:196
 #: widgets/horizontal-menu/horizontal-menu.php:270
 #: widgets/horizontal-menu/horizontal-menu.php:820
@@ -3567,6 +3639,8 @@ msgstr ""
 
 #: widgets/author-box/author-box.php:197
 #: widgets/custom-field/custom-field.php:402 widgets/heading/heading.php:194
+#: widgets/hero-slider/hero-slider.php:508
+#: widgets/hero-slider/hero-slider.php:678
 #: widgets/page-title/page-title.php:158 widgets/post-title/post-title.php:158
 #: widgets/site-title/site-title.php:189
 #: widgets/woo-product-title/woo-product-title.php:185
@@ -3650,6 +3724,9 @@ msgstr ""
 #: widgets/content-toggle/content-toggle.php:398
 #: widgets/custom-field/custom-field.php:549
 #: widgets/featured-image/featured-image.php:141
+#: widgets/hero-slider/hero-slider.php:1642
+#: widgets/hero-slider/hero-slider.php:1841
+#: widgets/hero-slider/hero-slider.php:2257
 #: widgets/horizontal-menu/horizontal-menu.php:628
 #: widgets/horizontal-menu/horizontal-menu.php:946
 #: widgets/horizontal-timeline/horizontal-timeline.php:1059
@@ -3777,6 +3854,10 @@ msgstr ""
 #: widgets/featured-image/featured-image.php:404
 #: widgets/gravity-forms/gravity-forms.php:360
 #: widgets/gravity-forms/gravity-forms.php:679 widgets/heading/heading.php:517
+#: widgets/hero-slider/hero-slider.php:1794
+#: widgets/hero-slider/hero-slider.php:1993
+#: widgets/hero-slider/hero-slider.php:2202
+#: widgets/hero-slider/hero-slider.php:2381
 #: widgets/horizontal-menu/horizontal-menu.php:570
 #: widgets/horizontal-menu/horizontal-menu.php:908
 #: widgets/horizontal-menu/horizontal-menu.php:1101
@@ -3887,6 +3968,11 @@ msgstr ""
 #: widgets/gravity-forms/gravity-forms.php:459
 #: widgets/gravity-forms/gravity-forms.php:501
 #: widgets/gravity-forms/gravity-forms.php:703
+#: widgets/hero-slider/hero-slider.php:1515
+#: widgets/hero-slider/hero-slider.php:1567
+#: widgets/hero-slider/hero-slider.php:1619
+#: widgets/hero-slider/hero-slider.php:1818
+#: widgets/hero-slider/hero-slider.php:2017
 #: widgets/horizontal-menu/horizontal-menu.php:597
 #: widgets/horizontal-menu/horizontal-menu.php:920
 #: widgets/horizontal-menu/horizontal-menu.php:1113
@@ -3968,9 +4054,9 @@ msgstr ""
 #: widgets/author-box/author-box.php:472
 #: widgets/course-grid/course-grid.php:1564
 #: widgets/gravity-forms/gravity-forms.php:791 widgets/heading/heading.php:277
-#: widgets/heading/heading.php:397 widgets/info-list/info-list.php:1107
-#: widgets/post-grid/post-grid.php:1461 widgets/team/team.php:1041
-#: widgets/testimonial/testimonial.php:616
+#: widgets/heading/heading.php:397 widgets/hero-slider/hero-slider.php:1556
+#: widgets/info-list/info-list.php:1107 widgets/post-grid/post-grid.php:1461
+#: widgets/team/team.php:1041 widgets/testimonial/testimonial.php:616
 #: widgets/woo-product-grid/woo-product-grid.php:1737
 msgid "Title Color"
 msgstr ""
@@ -4009,7 +4095,9 @@ msgstr ""
 #: widgets/gravity-forms/gravity-forms.php:220
 #: widgets/gravity-forms/gravity-forms.php:413
 #: widgets/gravity-forms/gravity-forms.php:481 widgets/heading/heading.php:268
-#: widgets/heading/heading.php:388
+#: widgets/heading/heading.php:388 widgets/hero-slider/hero-slider.php:1487
+#: widgets/hero-slider/hero-slider.php:1539
+#: widgets/hero-slider/hero-slider.php:1591
 #: widgets/horizontal-timeline/horizontal-timeline.php:952
 #: widgets/horizontal-timeline/horizontal-timeline.php:1006
 #: widgets/horizontal-timeline/horizontal-timeline.php:1314
@@ -4114,6 +4202,13 @@ msgstr ""
 #: widgets/course-grid/course-grid.php:1195
 #: widgets/course-grid/course-grid.php:1365
 #: widgets/course-grid/course-grid.php:1405 widgets/drop-cap/drop-cap.php:224
+#: widgets/hero-slider/hero-slider.php:300
+#: widgets/hero-slider/hero-slider.php:308
+#: widgets/hero-slider/hero-slider.php:327
+#: widgets/hero-slider/hero-slider.php:2136
+#: widgets/hero-slider/hero-slider.php:2176
+#: widgets/hero-slider/hero-slider.php:2326
+#: widgets/hero-slider/hero-slider.php:2355
 #: widgets/horizontal-menu/horizontal-menu.php:383
 #: widgets/horizontal-menu/horizontal-menu.php:417
 #: widgets/horizontal-menu/horizontal-menu.php:497
@@ -4187,7 +4282,12 @@ msgstr ""
 #: widgets/donation-form-grid/donation-form-grid.php:400
 #: widgets/donation-form-grid/donation-form-grid.php:763
 #: widgets/donation-form-grid/donation-form-grid.php:979
-#: widgets/heading/heading.php:509
+#: widgets/heading/heading.php:509 widgets/hero-slider/hero-slider.php:1785
+#: widgets/hero-slider/hero-slider.php:1984
+#: widgets/hero-slider/hero-slider.php:2148
+#: widgets/hero-slider/hero-slider.php:2187
+#: widgets/hero-slider/hero-slider.php:2338
+#: widgets/hero-slider/hero-slider.php:2366
 #: widgets/horizontal-timeline/horizontal-timeline.php:910
 #: widgets/horizontal-timeline/horizontal-timeline.php:1275
 #: widgets/horizontal-timeline/horizontal-timeline.php:1443
@@ -4255,6 +4355,8 @@ msgstr ""
 #: widgets/donation-form-grid/donation-form-grid.php:803
 #: widgets/gravity-forms/gravity-forms.php:327
 #: widgets/gravity-forms/gravity-forms.php:647
+#: widgets/hero-slider/hero-slider.php:1769
+#: widgets/hero-slider/hero-slider.php:1968
 #: widgets/horizontal-menu/horizontal-menu.php:433
 #: widgets/horizontal-menu/horizontal-menu.php:513
 #: widgets/horizontal-timeline/horizontal-timeline.php:894
@@ -4319,6 +4421,8 @@ msgstr ""
 #: widgets/gravity-forms/gravity-forms.php:374
 #: widgets/gravity-forms/gravity-forms.php:446
 #: widgets/gravity-forms/gravity-forms.php:691 widgets/heading/heading.php:529
+#: widgets/hero-slider/hero-slider.php:1806
+#: widgets/hero-slider/hero-slider.php:2005
 #: widgets/horizontal-menu/horizontal-menu.php:585
 #: widgets/horizontal-menu/horizontal-menu.php:785
 #: widgets/horizontal-menu/horizontal-menu.php:1004
@@ -4529,7 +4633,7 @@ msgstr ""
 
 #: widgets/before-after/before-after.php:473
 #: widgets/before-after/before-after.php:590
-#: widgets/info-list/info-list.php:652
+#: widgets/hero-slider/hero-slider.php:431 widgets/info-list/info-list.php:652
 msgid "Middle"
 msgstr ""
 
@@ -4655,6 +4759,10 @@ msgstr ""
 #: widgets/course-grid/course-grid.php:1551
 #: widgets/donation-form-grid/donation-form-grid.php:623
 #: widgets/heading/heading.php:136 widgets/heading/heading.php:259
+#: widgets/hero-slider/hero-slider.php:628
+#: widgets/hero-slider/hero-slider.php:946
+#: widgets/hero-slider/hero-slider.php:1100
+#: widgets/hero-slider/hero-slider.php:1530
 #: widgets/horizontal-timeline/horizontal-timeline.php:207
 #: widgets/horizontal-timeline/horizontal-timeline.php:285
 #: widgets/horizontal-timeline/horizontal-timeline.php:942
@@ -4741,7 +4849,7 @@ msgid "Quote"
 msgstr ""
 
 #: widgets/block-quote/block-quote.php:462 widgets/button/button.php:612
-#: widgets/counter/counter.php:326
+#: widgets/counter/counter.php:326 widgets/hero-slider/hero-slider.php:2076
 #: widgets/horizontal-menu/horizontal-menu.php:856
 #: widgets/horizontal-menu/horizontal-menu.php:1049
 #: widgets/horizontal-timeline/horizontal-timeline.php:1128
@@ -4877,6 +4985,7 @@ msgid "List Item"
 msgstr ""
 
 #: widgets/business-hours/business-hours.php:602
+#: widgets/hero-slider/hero-slider.php:1444
 msgid "Content Width"
 msgstr ""
 
@@ -4950,6 +5059,8 @@ msgstr ""
 #: widgets/button/button.php:190 widgets/button/button.php:581
 #: widgets/custom-field/custom-field.php:390
 #: widgets/custom-field/custom-field.php:639
+#: widgets/hero-slider/hero-slider.php:975
+#: widgets/hero-slider/hero-slider.php:1129
 #: widgets/horizontal-timeline/horizontal-timeline.php:315
 #: widgets/hot-spot/hot-spot.php:171 widgets/icon-box/icon-box.php:142
 #: widgets/icon-box/icon-box.php:347 widgets/info-list/info-list.php:152
@@ -4993,7 +5104,8 @@ msgstr ""
 msgid "Icon Spacing"
 msgstr ""
 
-#: widgets/button/button.php:236 widgets/pricing/pricing.php:559
+#: widgets/button/button.php:236 widgets/hero-slider/hero-slider.php:985
+#: widgets/hero-slider/hero-slider.php:1139 widgets/pricing/pricing.php:559
 msgid "Button ID"
 msgstr ""
 
@@ -5291,6 +5403,11 @@ msgstr ""
 #: widgets/course-grid/course-grid.php:1087
 #: widgets/donation-form-grid/donation-form-grid.php:584
 #: widgets/donation-form-grid/donation-form-grid.php:664
+#: widgets/hero-slider/hero-slider.php:473
+#: widgets/hero-slider/hero-slider.php:647
+#: widgets/hero-slider/hero-slider.php:817
+#: widgets/hero-slider/hero-slider.php:939
+#: widgets/hero-slider/hero-slider.php:1093
 #: widgets/horizontal-timeline/horizontal-timeline.php:1325
 #: widgets/hot-spot/hot-spot.php:112 widgets/icon-box/icon-box.php:129
 #: widgets/news-ticker/news-ticker.php:249
@@ -5504,6 +5621,7 @@ msgstr ""
 #: widgets/contact-form/contact-form.php:730
 #: widgets/contact-form/contact-form.php:778
 #: widgets/featured-image/featured-image.php:515
+#: widgets/hero-slider/hero-slider.php:2294
 #: widgets/horizontal-timeline/horizontal-timeline.php:1965
 #: widgets/woo-product-grid/woo-product-grid.php:3220
 #: widgets/woo-product-grid/woo-product-grid.php:3275
@@ -5689,6 +5807,8 @@ msgstr ""
 
 #: widgets/content-toggle/content-toggle.php:296
 #: widgets/course-grid/course-grid.php:183
+#: widgets/hero-slider/hero-slider.php:2043
+#: widgets/hero-slider/hero-slider.php:2228
 #: widgets/horizontal-menu/horizontal-menu.php:296
 #: widgets/horizontal-timeline/horizontal-timeline.php:1484
 #: widgets/horizontal-timeline/horizontal-timeline.php:1683
@@ -5712,6 +5832,9 @@ msgstr ""
 #: widgets/course-grid/course-grid.php:1497
 #: widgets/course-grid/course-grid.php:1692
 #: widgets/donation-form-grid/donation-form-grid.php:369
+#: widgets/hero-slider/hero-slider.php:1681
+#: widgets/hero-slider/hero-slider.php:1880
+#: widgets/hero-slider/hero-slider.php:2273
 #: widgets/horizontal-timeline/horizontal-timeline.php:646
 #: widgets/horizontal-timeline/horizontal-timeline.php:1530
 #: widgets/horizontal-timeline/horizontal-timeline.php:1944
@@ -5815,7 +5938,8 @@ msgid "Title HTML Tag"
 msgstr ""
 
 #: widgets/counter/counter.php:224 widgets/custom-field/custom-field.php:405
-#: widgets/heading/heading.php:198 widgets/icon-box/icon-box.php:265
+#: widgets/heading/heading.php:198 widgets/hero-slider/hero-slider.php:512
+#: widgets/hero-slider/hero-slider.php:682 widgets/icon-box/icon-box.php:265
 #: widgets/page-title/page-title.php:161 widgets/post-title/post-title.php:161
 #: widgets/site-title/site-title.php:192
 #: widgets/woo-product-title/woo-product-title.php:188
@@ -5823,7 +5947,8 @@ msgid "H1"
 msgstr ""
 
 #: widgets/counter/counter.php:228 widgets/custom-field/custom-field.php:406
-#: widgets/heading/heading.php:202 widgets/icon-box/icon-box.php:269
+#: widgets/heading/heading.php:202 widgets/hero-slider/hero-slider.php:516
+#: widgets/hero-slider/hero-slider.php:686 widgets/icon-box/icon-box.php:269
 #: widgets/page-title/page-title.php:162 widgets/post-title/post-title.php:162
 #: widgets/site-title/site-title.php:193
 #: widgets/woo-product-title/woo-product-title.php:189
@@ -5831,7 +5956,8 @@ msgid "H2"
 msgstr ""
 
 #: widgets/counter/counter.php:232 widgets/custom-field/custom-field.php:407
-#: widgets/heading/heading.php:206 widgets/icon-box/icon-box.php:273
+#: widgets/heading/heading.php:206 widgets/hero-slider/hero-slider.php:520
+#: widgets/hero-slider/hero-slider.php:690 widgets/icon-box/icon-box.php:273
 #: widgets/page-title/page-title.php:163 widgets/post-title/post-title.php:163
 #: widgets/site-title/site-title.php:194
 #: widgets/woo-product-title/woo-product-title.php:190
@@ -5839,7 +5965,8 @@ msgid "H3"
 msgstr ""
 
 #: widgets/counter/counter.php:236 widgets/custom-field/custom-field.php:408
-#: widgets/heading/heading.php:210 widgets/icon-box/icon-box.php:277
+#: widgets/heading/heading.php:210 widgets/hero-slider/hero-slider.php:524
+#: widgets/hero-slider/hero-slider.php:694 widgets/icon-box/icon-box.php:277
 #: widgets/page-title/page-title.php:164 widgets/post-title/post-title.php:164
 #: widgets/site-title/site-title.php:195
 #: widgets/woo-product-title/woo-product-title.php:191
@@ -5847,7 +5974,8 @@ msgid "H4"
 msgstr ""
 
 #: widgets/counter/counter.php:240 widgets/custom-field/custom-field.php:409
-#: widgets/heading/heading.php:214 widgets/icon-box/icon-box.php:281
+#: widgets/heading/heading.php:214 widgets/hero-slider/hero-slider.php:528
+#: widgets/hero-slider/hero-slider.php:698 widgets/icon-box/icon-box.php:281
 #: widgets/page-title/page-title.php:165 widgets/post-title/post-title.php:165
 #: widgets/site-title/site-title.php:196
 #: widgets/woo-product-title/woo-product-title.php:192
@@ -5855,7 +5983,8 @@ msgid "H5"
 msgstr ""
 
 #: widgets/counter/counter.php:244 widgets/custom-field/custom-field.php:410
-#: widgets/heading/heading.php:218 widgets/icon-box/icon-box.php:285
+#: widgets/heading/heading.php:218 widgets/hero-slider/hero-slider.php:532
+#: widgets/hero-slider/hero-slider.php:702 widgets/icon-box/icon-box.php:285
 #: widgets/page-title/page-title.php:166 widgets/post-title/post-title.php:166
 #: widgets/site-title/site-title.php:197
 #: widgets/woo-product-title/woo-product-title.php:193
@@ -6031,7 +6160,8 @@ msgstr ""
 msgid "Show Button"
 msgstr ""
 
-#: widgets/course-grid/course-grid.php:294 widgets/post-grid/post-grid.php:256
+#: widgets/course-grid/course-grid.php:294
+#: widgets/hero-slider/hero-slider.php:1103 widgets/post-grid/post-grid.php:256
 #: widgets/simple-portfolio/simple-portfolio.php:904
 #: widgets/simple-portfolio/simple-portfolio.php:905
 msgid "Read More"
@@ -6230,6 +6360,9 @@ msgid "Rating"
 msgstr ""
 
 #: widgets/course-grid/course-grid.php:878
+#: widgets/hero-slider/hero-slider.php:1664
+#: widgets/hero-slider/hero-slider.php:1863
+#: widgets/hero-slider/hero-slider.php:2061
 #: widgets/horizontal-timeline/horizontal-timeline.php:1701
 #: widgets/news-ticker/news-ticker.php:846
 #: widgets/news-ticker/news-ticker.php:1030
@@ -6465,6 +6598,7 @@ msgstr ""
 
 #: widgets/custom-field/custom-field.php:843
 #: widgets/custom-field/custom-field.php:933
+#: widgets/hero-slider/hero-slider.php:1323
 #: widgets/horizontal-timeline/horizontal-timeline.php:773
 #: widgets/lottie/lottie.php:228 widgets/news-ticker/news-ticker.php:405
 msgid "Autoplay"
@@ -6491,6 +6625,7 @@ msgid "Background Mode"
 msgstr ""
 
 #: widgets/custom-field/custom-field.php:948
+#: widgets/hero-slider/hero-slider.php:1300
 #: widgets/horizontal-timeline/horizontal-timeline.php:720
 #: widgets/lottie/lottie.php:249
 msgid "Loop"
@@ -6720,6 +6855,7 @@ msgid "Description Typography"
 msgstr ""
 
 #: widgets/gravity-forms/gravity-forms.php:812
+#: widgets/hero-slider/hero-slider.php:1608
 #: widgets/ninja-forms/ninja-forms.php:363
 msgid "Description Color"
 msgstr ""
@@ -6807,6 +6943,245 @@ msgstr ""
 
 #: widgets/heading/heading.php:379
 msgid "Center Title"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:59
+msgid "Hero Slider"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:289
+#: widgets/hero-slider/hero-slider.php:1228
+msgid "Slides"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:319
+#: widgets/image-scroller/image-scroller.php:422
+#: widgets/image-scroller/image-scroller.php:629
+#: widgets/simple-gallery/simple-gallery.php:519
+#: widgets/simple-portfolio/simple-portfolio.php:579
+msgid "Overlay"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:390
+msgid "Horizontal Align"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:422 widgets/icon-box/icon-box.php:459
+msgid "Vertical Align"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:454
+#: widgets/hero-slider/hero-slider.php:481
+#: widgets/hero-slider/hero-slider.php:1478
+msgid "Subtitle"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:496 widgets/pricing/pricing.php:230
+msgid "Before Title"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:497 widgets/pricing/pricing.php:229
+msgid "After Title"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:546
+#: widgets/hero-slider/hero-slider.php:716
+#: widgets/hero-slider/hero-slider.php:838
+#: widgets/hero-slider/hero-slider.php:1000
+#: widgets/hero-slider/hero-slider.php:1154 widgets/icon-box/icon-box.php:623
+#: widgets/social-icon/social-icon.php:605
+#: widgets/social-icon/social-icon.php:640
+#: widgets/social-icon/social-icon.php:672
+#: widgets/social-share/social-share.php:732
+#: widgets/social-share/social-share.php:767
+#: widgets/social-share/social-share.php:799
+#: widgets/woo-product-grid/woo-product-grid.php:562
+msgid "Animation"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:553
+#: widgets/hero-slider/hero-slider.php:723
+#: widgets/hero-slider/hero-slider.php:845
+#: widgets/hero-slider/hero-slider.php:1007
+#: widgets/hero-slider/hero-slider.php:1161
+#: widgets/news-ticker/news-ticker.php:372
+msgid "Effect"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:577
+#: widgets/hero-slider/hero-slider.php:747
+#: widgets/hero-slider/hero-slider.php:869
+#: widgets/hero-slider/hero-slider.php:1031
+#: widgets/hero-slider/hero-slider.php:1185
+msgid "Duration(s)"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:600
+#: widgets/hero-slider/hero-slider.php:770
+#: widgets/hero-slider/hero-slider.php:892
+#: widgets/hero-slider/hero-slider.php:1050
+#: widgets/hero-slider/hero-slider.php:1204
+msgid "Delay(s)"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:655
+msgid "Title Caption"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:825
+msgid "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout normal distribution of letters."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:920
+#: widgets/hero-slider/hero-slider.php:1634
+msgid "Primary Button"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:949 widgets/pricing/pricing.php:520
+msgid "Get Started"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1074
+#: widgets/hero-slider/hero-slider.php:1833
+msgid "Secondary Button"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1234
+msgid "Subtitle Caption #1"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1235
+msgid "Title Caption #1"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1239
+msgid "Subtitle Caption #2"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1240
+msgid "Title Caption #2"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1244
+msgid "Subtitle Caption #3"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1245
+msgid "Title Caption #3"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1266
+msgid "Slide Animation"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1270
+#: widgets/news-ticker/news-ticker.php:376
+#: widgets/social-icon/social-icon.php:644
+#: widgets/social-share/social-share.php:771
+msgid "Fade"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1271
+#: widgets/news-ticker/news-ticker.php:377
+#: widgets/social-icon/social-icon.php:676
+#: widgets/social-share/social-share.php:803
+msgid "Slide"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1280
+msgid "Slide Speed"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1281
+msgid "Duration of transition between slides in seconds(s)."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1301
+#: widgets/horizontal-timeline/horizontal-timeline.php:721
+msgid "Duplicate last and first items to get loop illusion."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1311
+#: widgets/horizontal-timeline/horizontal-timeline.php:732
+msgid "Mouse Drag"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1312
+msgid "To enable mouse drag."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1324
+#: widgets/horizontal-timeline/horizontal-timeline.php:774
+#: widgets/news-ticker/news-ticker.php:406
+msgid "To enable autoplay behaviour."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1334
+#: widgets/horizontal-timeline/horizontal-timeline.php:785
+#: widgets/news-ticker/news-ticker.php:418
+msgid "Autoplay Timeout"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1335
+#: widgets/horizontal-timeline/horizontal-timeline.php:786
+#: widgets/news-ticker/news-ticker.php:419
+msgid "Autoplay interval timeout in seconds(s)."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1357
+#: widgets/horizontal-timeline/horizontal-timeline.php:809
+msgid "Show Nav"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1358
+#: widgets/horizontal-timeline/horizontal-timeline.php:810
+#: widgets/news-ticker/news-ticker.php:443
+msgid "Show next/prev buttons."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1368
+#: widgets/horizontal-timeline/horizontal-timeline.php:822
+msgid "Show Dots"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1369
+#: widgets/horizontal-timeline/horizontal-timeline.php:823
+msgid "Show dots navigation."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1390
+msgid "Slider Height"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1413
+msgid "Container Width"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1463 widgets/pricing/pricing.php:1380
+#: widgets/woo-product-grid/woo-product-grid.php:1682
+msgid "Content Padding"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:1507
+#: widgets/hero-slider/hero-slider.php:1548
+#: widgets/hero-slider/hero-slider.php:1600 widgets/step-flow/step-flow.php:377
+msgid "Text Shadow"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:2032
+#: widgets/horizontal-timeline/horizontal-timeline.php:1672
+#: widgets/news-ticker/news-ticker.php:442
+#: widgets/news-ticker/news-ticker.php:821
+msgid "Nav"
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:2092
+msgid "Next/Prev buttons horziontal position."
+msgstr ""
+
+#: widgets/hero-slider/hero-slider.php:2217
+#: widgets/horizontal-timeline/horizontal-timeline.php:1888
+msgid "Dots"
 msgstr ""
 
 #: widgets/horizontal-menu/horizontal-menu.php:51
@@ -7025,14 +7400,6 @@ msgstr ""
 msgid "Adjust items to show in a row."
 msgstr ""
 
-#: widgets/horizontal-timeline/horizontal-timeline.php:721
-msgid "Duplicate last and first items to get loop illusion."
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:732
-msgid "Mouse Drag"
-msgstr ""
-
 #: widgets/horizontal-timeline/horizontal-timeline.php:733
 msgid "Mouse drag enabled."
 msgstr ""
@@ -7051,38 +7418,6 @@ msgstr ""
 
 #: widgets/horizontal-timeline/horizontal-timeline.php:761
 msgid "Adaptive its height of the currently active item."
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:774
-#: widgets/news-ticker/news-ticker.php:406
-msgid "To enable autoplay behaviour."
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:785
-#: widgets/news-ticker/news-ticker.php:418
-msgid "Autoplay Timeout"
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:786
-#: widgets/news-ticker/news-ticker.php:419
-msgid "Autoplay interval timeout in seconds(s)."
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:809
-msgid "Show Nav"
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:810
-#: widgets/news-ticker/news-ticker.php:443
-msgid "Show next/prev buttons."
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:822
-msgid "Show Dots"
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:823
-msgid "Show dots navigation."
 msgstr ""
 
 #: widgets/horizontal-timeline/horizontal-timeline.php:1100
@@ -7111,18 +7446,8 @@ msgstr ""
 msgid "Block"
 msgstr ""
 
-#: widgets/horizontal-timeline/horizontal-timeline.php:1672
-#: widgets/news-ticker/news-ticker.php:442
-#: widgets/news-ticker/news-ticker.php:821
-msgid "Nav"
-msgstr ""
-
 #: widgets/horizontal-timeline/horizontal-timeline.php:1749
 msgid "Offset Y"
-msgstr ""
-
-#: widgets/horizontal-timeline/horizontal-timeline.php:1888
-msgid "Dots"
 msgstr ""
 
 #: widgets/hot-spot/hot-spot.php:52
@@ -7187,26 +7512,12 @@ msgstr ""
 msgid "Box Link"
 msgstr ""
 
-#: widgets/icon-box/icon-box.php:459
-msgid "Vertical Align"
-msgstr ""
-
 #: widgets/icon-box/icon-box.php:463
 msgid "Start"
 msgstr ""
 
 #: widgets/icon-box/icon-box.php:471
 msgid "End"
-msgstr ""
-
-#: widgets/icon-box/icon-box.php:623 widgets/social-icon/social-icon.php:605
-#: widgets/social-icon/social-icon.php:640
-#: widgets/social-icon/social-icon.php:672
-#: widgets/social-share/social-share.php:732
-#: widgets/social-share/social-share.php:767
-#: widgets/social-share/social-share.php:799
-#: widgets/woo-product-grid/woo-product-grid.php:562
-msgid "Animation"
 msgstr ""
 
 #: widgets/icon-box/icon-box.php:629
@@ -7427,13 +7738,6 @@ msgctxt "Mask Image"
 msgid "No-repeat Round"
 msgstr ""
 
-#: widgets/image-scroller/image-scroller.php:422
-#: widgets/image-scroller/image-scroller.php:629
-#: widgets/simple-gallery/simple-gallery.php:519
-#: widgets/simple-portfolio/simple-portfolio.php:579
-msgid "Overlay"
-msgstr ""
-
 #: widgets/image-scroller/image-scroller.php:449
 msgid "Enable Badge"
 msgstr ""
@@ -7609,22 +7913,6 @@ msgstr ""
 
 #: widgets/news-ticker/news-ticker.php:353
 msgid "Our Unique Featured Elementor Modules"
-msgstr ""
-
-#: widgets/news-ticker/news-ticker.php:372
-msgid "Effect"
-msgstr ""
-
-#: widgets/news-ticker/news-ticker.php:376
-#: widgets/social-icon/social-icon.php:644
-#: widgets/social-share/social-share.php:771
-msgid "Fade"
-msgstr ""
-
-#: widgets/news-ticker/news-ticker.php:377
-#: widgets/social-icon/social-icon.php:676
-#: widgets/social-share/social-share.php:803
-msgid "Slide"
 msgstr ""
 
 #: widgets/news-ticker/news-ticker.php:456
@@ -7834,20 +8122,12 @@ msgid "Pricing"
 msgstr ""
 
 #: widgets/pricing/pricing.php:137 widgets/pricing/pricing.php:658
-#: xpro-elementor-addons.php:265
+#: xpro-elementor-addons.php:269
 msgid "Header"
 msgstr ""
 
 #: widgets/pricing/pricing.php:147
 msgid "Basic"
-msgstr ""
-
-#: widgets/pricing/pricing.php:229
-msgid "After Title"
-msgstr ""
-
-#: widgets/pricing/pricing.php:230
-msgid "Before Title"
 msgstr ""
 
 #: widgets/pricing/pricing.php:240 widgets/pricing/pricing.php:290
@@ -8009,10 +8289,6 @@ msgstr ""
 msgid "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 msgstr ""
 
-#: widgets/pricing/pricing.php:520
-msgid "Get Started"
-msgstr ""
-
 #: widgets/pricing/pricing.php:606
 msgid "Premium"
 msgstr ""
@@ -8044,11 +8320,6 @@ msgstr ""
 
 #: widgets/pricing/pricing.php:1322
 msgid "Content Typography"
-msgstr ""
-
-#: widgets/pricing/pricing.php:1380
-#: widgets/woo-product-grid/woo-product-grid.php:1682
-msgid "Content Padding"
 msgstr ""
 
 #: widgets/pricing/pricing.php:1496 widgets/table/table.php:228
@@ -8705,10 +8976,6 @@ msgstr ""
 msgid "Bottom Spacing"
 msgstr ""
 
-#: widgets/step-flow/step-flow.php:377
-msgid "Text Shadow"
-msgstr ""
-
 #: widgets/step-flow/step-flow.php:459
 msgid "Line"
 msgstr ""
@@ -9299,57 +9566,57 @@ msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor
 
-#: xpro-elementor-addons.php:180
+#: xpro-elementor-addons.php:184
 msgid "\"%1$s\" requires \"%2$s\" to be activated. %3$s"
 msgstr ""
 
-#: xpro-elementor-addons.php:182 xpro-elementor-addons.php:190
-#: xpro-elementor-addons.php:217
+#: xpro-elementor-addons.php:186 xpro-elementor-addons.php:194
+#: xpro-elementor-addons.php:221
 msgid "Elementor"
 msgstr ""
 
-#: xpro-elementor-addons.php:183
+#: xpro-elementor-addons.php:187
 msgid "Activate Elementor"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor
 
-#: xpro-elementor-addons.php:188
+#: xpro-elementor-addons.php:192
 msgid "\"%1$s\" requires \"%2$s\" to be installed. %3$s"
 msgstr ""
 
-#: xpro-elementor-addons.php:191
+#: xpro-elementor-addons.php:195
 msgid "Install Elementor"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor 3: Required Elementor version
 #. translators: 1: Plugin name 2: PHP 3: Required PHP version
 
-#: xpro-elementor-addons.php:215 xpro-elementor-addons.php:240
+#: xpro-elementor-addons.php:219 xpro-elementor-addons.php:244
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
 msgstr ""
 
-#: xpro-elementor-addons.php:242
+#: xpro-elementor-addons.php:246
 msgid "PHP"
 msgstr ""
 
-#: xpro-elementor-addons.php:262
+#: xpro-elementor-addons.php:266
 msgid "Discover Our FREE Theme Builder"
 msgstr ""
 
-#: xpro-elementor-addons.php:263
+#: xpro-elementor-addons.php:267
 msgid "Creating amazing layouts for post types, blog archives, WooCommerce products & categories, search pages, 404 pages in minutes by using our free theme builder for elementor."
 msgstr ""
 
-#: xpro-elementor-addons.php:266
+#: xpro-elementor-addons.php:270
 msgid "Footer"
 msgstr ""
 
-#: xpro-elementor-addons.php:270
+#: xpro-elementor-addons.php:274
 msgid "Many More..."
 msgstr ""
 
-#: xpro-elementor-addons.php:273
+#: xpro-elementor-addons.php:277
 msgid "Install Now"
 msgstr ""
 #. Plugin Name of the plugin/theme

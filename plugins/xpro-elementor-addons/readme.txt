@@ -1,6 +1,6 @@
 === 130+ Widgets | Best Addons For Elementor - FREE ===
 Plugin Name: Xpro Addons For Elementor (130+ Widgets & Free Theme Builder)
-Version: 1.3.7
+Version: 1.3.8
 Contributors: Xpro
 Tags: elementor, elements, modules, widgets for elementor, elementor addons, elementor widgets, elementor theme builder, addons for elementor, woocommerce elementor
 Requires at least: 5.0
@@ -311,6 +311,15 @@ It's simple: Our goal is to make your life easy with your website design process
 
 
 == Changelog ==
+
+= V 1.3.8 - 25 July 2023 =
+
+- New: Hero Slider Widget Added [Free]
+- New: WPML Compatibility Newly Added Widgets
+- Tweak: Update In Simple & Advanced Gallery
+- Fix: Category Active Color Not Working in Horizontal Menu
+- Fix: Category Active Color Not Working in Mega Menu
+
 
 = V 1.3.7 - 07 July 2023  =
 

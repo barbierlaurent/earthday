@@ -248,6 +248,11 @@ class Xpro_Elementor_Widget_List {
 			'title'   => 'Search',
 			'package' => 'free',
 		),
+		'hero-slider'             => array(
+			'slug'    => 'hero_slider',
+			'title'   => 'Hero Slider',
+			'package' => 'free',
+		),
 		'woo-product-title'       => array(
 			'slug'    => 'woo_product_title',
 			'title'   => 'Product Title',
@@ -760,7 +765,7 @@ class Xpro_Elementor_Widget_List {
 			$active_list = Xpro_Elementor_Dashboard::instance()->utils->get_option( 'xpro_elementor_widget_list', array_keys( $all_list ) );
 
 			foreach ( $all_list as $widget_slug => $info ) {
-				if ( ! in_array( $widget_slug, $active_list, true ) ) {
+				if ( is_array( $active_list ) && ! in_array( $widget_slug, $active_list, true ) ) {
 					unset( $all_list[ $widget_slug ] );
 				}
 			}

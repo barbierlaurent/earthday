@@ -48,6 +48,15 @@ function cdi_import_files() {
             'import_preview_image_url'   => CDI_PLUGIN_DIR_URL . '/assets/images/education-business/home-5.jpg',
             'preview_url' => 'https://bizbergthemes.com/education-business-pro/homepage-5/'
         ),
+        array(
+            'import_file_name'=> __('Education Home PRO 6','cdi'),
+            'categories'      =>  array( 'Homepage' ),
+            'local_import_file'=> CDI_PLUGIN_DIR_PATH . '/themes/education-business-pro/inc/content.xml',
+            'local_import_customizer_file' => CDI_PLUGIN_DIR_PATH . '/themes/education-business-pro/inc/options.dat',
+            'local_import_widget_file'     => CDI_PLUGIN_DIR_PATH . '/themes/education-business-pro/inc/widgets.wie',
+            'import_preview_image_url'   => CDI_PLUGIN_DIR_URL . '/assets/images/education-business/homepage-pro-6.jpg',
+            'preview_url' => 'https://bizbergthemes.com/education-business-pro/homepage-6/'
+        ),
     );
 }
 
@@ -84,6 +93,10 @@ function cdi_after_import_setup( $selected_import ) {
 
         case 'Education Home PRO 5':
             $front_page_id = get_page_by_path( 'homepage-5' );
+            break;
+
+        case 'Education Home PRO 6':
+            $front_page_id = get_page_by_path( 'homepage-6' );
             break;
         
         default:

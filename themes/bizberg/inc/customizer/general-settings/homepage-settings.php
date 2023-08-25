@@ -7,7 +7,7 @@ Kirki::add_field( 'bizberg', [
 	'description' => esc_html__( 'If you select custom homepage or posts page from below options, then you can hide the title.', 'bizberg' ),
 	'section'     => 'static_front_page',
 	'priority'    => 9,
-	'default'     => 'block',
+	'default'     => apply_filters( 'bizberg_hide_homepage_page_title', 'block' ),
 	'choices'     => [
 		'block'  => esc_html__( 'Show', 'bizberg' ),
 		'none' => esc_html__( 'Hide', 'bizberg' ),

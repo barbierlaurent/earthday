@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b
+class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -292,6 +292,7 @@ class ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b
         'Stripe\\Service\\TaxCodeService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TaxCodeService.php',
         'Stripe\\Service\\TaxRateService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/TaxRateService.php',
         'Stripe\\Service\\Tax\\CalculationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Tax/CalculationService.php',
+        'Stripe\\Service\\Tax\\SettingsService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Tax/SettingsService.php',
         'Stripe\\Service\\Tax\\TaxServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Tax/TaxServiceFactory.php',
         'Stripe\\Service\\Tax\\TransactionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Tax/TransactionService.php',
         'Stripe\\Service\\Terminal\\ConfigurationService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Terminal/ConfigurationService.php',
@@ -348,6 +349,7 @@ class ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b
         'Stripe\\TaxRate' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxRate.php',
         'Stripe\\Tax\\Calculation' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Tax/Calculation.php',
         'Stripe\\Tax\\CalculationLineItem' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Tax/CalculationLineItem.php',
+        'Stripe\\Tax\\Settings' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Tax/Settings.php',
         'Stripe\\Tax\\Transaction' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Tax/Transaction.php',
         'Stripe\\Tax\\TransactionLineItem' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Tax/TransactionLineItem.php',
         'Stripe\\Terminal\\Configuration' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Terminal/Configuration.php',
@@ -464,9 +466,9 @@ class ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb9defa80fa2cc6f0c62de7f96771a54b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212::$classMap;
 
         }, null, ClassLoader::class);
     }

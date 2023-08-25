@@ -25,30 +25,6 @@ Bizberg is distributed under the terms of the GNU General Public License v2
 2. Click Upload and Choose File, then select the theme's .zip file. Click Install Now.
 3. Click Activate to use your new theme right away.
 
-== Changelog ==
-
-= 1.0 =
-* Fixed 404 page design
-
-= 0.6 =
-* Added filters
-* Disable Kirki notification
-
-= 0.5 =
-* Bug Fixes https://themes.trac.wordpress.org/ticket/69418#comment:10
-
-= 0.4 =
-* Bug Fixes https://themes.trac.wordpress.org/ticket/69418#comment:4
-
-= 0.3 =
-* Bug Fixes
-
-= 0.2 =
-* Bug Fixes
-
-= 0.1 =
-* Initial release
-
 == Credits ==
 
 Bizberg Theme bundles the following third-party resources:

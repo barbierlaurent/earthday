@@ -649,6 +649,25 @@ trait Ajax_Handler {
 			];
 
 			$args['tax_query'] = $this->eael_terms_query_multiple( $args['tax_query'] );
+
+			if ( $settings[ 'eael_product_gallery_product_filter' ] == 'featured-products' ) {
+				$args[ 'tax_query' ][] = [
+					'relation' => 'AND',
+					[
+						'taxonomy' => 'product_visibility',
+						'field'    => 'name',
+						'terms'    => 'featured',
+					],
+					[
+						'taxonomy' => 'product_visibility',
+						'field'    => 'name',
+						'terms'    => [ 'exclude-from-search', 'exclude-from-catalog' ],
+						'operator' => 'NOT IN',
+					],
+				];
+			}
+
+
 		}
 		
 		$template_info = $this->eael_sanitize_template_param( $_REQUEST['template_info'] );
@@ -746,15 +765,15 @@ trait Ajax_Handler {
 		$post_type   = 'post';
 		$source_name = 'post_type';
 
-		if ( ! empty( $_GET['post_type'] ) ) {
-			$post_type = sanitize_text_field( $_GET['post_type'] );
+		if ( ! empty( $_POST['post_type'] ) ) {
+			$post_type = sanitize_text_field( $_POST['post_type'] );
 		}
 
-		if ( ! empty( $_GET['source_name'] ) ) {
-			$source_name = sanitize_text_field( $_GET['source_name'] );
+		if ( ! empty( $_POST['source_name'] ) ) {
+			$source_name = sanitize_text_field( $_POST['source_name'] );
 		}
 
-		$search  = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : '';
+		$search  = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$results = $post_list = [];
 		switch ( $source_name ) {
 			case 'taxonomy':
@@ -792,6 +811,7 @@ trait Ajax_Handler {
 				$results[] = [ 'text' => $item, 'id' => $key ];
 			}
 		}
+
 		wp_send_json( [ 'results' => $results ] );
 	}
 
@@ -898,7 +918,7 @@ trait Ajax_Handler {
 			}
 			if ( isset( $settings['recaptchaLanguageV3'] ) ) {
 				update_option( 'eael_recaptcha_language_v3', sanitize_text_field( $settings['recaptchaLanguageV3'] ) );
-			}
+			}	
 
 			//pro settings
 			if ( isset( $settings['gClientId'] ) ) {
@@ -939,6 +959,18 @@ trait Ajax_Handler {
 			update_option( 'eael_custom_profile_fields', sanitize_text_field( $settings['lr_custom_profile_fields'] ) );
 		} else {
 			update_option( 'eael_custom_profile_fields', '' );
+		}
+
+		if ( isset( $settings['lr_custom_profile_fields_text'] ) ) {
+			update_option( 'eael_custom_profile_fields_text', sanitize_text_field( $settings['lr_custom_profile_fields_text'] ) );
+		} else {
+			update_option( 'eael_custom_profile_fields_text', '' );
+		}
+
+		if ( isset( $settings['lr_custom_profile_fields_img'] ) ) {
+			update_option( 'eael_custom_profile_fields_img', sanitize_text_field( $settings['lr_custom_profile_fields_img'] ) );
+		} else {
+			update_option( 'eael_custom_profile_fields_img', '' );
 		}
 
 		//pro settings

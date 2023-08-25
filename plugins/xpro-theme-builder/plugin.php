@@ -34,13 +34,6 @@ class Xpro_Theme_Builder_Main {
 	public $template;
 
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'i18n' ) );
-	}
-
-	/**
 	 * Instance of Xpro_Theme_Builder_Main
 	 *
 	 * @return Xpro_Theme_Builder_Main Instance of Xpro_Theme_Builder_Main
@@ -63,7 +56,6 @@ class Xpro_Theme_Builder_Main {
 		if ( self::$elementor_instance ) {
 
 			$this->includes();
-			$this->load_textdomain();
 
 			if ( 'xpro' === $this->template ) {
 				require XPRO_THEME_BUILDER_DIR . 'themes/class-xpro-compatibility.php';
@@ -103,14 +95,6 @@ class Xpro_Theme_Builder_Main {
 
 	}
 
-	public function i18n() {
-		load_plugin_textdomain(
-			'xpro-theme-builder',
-			false,
-			dirname( plugin_basename( XPRO_THEME_BUILDER_FILE ) ) . '/language/'
-		);
-	}
-
 	/**
 	 * Loads the globally required files for the plugin.
 	 */
@@ -129,13 +113,6 @@ class Xpro_Theme_Builder_Main {
 			require_once XPRO_THEME_BUILDER_DIR . 'inc/wpml-compatibility.php';
 		}
 
-	}
-
-	/**
-	 * Loads textdomain for the plugin.
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain( 'xpro-theme-builder' );
 	}
 
 	/**
