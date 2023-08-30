@@ -2423,6 +2423,7 @@ function bizberg_get_pro_link(){
 		case 'fully-green':
 		case 'green-globe':
 		case 'green-wealth':
+		case 'green-protection':
 			return 'https://bizbergthemes.com/downloads/green-eco-planet-pro/';
 			break;
 
@@ -2431,6 +2432,7 @@ function bizberg_get_pro_link(){
 		case 'higher-education-business':
 		case 'education-shop':
 		case 'get-education':
+		case 'education-empowerment':
 			return 'https://bizbergthemes.com/downloads/education-business-pro/';
 			break;
 

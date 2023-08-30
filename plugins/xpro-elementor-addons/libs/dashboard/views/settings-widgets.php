@@ -7,7 +7,7 @@ use XproElementorAddons\Inc\Xpro_Elementor_Widget_List;
 
 $widgets_all    = Xpro_Elementor_Widget_List::instance()->get_list();
 $widgets_active = $this->utils->get_option( 'xpro_elementor_widget_list', array_keys( $widgets_all ) );
-$widgets_active = ( ! isset( $widgets_active[0] ) ? array_keys( $widgets_active ) : $widgets_active );
+$widgets_active = ( is_array( $widgets_active ) && ! isset( $widgets_active[0] ) && is_array( $widgets_active[0] ) ? array_keys( $widgets_active ) : $widgets_active );
 
 ?>
 
@@ -53,7 +53,7 @@ $widgets_active = ( ! isset( $widgets_active[0] ) ? array_keys( $widgets_active 
 								'attr'    => ( 'pro-disabled' !== $widget_config['package'] ? array() : array( 'disabled' => 'disabled' ) ),
 								'class'   => 'xpro-content-type-' . $widget_config['package'],
 								'options' => array(
-									'checked' => ( ( in_array( $widget, $widgets_active, true ) && 'pro-disabled' !== $widget_config['package'] ) ? true : false ),
+									'checked' => is_array( $widgets_active ) && ( in_array( $widget, $widgets_active, true ) && 'pro-disabled' !== $widget_config['package'] ),
 								),
 							)
 						);

@@ -1,3 +1,22 @@
+= V 1.3.8 - 25 July 2023 =
+
+- New: Hero Slider Widget Added [Free]
+- New: WPML Compatibility Newly Added Widgets
+- Tweak: Update In Simple & Advanced Gallery
+- Fix: Category Active Color Not Working in Horizontal Menu
+- Fix: Category Active Color Not Working in Mega Menu
+
+
+= V 1.3.7 - 07 July 2023  =
+
+- Tweak: Updates In Add to Cart Button
+- Tweak: Woocommerce Compatibility
+- Fix: Woo Product Reviews Hide When Plugin Install
+- Fix: ACF Gallery Not Working With Gallery Widgets
+- Fix: Gallery Popup Icons Not Showing
+- Fix: Advanced Accordion Toggle Icon Not Showing
+
+
 = V 1.3.6 - 21 June 2023 =
 
 - Tweak: Product Carousel Showing Gallery Image

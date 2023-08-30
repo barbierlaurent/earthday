@@ -83,29 +83,49 @@ class Main {
 		add_action( 'admin_menu', [ $this, 'register' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue' ] );
 		add_action( 'init', array( $this, 'register_settings' ) );
+		add_action( 'init', array( $this, 'register_about_page' ), 1 );
+	}
+
+	/**
+	 * Add the about page with respect to the white label settings.
+	 *
+	 * @return void
+	 */
+	public function register_about_page() {
+		$theme         = wp_get_theme();
+		$filtered_name = apply_filters( 'ti_wl_theme_name', $theme->__get( 'Name' ) );
+		$slug          = $theme->__get( 'stylesheet' );
+
+		if ( empty( $slug ) || empty( $filtered_name ) ) {
+			return;
+		}
+
+		// We check if the name is different from the filtered name,
+		// if it is, the whitelabel is in use and we should not add the about page.
+		// this check allows for child themes to use the about page.
+		if ( $filtered_name !== $theme->__get( 'Name' ) ) {
+			return;
+		}
 
 		add_filter(
 			'neve_about_us_metadata',
-			function () {
+			function () use ( $filtered_name ) {
+
 				return [
 					// Top-level page in the dashboard sidebar
 					'location'         => 'neve-welcome',
 					// Logo to display on the page
 					'logo'             => get_template_directory_uri() . '/assets/img/dashboard/logo.svg',
-					// Menu displayed at the top of the page - optional
-					// 'page_menu'        => [
-					// [ 'text' => 'SDK GitHub Issues', 'url' => esc_url( 'https://github.com/codeinwp/themeisle-sdk/issues' ) ],
-					// [ 'text' => 'Themeisle', 'url' => esc_url( 'https://themeisle.com' ) ]
-					// ],
 					// Condition to show or hide the upgrade menu in the sidebar
 					'has_upgrade_menu' => ! defined( 'NEVE_PRO_VERSION' ),
+					// Add predefined product pages to the about page.
+					'product_pages'    => [ 'otter-page' ],
 					// Upgrade menu item link & text
 					'upgrade_link'     => tsdk_utmify( esc_url( 'https://themeisle.com/themes/neve/upgrade/' ), 'aboutfilter', 'nevedashboard' ),
-					'upgrade_text'     => __( 'Upgrade', 'neve' ) . ' ' . $this->theme_args['name'],
+					'upgrade_text'     => __( 'Upgrade', 'neve' ) . ' ' . $filtered_name,
 				];
 			}
 		);
-
 	}
 
 	/**
@@ -195,7 +215,7 @@ class Main {
 			[ $this, 'render' ]
 		);
 
-		$this->copy_customizer_page( $theme_page, $capability );
+		$this->copy_customizer_page( $theme_page );
 
 		if ( ! defined( 'NEVE_PRO_VERSION' ) || 'valid' !== apply_filters( 'product_neve_license_status', false ) ) {
 			// Add Custom Layout submenu for upsell.
@@ -213,11 +233,10 @@ class Main {
 	 * Copy the customizer page to the dashboard.
 	 *
 	 * @param string $theme_page The theme page slug.
-	 * @param string $capability The capability required to view the page.
 	 *
 	 * @return void
 	 */
-	private function copy_customizer_page( $theme_page, $capability ) {
+	private function copy_customizer_page( $theme_page ) {
 		global $submenu;
 		if ( ! isset( $submenu['themes.php'] ) ) {
 			return;
@@ -245,7 +264,7 @@ class Main {
 			$theme_page,
 			$customizer_menu_item[0],
 			$customizer_menu_item[0],
-			$capability,
+			'manage_options',
 			'customize.php'
 		);
 	}

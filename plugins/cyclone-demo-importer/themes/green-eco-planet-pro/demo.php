@@ -3,6 +3,15 @@
 add_filter( 'pt-ocdi/import_files', 'cdi_import_files' );
 function cdi_import_files() {
     return array(
+		array(
+            'import_file_name'             => __('Green Eco Homepage 6','cdi'),
+            'categories'                   =>  array( 'Homepage' ),
+            'local_import_file'            => CDI_PLUGIN_DIR_PATH . '/themes/green-eco-planet-pro/inc/content.xml',
+            'local_import_customizer_file' => CDI_PLUGIN_DIR_PATH . '/themes/green-eco-planet-pro/inc/options.dat',
+            'import_preview_image_url'     => CDI_PLUGIN_DIR_URL . '/assets/images/green-eco-planet/homepage-6.jpg',
+            'local_import_widget_file'     => CDI_PLUGIN_DIR_PATH . '/themes/green-eco-planet-pro/inc/widgets.wie',
+            'preview_url'                  => 'https://bizbergthemes.com/green-eco-planet-pro/homepage-6/'
+        ),
         array(
             'import_file_name'             => __('Green Wealth Homepage PRO','cdi'),
             'categories'                   =>  array( 'Homepage' ),
@@ -84,6 +93,10 @@ function cdi_after_import_setup( $selected_import ) {
 
         case 'Green Wealth Homepage PRO':
             $front_page_id = get_page_by_path( 'homepage-5' );
+            break;
+			
+		case 'Green Eco Homepage 6':
+            $front_page_id = get_page_by_path( 'homepage-6' );
             break;
         
         default:

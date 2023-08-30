@@ -485,7 +485,7 @@ class Horizontal_Menu extends Widget_Base {
 				'label'     => __( 'Text Color', 'xpro-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -497,13 +497,13 @@ class Horizontal_Menu extends Widget_Base {
 				'label'    => __( 'Background', 'xpro-elementor-addons' ),
 				'types'    => array( 'classic', 'gradient' ),
 				'exclude'  => array( 'image' ),
-				'selector' => '{{WRAPPER}} .xpro-elementor-horizontal-menu-style-fade .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a,
-								{{WRAPPER}} [class*=xpro-elementor-horizontal-menu-style-underline] .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a,
-								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-crossOver .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a,
-								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-pushRight .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a,
-								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-focusLens .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a,
-								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-lineTopBottom .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a,
-								{{WRAPPER}} [class*=xpro-elementor-horizontal-menu-style-sweepTo] .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a:before',
+				'selector' => '{{WRAPPER}} .xpro-elementor-horizontal-menu-style-fade .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a,
+								{{WRAPPER}} [class*=xpro-elementor-horizontal-menu-style-underline] .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a,
+								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-crossOver .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a,
+								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-pushRight .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a,
+								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-focusLens .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a,
+								{{WRAPPER}} .xpro-elementor-horizontal-menu-style-lineTopBottom .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a,
+								{{WRAPPER}} [class*=xpro-elementor-horizontal-menu-style-sweepTo] .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a:before',
 			)
 		);
 
@@ -516,7 +516,7 @@ class Horizontal_Menu extends Widget_Base {
 					'menu_border!' => '',
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a' => 'border-color: {{VALUE}};',
 				),
 			)
 		);
@@ -527,13 +527,13 @@ class Horizontal_Menu extends Widget_Base {
 				'label'     => __( 'Line Color', 'xpro-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .xpro-elementor-horizontal-menu-style-crossOver .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a:before,
-					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-pushRight .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a:before,
-					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-lineTopBottom .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a::before,
-					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-lineTopBottom .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a::after,
-					 {{WRAPPER}} [class*=xpro-elementor-horizontal-menu-style-underline] .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a:before'             => 'background-color: {{VALUE}};',
-					'{{WRAPPER}} .xpro-elementor-horizontal-menu-style-focusLens .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a::before,
-					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-focusLens .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a::after' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .xpro-elementor-horizontal-menu-style-crossOver .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a:before,
+					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-pushRight .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a:before,
+					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-lineTopBottom .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a::before,
+					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-lineTopBottom .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a::after,
+					 {{WRAPPER}} [class*=xpro-elementor-horizontal-menu-style-underline] .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a:before'             => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .xpro-elementor-horizontal-menu-style-focusLens .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a::before,
+					 {{WRAPPER}} .xpro-elementor-horizontal-menu-style-focusLens .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a::after' => 'border-color: {{VALUE}};',
 				),
 				'default'   => '#c92a61',
 				'condition' => array(
@@ -721,7 +721,7 @@ class Horizontal_Menu extends Widget_Base {
 				'label'     => __( 'Text Color', 'xpro-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .xpro-elementor-horizontal-navbar .xpro-elementor-dropdown-menu > li.current_page_item > a' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .xpro-elementor-horizontal-navbar .xpro-elementor-dropdown-menu > li.current-menu-item > a' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -733,7 +733,7 @@ class Horizontal_Menu extends Widget_Base {
 				'label'    => __( 'Background', 'xpro-elementor-addons' ),
 				'types'    => array( 'classic', 'gradient' ),
 				'exclude'  => array( 'image' ),
-				'selector' => '{{WRAPPER}} .xpro-elementor-horizontal-navbar .xpro-elementor-dropdown-menu > li.current_page_item > a',
+				'selector' => '{{WRAPPER}} .xpro-elementor-horizontal-navbar .xpro-elementor-dropdown-menu > li.current-menu-item > a',
 			)
 		);
 
@@ -1225,8 +1225,8 @@ class Horizontal_Menu extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2b2b2b',
 				'selectors' => array(
-					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a' => 'color: {{VALUE}};',
-					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a' => 'color: {{VALUE}};',
+					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a' => 'color: {{VALUE}};',
+					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1238,8 +1238,8 @@ class Horizontal_Menu extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#f5f5f5',
 				'selectors' => array(
-					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a' => 'background: {{VALUE}};',
-					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-horizontal-navbar-nav > li.current_page_item > a' => 'background: {{VALUE}};',
+					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a' => 'background: {{VALUE}};',
+					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-horizontal-navbar-nav > li.current-menu-item > a' => 'background: {{VALUE}};',
 				),
 			)
 		);
@@ -1354,8 +1354,8 @@ class Horizontal_Menu extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#2b2b2b',
 				'selectors' => array(
-					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-dropdown-menu > li.current_page_item > a' => 'color: {{VALUE}};',
-					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-dropdown-menu > li.current_page_item > a' => 'color: {{VALUE}};',
+					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-dropdown-menu > li.current-menu-item > a' => 'color: {{VALUE}};',
+					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-dropdown-menu > li.current-menu-item > a' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -1367,8 +1367,8 @@ class Horizontal_Menu extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#efefef',
 				'selectors' => array(
-					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-dropdown-menu > li.current_page_item > a' => 'background: {{VALUE}};',
-					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-dropdown-menu > li.current_page_item > a' => 'background: {{VALUE}};',
+					'(tablet) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-tablet .xpro-elementor-dropdown-menu > li.current-menu-item > a' => 'background: {{VALUE}};',
+					'(mobile) {{WRAPPER}} .xpro-elementor-horizontal-menu-responsive-mobile .xpro-elementor-dropdown-menu > li.current-menu-item > a' => 'background: {{VALUE}};',
 				),
 			)
 		);

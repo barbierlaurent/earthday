@@ -584,7 +584,7 @@ class WP_Forms extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'submit_typography',
-				'selector' => '{{WRAPPER}} .wpforms-submit',
+				'selector' => '{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]',
 			)
 		);
 
@@ -633,7 +633,7 @@ class WP_Forms extends Widget_Base {
 					),
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .wpforms-submit' => 'width: {{SIZE}}{{UNIT}}; min-width:max-content;',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]' => 'width: {{SIZE}}{{UNIT}}; min-width:max-content;',
 				),
 			)
 		);
@@ -654,7 +654,7 @@ class WP_Forms extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} .wpforms-submit' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -666,7 +666,7 @@ class WP_Forms extends Widget_Base {
 				'label'    => __( 'Background', 'xpro-elementor-addons' ),
 				'types'    => array( 'classic', 'gradient' ),
 				'exclude'  => array( 'image' ),
-				'selector' => '{{WRAPPER}} .wpforms-submit',
+				'selector' => '{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]',
 			)
 		);
 
@@ -685,7 +685,7 @@ class WP_Forms extends Widget_Base {
 				'label'     => __( 'Color', 'xpro-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wpforms-submit:hover, {{WRAPPER}} .wpforms-submit:focus' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]:hover,{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]:focus' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -697,7 +697,7 @@ class WP_Forms extends Widget_Base {
 				'label'    => __( 'Background', 'xpro-elementor-addons' ),
 				'types'    => array( 'classic', 'gradient' ),
 				'exclude'  => array( 'image' ),
-				'selector' => '{{WRAPPER}} .wpforms-submit:hover, {{WRAPPER}} .wpforms-submit:focus',
+				'selector' => '{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]:hover,{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]:focus',
 			)
 		);
 
@@ -707,7 +707,7 @@ class WP_Forms extends Widget_Base {
 				'label'     => __( 'Border Color', 'xpro-elementor-addons' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .wpforms-submit:hover, {{WRAPPER}} .wpforms-submit:focus' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]:hover,{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]:focus' => 'border-color: {{VALUE}};',
 				),
 				'condition' => array(
 					'submit_border_border!' => '',
@@ -742,7 +742,7 @@ class WP_Forms extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wpforms-submit' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -754,7 +754,7 @@ class WP_Forms extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', 'em', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wpforms-submit' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
@@ -766,7 +766,7 @@ class WP_Forms extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%' ),
 				'selectors'  => array(
-					'{{WRAPPER}} .wpforms-submit' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .wpforms-form .wpforms-submit-container button[type=submit]' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);

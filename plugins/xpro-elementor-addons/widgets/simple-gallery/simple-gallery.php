@@ -1180,10 +1180,12 @@ class Simple_Gallery extends Widget_Base {
 
 			if ( isset( $images ) ) {
 				foreach ( $images as $image ) {
-					if ( ! empty( $image['url'] ) && ! isset( $items[ attachment_url_to_postid( $image['url'] ) ] ) ) {
+					if ( ! empty( $image['url'] ) && ! empty( attachment_url_to_postid( $image['url'] ) ) && ! isset( $items[ attachment_url_to_postid( $image['url'] ) ] ) ) {
 						$items[ attachment_url_to_postid( $image['url'] ) ] = $filter;
+					} elseif ( ! empty( $image['id'] ) && ! empty( attachment_url_to_postid( wp_get_attachment_url( $image['id'] ) ) ) && ! isset( $items[ attachment_url_to_postid( wp_get_attachment_url( $image['id'] ) ) ] ) ) {
+						$items[ attachment_url_to_postid( wp_get_attachment_url( $image['id'] ) ) ] = $filter;
 					} elseif ( ! empty( $image['id'] ) && ! isset( $items[ $image['id'] ] ) ) {
-						$items[ attachment_url_to_postid( wp_get_attachment_url( $image['id'] ) ) ? attachment_url_to_postid( wp_get_attachment_url( $image['id'] ) ) : $image['id'] ] = $filter;
+						$items[ $image['id'] ] = $filter;
 					} else {
 						if ( ! empty( $image['url'] ) ) {
 							$items[ attachment_url_to_postid( $image['url'] ) ] .= ' ' . $filter;
