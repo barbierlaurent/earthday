@@ -1,3 +1,30 @@
+##### [Version 3.6.7](https://github.com/Codeinwp/neve/compare/v3.6.6...v3.6.7) (2023-08-22)
+
+- [Fix] Addressed a json_decode issue in utilities.php that could potentially arise depending on the value from the database
+- [Fix] Fixed the way error messages are displayed within the error notice on the WooCommerce My Account page
+- [Fix] Confusing palette when changing it in the customizer
+- [Fix] Errors on the widgets page with WordPress 6.3
+- [Fix] Install plugin buttons appear on the About us page in the dashboard for users that do not have permission to install plugins
+- Increase WordPress minimum required version to 5.5
+- Update Google Fonts
+
+##### [Version 3.6.6](https://github.com/Codeinwp/neve/compare/v3.6.5...v3.6.6) (2023-08-03)
+
+- [Fix] Solve customizer permissions on multisite
+- [Fix] Add aria-label on the dropdown of the sidebar menu
+- [Fix] Incorrect author displayed on sticky posts with Feedzy Pro plugin
+- Introducing a new presentational tab dedicated to Otter within the About Us page of Neve Dashboard
+- Improve compatibility with WPML
+
+##### [Version 3.6.5](https://github.com/Codeinwp/neve/compare/v3.6.4...v3.6.5) (2023-07-17)
+
+- [Fix] Deprecated notice in HFG Footer
+- [Fix] About page display when using Whitelabel
+- [Fix] AMP compatibility with Standard Template Mode
+- [Fix] React script loop on Starter Sites page
+- Update Google Fonts
+- Update SDK
+
 ##### [Version 3.6.4](https://github.com/Codeinwp/neve/compare/v3.6.3...v3.6.4) (2023-06-16)
 
 - [Fix] reported error for non-admin

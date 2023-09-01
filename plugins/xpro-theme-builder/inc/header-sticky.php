@@ -44,7 +44,7 @@ class Xpro_Elementor_Header_Sticky {
 			return;
 		}
 
-		if ( in_array( $element->get_name(), array( 'section', 'column', 'common', 'container' ), true ) && xpro_theme_builder_header_enabled() ) {
+		if ( in_array( $element->get_name(), array( 'section', 'column', 'common', 'container' ), true ) ) {
 
 			$element->start_controls_section(
 				'section_xpro_header_sticky',

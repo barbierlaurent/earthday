@@ -1,6 +1,6 @@
 === Best Theme Builder For Elementor - FREE ===
 Plugin Name: Best Theme Builder For Elementor - FREE
-Version: 1.2.3
+Version: 1.2.4
 Contributors: Xpro
 Tags: elementor, theme builder, header footer builder, sticky header, elementor widgets, free theme builder
 Requires at least: 5.0
@@ -288,6 +288,19 @@ Xpro theme builder for elementor is a 100% FREE plugin to use for your website. 
 
 
 == Changelog ==
+
+= V 1.2.4 - 25 July 2023 =
+
+- New: Hero Slider Widget Added [Free]
+- New: WPML Compatibility Newly Added Widgets
+- Fix: Category Active Color Not Working in Horizontal Menu
+- Fix: Category Active Color Not Working in Mega Menu
+- Fix:  Compatibility Issue With Elementor V1.14.0
+- Tweak: Updates In Add to Cart Button
+- Tweak: Woocommerce Compatibility
+- Tweak: Update In Simple & Advanced Gallery
+- Tweak: Product Carousel Showing Gallery Image
+
 
 = V 1.2.3 - 15 June 2023 =
 

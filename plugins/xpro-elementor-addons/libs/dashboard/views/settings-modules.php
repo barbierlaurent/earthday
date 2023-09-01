@@ -7,7 +7,7 @@ use XproElementorAddons\Inc\Xpro_Elementor_Module_List;
 
 $modules_all    = Xpro_Elementor_Module_List::instance()->get_list();
 $modules_active = $this->utils->get_option( 'xpro_elementor_module_list', array_keys( $modules_all ) );
-$modules_active = ( ! isset( $modules_active[0] ) ? array_keys( $modules_active ) : $modules_active );
+$modules_active = ( is_array( $modules_active ) && ! isset( $modules_active[0] ) ? array_keys( $modules_active ) : $modules_active );
 
 ?>
 
@@ -60,7 +60,7 @@ $modules_active = ( ! isset( $modules_active[0] ) ? array_keys( $modules_active 
 								'attr'    => ( 'pro-disabled' !== $module_config['package'] ? array() : array( 'disabled' => 'disabled' ) ),
 								'class'   => 'xpro-content-type-' . $module_config['package'],
 								'options' => array(
-									'checked' => ( ( in_array( $module, $modules_active, true ) && 'pro-disabled' !== $module_config['package'] ) ? true : false ),
+									'checked' => is_array( $modules_active ) && ( in_array( $module, $modules_active, true ) && 'pro-disabled' !== $module_config['package'] ),
 								),
 							)
 						);

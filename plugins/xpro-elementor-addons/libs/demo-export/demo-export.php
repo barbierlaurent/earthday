@@ -24,6 +24,9 @@ class Xpro_Elementor_Demo_Export {
 	 * @var      object Xpro_Elementor_Demo_Export_Admin    $admin
 	 */
 	public $admin;
+	public array $actions;
+	public array $filters;
+	public WP_Error $errors;
 
 	/**
 	 * Empty construct

@@ -20,7 +20,7 @@ $sections = array(
 	'userdata'  => array(
 		'title' => esc_html__( 'User Data', 'xpro-elementor-addons' ),
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.054 23"><path data-name="Path 5" d="M24.821 13.646a4.393 4.393 0 0 0-1.271-2.143 4.365 4.365 0 0 0 1.437-3.025 36.671 36.671 0 0 0-.007-4.551A3.932 3.932 0 0 0 21.772.059a14.42 14.42 0 0 0-2.1-.042H3.819C1.678.024.1 1.824.027 4.392-.008 5.62.016 6.85.027 8.079a5.022 5.022 0 0 0 .088.819 4.6 4.6 0 0 0 1.383 2.6l-.138.158a4.549 4.549 0 0 0-1.322 3.159c-.04 1.338-.061 2.682.009 4.017.129 2.427 1.651 4.115 3.674 4.155 1.011.02 2.022 0 3.033 0h14.44c2.269 0 3.829-1.889 3.833-4.612 0-1.1.02-2.21-.009-3.314a7.009 7.009 0 0 0-.2-1.419M1.5 4.533c.011-1.62.926-2.749 2.272-2.751q8.754-.015 17.508 0c1.323 0 2.254 1.128 2.276 2.716q.024 1.7 0 3.4c-.02 1.613-.96 2.725-2.3 2.727q-4.377.007-8.754 0H3.886c-1.48 0-2.384-1.083-2.388-2.859 0-1.077-.006-2.155 0-3.232M23.56 18.451c-.013 1.663-.947 2.779-2.325 2.781q-4.36.005-8.72 0H3.899c-1.5 0-2.395-1.081-2.4-2.889 0-1.063-.006-2.127 0-3.19.01-1.643.928-2.762 2.3-2.764q8.72-.011 17.439 0c1.38 0 2.31 1.13 2.322 2.789q.012 1.637 0 3.273"/><path data-name="Path 6" d="M5.277 6.857h8.639a.734.734 0 0 0 .807-.674c.04-.464-.313-.787-.871-.787h-8.54a1.623 1.623 0 0 0-.241.009.729.729 0 0 0-.547 1.069.761.761 0 0 0 .749.389"/><path data-name="Path 8" d="M13.887 16.153H5.278a1.239 1.239 0 0 0-.24.014.733.733 0 0 0-.474 1.126.81.81 0 0 0 .751.326h8.609a.736.736 0 0 0 .806-.712.749.749 0 0 0-.843-.749"/></svg>',
-	)
+	),
 );
 
 $sections = apply_filters( 'xpro_elementor_addons_admin_sections_list', $sections );
@@ -64,7 +64,6 @@ $sections = apply_filters( 'xpro_elementor_addons_admin_sections_list', $section
 							<?php
 							$count = 0;
 							foreach ( $sections as $section_key => $section ) :
-								reset( $sections );
 								?>
 								<li <?php echo ( key( $sections ) === $section_key ) ? 'class="active"' : ''; ?>>
 									<a href="#xpro-<?php echo esc_attr( strtolower( $section_key ) ); ?>" class="xpro-dashboard-tab-link-<?php echo esc_attr( $section_key ); ?>">
@@ -98,7 +97,6 @@ $sections = apply_filters( 'xpro_elementor_addons_admin_sections_list', $section
 					<div class="xpro-dashboard-content-wrapper">
 						<?php
 						foreach ( $sections as $section_key => $section ) :
-							reset( $sections );
 							include XPRO_ELEMENTOR_ADDONS_DIR_PATH . 'libs/dashboard/views/settings-' . $section_key . '.php';
 						endforeach;
 						?>

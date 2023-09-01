@@ -36,6 +36,9 @@ class Xpro_Elementor_Starter_Sites {
 	 * @var      object Xpro_Elementor_Starter_Sites_Admin    $admin
 	 */
 	public $admin;
+	public $actions;
+	public $filters;
+	public $errors;
 
 	/**
 	 * Main Xpro_Elementor_Starter_Sites Instance

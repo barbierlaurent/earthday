@@ -32,8 +32,19 @@ class Xpro_WPML_Compatibility {
 		include_once XPRO_ELEMENTOR_ADDONS_DIR_PATH . 'inc/wpml/widgets/simple-portfolio.php';
 		include_once XPRO_ELEMENTOR_ADDONS_DIR_PATH . 'inc/wpml/widgets/social-icon.php';
 		include_once XPRO_ELEMENTOR_ADDONS_DIR_PATH . 'inc/wpml/widgets/social-share.php';
+		include_once XPRO_ELEMENTOR_ADDONS_DIR_PATH . 'inc/wpml/widgets/hero-slider.php';
 
 		$widgets_map = array(
+			'xpro-animated-link'       => array(
+				'conditions' => array( 'widgetType' => 'xpro-animated-link' ),
+				'fields'     => array(
+					array(
+						'field'       => 'text',
+						'type'        => __( 'Animated Link: Text', 'xpro-elementor-addons' ),
+						'editor_type' => 'LINE',
+					),
+				),
+			),
 			'xpro-author-box'          => array(
 				'conditions' => array( 'widgetType' => 'xpro-author-box' ),
 				'fields'     => array(
@@ -536,7 +547,11 @@ class Xpro_WPML_Compatibility {
 						'editor_type' => 'AREA',
 					),
 				),
-			)
+			),
+			'xpro-hero-slider'         => array(
+				'conditions'        => array( 'widgetType' => 'xpro-hero-slider' ),
+				'integration-class' => __NAMESPACE__ . '\\WPML_Hero_Slider',
+			),
 		);
 
 		foreach ( $widgets_map as $key => $data ) {

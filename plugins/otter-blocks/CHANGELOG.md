@@ -1,3 +1,24 @@
+##### [Version 2.3.4](https://github.com/Codeinwp/otter-blocks/compare/v2.3.3...v2.3.4) (2023-08-23)
+
+- Fix z-index with Shape Divider in Section
+- Fix Tabs Block Resetting Editor Sidebar When Changing Viewport
+- Fix Fatal Error in Form Submission Page in Certain Cases If Viewed as Super Admin
+- Fix Progress Bar Height for Mobile Devices
+- Fix Stripe Block Not Working Correctly in WP 5.9
+- Fix Form Submit Messages Not Working
+
+##### [Version 2.3.3](https://github.com/Codeinwp/otter-blocks/compare/v2.3.2...v2.3.3) (2023-08-11)
+
+- WordPress 6.3 Compatibility
+
+##### [Version 2.3.2](https://github.com/Codeinwp/otter-blocks/compare/v2.3.1...v2.3.2) (2023-07-17)
+
+- Added Autoresponder to Stripe Block
+- Adding Alternative Style to Review Block
+- Improvements to Dynamic Value Module
+- Fix Form Redirection Not Working Correctly
+- Fix Bow Shadow Not Visible in the Editor
+
 ##### [Version 2.3.1](https://github.com/Codeinwp/otter-blocks/compare/v2.3.0...v2.3.1) (2023-06-20)
 
 - Added Option to Allow Block Tools to Be Enabled by Default

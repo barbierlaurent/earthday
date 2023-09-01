@@ -259,6 +259,11 @@ class Form_Server {
 			if ( $res->has_error() || $form_data->has_error() ) {
 				$res->set_code( $form_data->get_error_code() );
 			} else {
+
+				if ( ! empty( $form_options->get_redirect_link() ) ) {
+					$res->add_response_field( 'redirectLink', $form_options->get_redirect_link() );
+				}
+
 				// Select the submit function based on the provider.
 				$provider_handlers = apply_filters( 'otter_select_form_provider', $form_data );
 
@@ -273,20 +278,22 @@ class Form_Server {
 				do_action( 'otter_form_after_submit', $form_data );
 
 				if ( ! ( $form_data instanceof Form_Data_Request ) ) {
-					$res->set_code( Form_Data_Response::ERROR_RUNTIME_ERROR );
-					$res->add_reason( __( 'The form data class is not valid after performing provider actions! Some hook is corrupting the data.', 'otter-blocks' ) );
+					$res->set_code( Form_Data_Response::ERROR_RUNTIME_ERROR )
+						->add_reason( __( 'The form data class is not valid after performing provider actions! Some hook is corrupting the data.', 'otter-blocks' ) );
 				}
 
 				if ( $form_data->has_error() ) {
-					$res->set_code( $form_data->get_error_code() );
+					$res->set_code( $form_data->get_error_code() )
+						->set_display_error( $form_options->get_error_message() );
 				} else {
-					$res->set_code( Form_Data_Response::SUCCESS_EMAIL_SEND );
-					$res->mark_as_success();
+					$res->set_code( Form_Data_Response::SUCCESS_EMAIL_SEND )
+						->set_success_message( $form_options->get_submit_message() )
+						->mark_as_success();
 				}
 			}
 		} catch ( Exception $e ) {
-			$res->set_code( Form_Data_Response::ERROR_RUNTIME_ERROR );
-			$res->add_reason( $e->getMessage() );
+			$res->set_code( Form_Data_Response::ERROR_RUNTIME_ERROR )
+				->add_reason( $e->getMessage() );
 			$form_data->set_error( Form_Data_Response::ERROR_RUNTIME_ERROR, $e->getMessage() );
 			$this->send_error_email( $form_data );
 		} finally {
@@ -371,7 +378,7 @@ class Form_Server {
 				}
 			}
 
-			// phpcs:ignore
+			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_mail_wp_mail
 			$email_was_send = wp_mail( $to, $email_subject, $email_body, $headers, $attachments );
 			if ( ! $email_was_send ) {
 				$is_warning = Pro::is_pro_active() && strstr( $form_options->get_submissions_save_location(), 'database' );
@@ -541,8 +548,8 @@ class Form_Server {
 		// Sent the form date to the admin site as a default behaviour.
 		$to      = sanitize_email( get_site_option( 'admin_email' ) );
 		$headers = array( 'Content-Type: text/html; charset=UTF-8', 'From: ' . esc_url( get_site_url() ) );
-        // phpcs:ignore
-        wp_mail( $to, $email_subject, $email_body, $headers );
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_mail_wp_mail
+		wp_mail( $to, $email_subject, $email_body, $headers );
 	}
 
 	/**
@@ -563,7 +570,7 @@ class Form_Server {
 				$to = $form_data->get_payload_field( 'to' );
 			}
 			$headers = array( 'Content-Type: text/html; charset=UTF-8', 'From: ' . get_bloginfo( 'name', 'display' ) . '<' . $to . '>' );
-			// phpcs:ignore
+			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.wp_mail_wp_mail
 			$res->set_success( wp_mail( $to, $email_subject, $email_body, $headers ) );
 		} catch ( Exception  $e ) {
 			$res->set_code( Form_Data_Response::ERROR_RUNTIME_ERROR );

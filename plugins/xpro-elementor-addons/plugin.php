@@ -28,18 +28,6 @@ class Xpro_Elementor_Addons {
 	private static $instance = null;
 
 	/**
-	 *  Xpro_Elementor_Addons class constructor
-	 *
-	 * Register plugin action hooks and filters
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 */
-	public function __construct() {
-		add_action( 'init', array( $this, 'i18n' ) );
-	}
-
-	/**
 	 * Instance
 	 *
 	 * Ensures only one instance of the class is loaded or can be loaded.
@@ -113,14 +101,6 @@ class Xpro_Elementor_Addons {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 		add_filter( 'plugin_action_links_' . XPRO_ELEMENTOR_ADDONS_BASE, array( $this, 'plugin_action_links' ) );
 
-	}
-
-	public function i18n() {
-		load_plugin_textdomain(
-			'xpro-elementor-addons',
-			false,
-			dirname( plugin_basename( XPRO_ELEMENTOR_ADDONS__FILE__ ) ) . '/language/'
-		);
 	}
 
 	public function include_files() {
