@@ -160,10 +160,17 @@ function show_registration_list_shortcode() {
 
 
 function display_registration_button_shortcode($atts, $content = null) {
-    if (is_user_logged_in()) {
-        $user_id = get_current_user_id();
+
+    if (is_user_logged_in()) {	
+
+		$user_id = get_current_user_id();
         $opportunity_id = get_the_ID();
-        
+	
+		$roles = get_user_roles($user_id);
+		if (in_array('farmer', $roles) || in_array('food_bank', $roles)) {
+			return '';
+		} 
+
         if (is_user_already_registered($user_id, $opportunity_id)) {
             return '<h3 id=registered-label>You are Registered to this event. </h3><button id=gleanerRegistrationButton class="unregister-button">Unregister</button>';
         } else {
@@ -174,9 +181,19 @@ function display_registration_button_shortcode($atts, $content = null) {
 }
 
 
+function get_user_roles($user_id) {
+	if (!empty($user_id)) {
+		$user = new WP_User($user_id);
+		$roles = $user -> roles;
+		return $roles;
+	}
+	return ''; 
+}
+
 add_shortcode('display_registration_button', 'display_registration_button_shortcode');
 add_shortcode('show_registration_list_shortcode', 'show_registration_list_shortcode');
 add_shortcode('is_user_already_registered', 'is_user_already_registered');
+add_shortcode('get_user_roles', 'get_user_roles');
 
 
 add_action('wp_ajax_new_registration_action', 'new_registration_callback');
