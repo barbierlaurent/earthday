@@ -1,14 +1,14 @@
  // Global Variables
 var registrationButtonHTML = {
     register: '<button id=gleanerRegistrationButton class="register-button">Register</button>',
-    unregister: '<h3 id=registered-label>You are Registered to this event. </h3><button id=gleanerRegistrationButton class="unregister-button">Unregister</button>'
+    unregister: '<h3 id=registered-label>You are Registered to this event. </h3><button id=gleanerRegistrationButton class="unregister-button">Unregister</button>',
+    waitingList: '<button id=gleanerRegistrationButton class="add-waiting-list-button">Add to waiting list</button>'
 };
 
 // Initialization
 jQuery(document).ready(function($) {
     $('#gleanerRegistrationButton').on('click', attachRegisterButtonClickHandler($));
 });
-
 
 // Functions
 function attachRegisterButtonClickHandler($) {
@@ -18,9 +18,11 @@ function attachRegisterButtonClickHandler($) {
 
 		if (button.hasClass('register-button')) {
 			registerOrUnregisterToOpportunity($, opportunityId, button, 'new_registration_action');
-		} else if (button.hasClass('unregister-button')) {
+		}  else if (button.hasClass('unregister-button')) {
 			registerOrUnregisterToOpportunity($, opportunityId, button, 'deregistration_action');
-		}
+		} else if (button.hasClass('add-waiting-list-button')) {
+			registerOrUnregisterToOpportunity($, opportunityId, button, 'add_waiting_list_action');
+		} 
 	}
 }
 
@@ -34,8 +36,10 @@ function registerOrUnregisterToOpportunity($, opportunityId, button, action) {
             opportunity_id: opportunityId
         },
         success: function(response) {
+            location.reload();
             if (response.success) {
-                swapRegistrationButton($, button); // Replace the button
+                location.reload();
+                //swapRegistrationButton($, button); // Replace the button
             }
             alert(response.message);
         },
@@ -46,8 +50,9 @@ function registerOrUnregisterToOpportunity($, opportunityId, button, action) {
 }
 
 function swapRegistrationButton($, button) {
+    
     var replacementHtml = '';
-    if (button.hasClass('register-button')) {
+    if (button.hasClass('register-button') || button.hasClass('add-waiting-list-button')) {
         replacementHtml = registrationButtonHTML.unregister;
     } else {
         var h3Element = document.getElementById('registered-label');
@@ -58,5 +63,5 @@ function swapRegistrationButton($, button) {
     }
 
     button.replaceWith(replacementHtml);
-    $('#gleanerRegistrationButton').on('click', attachRegisterButtonClickHandler($));
+    $('#gleanerRegistrationButton').on('click', attachRegisterButtonClickHandler($)); 
 }
