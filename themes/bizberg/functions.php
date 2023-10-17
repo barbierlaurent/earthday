@@ -2453,6 +2453,7 @@ function bizberg_get_pro_link(){
 		case 'business-event':
 		case 'business-event-conference':
 		case 'epic-business-event':
+		case 'business-conference':
 			return 'https://bizbergthemes.com/downloads/business-event-pro/';
 			break;
 

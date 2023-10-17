@@ -1,0 +1,230 @@
+
+Started Import Process
+# System Details: 
+Debug Mode 		: Disabled
+Operating System 	: Darwin
+Software 		: apache2457unixphp829
+MySQL version 		: 8.1.0
+XML Reader 		: Yes
+PHP Version 		: 8.2.9
+PHP Max Input Vars 	: 1000
+PHP Max Post Size 	: 8M
+PHP Extension GD 	: Yes
+PHP Max Execution Time 	: 30
+Max Upload Size 	: 2 MB
+Memory Limit 		: Current memory limit 40M. We recommend setting memory to at least 64M.
+Timezone 		: 0
+
+-----
+
+Importing Started! - 03:02:25 UTC
+---
+
+Deleted customizer Settings {"featured_images":false,"breadcrumb":false,"cta_button":false,"minified_css":false,"front_page":0,"home_headline":"HAPPINESS","home_subheadline":"IS A WARM CUP","home_content_area":"Your title, subtitle and this very content is editable from Theme Option. Call to Action button and its destination link as well. Image on your right can be an image or even YouTube video if you like.","cta_text":"Call to Action","cta_url":"#nogo","featured_content":null,"testimonials":0,"testimonial_title":null,"google_site_verification":"","bing_site_verification":"","yahoo_site_verification":"","site_statistics_tracker":"","twitter_uid":"","facebook_uid":"","linkedin_uid":"","youtube_uid":"","stumble_uid":"","rss_uid":"","google_plus_uid":"","instagram_uid":"","pinterest_uid":"","yelp_uid":"","vimeo_uid":"","foursquare_uid":"","email_uid":"","testimonial_val":null,"teammember1":null,"teammember2":null,"teammember3":null,"feature1":null,"feature2":null,"feature3":null,"responsive_inline_css":"","responsive_inline_js_head":"","responsive_inline_js_footer":"","responsive_inline_css_js_footer":"","static_page_layout_default":"default","single_post_layout_default":"default","blog_posts_index_layout_default":"default","site_layout_option":"boxed","button_style":"default","home-widgets":false,"site_footer_option":"footer-3-col","res_hide_site_title":false,"res_hide_tagline":true,"stumbleupon_uid":""}
+Deleted - Site Options {"custom_logo":"1385","show_on_front":"page","page_on_front":"Home","page_for_posts":"0","nav_menu_locations":false,"wpforms_settings":false,"elementor_container_width":false,"elementor_cpt_support":["post","page"],"elementor_css_print_method":"external","elementor_default_generic_fonts":false,"elementor_disable_color_schemes":"yes","elementor_disable_typography_schemes":"yes","elementor_editor_break_lines":"","elementor_exclude_user_roles":false,"elementor_global_image_lightbox":false,"elementor_page_title_selector":false,"elementor_scheme_color":{"1":"#6ec1e4","2":"#54595f","3":"#7a7a7a","4":"#61ce70"},"elementor_scheme_color-picker":{"1":"#6ec1e4","2":"#54595f","3":"#7a7a7a","4":"#61ce70","5":"#4054b2","6":"#23a455","7":"#000","8":"#fff"},"elementor_scheme_typography":{"1":{"font_family":"Roboto","font_weight":"600"},"2":{"font_family":"Roboto Slab","font_weight":"400"},"3":{"font_family":"Roboto","font_weight":"400"},"4":{"font_family":"Roboto","font_weight":"500"}},"elementor_space_between_widgets":false,"elementor_stretched_section_container":false}
+Deleted - Term 119 - Menu1 nav_menu
+Deleted - Form ID 2051 - wpforms - Simple Contact Form
+Deleted - Post ID 47 - attachment - pexels-jatuphon-buraphon-348689
+Deleted - Post ID 50 - attachment - pexels-soo-ann-woon-3265437
+Deleted - Post ID 82 - attachment - icons8-harvester-64
+Deleted - Post ID 2053 - attachment - icons8-deliver-64
+Deleted - Post ID 2054 - attachment - icons8-fruits-and-vegetables-64
+Deleted - Post ID 2055 - attachment - pexels-anna-shvets-5231223
+Deleted - Post ID 2056 - attachment - pexels-gary-barnes-6231704
+Deleted - Post ID 2057 - attachment - pexels-kampus-production-7658791
+Deleted - Post ID 136 - attachment - pexels-gary-barnes-6231651
+Deleted - Post ID 203 - attachment - icons8-agricultural-lender-78
+Deleted - Post ID 204 - attachment - icons8-irrigation-64
+Deleted - Post ID 205 - attachment - icons8-tractor-64
+Deleted - Post ID 240 - attachment - grass-gc03659f34_640
+Deleted - Post ID 241 - attachment - hd-wallpaper-ge5d6fa10a_640
+Deleted - Post ID 242 - attachment - pexels-greta-hoffman-7728347
+Deleted - Post ID 243 - attachment - pexels-greta-hoffman-7728347 (1)
+Deleted - Post ID 244 - attachment - vegetables-g274176804_640
+Deleted - Post ID 245 - attachment - food-g3110d7764_640
+Deleted - Post ID 246 - attachment - farmer-agriculture-products-1
+Deleted - Post ID 247 - attachment - farmer-fresh-vegetables-1
+Deleted - Post ID 248 - attachment - farmer-organic-products
+Deleted - Post ID 249 - attachment - farming-dairy-products
+Deleted - Post ID 276 - attachment - Group 1897
+Deleted - Post ID 277 - attachment - Group 1898
+Deleted - Post ID 278 - attachment - Group 1899
+Deleted - Post ID 279 - attachment - Group 1900
+Deleted - Post ID 335 - attachment - farmer-carrot-organicproduct
+Deleted - Post ID 2058 - attachment - farmer-our-products-1
+Deleted - Post ID 2059 - attachment - pexels-pixabay-51947
+Deleted - Post ID 543 - attachment - pexels-wendy-wei-1656663
+Deleted - Post ID 2060 - attachment - farmer-team2
+Deleted - Post ID 2061 - attachment - farmer-team3
+Deleted - Post ID 2062 - attachment - farmer-team-3
+Deleted - Post ID 2063 - attachment - farmer-team-5
+Deleted - Post ID 2064 - attachment - icons8-farming-64
+Deleted - Post ID 2065 - attachment - icons8-quality-64 (1)
+Deleted - Post ID 2066 - attachment - icons8-farming-64 (1)
+Deleted - Post ID 2067 - attachment - pexels-markus-spiske-2818573
+Deleted - Post ID 2068 - attachment - pexels-thisisengineering-3912372
+Deleted - Post ID 2069 - attachment - pexels-travel-suisse-2316571
+Deleted - Post ID 816 - attachment - pexels-anna-tarazevich-7299963
+Deleted - Post ID 818 - attachment - pexels-andrea-piacquadio-774909
+Deleted - Post ID 819 - attachment - pexels-christina-morillo-1181686
+Deleted - Post ID 820 - attachment - pexels-daniel-xavier-1212984
+Deleted - Post ID 821 - attachment - pexels-daniel-xavier-1239291
+Deleted - Post ID 822 - attachment - pexels-italo-melo-2379004
+Deleted - Post ID 823 - attachment - pexels-justin-shaifer-1222271
+Deleted - Post ID 824 - attachment - pexels-kampus-production-6829578
+Deleted - Post ID 825 - attachment - pexels-nicholas-swatz-2770600
+Deleted - Post ID 826 - attachment - alexander-hipp-iEEBWgY_6lA-unsplash
+Deleted - Post ID 1191 - attachment - Group 1905
+Deleted - Post ID 1348 - attachment - pexels-irita-antonevica-306801
+Deleted - Post ID 1349 - attachment - pexels-los-muertos-crew-8064109
+Deleted - Post ID 1350 - attachment - pexels-markus-spiske-94443
+Deleted - Post ID 1376 - attachment - farmer-homeslider1
+Deleted - Post ID 1377 - attachment - farmer-homeslider3
+Deleted - Post ID 1378 - attachment - farmer-homeslider-2
+Deleted - Post ID 1385 - attachment - farmer-logo-1
+Deleted - Post ID 1425 - attachment - farmer-contact-us
+Deleted - Post ID 1691 - attachment - farmer-footer-logo-2
+Deleted - Post ID 2070 - elementor_library - Default Kit
+Deleted - Post ID 2071 - nav_menu_item - 
+Deleted - Post ID 2072 - nav_menu_item - 
+Deleted - Post ID 2073 - nav_menu_item - 
+Deleted - Post ID 35 - nav_menu_item - 
+Deleted - Post ID 2074 - nav_menu_item - 
+Deleted - Post ID 1937 - attachment - farmer-our-farm-3
+Deleted - Post ID 1945 - attachment - farmer-knowabout-us
+Deleted - Post ID 2133 - attachment - pexels-anna-tarazevich-7299983
+Deleted - Post ID 2159 - attachment - Frame 429
+Deleted - Post ID 2167 - attachment - Framer-our-farmframe-2
+Deleted - Post ID 2168 - attachment - Framer-our-farmframe-3
+Deleted - Post ID 2169 - attachment - Framer-ourfarmframe-1
+Deleted - Post ID 2191 - attachment - farmer-our-farm-frame-4
+Deleted - Post ID 2257 - attachment - Gallery-hero
+Deleted - Post ID 2288 - attachment - Organic-farm-food
+Deleted - Post ID 2289 - attachment - Galleryimage
+Deleted - Post ID 2303 - nav_menu_item - Pages
+Deleted - Post ID 2309 - attachment - error-img
+Deleted - Post ID 2316 - attachment - 404-hero
+Deleted - Post ID 2317 - post - Testimonial
+Deleted - Post ID 2318 - page - Home
+Deleted - Post ID 15 - page - Our Farm
+Deleted - Post ID 2319 - page - Services
+Deleted - Post ID 2320 - page - Contact
+Deleted - Post ID 2321 - page - Testimonial
+Deleted - Post ID 834 - wp_block - Email Address (Reusable)
+Deleted - Post ID 835 - wp_block - Password (Reusable)
+Deleted - Post ID 836 - wp_block - First and Last Name (Reusable)
+Deleted - Post ID 837 - wp_block - Address (Reusable)
+Deleted - Post ID 838 - wp_block - Phone Number (Reusable)
+Deleted - Post ID 839 - wp_block - Public Display Name (Reusable)
+Deleted - Post ID 2254 - page - Gallery
+Deleted - Post ID 2304 -  - 
+Deleted - Post ID 2305 - page - 404 Page
+Deleted - Post ID 2307 -  - 
+Inserted WP Form 2388
+Importing from XML https://ccreadysites.cyberchimps.com/wp-content/uploads/sites/271/wxr.xml
+Inserted - Term 120 - {"term_id":120,"name":"Menu1","slug":"menu1","term_group":0,"term_taxonomy_id":120,"taxonomy":"nav_menu","description":"","parent":0,"count":0,"filter":"raw"}
+Inserted - Post 47 - attachment - pexels-jatuphon-buraphon-348689
+Inserted - Post 50 - attachment - pexels-soo-ann-woon-3265437
+Inserted - Post 82 - attachment - icons8-harvester-64
+Inserted - Post 2390 - attachment - icons8-deliver-64
+Inserted - Post 2391 - attachment - icons8-fruits-and-vegetables-64
+Inserted - Post 2392 - attachment - pexels-anna-shvets-5231223
+Inserted - Post 2393 - attachment - pexels-gary-barnes-6231704
+Inserted - Post 2394 - attachment - pexels-kampus-production-7658791
+Inserted - Post 136 - attachment - pexels-gary-barnes-6231651
+Inserted - Post 203 - attachment - icons8-agricultural-lender-78
+Inserted - Post 204 - attachment - icons8-irrigation-64
+Inserted - Post 205 - attachment - icons8-tractor-64
+Inserted - Post 240 - attachment - grass-gc03659f34_640
+Inserted - Post 241 - attachment - hd-wallpaper-ge5d6fa10a_640
+Inserted - Post 242 - attachment - pexels-greta-hoffman-7728347
+Inserted - Post 243 - attachment - pexels-greta-hoffman-7728347 (1)
+Inserted - Post 244 - attachment - vegetables-g274176804_640
+Inserted - Post 245 - attachment - food-g3110d7764_640
+Inserted - Post 246 - attachment - farmer-agriculture-products-1
+Inserted - Post 247 - attachment - farmer-fresh-vegetables-1
+Inserted - Post 248 - attachment - farmer-organic-products
+Inserted - Post 249 - attachment - farming-dairy-products
+Inserted - Post 276 - attachment - Group 1897
+Inserted - Post 277 - attachment - Group 1898
+Inserted - Post 278 - attachment - Group 1899
+Inserted - Post 279 - attachment - Group 1900
+Inserted - Post 335 - attachment - farmer-carrot-organicproduct
+Inserted - Post 2395 - attachment - farmer-our-products-1
+Inserted - Post 2396 - attachment - pexels-pixabay-51947
+Inserted - Post 543 - attachment - pexels-wendy-wei-1656663
+Inserted - Post 2397 - attachment - farmer-team2
+Inserted - Post 2398 - attachment - farmer-team3
+Inserted - Post 2399 - attachment - farmer-team-3
+Inserted - Post 2400 - attachment - farmer-team-5
+Inserted - Post 2401 - attachment - icons8-farming-64
+Inserted - Post 2402 - attachment - icons8-quality-64 (1)
+Inserted - Post 2403 - attachment - icons8-farming-64 (1)
+Inserted - Post 2404 - attachment - pexels-markus-spiske-2818573
+Inserted - Post 2405 - attachment - pexels-thisisengineering-3912372
+Inserted - Post 2406 - attachment - pexels-travel-suisse-2316571
+Inserted - Post 816 - attachment - pexels-anna-tarazevich-7299963
+Inserted - Post 818 - attachment - pexels-andrea-piacquadio-774909
+Inserted - Post 819 - attachment - pexels-christina-morillo-1181686
+Inserted - Post 820 - attachment - pexels-daniel-xavier-1212984
+Inserted - Post 821 - attachment - pexels-daniel-xavier-1239291
+Inserted - Post 822 - attachment - pexels-italo-melo-2379004
+Inserted - Post 823 - attachment - pexels-justin-shaifer-1222271
+Inserted - Post 824 - attachment - pexels-kampus-production-6829578
+Inserted - Post 825 - attachment - pexels-nicholas-swatz-2770600
+Inserted - Post 826 - attachment - alexander-hipp-iEEBWgY_6lA-unsplash
+Inserted - Post 1191 - attachment - Group 1905
+Inserted - Post 1348 - attachment - pexels-irita-antonevica-306801
+Inserted - Post 1349 - attachment - pexels-los-muertos-crew-8064109
+Inserted - Post 1350 - attachment - pexels-markus-spiske-94443
+Inserted - Post 1376 - attachment - farmer-homeslider1
+Inserted - Post 1377 - attachment - farmer-homeslider3
+Inserted - Post 1378 - attachment - farmer-homeslider-2
+Inserted - Post 1385 - attachment - farmer-logo-1
+Inserted - Post 1425 - attachment - farmer-contact-us
+Inserted - Post 1691 - attachment - farmer-footer-logo-2
+Inserted - Post 2407 - elementor_library - Default Kit
+Inserted - Post 2408 - nav_menu_item - 
+Inserted - Post 2409 - nav_menu_item - 
+Inserted - Post 2410 - nav_menu_item - 
+Inserted - Post 35 - nav_menu_item - 
+Inserted - Post 2411 - nav_menu_item - 
+Inserted - Post 1937 - attachment - farmer-our-farm-3
+Inserted - Post 1945 - attachment - farmer-knowabout-us
+Inserted - Post 2133 - attachment - pexels-anna-tarazevich-7299983
+Inserted - Post 2159 - attachment - Frame 429
+Inserted - Post 2167 - attachment - Framer-our-farmframe-2
+Inserted - Post 2168 - attachment - Framer-our-farmframe-3
+Inserted - Post 2169 - attachment - Framer-ourfarmframe-1
+Inserted - Post 2191 - attachment - farmer-our-farm-frame-4
+Inserted - Post 2257 - attachment - Gallery-hero
+Inserted - Post 2288 - attachment - Organic-farm-food
+Inserted - Post 2289 - attachment - Galleryimage
+Inserted - Post 2303 - nav_menu_item - Pages
+Inserted - Post 2309 - attachment - error-img
+Inserted - Post 2316 - attachment - 404-hero
+Inserted - Post 2412 - post - Testimonial
+Inserted - Post 2413 - page - Home
+Inserted - Post 15 - page - Our Farm
+Inserted - Post 2414 - page - Services
+Inserted - Post 2415 - page - Contact
+Inserted - Post 2416 - page - Testimonial
+Inserted - Post 834 - wp_block - Email Address (Reusable)
+Inserted - Post 835 - wp_block - Password (Reusable)
+Inserted - Post 836 - wp_block - First and Last Name (Reusable)
+Inserted - Post 837 - wp_block - Address (Reusable)
+Inserted - Post 838 - wp_block - Phone Number (Reusable)
+Inserted - Post 839 - wp_block - Public Display Name (Reusable)
+Inserted - Post 2254 - page - Gallery
+Inserted - Post 2304 - nav_menu_item - 
+Inserted - Post 2305 - page - 404 Page
+Inserted - Post 2307 - nav_menu_item - 
+Imported Customizer Settings {"theme_mods_responsive":{"0":false,"responsive_container_width":1140,"custom_css_post_id":-1,"nav_menu_locations":{"header-menu":24},"body_typography":{"font-family":"'Poppins', sans-serif","font-weight":"400"},"headings_typography":{"font-family":"'Saira', sans-serif","font-weight":"400"},"heading_h1_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"80px","line-height":"1.3","text-transform":"capitalize"},"responsive_h1_text_color":"#fefefe","responsive_h2_text_color":"#0c1d06","responsive_h3_text_color":"#0e2207","heading_h2_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"40px","text-transform":"capitalize"},"heading_h3_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"30px","text-transform":"capitalize"},"heading_h4_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"25px","text-transform":""},"heading_h5_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"20px"},"heading_h6_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"18px","text-transform":"capitalize"},"responsive_header_hover_menu_background_color":"#28502e","responsive_header_menu_link_hover_color":"#efce7c","responsive_header_menu_link_color":"#28502e","header_menu_typography":{"font-family":"'Poppins', sans-serif","font-weight":"400","font-size":"18px"},"custom_logo":1385,"responsive_hide_title":1,"responsive_button_color":"#28502e","responsive_button_hover_color":"#e1ba3a","responsive_button_hover_text_color":"#000000","responsive_button_border_color":"#28502e","responsive_button_hover_border_color":"#e1ba3a","responsive_buttons_top_padding":"20","responsive_buttons_left_padding":"50","responsive_buttons_bottom_padding":"20","responsive_buttons_right_padding":"50","responsive_buttons_radius":"3","button_typography":{"font-family":"'Quicksand', sans-serif","font-weight":"700","line-height":"1"},"responsive_mobile_menu_breakpoint":"1000","responsive_header_top_padding":"20","responsive_header_left_padding":0,"responsive_header_bottom_padding":"20","responsive_header_right_padding":0,"responsive_header_tablet_top_padding":"015","responsive_header_tablet_right_padding":"015","responsive_header_tablet_bottom_padding":"015","responsive_header_tablet_left_padding":"015","responsive_header_active_menu_background_color":"#28502e","responsive_header_active_menu_link_color":"#efce7c","heading_h4_tablet_typography":{"font-size":"18px"},"heading_h1_tablet_typography":{"font-size":"35px"},"heading_h1_mobile_typography":{"font-size":"33px"},"heading_h4_mobile_typography":{"font-size":"18px"},"heading_h2_tablet_typography":{"font-size":"30px"},"heading_h2_mobile_typography":{"font-size":"25px"},"responsive_h6_text_color":"#1f6306","responsive_footer_full_width":0,"responsive_footer_bar_layout":"vertical","responsive_transparent_header_sub_menu_link_hover_color":"#efce7c","responsive_transparent_header_active_sub_menu_background_color":"#28502e","responsive_transparent_header_hover_sub_menu_background_color":"#28502e","responsive_transparent_header_sub_menu_active_link_color":"#efce7c","responsive_header_active_sub_menu_background_color":"#28502e","responsive_header_hover_sub_menu_background_color":"#28502e","responsive_header_sub_menu_active_link_color":"#efce7c","responsive_header_sub_menu_link_hover_color":"#efce7c"},"responsive_settings":{"featured_images":false,"breadcrumb":false,"cta_button":false,"minified_css":false,"front_page":0,"home_headline":"HAPPINESS","home_subheadline":"IS A WARM CUP","home_content_area":"Your title, subtitle and this very content is editable from Theme Option. Call to Action button and its destination link as well. Image on your right can be an image or even YouTube video if you like.","cta_text":"Call to Action","cta_url":"#nogo","featured_content":null,"testimonials":0,"testimonial_title":null,"google_site_verification":"","bing_site_verification":"","yahoo_site_verification":"","site_statistics_tracker":"","twitter_uid":"","facebook_uid":"","linkedin_uid":"","youtube_uid":"","stumble_uid":"","rss_uid":"","google_plus_uid":"","instagram_uid":"","pinterest_uid":"","yelp_uid":"","vimeo_uid":"","foursquare_uid":"","email_uid":"","testimonial_val":null,"teammember1":null,"teammember2":null,"teammember3":null,"feature1":null,"feature2":null,"feature3":null,"responsive_inline_css":"","responsive_inline_js_head":"","responsive_inline_js_footer":"","responsive_inline_css_js_footer":"","static_page_layout_default":"default","single_post_layout_default":"default","blog_posts_index_layout_default":"default","site_layout_option":"boxed","button_style":"default","home-widgets":false,"site_footer_option":"footer-3-col","res_hide_site_title":false,"res_hide_tagline":true,"stumbleupon_uid":""},"custom_css":""}
+Old Responsive Theme Options {"featured_images":false,"breadcrumb":false,"cta_button":false,"minified_css":false,"front_page":0,"home_headline":"HAPPINESS","home_subheadline":"IS A WARM CUP","home_content_area":"Your title, subtitle and this very content is editable from Theme Option. Call to Action button and its destination link as well. Image on your right can be an image or even YouTube video if you like.","cta_text":"Call to Action","cta_url":"#nogo","featured_content":null,"testimonials":0,"testimonial_title":null,"google_site_verification":"","bing_site_verification":"","yahoo_site_verification":"","site_statistics_tracker":"","twitter_uid":"","facebook_uid":"","linkedin_uid":"","youtube_uid":"","stumble_uid":"","rss_uid":"","google_plus_uid":"","instagram_uid":"","pinterest_uid":"","yelp_uid":"","vimeo_uid":"","foursquare_uid":"","email_uid":"","testimonial_val":null,"teammember1":null,"teammember2":null,"teammember3":null,"feature1":null,"feature2":null,"feature3":null,"responsive_inline_css":"","responsive_inline_js_head":"","responsive_inline_js_footer":"","responsive_inline_css_js_footer":"","static_page_layout_default":"default","single_post_layout_default":"default","blog_posts_index_layout_default":"default","site_layout_option":"boxed","button_style":"default","home-widgets":false,"site_footer_option":"footer-3-col","res_hide_site_title":false,"res_hide_tagline":true,"stumbleupon_uid":""}
+Backup - Responsive Theme Mods {"0":false,"responsive_container_width":1140,"custom_css_post_id":2330,"nav_menu_locations":{"header-menu":"119"},"body_typography":{"font-family":"'Poppins', sans-serif","font-weight":"400"},"headings_typography":{"font-family":"'Saira', sans-serif","font-weight":"400"},"heading_h1_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"80px","line-height":"1.3","text-transform":"capitalize"},"responsive_h1_text_color":"#fefefe","responsive_h2_text_color":"#0c1d06","responsive_h3_text_color":"#0e2207","heading_h2_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"40px","text-transform":"capitalize"},"heading_h3_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"30px","text-transform":"capitalize"},"heading_h4_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"25px","text-transform":""},"heading_h5_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"20px"},"heading_h6_typography":{"font-family":"'Signika', sans-serif","font-weight":"400","font-size":"18px","text-transform":"capitalize"},"responsive_header_hover_menu_background_color":"#28502e","responsive_header_menu_link_hover_color":"#efce7c","responsive_header_menu_link_color":"#28502e","header_menu_typography":{"font-family":"'Poppins', sans-serif","font-weight":"400","font-size":"18px"},"custom_logo":2332,"responsive_hide_title":1,"responsive_button_color":"#28502e","responsive_button_hover_color":"#e1ba3a","responsive_button_hover_text_color":"#000000","responsive_button_border_color":"#28502e","responsive_button_hover_border_color":"#e1ba3a","responsive_buttons_top_padding":"20","responsive_buttons_left_padding":"50","responsive_buttons_bottom_padding":"20","responsive_buttons_right_padding":"50","responsive_buttons_radius":"3","button_typography":{"font-family":"'Quicksand', sans-serif","font-weight":"700","line-height":"1"},"responsive_mobile_menu_breakpoint":"1000","responsive_header_top_padding":"20","responsive_header_left_padding":0,"responsive_header_bottom_padding":"20","responsive_header_right_padding":0,"responsive_header_tablet_top_padding":"015","responsive_header_tablet_right_padding":"015","responsive_header_tablet_bottom_padding":"015","responsive_header_tablet_left_padding":"015","responsive_header_active_menu_background_color":"#28502e","responsive_header_active_menu_link_color":"#efce7c","heading_h4_tablet_typography":{"font-size":"18px"},"heading_h1_tablet_typography":{"font-size":"35px"},"heading_h1_mobile_typography":{"font-size":"33px"},"heading_h4_mobile_typography":{"font-size":"18px"},"heading_h2_tablet_typography":{"font-size":"30px"},"heading_h2_mobile_typography":{"font-size":"25px"},"responsive_h6_text_color":"#1f6306","responsive_footer_full_width":0,"responsive_footer_bar_layout":"vertical","responsive_transparent_header_sub_menu_link_hover_color":"#efce7c","responsive_transparent_header_active_sub_menu_background_color":"#28502e","responsive_transparent_header_hover_sub_menu_background_color":"#28502e","responsive_transparent_header_sub_menu_active_link_color":"#efce7c","responsive_header_active_sub_menu_background_color":"#28502e","responsive_header_hover_sub_menu_background_color":"#28502e","responsive_header_sub_menu_active_link_color":"#efce7c","responsive_header_sub_menu_link_hover_color":"#efce7c"}
+Imported - Widgets {}
+Imported - Site Options {"custom_logo":"1385","show_on_front":"page","page_on_front":"Home","page_for_posts":"0","nav_menu_locations":false,"wpforms_settings":false,"elementor_container_width":false,"elementor_cpt_support":["post","page"],"elementor_css_print_method":"external","elementor_default_generic_fonts":false,"elementor_disable_color_schemes":"yes","elementor_disable_typography_schemes":"yes","elementor_editor_break_lines":"","elementor_exclude_user_roles":false,"elementor_global_image_lightbox":false,"elementor_page_title_selector":false,"elementor_scheme_color":{"1":"#6ec1e4","2":"#54595f","3":"#7a7a7a","4":"#61ce70"},"elementor_scheme_color-picker":{"1":"#6ec1e4","2":"#54595f","3":"#7a7a7a","4":"#61ce70","5":"#4054b2","6":"#23a455","7":"#000","8":"#fff"},"elementor_scheme_typography":{"1":{"font_family":"Roboto","font_weight":"600"},"2":{"font_family":"Roboto Slab","font_weight":"400"},"3":{"font_family":"Roboto","font_weight":"400"},"4":{"font_family":"Roboto","font_weight":"500"}},"elementor_space_between_widgets":false,"elementor_stretched_section_container":false}
+Complete 
+Batch Process Started!
+---- Processing WordPress Posts / Pages - for "Gutenberg" ----
+Batch Process Complete!
