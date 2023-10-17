@@ -133,9 +133,6 @@ class EventM_Event_Type_Controller_List {
                 }
             }   
         }
-        // if( count( $event_types ) > $count ){
-        //     $event_types = array_slice( $event_types, 0, $count );
-        // }
 
         $wp_query = new WP_Term_Query( $args );
         $wp_query->terms = $event_types;
@@ -220,9 +217,21 @@ class EventM_Event_Type_Controller_List {
      * @return object Post.
      */
     public function get_upcoming_events_for_event_type( $event_type_id, $args = array() ) {
+        $hide_past_events = ep_get_global_settings( 'single_type_hide_past_events' );
+        $past_events_meta_qry = '';
+        if( ! empty( $hide_past_events ) ) {
+            $past_events_meta_qry = array(
+                'relation' => 'OR',
+                array(
+                    'key'     => 'em_start_date_time',
+                    'value'   => current_time( 'timestamp' ),
+                    'compare' => '>=',
+                ),
+            );
+        }
         $filter = array(
-            'meta_key'    => 'em_start_date',
-            'orderby'     => 'em_start_date',
+            'meta_key'    => 'em_start_date_time',
+            'orderby'     => 'meta_value',
             'numberposts' => -1,
             'order'       => 'ASC',
             'meta_query'  => array( 'relation' => 'AND',
@@ -232,39 +241,15 @@ class EventM_Event_Type_Controller_List {
                         'value'   =>  $event_type_id,
                         'compare' => '='
                     ),
-                    /* array(
-                        'key'     => 'em_hide_event_from_events',
-                        'value'   => '1',
-                        'compare' => '!='
-                    ), */ 
-                    array(
-                        'relation' => 'OR',
-                        array(
-                            'key'     => 'em_start_date',
-                            'value'   => current_time( 'timestamp' ),
-                            'compare' => '>=',
-                        ),
-                        /*array(
-                            'key'     => 'em_end_date',
-                            'value'   => current_time( 'timestamp' ),
-                            'compare' => '<=',
-                        )*/
-                    ),
-                    /* array(
-                        'key'     => 'em_hide_event_from_calendar',
-                        'value'   => '1',
-                        'compare' => '!='
-                    ) */
+                    $past_events_meta_qry,
                 )
             ),
             'post_type' => EM_EVENT_POST_TYPE
         );
 
-        $args = wp_parse_args($args, $filter);
-        add_filter(' posts_orderby', 'em_posts_order_by' );
+        $args = wp_parse_args( $args, $filter );
         $wp_query = new WP_Query( $args );
         $wp_query->event_type_id = $event_type_id;
-        remove_filter( 'posts_orderby', 'em_posts_order_by' ); 
         return $wp_query;
     }
 

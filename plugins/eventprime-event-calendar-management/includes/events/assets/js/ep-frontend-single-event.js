@@ -1,5 +1,16 @@
 jQuery( function( $ ) {
     $( document ).ready(function() {
+        $( 'body' ).addClass( 'ep-event-detail-template' );
+        // hide default theme featured image and title
+        if( $( '.ep-event-detail-template .wp-block-post-featured-image' ).length > 0 ) {
+            $( '.ep-event-detail-template .wp-block-post-featured-image' ).hide();
+        }
+        if( $( '.ep-event-detail-template .wp-block-post-title' ).length > 0 ) {
+            $( '.ep-event-detail-template .wp-block-post-title' ).hide();
+        }
+        if( $( '.ep-event-detail-template header.entry-header' ).length > 0 ){
+            $( '.ep-event-detail-template header.entry-header' ).hide();
+        }
         $( document ).on( 'click', '#ep_sl_venue_more', function() {
             $( '#venue_hidden_details' ).toggle( 500 );
             $(this).toggleClass('ep-arrow-active');
@@ -234,14 +245,11 @@ jQuery( function( $ ) {
                 event.preventDefault();
             });
             
-            
             // Move Recurring data left right on mouseWheel
-
             const mouseWheel = document.querySelector('.ep-ticket-btn-radio');
             if (mouseWheel) {
                 mouseWheel.addEventListener('wheel', function (e) {
                     const ticketBtnMove = 15;
-
                     if (e.deltaY > 0)
                         mouseWheel.scrollLeft += ticketBtnMove;
                     else
@@ -249,33 +257,25 @@ jQuery( function( $ ) {
                     e.preventDefault();
                 });
             }
-            
         }
         
-      ///  Event Cover Image Setting
-                
-        console.log(eventprime.global_settings);
-        
-
-  
+        ///  Event Cover Image Setting
         var styleElement = $("<style>");
-
         // Set the text content to include dynamic variables in :root
         var styleContent = ":root {\n";
         if(eventprime.global_settings.event_detail_image_width){
            styleContent += "  --ep-imageWidht: " + eventprime.global_settings.event_detail_image_width + "px" +  ";\n";
-        }else{
-                styleContent += "  --ep-imageWidht: " + 'auto' + ";\n"; 
+        }   else{
+            styleContent += "  --ep-imageWidht: " + 'auto' + ";\n"; 
         }
         
         if(eventprime.global_settings.event_detail_image_height){
             if(eventprime.global_settings.event_detail_image_height == 'custom'){
                styleContent += "  --ep-imageHeight: " + eventprime.global_settings.event_detail_image_height_custom + "px"+ ";\n";  
-            }else{
-                 styleContent += "  --ep-imageHeight: " + eventprime.global_settings.event_detail_image_height + ";\n"; 
+            } else{
+                styleContent += "  --ep-imageHeight: " + eventprime.global_settings.event_detail_image_height + ";\n"; 
             }
-            
-        }else{
+        } else{
             styleContent += "  --ep-imageHeight: " + 'auto' + ";\n"; 
         }
         
@@ -284,7 +284,7 @@ jQuery( function( $ ) {
         }
         
         if(eventprime.global_settings.event_detail_image_align){
-               styleContent += "  --ep-imageAlign: " + eventprime.global_settings.event_detail_image_align + ";\n";
+            styleContent += "  --ep-imageAlign: " + eventprime.global_settings.event_detail_image_align + ";\n";
         }else{
             styleContent += "  --ep-imageAlign: " + 'center' + ";\n";
         }
@@ -294,27 +294,20 @@ jQuery( function( $ ) {
 
         // Append the <style> element to the <head> of the document
         $("head").append(styleElement);
-
-         
-         if(eventprime.global_settings.event_detail_image_align){
-             jQuery('.ep-single-event-slide-container').addClass(`ep-text-${eventprime.global_settings.event_detail_image_align}`);
-             jQuery('#ep_single_event_image').addClass(`ep-slide-align-${eventprime.global_settings.event_detail_image_align}`);
+        if(eventprime.global_settings.event_detail_image_align){
+            jQuery('.ep-single-event-slide-container').addClass(`ep-text-${eventprime.global_settings.event_detail_image_align}`);
+            jQuery('#ep_single_event_image').addClass(`ep-slide-align-${eventprime.global_settings.event_detail_image_align}`);
             if(eventprime.global_settings.event_detail_image_align !== "center"){
-               jQuery('.ep-single-event-slide-container').removeClass(`ep-text-center`); 
+                jQuery('.ep-single-event-slide-container').removeClass(`ep-text-center`); 
             }
-         }
-         
-        if(eventprime.global_settings.event_detail_image_width){
-             jQuery('#ep_single_event_image_gallery').addClass(`ep-slide-image-100`);
-          
-         }else{
-           jQuery('#ep_single_event_image_gallery').addClass(`ep-slide-image-auto`);  
-         }
-         
-         
-         
-        //Ends
+        }
         
+        if(eventprime.global_settings.event_detail_image_width){
+            jQuery('#ep_single_event_image_gallery').addClass(`ep-slide-image-100`);
+        } else{
+            jQuery('#ep_single_event_image_gallery').addClass(`ep-slide-image-auto`);  
+        }
+        //Ends
         
     });
 
@@ -359,7 +352,7 @@ jQuery( function( $ ) {
         if( ticket_id ) {
             booking_ticket_options_data = 0;
             $( '#ep_single_event_before_checkout_error_msg' ).html( '' );
-            let ticket_price = $( '#ep_ticket_price_' + ticket_id ).data( 'row_ticket_price' );
+            let row_ticket_price = $( '#ep_ticket_price_' + ticket_id ).data( 'row_ticket_price' );
             let qty = $( '#ep_event_ticket_qty_' + ticket_id ).val();
             let single_ticket_detail_id = 'single_ticket_detail' + ticket_id;
             let ep_added_ticket_option = $( '#ep_event_booking_ticket' ).attr( 'data-ticket_options' );
@@ -370,7 +363,7 @@ jQuery( function( $ ) {
             }
             let additional_fee_data = [], total_offer_discount_val = 0, total_offer_discount_text = '', offer_applied_text = '', offer_amount = 0;
             if( qty > 0 ) {
-                ticket_price = ticket_price * qty;
+                let ticket_price = row_ticket_price * qty;
                 let ticket_price_subtotal = parseFloat( ticket_price );
                 let tickets_data = $( '#ep_single_modal_ticket_' + ticket_id ).data( 'ticket_data' );
                 let offer_applied = get_applied_offer_data( ticket_id, qty );
@@ -384,11 +377,23 @@ jQuery( function( $ ) {
                     // calculate offer amount
                     let tps = ticket_price_subtotal;
                     $.each( offer_applied, function( ofn, ofn_data ) {
+                        let ep_apply_this_offer = 1;
+                        let offer_ticket_qty = qty;
+                        // check if ticket remaining for offer
+                        let ep_ticket_single_offer_data = $( '#ep_single_ticket_offer_' + ticket_id + '_' + ofn_data.uid ).data( 'offer_data' );
+                        if( ep_ticket_single_offer_data && ep_ticket_single_offer_data.em_remaining_ticket_to_offer && ep_ticket_single_offer_data.em_remaining_ticket_to_offer > 0 ) {
+                            let em_remaining_ticket_to_offer = ep_ticket_single_offer_data.em_remaining_ticket_to_offer;
+                            if( em_remaining_ticket_to_offer < qty ) {
+                                offer_ticket_qty = em_remaining_ticket_to_offer;
+                            }
+                        }
+                        let offer_ticket_subtotal = row_ticket_price * offer_ticket_qty;
+                        offer_ticket_subtotal = parseFloat( offer_ticket_subtotal );
                         let discount_val = 0;
                         let discount_amount = ofn_data.em_ticket_offer_discount;
                         let discount_amount_type = ofn_data.em_ticket_offer_discount_type;
                         if( discount_amount_type == "percentage" ) {
-                            discount_val = ( discount_amount/100 ) * tps;
+                            discount_val = ( discount_amount/100 ) * offer_ticket_subtotal;
                             if( discount_val > 0 ) {
                                 total_offer_discount_val += parseFloat( discount_val );
                                 tps -= discount_val;
@@ -552,10 +557,6 @@ jQuery( function( $ ) {
     function get_applied_offer_data( ticket_id, qty ) {
         let applied_offer_data = [];
         if( ticket_id ) {
-            // Work for volumn based discount. If need to apply then apply first.
-            
-
-
             let all_applied_offers_len = $( '#ep_single_modal_ticket_' + ticket_id + ' .ep-event-offer-applied').length;
             if( all_applied_offers_len > 0 ) {
                 let all_event_tickets = em_front_event_object.em_event_data.event.all_tickets_data;
@@ -564,7 +565,7 @@ jQuery( function( $ ) {
                     $( '#ep_single_modal_ticket_' + ticket_id + ' .ep-event-offer-applied' ).each( function() {
                         let ofid = this.id;
                         if( ofid ) {
-                            let ofidnum = ofid.split( 'ep_event_offer_' )[1];
+                            let ofidnum = ofid.split( 'ep_event_offer_' + ticket_id + '_' )[1];
                             if( ofidnum ) {
                                 offer_numbers.push( parseInt( ofidnum ) );
                             }
@@ -582,7 +583,17 @@ jQuery( function( $ ) {
                                             let idnum = ofid;
                                             ++idnum;
                                             if( offer_numbers.indexOf( idnum ) > -1 ) {
-                                                applied_offer_data.push( ofdata );
+                                                if( ofdata.em_ticket_offer_type == "volume_based" ) {
+                                                    let em_ticket_offer_volumn_count = parseInt( ofdata.em_ticket_offer_volumn_count, 10 );
+                                                    if( em_ticket_offer_volumn_count <= qty ) {
+                                                        $( '#ep_event_offer_' + ticket_id + '_' + idnum ).show();
+                                                        applied_offer_data.push( ofdata );
+                                                    } else{
+                                                        $( '#ep_event_offer_' + ticket_id + '_' + idnum ).hide();
+                                                    }
+                                                } else{
+                                                    applied_offer_data.push( ofdata );
+                                                }
                                                 // if multiple offer option is first one then return after apply
                                                 if( multiple_offers_option == 'first_offer' ) {
                                                     offer_done = 1;
@@ -1063,6 +1074,11 @@ jQuery( function( $ ) {
                     ticket: ep_event_booking_ticket,
                     event: booking_event_id
                 };
+                // check if rsvp booking data saved in the session
+                let ep_event_rsvp_booking_data = sessionStorage.getItem( 'ep_event_rsvp_booking_data' );
+                if( ep_event_rsvp_booking_data ) {
+                    booking_data.rsvp_booking_data = ep_event_rsvp_booking_data
+                }
                 $( '#ep_event_booking_data' ).val( JSON.stringify( booking_data ) );
 
                 $( '#ep_event_booking_form' ).submit();
@@ -1180,5 +1196,3 @@ jQuery( function( $ ) {
     });
     
 });
-
-

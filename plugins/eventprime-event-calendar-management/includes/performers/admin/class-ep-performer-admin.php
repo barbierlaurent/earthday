@@ -11,6 +11,15 @@ class EventM_Performers_Admin {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'includes' ) );
+		// add banner
+		add_action( 'load-edit.php', function(){
+			$screen = get_current_screen();
+			if( 'edit-em_performer' === $screen->id ) {
+				add_action( 'in_admin_footer', function(){
+					do_action( 'ep_add_custom_banner' );
+				});
+			}
+		});
 	}
 
 	/**

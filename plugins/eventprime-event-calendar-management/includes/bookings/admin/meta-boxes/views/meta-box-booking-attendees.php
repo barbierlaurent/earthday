@@ -52,7 +52,7 @@ if( empty( $booking ) ) {
             if( isset($booking->em_attendee_names[0]) && is_string( $booking->em_attendee_names[0] ) ) {?>
                 <div class="ep-p-4">
                     <div class="ep-mb-3 ep-fw-bold ep-text-small">
-                        <?php echo esc_html( get_event_ticket_name_by_id_event( $ticket_id, $booking->event_data ) );?>
+                        <?php echo esc_html( EventM_Factory_Service::get_ticket_name_by_id( $ticket_id ) );?>
                     </div>
                     <table class="ep-table ep-table-hover ep-text-small ep-table-borderless">
                         <thead>
@@ -76,9 +76,11 @@ if( empty( $booking ) ) {
                 </div><?php
             } else{
                 $is_new_format = $att_count = 1;
+                $em_allow_edit_booking = $booking_controller->check_booking_eligible_for_edit( $booking->em_event );
                 foreach( $booking->em_attendee_names as $ticket_id => $attendee_data ) {
-                    if( isset( $attendee_data[1] ) ) {
-                        $booking_attendees_field_labels = ep_get_booking_attendee_field_labels( $attendee_data[1] );
+                    $first_key = array_keys( $attendee_data )[0];
+                    if( isset( $attendee_data[$first_key] ) ) {
+                        $booking_attendees_field_labels = ep_get_booking_attendee_field_labels( $attendee_data[$first_key] );
                     } else{
                         $att_key_array = array();
                         foreach( $attendee_data as $att_key => $att_value ) {
@@ -89,7 +91,7 @@ if( empty( $booking ) ) {
                     }?>
                     <div class="ep-p-4">
                         <div class="ep-mb-3 ep-fw-bold ep-text-small">
-                            <?php echo esc_html( get_event_ticket_name_by_id_event( $ticket_id, $booking->event_data ) );?>
+                        <?php echo esc_html( EventM_Factory_Service::get_ticket_name_by_id( $ticket_id ) );?>
                         </div>
                         <table class="ep-table ep-table-hover ep-text-small ep-table-borderless">
                             <thead>
@@ -99,13 +101,16 @@ if( empty( $booking ) ) {
                                         <th scope="col">
                                             <?php echo esc_html__( $labels, 'eventprime-event-calendar-management' );?>
                                         </th><?php
+                                    }
+                                    if( ! empty( $em_allow_edit_booking ) ) {?>
+                                        <th scope="col">&nbsp;</th><?php
                                     }?>
                                 </tr>
                             </thead>
                             <tbody class=""><?php $att_count = 1;
-                                foreach( $attendee_data as $booking_attendees ) {?>
+                                foreach( $attendee_data as $att_key => $booking_attendees ) {?>
                                     <tr>
-                                        <th scope="row" class="py-3"><?php echo esc_html( $att_count );?></th><?php 
+                                        <td scope="row" class="py-3"><?php echo esc_html( $att_count );?></td><?php 
                                         $booking_attendees_val = ( is_array( $booking_attendees ) ? array_values( $booking_attendees ) : $booking_attendees );
                                         foreach( $booking_attendees_field_labels as $label_key => $labels ){?>
                                             <td class="py-3"><?php
@@ -138,7 +143,14 @@ if( empty( $booking ) ) {
                                                 }
                                                 echo esc_html( $at_val );?>
                                             </td><?php
-                                        }?>
+                                        }
+                                        /* if( ! empty( $em_allow_edit_booking ) ) {?>
+                                            <td>
+                                                <a href="javascript:void(0);" class="ep-admin-edit-booking-attendee" data-attendee_val="<?php echo json_encode( $booking_attendees_val );?>" data-event_id="<?php echo esc_attr( $booking->em_event );?>" data-ticket_id="<?php echo esc_attr( $ticket_id );?>" data-ticket_key="<?php echo esc_attr( $att_key );?>" data-booking_id="<?php echo esc_attr( $booking->em_id );?>">
+                                                    <span class="material-icons-round ep-fs-6">edit</span>
+                                                </a>
+                                            </td><?php
+                                        } */?>
                                     </tr><?php
                                     $att_count++;
                                 }?>
@@ -149,4 +161,37 @@ if( empty( $booking ) ) {
             }
         }
     }?>
+</div>
+
+
+<div class="ep-modal ep-modal-view" id="ep_edit_admin_booking_modal_container" ep-modal="ep_edit_admin_booking_modal_container" style="display: none;">
+    <div class="ep-modal-overlay" ep-modal-close="ep_edit_admin_booking_modal_container"></div>
+    <div class="popup-content ep-modal-wrap ep-modal-sm">
+        <div class="ep-modal-body">
+            <div class="ep-modal-titlebar ep-d-flex ep-items-center">
+                <h3 class="ep-modal-title ep-px-3">
+                    <?php echo esc_html__('Edit Attendee', 'eventprime-eventprime-event-calendar-management');?>
+                </h3>
+                <a href="#" class="ep-modal-close close-popup" data-id="ep_edit_admin_booking_modal_container">&times;</a>
+            </div>
+            <div class="ep-modal-content-wrap"> 
+                <div class="ep-box-wrap">
+                    <div class="ep-box-row ep-p-3 ep-box-w-75">
+                        <input type="hidden" name="em_event_id" id="ep_event_id" value="<?php echo esc_attr( $booking->em_event );?>">
+                        <input type="hidden" name="em_booking_id" id="ep_booking_id" value="<?php echo esc_attr( $booking->em_id );?>">
+                        <div id="ep_admin_edit_booking_load_attendee_data"></div>
+                    </div>
+                </div>
+                <div class="ep-modal-footer ep-mt-3 ep-d-flex ep-items-end ep-content-right" id="ep_modal_buttonset">
+                    <span class="ep-error-message ep-box-col-9 ep-mr-2 ep-mb-2 ep-text-end" id="ep_edit_admin_booking_error"></span>
+                    <button type="button" class="button ep-mr-3 ep-modal-close" ep-modal-close="ep_edit_admin_booking_modal_container">
+                        <?php esc_html_e( 'Cancel', 'eventprime-eventprime-event-calendar-management' );?>
+                    </button>
+                    <button type="button" class="button button-primary button-large" id="ep_update_edit_admin_booking">
+                        <?php esc_html_e( 'Send', 'eventprime-eventprime-event-calendar-management' );?>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

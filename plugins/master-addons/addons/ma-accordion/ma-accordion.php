@@ -549,7 +549,17 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			[
 				'label'   => __('Title HTML Tag', 'master-addons' ),
 				'type'    => Controls_Manager::SELECT,
-				'options' => Master_Addons_Helper::jltma_title_tags(),
+				'options' => [
+						'h1'     => esc_html__('H1', 'master-addons' ),
+						'h2'     => esc_html__('H2', 'master-addons' ),
+						'h3'     => esc_html__('H3', 'master-addons' ),
+						'h4'     => esc_html__('H4', 'master-addons' ),
+						'h5'     => esc_html__('H5', 'master-addons' ),
+						'h6'     => esc_html__('H6', 'master-addons' ),
+						'div'    => esc_html__('div', 'master-addons' ),
+						'span'   => esc_html__('span', 'master-addons' ),
+						'a'      => esc_html__('a', 'master-addons' ),
+				],
 				'default' => 'div',
 			]
 		);

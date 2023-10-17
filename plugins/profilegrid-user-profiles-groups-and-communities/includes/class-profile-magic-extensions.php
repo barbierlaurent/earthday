@@ -441,8 +441,8 @@ class Profile_Magic_Extensions {
 
         $list['USER_ACTIVITIES'] =array(
             'slug'          => 'USER_ACTIVITIES',
-            'price'         => 'free',
-            'filter'        => 'widget free',
+            'price'         => 'paid',
+            'filter'        => 'widget',
             'title'         => __( 'User Activities', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'user-activities-icon.png',
             'description'   =>__( 'Display various activities by different users inside a beautiful widget, that can fit any widget area of your website.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -467,8 +467,8 @@ class Profile_Magic_Extensions {
 
         $list['RECENT_SIGNUP'] =array(
             'slug'          => 'RECENT_SIGNUP',
-            'price'         => 'free',
-            'filter'        => 'widget free',
+            'price'         => 'paid',
+            'filter'        => 'widget',
             'title'         => __( 'Recent User Signups', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'recent-signup.png',
             'description'   =>__( 'A widget and a shortcode which allows you to display a pre-defined number of recently added users with profile images, and an option to add a custom link.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -493,8 +493,8 @@ class Profile_Magic_Extensions {
 
         $list['GROUPS_SLIDER'] =array(
             'slug'          => 'GROUPS_SLIDER',
-            'price'         => 'free',
-            'filter'        => 'widget groups free',
+            'price'         => 'paid',
+            'filter'        => 'widget groups',
             'title'         => __( 'User Groups Slider', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'group-carousel-slider.png',
             'description'   =>__( 'A beautiful carousel slider that looks good and fits any widget area of your site. Fully configurable for your requirements.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -506,8 +506,8 @@ class Profile_Magic_Extensions {
 
         $list['USERS_SLIDER'] =array(
             'slug'          => 'USERS_SLIDER',
-            'price'         => 'free',
-            'filter'        => 'widget profiles free',
+            'price'         => 'paid',
+            'filter'        => 'widget profiles',
             'title'         => __( 'Users Slider', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'user-carousel-slider.png',
             'description'   =>__( 'A beautiful carousel slider that looks good and fits any widget area of your site. Fully configurable for your requirements.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -519,8 +519,8 @@ class Profile_Magic_Extensions {
 
         $list['FEATURED_GROUP'] =array(
             'slug'          => 'FEATURED_GROUP',
-            'price'         => 'free',
-            'filter'        => 'widget groups free',
+            'price'         => 'paid',
+            'filter'        => 'widget groups',
             'title'         => __( 'Featured Group', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'featured-group.png',
             'description'   =>__( 'A customizable frontend ProfileGrid Widget that allows you to display featured membership groups.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -558,8 +558,8 @@ class Profile_Magic_Extensions {
 
         $list['ZAPIER'] =array(
             'slug'          => 'ZAPIER',
-            'price'         => 'free',
-            'filter'        => 'integration free',
+            'price'         => 'paid',
+            'filter'        => 'integration',
             'title'         => __( 'Zapier Integration', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'pg-zapier-icon.png',
             'description'   =>__( 'Extend the power of ProfileGrid using Zapier automation! Connect with over 3000 apps using readymade templates or create custom automations to work with ProfileGrid triggers.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -584,8 +584,8 @@ class Profile_Magic_Extensions {
 
         $list['ELEMENTOR_CONTENT_RESTRICTIONS'] =array(
             'slug'          => 'ELEMENTOR_CONTENT_RESTRICTIONS',
-            'price'         => 'free',
-            'filter'        => 'content-restriction integration free',
+            'price'         => 'paid',
+            'filter'        => 'content-restriction integration',
             'title'         => __( 'Elementor Content Restrictions', 'profilegrid-user-profiles-groups-and-communities' ),
             'image'         => 'elementor-content-restrictions.png',
             'description'   =>__( 'Profilegrid content restrictions widget provides the feature to restrict content with Elementor page builder.', 'profilegrid-user-profiles-groups-and-communities' ),
@@ -645,6 +645,19 @@ class Profile_Magic_Extensions {
             'extension_url' =>'https://profilegrid.co/extensions/profilegrid-wooCommerce-customized-product-restrictions/',
             'path'          => 'profilegrid-user-profiles-groups-and-communities-profilegrid-woocommerce-customized-product-restrictions/profilegrid-woocommerce-customized-product-restrictions.php',
             'class'         => 'Profilegrid_Woocommerce_Product_Restrictions',
+        );
+        
+        $list['TERAWALLET_INTEGRATION'] =array(
+            'slug'          => 'TERAWALLET_INTEGRATION',
+            'price'         => 'paid',
+            'filter'        => 'integration woocommerce customsolution',
+            'title'         => __( 'Customized TeraWallet Integration', 'profilegrid-user-profiles-groups-and-communities' ),
+            'image'         => 'pg-wallet-icon.png',
+            'description'   =>__( 'Offers powerful Group based credit control to admins and Group leaders. It integrates with WooCommerce and TeraWallet plugins to provide a workflow enabling Group based credit limit spendable on WooCommerce.', 'profilegrid-user-profiles-groups-and-communities' ),
+            'option_url'    => '',
+            'extension_url' =>'https://profilegrid.co/extensions/profilegrid-customized-terawallet-integration/',
+            'path'          => 'profilegrid-user-profiles-groups-and-communities-profilegrid-customized-terawallet-integration/profilegrid-credit.php',
+            'class'         => 'Profilegrid_Credit',
         );
 
         return $list;

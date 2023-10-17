@@ -81,10 +81,10 @@ if (!class_exists('Master_Addons_Promotions')) {
                 /** Changelog Items
                  * Starts from: %3$s
                  */
-                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Updated Freemius SDK to the latest version</span><br>', 'master-addons'), //%3$s
-                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Latest Elementor & Elementor Pro checked</span><br>', 'master-addons'),
-                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Navigation Menu broken style issue fixed</span><br>', 'master-addons'),
-                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Sourcemap file "master-addons-styles.css.map" not found 404 error issue fixed</span><br>', 'master-addons') //%6$s
+                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Security Update</span><br>', 'master-addons'), //%3$s
+                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Business Hours Updated</span><br>', 'master-addons'),
+                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Call to Action, Advanced Tabs updated</span><br>', 'master-addons'),
+                __('<span class="dashicons dashicons-yes"></span> <span class="jltma-changes-list">Progressbar and Progressbars Updated</span><br>', 'master-addons') //%6$s
 
             );
 

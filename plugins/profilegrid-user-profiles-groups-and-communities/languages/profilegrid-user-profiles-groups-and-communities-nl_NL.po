@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ProfileGrid\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-19 10:51+0000\n"
-"PO-Revision-Date: 2023-08-22 06:25+0000\n"
+"PO-Revision-Date: 2023-10-13 13:24+0000\n"
 "Last-Translator: admin <renu.tilwani@alcanttor.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -5491,6 +5491,9 @@ msgstr "Johannesburg"
 msgid "Johnston"
 msgstr "Johnston"
 
+msgid "Join Group"
+msgstr ""
+
 #: public/class-profile-magic-notifications.php:1351
 msgid "Joined New Group"
 msgstr "Toegetreden tot nieuwe groep"
@@ -6442,6 +6445,9 @@ msgstr ""
 
 #: admin/partials/global-settings.php:659
 msgid "More power to your group managers.!"
+msgstr ""
+
+msgid "More..."
 msgstr ""
 
 #: includes/country_option_list.php:149
@@ -8839,6 +8845,9 @@ msgstr "Tabblad Postvak in weergeven"
 msgid ""
 "Show Instagram tab on User Profile page with user’s Instagram photos "
 "displayed in the tab."
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 #: admin/partials/elements-visibility-setting.php:185
@@ -11623,6 +11632,11 @@ msgstr ""
 "U kunt uw wachtwoord opnieuw instellen door het tabblad wachtwoord wijzigen "
 "in het gedeelte instellingen van uw profiel te openen."
 
+msgid ""
+"You do not have any friends yet. You can add friends by sending friendship "
+"requests to people from their user profiles."
+msgstr ""
+
 #: public/partials/profile-magic-settings.php:12
 msgid "You entered incorrect password. Please try again."
 msgstr "U hebt een verkeerd wachtwoord ingevoerd. Probeer het opnieuw."
@@ -11676,6 +11690,9 @@ msgstr ""
 #: admin/class-profile-magic-admin.php:186
 msgid "You must define a Group Manager first, before making a Group closed."
 msgstr "U moet eerst een groeps Manager definiëren voordat u een groep sluit."
+
+msgid "You sent membership request to join this Group on %s"
+msgstr ""
 
 #: admin/partials/global-settings.php:1164
 msgid ""

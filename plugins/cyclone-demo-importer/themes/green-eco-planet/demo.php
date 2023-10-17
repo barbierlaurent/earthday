@@ -12,6 +12,12 @@ function cdi_import_files() {
             'preview_url' => 'https://bizbergthemes.com/green-eco-planet-pro/'
         ),
         array(
+            'import_file_name'=> __('Green Protection PRO','cdi'),
+            'categories'      =>  array( 'PRO' , 'Homepage' ),
+            'import_preview_image_url'   => CDI_PLUGIN_DIR_URL . '/assets/images/green-eco-planet/homepage-6.jpg',
+            'preview_url' => 'https://bizbergthemes.com/green-eco-planet-pro/homepage-6/'
+        ),
+        array(
             'import_file_name'=> __('Homepage PRO','cdi'),
             'categories'      =>  array( 'PRO' , 'Homepage' ),
             'import_preview_image_url'   => CDI_PLUGIN_DIR_URL . '/assets/images/green-eco-planet/homepage-pro.jpg',

@@ -170,7 +170,7 @@ if ( filter_input( INPUT_GET, 'action' ) == 'delete' ) {
                     <textarea name="field_desc" id="field_desc"><?php
                     if ( !empty( $row ) ) {
 						echo esc_attr( $row->field_desc );}
-					?></textarea>
+                    ?></textarea>
                 </div>
                 <div class="uimnote"><?php esc_html_e( 'For your reference only. Not visible on front-end. Description can help you remember the purpose of the field.', 'profilegrid-user-profiles-groups-and-communities' ); ?> </div>
             </div>
@@ -537,12 +537,10 @@ if ( filter_input( INPUT_GET, 'action' ) == 'delete' ) {
 <?php esc_html_e( 'Options:', 'profilegrid-user-profiles-groups-and-communities' ); ?>
                     </div>
                     <div class="uiminput">
-                        <textarea name="field_options[dropdown_option_value]" id="field_options">
-                        <?php
+                        <textarea name="field_options[dropdown_option_value]" id="field_options"><?php
                         if ( !empty( $field_options ) ) {
 							echo esc_attr( $field_options['dropdown_option_value'] );}
-						?>
-                        </textarea>
+						?></textarea>
                         <div class="errortext"></div>
                     </div>
                     <div class="uimnote"><?php esc_html_e( 'Options for drop down list. Separate multiple values with a comma(,).', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
@@ -606,8 +604,7 @@ if ( filter_input( INPUT_GET, 'action' ) == 'delete' ) {
 <?php esc_html_e( 'Paragraph Text:', 'profilegrid-user-profiles-groups-and-communities' ); ?>
                     </div>
                     <div class="uiminput">
-                        <textarea name="field_options[paragraph_text]" id="paragraph_text">
-                        <?php
+                        <textarea name="field_options[paragraph_text]" id="paragraph_text"><?php
                         if ( !empty( $field_options ) ) {
 							echo esc_attr( $field_options['paragraph_text'] );}
 						?>
@@ -647,14 +644,31 @@ if ( filter_input( INPUT_GET, 'action' ) == 'delete' ) {
 <?php esc_html_e( 'Terms & Conditions:', 'profilegrid-user-profiles-groups-and-communities' ); ?>
                     </div>
                     <div class="uiminput">
-                        <textarea name="field_options[term_and_condition]" id="term_and_condition">
-                        <?php
+                        <textarea name="field_options[term_and_condition]" id="term_and_condition"><?php
                         if ( !empty( $field_options ) ) {
-							echo esc_attr( $field_options['term_and_condition'] );}
-						?>
-                        </textarea>
+			echo esc_attr( $field_options['term_and_condition'] );}
+			?></textarea>
                     </div>
                     <div class="uimnote"><?php esc_html_e( 'Paste the contents of your Terms and Conditions here. Users will be able to scroll through it and read in full before accepting them.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+                </div>
+                <div class="uimrow" id="term_and_condition_url_html">
+                    <div class="uimfield">
+                        <?php esc_html_e( 'Terms & Conditions URL:', 'profilegrid-user-profiles-groups-and-communities' ); ?>
+                    </div>
+                    <div class="uiminput">
+                        <input type="url" name="field_options[term_and_condition_url]" id="term_and_condition_url" value="<?php if ( !empty( $field_options ) && isset($field_options['term_and_condition_url'])) { echo esc_attr( $field_options['term_and_condition_url'] );}?>"/>
+                    </div>
+                    <div class="uimnote"><?php esc_html_e( 'Enter your Terms & Conditions URL here (if any).', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+                </div>
+                
+                <div class="uimrow" id="term_and_condition_label_html">
+                    <div class="uimfield">
+                        <?php esc_html_e( 'Terms & Conditions Label:', 'profilegrid-user-profiles-groups-and-communities' ); ?>
+                    </div>
+                    <div class="uiminput">
+                        <input type="text" name="field_options[term_and_condition_label]" id="term_and_condition_label" value="<?php if ( !empty( $field_options && isset($field_options['term_and_condition_label'])) ) { echo esc_attr( $field_options['term_and_condition_label'] );}?>"/>
+                    </div>
+                    <div class="uimnote"><?php esc_html_e( 'Enter the text that needs to be displayed for the Terms & Conditions checkbox.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
                 </div>
 
                 <div class="uimrow" id="allowed_file_types_html">
@@ -662,12 +676,10 @@ if ( filter_input( INPUT_GET, 'action' ) == 'delete' ) {
 <?php esc_html_e( 'Define allowed file types (file extensions):', 'profilegrid-user-profiles-groups-and-communities' ); ?>
                     </div>
                     <div class="uiminput">
-                        <textarea name="field_options[allowed_file_types]" id="allowed_file_types">
-                        <?php
+                        <textarea name="field_options[allowed_file_types]" id="allowed_file_types"><?php
                         if ( !empty( $field_options ) ) {
 							echo esc_attr( $field_options['allowed_file_types'] );}
-						?>
-                        </textarea>
+			?></textarea>
                     </div>
                     <div class="uimnote"><?php esc_html_e( 'Separate multiple values by " | ". For example PDF|JPEG|XLS', 'profilegrid-user-profiles-groups-and-communities' ); ?> </div>
                 </div>

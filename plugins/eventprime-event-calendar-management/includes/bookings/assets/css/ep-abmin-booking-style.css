@@ -41,7 +41,9 @@ ul#ep-notes-lists li {
 }
 body.wp-admin.post-type-em_booking #ep_booking_general .postbox-header,
 body.wp-admin.post-type-em_booking #ep_booking_tickets .postbox-header,
-body.wp-admin.post-type-em_booking #ep_tickets_attendies .postbox-header{
+body.wp-admin.post-type-em_booking #ep_tickets_attendies .postbox-header,
+body.wp-admin.post-type-em_booking #ep_tickets_booking_fields .postbox-header,
+body.wp-admin.post-type-em_booking #ep_transacton_log .postbox-header{
     display: none;
 }
 body.wp-admin.post-type-em_booking  div#post-body-content {
@@ -71,12 +73,11 @@ span.ep-booking-status.ep-status-pending {
 }
 
 
-
-
-
 /*--- New Ticket---*/
 
-#ep_booking_tickets .inside {
+#ep_booking_tickets .inside,
+#ep_tickets_attendies .inside,
+#ep_tickets_booking_fields .inside {
     margin: 0px;
     padding: 0px;
 }

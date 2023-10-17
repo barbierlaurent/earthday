@@ -16,7 +16,7 @@ final class EventPrime {
      *
      * @var Version
      */
-    public $version = '3.1.8';
+    public $version = '3.2.7';
     /**
      * Factory
      *
@@ -205,6 +205,7 @@ final class EventPrime {
      */
 	public function init_hooks() {
 		register_activation_hook( EP_PLUGIN_FILE, array( 'EventM_Install', 'install' ) );
+        
         add_action( 'wp_enqueue_scripts', array( $this, 'ep_enqueues' ) );
 
         add_filter( 'generate_rewrite_rules', array( 'EventM_Factory_Service', 'ep_load_rewrites' ) );

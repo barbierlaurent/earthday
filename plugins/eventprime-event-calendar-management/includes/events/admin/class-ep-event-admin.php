@@ -21,9 +21,8 @@ class EventM_Events_Admin {
         add_filter( 'bulk_actions-edit-em_event', array( $this, 'ep_register_duplicate_event_actions' ) );
         // handle duplicate event bulk action
         add_filter( 'handle_bulk_actions-edit-em_event', array( $this, 'ep_duplicate_event_bulk_action_handler' ) , 10, 3 );
-	
         
-        }
+    }
 
 	/**
 	 * Includes event related admin files
@@ -75,6 +74,9 @@ class EventM_Events_Admin {
 		}
 		// delete terms relationships
 		wp_delete_object_term_relationships( $postid, array( EM_EVENT_VENUE_TAX, EM_EVENT_TYPE_TAX, EM_EVENT_ORGANIZER_TAX ) );
+
+        // delete ext data
+        do_action( 'ep_delete_event_data', $postid );
 	}
         
     public function ep_event_updated_messages($message){
@@ -161,7 +163,7 @@ class EventM_Events_Admin {
 
             $selected_filter = 'publish_date';
             if( isset( $_GET['filter_type'] ) ) {
-                $selected_filter = $_GET['filter_type'];
+                $selected_filter = sanitize_text_field( $_GET['filter_type'] );
             }?>
             <span><?php esc_html_e( 'Filter by', 'eventprime-event-calendar-management' );?>
                 <select name="filter_type" id="filter_type">
@@ -171,8 +173,12 @@ class EventM_Events_Admin {
                 </select>
             </span>
             <span>
-                <?php esc_html_e( 'Date', 'eventprime-event-calendar-management' );?>
-                <input id="event_date_picker" type="text" name="ep_filter_date" value="<?php echo isset( $_GET['ep_filter_date'] ) ? sanitize_text_field( $_GET['ep_filter_date'] ) : '';?>" placeholder="<?php esc_html_e( 'Select Date', 'eventprime-event-calendar-management' );?>" autocomplete="off"/>
+                <?php esc_html_e( 'Date', 'eventprime-event-calendar-management' );
+                $filter_date = '';
+                if( isset( $_GET['ep_filter_date'] ) && ! empty( $_GET['ep_filter_date'] ) ) {
+                    $filter_date = sanitize_text_field( $_GET['ep_filter_date'] );
+                }?>
+                <input id="event_date_picker" type="text" name="ep_filter_date" value="<?php echo esc_attr( $filter_date );?>" placeholder="<?php esc_attr_e( 'Select Date', 'eventprime-event-calendar-management' );?>" autocomplete="off"/>
             </span><?php 
         }
     }
@@ -366,7 +372,20 @@ class EventM_Events_Admin {
                             }
                         }
                     }
-
+                    // update start and end datetime meta
+                    $ep_date_time_format = 'Y-m-d';
+                    $start_date = get_post_meta( $post_id, 'em_start_date', true );
+                    $start_time = get_post_meta( $post_id, 'em_start_time', true );
+                    $merge_start_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $start_date, 'Y-m-d', 1 ) . ' ' . $start_time, $ep_date_time_format, '', 0, 1 );
+                    if( ! empty( $merge_start_date_time ) ) {
+                        update_post_meta( $post_id, 'em_start_date_time', $merge_start_date_time );
+                    }
+                    $end_date = get_post_meta( $post_id, 'em_end_date', true );
+                    $end_time = get_post_meta( $post_id, 'em_end_time', true );
+                    $merge_end_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $end_date, 'Y-m-d', 1 ) . ' ' . $end_time, $ep_date_time_format, '', 0, 1 );
+                    if( ! empty( $merge_end_date_time ) ) {
+                        update_post_meta( $post_id, 'em_end_date_time', $merge_end_date_time );
+                    }
                     // event type
                     $em_event_type = ! empty( $event->em_event_type ) ? $event->em_event_type : '';
                     update_post_meta( $post_id, 'em_event_type', $em_event_type );

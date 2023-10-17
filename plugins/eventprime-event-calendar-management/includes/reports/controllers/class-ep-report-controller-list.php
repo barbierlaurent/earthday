@@ -189,13 +189,15 @@ class EventM_Report_Controller_List {
                         }
                     }
                 }
-
-                foreach( $booking->em_attendee_names as $ticket_id => $attendee_data ) {
-                    $booking_attendees_field_labels = ep_get_booking_attendee_field_labels( $attendee_data[1] );
-                    foreach( $booking_attendees_field_labels as $labels ){
-                        $att_count = 1;
-                        foreach( $attendee_data as $booking_attendees ) {
-                            $att_count++;
+                $att_count = 0;
+                if( ! empty( $booking->em_attendee_names ) ) {
+                    foreach( $booking->em_attendee_names as $ticket_id => $attendee_data ) {
+                        $booking_attendees_field_labels = ep_get_booking_attendee_field_labels( $attendee_data[1] );
+                        foreach( $booking_attendees_field_labels as $labels ){
+                            $att_count = 1;
+                            foreach( $attendee_data as $booking_attendees ) {
+                                $att_count++;
+                            }
                         }
                     }
                 }

@@ -19,7 +19,7 @@ class EventM_Report_Admin {
 	}
         
     public function enqueue_admin_reports_scripts($hook){
-        if( $hook && 'eventprime_page_ep-events-reports' == $hook ){
+        if( $hook && strpos( $hook, 'ep-events-reports' ) !== false ) {
             wp_enqueue_style(
                 'ep-daterangepicker-css',
                 EP_BASE_URL . '/includes/events/assets/css/daterangepicker.css',
@@ -36,8 +36,8 @@ class EventM_Report_Admin {
                 array( 'jquery' ), EVENTPRIME_VERSION
             );
 
-            wp_enqueue_script('google_charts', "https://www.gstatic.com/charts/loader.js", array(), EVENTPRIME_VERSION);
-            wp_enqueue_style('ep-admin-reports', EP_BASE_URL . 'includes/reports/assets/css/ep-admin-reports.css', false, EVENTPRIME_VERSION);
+            wp_enqueue_script( 'google_charts', "https://www.gstatic.com/charts/loader.js", array( 'jquery' ) );
+            wp_enqueue_style( 'ep-admin-reports', EP_BASE_URL . 'includes/reports/assets/css/ep-admin-reports.css', false, EVENTPRIME_VERSION);
             wp_enqueue_script( 
                 'ep-advanced-reports', 
                 EP_BASE_URL.'includes/reports/assets/js/ep-admin-reports.js',
@@ -71,6 +71,7 @@ class EventM_Report_Admin {
                 <?php $this->ep_get_reports_tabs_content( $active_tab );?>
             </form>
         </div><?php
+        do_action( 'ep_add_custom_banner' );
     }
         
     /**

@@ -2474,14 +2474,18 @@ class Profile_Magic_Public {
 		}
 	}
 
-	public function pg_comment_link_to_profile( $return, $author, $comment_ID ) {
+	public function pg_comment_link_to_profile( $return,$author = '', $comment_ID ='' ) {
 		   $dbhandler   = new PM_DBhandler();
 			$pmrequests = new PM_request();
 			$comment    = get_comment( $comment_ID );
 		if ( $dbhandler->get_global_option_value( 'pm_auto_redirect_author_to_profile', '0' ) == 1 && isset( $comment->user_id ) && ! empty( $comment->user_id ) ) {
-			$link        = $pmrequests->pm_get_user_profile_url( $comment->user_id );
-			$displayname = $pmrequests->pm_get_display_name( $comment->user_id );
-			$return      = "<a href='" . $link . "'>" . $displayname . '</a>';
+			$user = get_userdata( $comment->user_id );
+                        if($user!==false)
+                        {
+                            $link        = $pmrequests->pm_get_user_profile_url( $comment->user_id );
+                            $displayname = $pmrequests->pm_get_display_name( $comment->user_id );
+                            $return      = "<a href='" . $link . "'>" . $displayname . '</a>';
+                        }
 
 		}
 			return $return;
@@ -3204,7 +3208,7 @@ class Profile_Magic_Public {
 			set_transient( 'rm_user_online_status', $logged_in_users, $expire_in = ( 30 * 60 ) ); // 30 mins
 		}
 
-		wp_schedule_single_event( time(), 'twicedaily', 'clean_user_online_status' );
+		//wp_schedule_single_event( time(), 'twicedaily', 'clean_user_online_status' );
 	}
 
 	public function clean_user_online_status() {
@@ -3608,12 +3612,13 @@ class Profile_Magic_Public {
 			// echo '<li class="pm-dbfl pm-border-bt pm-pad10"><a class="pm-dbfl" href="#'.sanitize_key($section->section_name).$section->id.'">'.$section->section_name.'</a></li>';
 			// endforeach;
 
-				$pmhtmlcreator->pg_get_profile_sections_tab_header( $uid );
-			do_action( 'profile_magic_after_profile_section_tab', $uid, $primary_gid );
+				$pmhtmlcreator->pg_get_profile_sections_tab_header( $uid, $group_leader );
 
-			?>
-		</ul>
-	  </div>
+
+				do_action( 'profile_magic_after_profile_section_tab', $uid, $primary_gid );
+				?>
+			</ul>
+	  	</div>
 		<?php else : ?>
 <div class="pm-section-left-panel pm-section-no-left-panel pm-section-nav-vertical pm-difl pm-border pm-radius5 pm-bg">
 	
@@ -3632,7 +3637,10 @@ class Profile_Magic_Public {
 							?>">
 				<?php
 				$fields = $pmrequests->pm_get_frontend_user_meta( $uid, $gid, $group_leader, '', $section->id, '"user_avatar","user_pass","user_name","heading","paragraph","confirm_pass"' );
-				$pmhtmlcreator->get_user_meta_fields_html( $fields, $uid );
+				
+				if ($fields){
+					$pmhtmlcreator->get_user_meta_fields_html( $fields, $uid );
+				}
 				?>
 	  </div>
 				<?php

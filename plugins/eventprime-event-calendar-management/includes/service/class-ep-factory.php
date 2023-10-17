@@ -444,11 +444,11 @@ class EventM_Factory_Service {
 	 */
 	public static function get_event_all_offers( $event ) {
 		$all_offers_data = array(
-			'all_offers' => array(),
-			'all_show_offers' => array(),
+			'all_offers' 		 => array(),
+			'all_show_offers' 	 => array(),
 			'show_ticket_offers' => array(),
-			'ticket_offers' => array(),
-			'applicable_offers' => array()
+			'ticket_offers' 	 => array(),
+			'applicable_offers'  => array()
 		);
 		if( ! empty( $event ) ) {
 			$event_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
@@ -456,7 +456,8 @@ class EventM_Factory_Service {
 			if( ! empty( $all_tickets ) && count( $all_tickets ) > 0 ) {
 				foreach( $all_tickets as $ticket ) {
 					if( ! empty( $ticket->offers ) ) {
-						$ticket_offers = json_decode( $ticket->offers );
+						$all_offers_data = EventM_Factory_Service::get_event_single_offer_data( $all_offers_data, $ticket, $event->em_id );
+						/* $ticket_offers = json_decode( $ticket->offers );
 						if( ! empty( $ticket_offers ) ) {
 							foreach( $ticket_offers as $to ) {
 								$all_offers_data['all_offers'][] = $to;
@@ -470,8 +471,32 @@ class EventM_Factory_Service {
 							if( ! empty( $offer_applied_data ) && count( $offer_applied_data ) > 0 ) {
 								$all_offers_data['applicable_offers'][$ticket->id] = $offer_applied_data;
 							}
-						}
+						} */
 					}
+				}
+			}
+		}
+		return $all_offers_data;
+	}
+
+	/**
+	 * Update all offer data from single offer
+	 */
+	public static function get_event_single_offer_data( $all_offers_data, $ticket, $event_id ) {
+		$ticket_offers = json_decode( $ticket->offers );
+		if( ! empty( $ticket_offers ) ) {
+			foreach( $ticket_offers as $to ) {
+				$all_offers_data['all_offers'][] = $to;
+				if( isset( $to->em_ticket_show_offer_detail ) && ! empty( $to->em_ticket_show_offer_detail ) ) {
+					$all_offers_data['all_show_offers'][$to->uid] = $to;
+					$all_offers_data['show_ticket_offers'][$ticket->id][$to->uid] = $to;
+				}
+				$all_offers_data['ticket_offers'][$ticket->id][$to->uid] = $to;
+			}
+			$offer_applied_data = EventM_Factory_Service::get_event_offer_applied_data( $ticket_offers, $ticket, $event_id );
+			if( ! empty( $offer_applied_data ) && count( $offer_applied_data ) > 0 ) {
+				foreach( $offer_applied_data as $applied_offer_key => $ep_applied_offer ) {
+					$all_offers_data['applicable_offers'][$ticket->id][$applied_offer_key] = $ep_applied_offer;
 				}
 			}
 		}
@@ -1136,13 +1161,22 @@ class EventM_Factory_Service {
 	 * 
 	 * @param object $offer Offer Data.
 	 * 
+	 * @param object $ticket Ticket Data.
+	 * 
+	 * @param int $event_id Event ID.
+	 * 
 	 * @return bool
 	 */
-	public static function check_event_offer_applied( $offer ) {
+	public static function check_event_offer_applied( $offer, $ticket, $event_id ) {
 		$applied = 0;
 		if( ! empty( $offer ) ) {
 			$current_time = ep_get_current_timestamp();
 			$min_date = $max_date = $current_time;
+			$event_start_date = get_post_meta( $event_id, 'em_start_date', true );
+			$event_start_time = get_post_meta( $event_id, 'em_start_time', true );
+			$event_end_date = get_post_meta( $event_id, 'em_end_date', true );
+			$event_end_time = get_post_meta( $event_id, 'em_end_time', true );
+			$event_add_more_dates = get_post_meta( $event_id, 'em_event_add_more_dates', true );
 			// offer start date
 			$offer_start_booking_type = $offer->em_offer_start_booking_type;
 			if( $offer_start_booking_type == 'custom_date' ) {
@@ -1153,6 +1187,90 @@ class EventM_Factory_Service {
 						$min_date = ep_datetime_to_timestamp( $offer_start_date );
 					} else{
 						$min_date = ep_date_to_timestamp( $offer_start_date );
+					}
+				}
+			} elseif( $offer_start_booking_type == 'relative_date' ) {
+				$days         = ( ! empty( $offer->em_offer_start_booking_days ) ? $offer->em_offer_start_booking_days : 1 );
+				$days_option  = ( ! empty( $offer->em_offer_start_booking_days_option ) ? $offer->em_offer_start_booking_days_option : 'before' );
+				$event_option = ( ! empty( $offer->em_offer_start_booking_event_option ) ? $offer->em_offer_start_booking_event_option : 'event_start' );
+				$days_string  = ' days';
+				if( $days == 1 ) {
+					$days_string = ' day';
+				}
+				// + or - days
+				$days_icon = '- ';
+				if( $days_option == 'after' ) {
+					$days_icon = '+ ';
+				}
+				if( $event_option == 'event_start' ) {
+					$book_end_timestamp = $event_start_date;
+					if( ! empty( $event_start_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_start_date );
+						$book_end_timestamp .= ' ' . $event_start_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$min_date = strtotime( $days_icon . $days . $days_string, $book_end_timestamp );
+				} elseif( $event_option == 'event_ends' ) {
+					$book_end_timestamp = $event_end_date;
+					if( ! empty( $event_end_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_end_date );
+						$book_end_timestamp .= ' ' . $event_end_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$min_date = strtotime( $days_icon . $days . $days_string, $book_end_timestamp );
+				} else{
+					if( ! empty( $event_option ) ) {
+						$em_event_add_more_dates = $event_add_more_dates;
+						if( ! empty( $em_event_add_more_dates ) && count( $em_event_add_more_dates ) > 0 ) {
+							foreach( $em_event_add_more_dates as $more_dates ) {
+								if( $more_dates['uid'] == $event_option ) {
+									$min_date = $more_dates['date'];
+									if( ! empty( $more_dates['time'] ) ) {
+										$date_more = ep_timestamp_to_date( $more_dates['date'] );
+										$date_more .= ' ' . $more_dates['time'];
+										$min_date = ep_datetime_to_timestamp( $date_more );
+									}
+									break;
+								}
+							}
+						}
+						$min_date = strtotime( $days_icon . $days . $days_string, $min_date );
+					}
+				}
+			} else{
+				$em_offer_start_booking_event_option = $offer->em_offer_start_booking_event_option;
+				if( $em_offer_start_booking_event_option == 'event_start' ) {
+					$book_end_timestamp = $event_start_date;
+					if( ! empty( $event_start_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_start_date );
+						$book_end_timestamp .= ' ' . $event_start_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$min_date = $book_end_timestamp;
+				} elseif( $em_offer_start_booking_event_option == 'event_ends' ) {
+					$book_end_timestamp = $event_end_date;
+					if( ! empty( $event_end_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_end_date );
+						$book_end_timestamp .= ' ' . $event_end_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$min_date = $book_end_timestamp;
+				} else{
+					if( ! empty( $event_option ) ) {
+						$em_event_add_more_dates = $event_add_more_dates;
+						if( ! empty( $em_event_add_more_dates ) && count( $em_event_add_more_dates ) > 0 ) {
+							foreach( $em_event_add_more_dates as $more_dates ) {
+								if( $more_dates['uid'] == $event_option ) {
+									$min_date = $more_dates['date'];
+									if( ! empty( $more_dates['time'] ) ) {
+										$date_more = ep_timestamp_to_date( $more_dates['date'] );
+										$date_more .= ' ' . $more_dates['time'];
+										$min_date = ep_datetime_to_timestamp( $date_more );
+									}
+									break;
+								}
+							}
+						}
 					}
 				}
 			}
@@ -1169,6 +1287,90 @@ class EventM_Factory_Service {
 						$max_date = ep_date_to_timestamp( $offer_end_date );
 					}
 				}
+			} elseif( $offer_ends_booking_type == 'relative_date' ) {
+				$days         = ( ! empty( $offer->em_offer_ends_booking_days ) ? $offer->em_offer_ends_booking_days : 1 );
+				$days_option  = ( ! empty( $offer->em_offer_ends_booking_days_option ) ? $offer->em_offer_ends_booking_days_option : 'before' );
+				$event_option = ( ! empty( $offer->em_offer_ends_booking_event_option ) ? $offer->em_offer_ends_booking_event_option : 'event_ends' );
+				$days_string  = ' days';
+				if( $days == 1 ) {
+					$days_string = ' day';
+				}
+				// + or - days
+				$days_icon = '- ';
+				if( $days_option == 'after' ) {
+					$days_icon = '+ ';
+				}
+				if( $event_option == 'event_start' ) {
+					$book_end_timestamp = $event_start_date;
+					if( ! empty( $event_start_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_start_date );
+						$book_end_timestamp .= ' ' . $event_start_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$max_date = strtotime( $days_icon . $days . $days_string, $book_end_timestamp );
+				} elseif( $event_option == 'event_ends' ) {
+					$book_end_timestamp = $event_end_date;
+					if( ! empty( $event_end_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_end_date );
+						$book_end_timestamp .= ' ' . $event_end_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$max_date = strtotime( $days_icon . $days . $days_string, $book_end_timestamp );
+				} else{
+					if( ! empty( $event_option ) ) {
+						$em_event_add_more_dates = $event_add_more_dates;
+						if( ! empty( $em_event_add_more_dates ) && count( $em_event_add_more_dates ) > 0 ) {
+							foreach( $em_event_add_more_dates as $more_dates ) {
+								if( $more_dates['uid'] == $event_option ) {
+									$max_date = $more_dates['date'];
+									if( ! empty( $more_dates['time'] ) ) {
+										$date_more = ep_timestamp_to_date( $more_dates['date'] );
+										$date_more .= ' ' . $more_dates['time'];
+										$max_date = ep_datetime_to_timestamp( $date_more );
+									}
+									break;
+								}
+							}
+						}
+						$max_date = strtotime( $days_icon . $days . $days_string, $max_date );
+					}
+				}
+			} else{
+				$em_offer_ends_booking_event_option = $offer->em_offer_ends_booking_event_option;
+				if( $em_offer_ends_booking_event_option == 'event_start' ) {
+					$book_end_timestamp = $event_start_date;
+					if( ! empty( $event_start_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_start_date );
+						$book_end_timestamp .= ' ' . $event_start_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$max_date = $book_end_timestamp;
+				} elseif( $em_offer_ends_booking_event_option == 'event_ends' ) {
+					$book_end_timestamp = $event_end_date;
+					if( ! empty( $event_end_time ) ) {
+						$book_end_timestamp = ep_timestamp_to_date( $event_end_date );
+						$book_end_timestamp .= ' ' . $event_end_time;
+						$book_end_timestamp = ep_datetime_to_timestamp( $book_end_timestamp );
+					}
+					$max_date = $book_end_timestamp;
+				} else{
+					if( ! empty( $event_option ) ) {
+						$em_event_add_more_dates = $event_add_more_dates;
+						if( ! empty( $em_event_add_more_dates ) && count( $em_event_add_more_dates ) > 0 ) {
+							foreach( $em_event_add_more_dates as $more_dates ) {
+								if( $more_dates['uid'] == $event_option ) {
+									$max_date = $more_dates['date'];
+									if( ! empty( $more_dates['time'] ) ) {
+										$date_more = ep_timestamp_to_date( $more_dates['date'] );
+										$date_more .= ' ' . $more_dates['time'];
+										$max_date = ep_datetime_to_timestamp( $date_more );
+									}
+									break;
+								}
+							}
+						}
+					}
+				}
 			}
 
 			// check for offer date time condition
@@ -1181,8 +1383,20 @@ class EventM_Factory_Service {
 							$seat_option = $offer->em_ticket_offer_seat_option;
 							if( ! empty( $offer->em_ticket_offer_seat_number ) ) {
 								$seat_number = $offer->em_ticket_offer_seat_number;
-								$applied = 1;
-								return $applied;
+								$event_ticket_booking_count = self::get_event_booking_by_ticket_id( $event_id, $ticket->id );
+								if( $seat_option == 'first' ) {
+									if( $event_ticket_booking_count < $seat_number ) {
+										$offer->em_remaining_ticket_to_offer = $seat_number - $event_ticket_booking_count;
+										return $offer;
+									}
+								} else {
+									$ticket_caps = $ticket->capacity;
+									$unbooked_tickets = $ticket_caps - $event_ticket_booking_count;
+									if( ! empty( $unbooked_tickets ) && $unbooked_tickets <= $seat_number ) {
+										$offer->em_remaining_ticket_to_offer = $unbooked_tickets;
+										return $offer;
+									} 
+								}
 							}
 						}
 					} else if( $em_ticket_offer_type == 'role_based' ) {
@@ -1190,22 +1404,17 @@ class EventM_Factory_Service {
 							$em_ticket_offer_user_roles = $offer->em_ticket_offer_user_roles;
 							$user = wp_get_current_user();
 							$roles = ( array ) $user->roles;
-							if( in_array( 'administrator', $roles ) ) {
-								$applied = 1;
-								return $applied;
-							} else{
-								if( ! empty( $em_ticket_offer_user_roles ) ) {
-									$found_role = 0;
-									foreach( $em_ticket_offer_user_roles as $ur ) {
-										if( in_array( $ur, $roles ) ) {
-											$found_role = 1;
-											break;
-										}
+							if( ! empty( $em_ticket_offer_user_roles ) ) {
+								$found_role = 0;
+								foreach( $em_ticket_offer_user_roles as $ur ) {
+									if( in_array( $ur, $roles ) ) {
+										$found_role = 1;
+										break;
 									}
-									if( ! empty( $found_role ) ) {
-										$applied = 1;
-										return $applied;
-									}
+								}
+								if( ! empty( $found_role ) ) {
+									$applied = 1;
+									return $applied;
 								}
 							}
 						}
@@ -1223,17 +1432,22 @@ class EventM_Factory_Service {
 	 * 
 	 * @param object $ticket Ticket Data.
 	 * 
+	 * @param int $event_id Event ID.
+	 * 
 	 * @return array
 	 */
-	public static function get_event_offer_applied_data( $offers, $ticket ) {
+	public static function get_event_offer_applied_data( $offers, $ticket, $event_id ) {
 		$offer_data = array();
 		if( ! empty( $offers ) ) {
 			$i = 1;
 			foreach( $offers as $offer ) {
-				$applied_status = self::check_event_offer_applied( $offer );
+				$applied_status = self::check_event_offer_applied( $offer, $ticket, $event_id );
 				if( ! empty( $applied_status ) ) {
-					//$offer_data[$i] = 1;
-					$offer_data[$offer->uid] = $offer;
+					if( is_object( $applied_status ) ) { //offer data updated from method
+						$offer_data[$offer->uid] = $applied_status;
+					} else{
+						$offer_data[$offer->uid] = $offer;
+					}
 					// check for multiple offer handle condition
 					if( ! empty( $ticket->multiple_offers_option ) ) {
 						if( $ticket->multiple_offers_option == 'first_offer' ) {
@@ -1246,7 +1460,6 @@ class EventM_Factory_Service {
 				$i++;
 			}
 		}
-
 		return $offer_data;
 	}
 
@@ -1264,9 +1477,10 @@ class EventM_Factory_Service {
 				if( ! empty( $ticket->offers ) ) {
 					$ticket_offers_data = json_decode( $ticket->offers );
 					if( ! empty( $ticket_offers_data ) ) {
-						$offer_applied_data = self::get_event_offer_applied_data( $ticket_offers_data, $ticket );
-						if( ! empty( $offer_applied_data ) ) {
-							$available_offers += absint( count( $offer_applied_data ) );
+						foreach( $ticket_offers_data as $to ) {
+							if( isset( $to->em_ticket_show_offer_detail ) && ! empty( $to->em_ticket_show_offer_detail ) ) {
+								$available_offers++;
+							}
 						}
 					}
 				}
@@ -1456,6 +1670,179 @@ class EventM_Factory_Service {
 			}
 		}
 		return $total_booking;
+	}
+        
+	public static function ep_form_field_generator( $fields, $required = 0 ){
+		$core_field_types = array_keys( ep_get_core_checkout_fields() );
+		$input_name = ep_get_slug_from_string( $fields->label );
+		if ( in_array( $fields->type, $core_field_types ) ) {?>
+			<div class="ep-mb-3">
+				<label for="name" class="form-label ep-text-small"><?php
+					echo esc_html( $fields->label );
+					if ($required) {?>
+						<span class="ep-form-fields-required">
+							<?php echo esc_html('*'); ?>
+						</span><?php 
+					}?>
+				</label>
+				<input name="ep_form_fields[<?php echo esc_attr($fields->id); ?>][label]" type="hidden" value="<?php echo esc_attr($fields->label); ?>">
+				<input name="ep_form_fields[<?php echo esc_attr($fields->id); ?>][<?php echo esc_attr($input_name); ?>]" 
+					type="<?php echo esc_attr($fields->type); ?>" 
+					class="ep-form-control" 
+					id="ep_form_fields_<?php echo esc_attr($fields->id); ?>_<?php echo esc_attr($input_name); ?>" 
+					placeholder="<?php echo esc_attr($fields->label); ?>"
+					<?php
+					if ($required) {
+						echo 'required="required"';
+					}?>
+				>
+				<div class="ep-error-message" id="ep_form_fields_<?php echo esc_attr($fields->id); ?>_<?php echo esc_attr($input_name); ?>_error"></div>
+			</div><?php
+		}else{
+			if( class_exists('EP_Advanced_Checkout_Fields' ) ){
+				$adv_acf_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Advanced_Checkout_Fields_Controller' );
+				$adv_acf_controller->ep_advcance_form_field_generator($fields, $required); 
+			}
+		}
+	}
+
+	/**
+	 * Get total attendee number by booking id
+	 * 
+	 * @param int $booking_id Booking ID
+	 * 
+	 * @return int Attendee number
+	 */
+	public static function get_total_attendee_number_by_booking_id( $booking_id ) {
+		$total_attendee = 0;
+		if( ! empty( $booking_id ) ) {
+			$booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+			$booking_data = $booking_controller->load_booking_detail( $booking_id, false );
+			if( ! empty( $booking_data ) ) {
+				if( isset( $booking_data->em_order_info['tickets'] ) && ! empty( $booking_data->em_order_info['tickets'] ) ) {
+					$booked_tickets = $booking_data->em_order_info['tickets'];
+					foreach( $booked_tickets as $ticket ) {
+						if( ! empty( $ticket->id ) && ! empty( $ticket->qty ) ) {
+							$total_attendee += $ticket->qty;
+						}
+					}
+				} else if( isset( $booking_data->em_order_info['order_item_data'] ) && ! empty( $booking_data->em_order_info['order_item_data'] ) ) {
+					$booked_tickets = $booking_data->em_order_info['order_item_data'];
+					foreach( $booked_tickets as $ticket ) {
+						if( isset( $ticket->quantity ) ) {
+							$total_attendee += $ticket->quantity;
+						} else if( isset( $ticket->qty ) ) {
+							$total_attendee += $ticket->qty;
+						}
+					}
+				}
+			}
+		}
+		return $total_attendee;
+	}
+
+	/**
+	 * Get checkout field label by id
+	 * 
+	 * @param int $id Checkout Field Id.
+	 * 
+	 * @return object
+	 */
+    public static function get_checkout_field_label_by_id( $id ) {
+        global $wpdb;
+        $table_name = $wpdb->prefix.'eventprime_checkout_fields';
+		$get_field_label = $wpdb->get_row( $wpdb->prepare( "SELECT `label` FROM $table_name WHERE `id` = %d", $id ) );
+        return $get_field_label;
+    }
+
+	/**
+	 * Get ticket name by id
+	 * 
+	 * @param int $id Ticket Field Id.
+	 * 
+	 * @return object
+	 */
+    public static function get_ticket_name_by_id( $id ) {
+        global $wpdb;
+        $table_name = $wpdb->prefix.'em_price_options';
+		$name = '';
+		$get_field_data = $wpdb->get_row( $wpdb->prepare( "SELECT `name` FROM $table_name WHERE `id` = %d", $id ) );
+		if( ! empty( $get_field_data ) ) {
+			$name = $get_field_data->name;
+		}
+        return $name;
+    }
+	
+	/* Get event views
+	 * 
+	 * @return array
+	 */
+	public static function get_image_visibility_options() {
+		$image_visibility_views = array(
+			'none'     	=> 'None',
+			'fill' 		=> 'Fill',
+			'contain' 	=> 'Contain',
+			'cover' 	=> 'Cover'
+		);
+		return $image_visibility_views;
+	}
+
+	/**
+	 * Get event booking fields.
+	 * 
+	 * @param object $event Event.
+	 * 
+	 * @return array
+	 */
+	public static function get_event_checkout_booking_fields( $event ) {
+		global $wpdb;
+		$booking_fields = array();
+		if( ! empty( $event->em_event_checkout_booking_fields ) ) {
+			$checkout_table_name = $wpdb->prefix.'eventprime_checkout_fields';
+			$booking_fields = $event->em_event_checkout_booking_fields;
+			if( ! empty( $booking_fields ) && ! empty( $booking_fields['em_event_booking_fields_data'] ) && count( $booking_fields['em_event_booking_fields_data'] ) > 0 ) {
+				$booking_fields_data = array();
+				foreach( $booking_fields['em_event_booking_fields_data'] as $fields ) {
+					$get_field_data = $wpdb->get_row( $wpdb->prepare( "SELECT `id`, `type`, `label` FROM $checkout_table_name WHERE `id` = %d", $fields ) );
+					if( ! empty( $get_field_data ) ) {
+						$booking_fields_data[] = $get_field_data;
+					}
+				}
+				$booking_fields['em_event_booking_fields_data'] = $booking_fields_data;
+			}
+		}
+		return $booking_fields;
+	}
+
+	/**
+	 * Get event booking by ticket id
+	 * 
+	 * @param $event_id Event ID.
+	 * 
+	 * @param $ticket_id Ticket ID.
+	 * 
+	 * @return int
+	 */
+	public static function get_event_booking_by_ticket_id( $event_id, $ticket_id ) {
+		$ticket_booking_count = 0;
+		$booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+		$all_bookings = $booking_controller->get_event_bookings_by_event_id( $event_id );
+		if( ! empty( $all_bookings ) ) {
+			foreach( $all_bookings as $booking ) {
+				$order_info = get_post_meta( $booking->ID, 'em_order_info', true );
+				if( ! empty( $order_info ) ) {
+					$tickets = $order_info['tickets'];
+					if( ! empty( $tickets  ) ) {
+						foreach( $tickets as $ticket ) {
+							if( $ticket->id == $ticket_id ) {
+								$ticket_booking_count += $ticket->qty;
+							}
+						}
+					}
+				}
+			}
+		}
+		return $ticket_booking_count;
 	}
 
 }

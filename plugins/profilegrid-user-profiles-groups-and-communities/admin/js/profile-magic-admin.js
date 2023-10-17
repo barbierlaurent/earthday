@@ -527,6 +527,8 @@ function pm_show_hide_field_option(a,primary)
 	}
 	if (a == 'term_checkbox') {
 		jQuery( '#term_and_condition_html' ).show( 500 );
+                jQuery( '#term_and_condition_url_html' ).show( 500 );
+                jQuery( '#term_and_condition_label_html' ).show( 500 );
 	}
 
 	if (a == 'heading') {

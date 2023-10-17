@@ -21,7 +21,6 @@ jQuery( function( $ ) {
                     if(response.success === true && response.data.note !==''){
                         $('#ep-notes-lists').prepend('<li>'+response.data.note+'</li>');
                         $('#ep-booking-note').val('');
-                        
                     }
                     $('.spinner').removeClass('is-active');
                     $('#ep-add-notes').removeAttr('disabled');
@@ -112,8 +111,8 @@ jQuery( function( $ ) {
         let data = { 
             action    : 'ep_booking_export_all', 
             security  : nonce,
-            event_id: event_id,
-            pay_method      : pay_method,
+            event_id  : event_id,
+            pay_method : pay_method,
             start_date : start_date,
             end_date : end_date,
             status: status
@@ -123,10 +122,10 @@ jQuery( function( $ ) {
             url         : ajaxurl,
             data        : data,
             success     : function( response ) {
-                var blob=new Blob([response]);
-                var link=document.createElement('a');
-                link.href=window.URL.createObjectURL(blob);
-                link.download="bookings.csv";
+                var blob      = new Blob([response]);
+                var link      = document.createElement('a');
+                link.href     = window.URL.createObjectURL(blob);
+                link.download = "bookings.csv";
                 link.click();
                 $('.ep-spinner').removeClass('ep-is-active');
             }
@@ -137,7 +136,35 @@ jQuery( function( $ ) {
     $( document ).on( 'click', '#ep_show_booking_transaction_log', function() {
         $( '.ep-booking-transaction-log' ).toggle();
     });
-    
+
+    // load edit booking attendee form html
+    $( document ).on( 'click', '.ep-admin-edit-booking-attendee', function() {
+        let event_id = $( this ).data( 'event_id' );
+        let booking_id = $( this ).data( 'booking_id' );
+        let ticket_id = $( this ).data( 'ticket_id' );
+        let ticket_key = $( this ).data( 'ticket_key' );
+        let attendee_val = $( this ).data( 'attendee_val' );
+        let nonce = $('#ep_booking_attendee_data_nonce').val();
+        // get attendee form html
+        $data = {
+            'action'      : 'ep_load_edit_booking_attendee_data',
+            'security'    : nonce,
+            'event_id'    : event_id,
+            'ticket_id'   : ticket_id,
+            'booking_id'  : booking_id,
+            'ticket_key'  : ticket_key,
+            'attendee_val': attendee_val
+        };
+
+        jQuery.ajax({
+            type    : "POST",
+            url     : ajaxurl,
+            data    : data,
+            success : function( response ) {
+                console.log(response);
+            }
+        });
+    });
 });
 
 // refund payment

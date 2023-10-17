@@ -20,6 +20,16 @@ class EventM_Event_Types_Admin {
         // sorting for ID column
         add_filter( 'manage_edit-em_event_type_sortable_columns', array( $this, 'add_event_type_sortable_custom_columns' ) );
         add_filter( 'pre_get_terms', array( $this, 'add_event_type_sortable_columns_callback' ) );
+
+        // add banner
+		add_action( 'load-edit-tags.php', function(){
+			$screen = get_current_screen();
+			if( 'edit-em_event_type' === $screen->id ) {
+				add_action( 'after-em_event_type-table', function(){
+					do_action( 'ep_add_custom_banner' );
+				});
+			}
+		});
     }
 
 	/**
@@ -92,9 +102,7 @@ class EventM_Event_Types_Admin {
             <p class="emnote emeditor">
                 <?php esc_html_e('Check if you want to make this event type featured.', 'eventprime-event-calendar-management'); ?>
             </p>
-
-        </div>
-		<?php
+        </div><?php
 	}
 
 	/**

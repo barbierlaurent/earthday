@@ -1,11 +1,17 @@
+/* global tiobDash */
 import { withSelect } from '@wordpress/data';
 import classnames from 'classnames';
 
 import Onboarding from './Main';
-import {useState} from "@wordpress/element";
-import {LicensePanelContext} from "./LicensePanelContext";
+import { useState } from '@wordpress/element';
+import { LicensePanelContext } from './LicensePanelContext';
 
 const App = ( { onboarding, userStatus } ) => {
+	if ( onboarding && tiobDash.onboardingAllowed ) {
+		window.location.href = tiobDash.onboardingRedirect;
+		return;
+	}
+
 	const wrapClasses = classnames( [
 		'content-wrap',
 		'starter-sites',

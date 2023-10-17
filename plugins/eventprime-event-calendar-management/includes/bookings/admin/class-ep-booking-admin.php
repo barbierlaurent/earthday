@@ -13,6 +13,16 @@ class EventM_Booking_Admin {
 	public function __construct() {
 		add_action( 'init', array( $this, 'includes' ) );
 		add_action( 'before_delete_post', array( $this, 'ep_before_delete_event_bookings' ), 99, 2 );
+
+		// add banner
+		add_action( 'load-edit.php', function(){
+			$screen = get_current_screen();
+			if( 'edit-em_booking' === $screen->id ) {
+				add_action( 'in_admin_footer', function(){
+					do_action( 'ep_add_custom_banner' );
+				});
+			}
+		});
 	}
 
 	/**

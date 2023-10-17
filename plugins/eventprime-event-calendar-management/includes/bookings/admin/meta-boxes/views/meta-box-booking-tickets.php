@@ -12,7 +12,7 @@ if( empty( $booking ) ) {
 }
 $order_info = isset( $booking->em_order_info ) ? $booking->em_order_info : array();
 $tickets = isset( $order_info['tickets'] ) ? $order_info['tickets'] : array();
-$ticket_sub_total = 0;
+$ticket_sub_total = $offers = 0;
 ?>
 <div class="panel-wrap ep_event_metabox">
     <div class="ep-py-3 ep-ps-3 ep-fw-bold ep-text-uppercase ep-text-small"><?php esc_html_e( 'Tickets', 'eventprime-event-calendar-management' );?></div>
@@ -31,16 +31,19 @@ $ticket_sub_total = 0;
             if( isset( $booking->em_old_ep_booking ) && ! empty( $booking->em_old_ep_booking ) ) {
                 if( ! empty( $tickets ) ){?>
                     <tbody>
-                        <?php foreach( $tickets as $ticket ){?>
+                        <?php foreach( $tickets as $ticket ){
+                            if( ! empty( $ticket->offer ) ) {
+                                $offers += $ticket->offer;
+                            }?>
                             <tr>
                                 <td colspan="2"><?php echo esc_attr( $ticket->name );?></td>
                                 <td><?php echo esc_html( ep_price_with_position( $ticket->price ) );?></td>
                                 <td><?php echo esc_attr( $ticket->qty );?></td>
                                 <td>
                                     <?php $additional_fees = array();
-                                    if(isset($ticket->additional_fee)){
-                                        foreach($ticket->additional_fee as $fees){
-                                            $additional_fees[] = $fees->label.' ('.ep_price_with_position($fees->price * $ticket->qty).')';
+                                    if( isset( $ticket->additional_fee ) ) {
+                                        foreach( $ticket->additional_fee as $fees ){
+                                            $additional_fees[] = $fees->label.' ('.ep_price_with_position( $fees->price * $ticket->qty) .')';
                                         }
                                     }
                                     if(!empty($additional_fees)){
@@ -71,7 +74,10 @@ $ticket_sub_total = 0;
             } else{
                 if( ! empty( $tickets ) ){?>
                     <tbody>
-                        <?php foreach( $tickets as $ticket ){?>
+                        <?php foreach( $tickets as $ticket ){
+                            if( ! empty( $ticket->offer ) ) {
+                                $offers += $ticket->offer;
+                            }?>
                             <tr>
                                 <td colspan="2"><?php echo esc_attr( $ticket->name );?></td>
                                 <td><?php echo esc_html( ep_price_with_position( $ticket->price ) );?></td>
@@ -126,7 +132,7 @@ $ticket_sub_total = 0;
         <table class="ep-order-totals ep-table ep-table-hover ep-text-small ep-table-borderless ep-ml-4">
             <tbody>
                 <tr>
-                    <td class="label"><?php esc_html_e('Event Fees:','eventprime-event-calendar-management');?></td>
+                    <td class="label"><?php esc_html_e( 'Event Fees:', 'eventprime-event-calendar-management' );?></td>
                     <td width="1%"></td>
                     <td class="ep-ticket-total-amount">
                         <span>
@@ -139,21 +145,29 @@ $ticket_sub_total = 0;
                     </td>
                 </tr>
                 <tr>
-                    <td class="label"><?php esc_html_e('Tickets Subtotal:','eventprime-event-calendar-management');?></td>
+                    <td class="label"><?php esc_html_e( 'Tickets Subtotal:', 'eventprime-event-calendar-management' );?></td>
                     <td width="1%"></td>
                     <td class="ep-ticket-total-amount">
                         <span><?php echo esc_html( ep_price_with_position( $ticket_sub_total ) );?></span>
                     </td>
                 </tr>
-                <?php if(isset($order_info['coupon_code'])):?>
+                <?php 
+                if( ! empty( $offers ) ) {?>
                     <tr>
-                        <td class="label"><?php esc_html_e('Coupon:','eventprime-event-calendar-management');?></td>
+                        <td class="label"><?php esc_html_e( 'Offers:', 'eventprime-event-calendar-management' );?></td>
+                        <td width="1%"></td>
+                        <td class="ep-ticket-total-amount"><span>-<?php echo esc_html( ep_price_with_position( $offers ) );?></span></td>
+                    </tr><?php
+                }
+                if( isset( $order_info['coupon_code'] ) ) {?>
+                    <tr>
+                        <td class="label"><?php esc_html_e( 'Coupon:', 'eventprime-event-calendar-management' );?></td>
                         <td width="1%"></td>
                         <td class="ep-ticket-total-amount"><span>-<?php echo esc_html( ep_price_with_position( $order_info['discount'] ) );?></span></td>
-                    </tr>
-                <?php endif;?>
+                    </tr><?php 
+                }?>
                 <tr>
-                    <td class="label"><?php esc_html_e('Ticket Total:','eventprime-event-calendar-management');?></td>
+                    <td class="label"><?php esc_html_e( 'Ticket Total:', 'eventprime-event-calendar-management' );?></td>
                     <td width="1%"></td>
                     <td class="ep-ticket-total-amount">
                         <span>

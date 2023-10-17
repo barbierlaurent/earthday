@@ -4,12 +4,17 @@
             <?php echo esc_html( $args->event->fstart_date );?>
         </span>
         <?php if( ! empty( $args->event->em_start_time ) && ep_show_event_date_time( 'em_start_time', $args->event ) ) {?>
-            <span class="ep-text-dark ep-fs-6" id="ep_single_event_start_time">
-                <?php echo esc_html( ep_convert_time_with_format( $args->event->em_start_time ) );?>
+            <span class="ep-text-dark ep-fs-6" id="ep_single_event_start_time"><?php 
+                $event_start_time = ep_convert_time_with_format( $args->event->em_start_time );
+                if( ! empty( ep_get_global_settings( 'enable_event_time_to_user_timezone' ) ) ) {
+                    $event_timezone_time = ep_convert_event_date_time_from_timezone( $args->event, 'h:i A', 0, 1 );
+                    $event_start_time = ep_convert_time_with_format( $event_timezone_time );
+                }
+                echo esc_html( $event_start_time );?>
             </span><?php
         }
         if( count( $args->event->child_events ) > 0 || ! empty( $args->event->post_parent ) ) { //if event has recurring events ?>
-            <span class="material-icons-outlined ep-bg-dark ep-text-white ep-rounded-5 ep-p-2 ep-cursor-pointer ep-text-small ep-ml-1 ep-cursor" ep-modal-open="ep-get-other-date" id="ep_event_more_child_dates">event_repeat</span><?php
+            <span class="ep-recurring-modal-icon material-icons-outlined ep-bg-dark ep-text-white ep-rounded-5 ep-p-2 ep-cursor-pointer ep-text-small ep-ml-1 ep-cursor" ep-modal-open="ep-get-other-date" id="ep_event_more_child_dates">event_repeat</span><?php
         }?>
     </div>
 
@@ -30,14 +35,21 @@
                             if( ep_show_event_date_time( 'em_end_date', $args->event ) ) {
                                 echo ', ';
                             }
-                            echo esc_html( ep_convert_time_with_format( $args->event->em_end_time ) );
+                            $event_end_time = ep_convert_time_with_format( $args->event->em_end_time );
+                            if( ! empty( ep_get_global_settings( 'enable_event_time_to_user_timezone' ) ) ) {
+                                $event_timezone_time = ep_convert_event_date_time_from_timezone( $args->event, 'h:i A', 1, 1 );
+                                $event_end_time = ep_convert_time_with_format( $event_timezone_time );
+                            }
+                            echo esc_html( $event_end_time );
                         }?>
                     </span><?php
                 }?>
-            </span>     
-            <span class="ep-text-small ep-ml-4" id="ep_single_event_start_end_diff">
-                <?php echo esc_html( $args->event->start_end_diff ); ?>
             </span><?php
+            if( ep_show_event_date_time( 'em_end_time', $args->event ) ) {?>
+                <span class="ep-text-small ep-ml-4" id="ep_single_event_start_end_diff">
+                    <?php echo esc_html( $args->event->start_end_diff ); ?>
+                </span><?php
+            }
         }?>
     </div>
 
@@ -66,7 +78,7 @@
                                     <div class="ep-tab-content" id="ep-sl-nav-calendar-tab" role="tabpanel" >                                        
                                         <div class="ep-box-row">
                                             <div class="ep-box-col-12">
-                                                <span><?php esc_html_e( 'Click on an event occurance to go to its page', 'eventprime-event-calendar-management' );?> </span>
+                                                <div class="ep-my-2"><?php esc_html_e( 'Click on an event occurance to go to its page', 'eventprime-event-calendar-management' );?> </div>
                                                 <div id="ep_single_event_recurring_events" class="ep-mt-3"></div>
                                             </div>
                                         </div>

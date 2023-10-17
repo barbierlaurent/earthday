@@ -550,7 +550,7 @@ if ( $id==false || $id==null ) {
 			<?php esc_html_e( 'New Group', 'profilegrid-user-profiles-groups-and-communities' ); ?>
       </div>
       <?php else : ?>
-      <div class="uimheader pg-options-head">
+      <div class="uimheader pg-options-head pg-justify-content-between">
 		  <?php
 			$tab_title = strtoupper( str_replace( '_', ' ', $tab ) );
 			echo esc_html( $tab_title );
@@ -569,6 +569,7 @@ if ( $id==false || $id==null ) {
 
         </div>
         <?php endif; ?> 
+          <?php do_action('pg_group_name_additional_data', $id);?>
       </div>
       <?php endif; ?> 
             
@@ -598,7 +599,10 @@ if ( $id==false || $id==null ) {
 								?>" />
                              <div class="errortext"></div>
                          </div>
-                         <div class="uimnote"><?php esc_html_e( 'Name of this Group. The name will appear on Single and All Groups page and Member Profiles.', 'profilegrid-user-profiles-groups-and-communities' ); ?><a target="_blank" href="https://profilegrid.co/documentation/new-group-or-edit-group/"><?php esc_html_e( 'More', 'profilegrid-user-profiles-groups-and-communities' ); ?></a></div>
+                         <div class="uimnote">
+                             <?php esc_html_e( 'Name of this Group. The name will appear on Single and All Groups page and Member Profiles.', 'profilegrid-user-profiles-groups-and-communities' ); ?><a target="_blank" href="https://profilegrid.co/documentation/new-group-or-edit-group/"><?php esc_html_e( 'More', 'profilegrid-user-profiles-groups-and-communities' ); ?></a>
+                             
+                         </div>
                      </div>
 
                      <div class="uimrow">

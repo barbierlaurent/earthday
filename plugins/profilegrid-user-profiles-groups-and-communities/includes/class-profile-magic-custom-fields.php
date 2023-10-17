@@ -86,8 +86,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -110,8 +110,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -130,8 +130,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -150,8 +150,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><sup class="pm_estric">*</sup></label>
             </div>
             <div class="pm-field-input pm_user_name pm_required">
@@ -171,8 +171,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><sup class="pm_estric">*</sup></label>
             </div>
             <div class="pm-field-input pm_email pm_user_email pm_required">
@@ -202,8 +202,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -222,8 +222,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_user_url <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -245,8 +245,8 @@ class PM_Custom_Fields {
         }
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_user_url <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -265,8 +265,8 @@ class PM_Custom_Fields {
             $field_options = maybe_unserialize($row->field_options);
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><sup class="pm_estric">*</sup></label>
             </div>
             <div class="pm-field-input pm_user_pass pm_required">
@@ -283,8 +283,8 @@ class PM_Custom_Fields {
             $field_options = maybe_unserialize($row->field_options);
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><sup class="pm_estric">*</sup></label>
             </div>
             <div class="pm-field-input pm_confirm_pass pm_required">
@@ -300,9 +300,8 @@ class PM_Custom_Fields {
             $field_options = maybe_unserialize($row->field_options);
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
-
+            <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
             </div>
             <div class="pm-field-input">
                 <<?php if (!empty($field_options)) echo esc_attr($field_options['heading_tag']); ?> class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>"><?php if (!empty($field_options)) echo esc_attr($field_options['heading_text']); ?></<?php if (!empty($field_options)) echo esc_attr($field_options['heading_tag']); ?>>
@@ -317,9 +316,8 @@ class PM_Custom_Fields {
             $field_options = maybe_unserialize($row->field_options);
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
-
+            <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
             </div>
             <div class="pm-field-input">
                 <p class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>"><?php if (!empty($field_options)) echo wp_kses_post($field_options['paragraph_text']); ?></p>
@@ -336,8 +334,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1){ if(is_user_logged_in()){echo 'pm_rich_editor_required';}else{ echo 'pm_textarearequired';}} ?>">
@@ -368,8 +366,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -388,8 +386,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_select_required'; ?>">
@@ -421,8 +419,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_radiorequired'; ?>">
@@ -456,8 +454,8 @@ class PM_Custom_Fields {
         }
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_checkboxrequired'; ?>">
@@ -516,8 +514,8 @@ class PM_Custom_Fields {
                         $value = $field_options['default_value'];
                     ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_textarearequired'; ?>">
@@ -535,8 +533,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_datepicker <?php if ($row->is_required == 1) echo 'pm_required'; ?>">              
@@ -554,8 +552,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_email <?php if ($row->is_required == 1) echo 'pm_required'; ?>">              
@@ -573,8 +571,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_number <?php if ($row->is_required == 1) echo 'pm_required'; ?>">              
@@ -592,8 +590,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_select_required'; ?>">
@@ -613,8 +611,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_select_required'; ?>">
@@ -631,17 +629,36 @@ class PM_Custom_Fields {
         $field_options = maybe_unserialize($row->field_options);
         if($value == '' && !empty($field_options) && isset($field_options['default_value']))
             $value = $field_options['default_value'];
+        
         ?>        
+
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                 <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_checkboxrequired'; ?>">
                 <div class="pmradio">
-                    <div class="pm-radio-option"><input type="checkbox" title="<?php echo esc_attr($row->field_desc); ?>" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="yes" <?php checked($value, 'yes') ?> /> <?php echo esc_attr($row->field_name); ?></div>
+                    <div class="pm-radio-option"><input type="checkbox" title="<?php echo esc_attr($row->field_desc); ?>" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="yes" <?php checked($value, 'yes') ?> />
+                        <?php 
+                        if(isset($field_options['term_and_condition_label']) && !empty($field_options['term_and_condition_label'])){
+                            $label = esc_attr($field_options['term_and_condition_label']);
+                        }else{
+                            $label = esc_attr($row->field_name); 
+                        }
+                        if(isset($field_options['term_and_condition_url']) && !empty($field_options['term_and_condition_url'])){
+                        ?>
+                        <a href="<?php echo esc_url($field_options['term_and_condition_url']);?>" target="_blank"><?php echo wp_kses_post($label);?></a>
+                        <?php
+                        }else{
+                            echo wp_kses_post($label);
+                        }
+                        ?>
+                    </div>
                 </div>
+                <?php if(!empty($field_options['term_and_condition'])){?>
                 <textarea disabled rows="4" class="termandcondition"><?php echo wp_kses_post($field_options['term_and_condition']); ?></textarea>
+                <?php } ?>
                 <div class="errortext" style="display:none;"></div>
             </div>
         </div>
@@ -659,8 +676,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_fileinput <?php if ($row->is_required == 1) echo 'pm_repeat_required'; ?>">
@@ -700,8 +717,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                 <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_fileinput <?php if ($row->is_required == 1) echo 'pm_repeat_required'; ?>">
@@ -729,8 +746,8 @@ class PM_Custom_Fields {
             $values = explode(',', $value);
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_repeat_required'; ?>">
@@ -761,8 +778,8 @@ class PM_Custom_Fields {
             $values = explode(',', $value);
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_repeat_required'; ?>">
@@ -789,8 +806,8 @@ class PM_Custom_Fields {
             $value = $field_options['price'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -817,8 +834,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_mobile_number <?php if ($row->is_required == 1) echo 'pm_required'; ?>">              
@@ -836,8 +853,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                 <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_phone_number <?php if ($row->is_required == 1) echo 'pm_required'; ?>">              
@@ -857,15 +874,15 @@ class PM_Custom_Fields {
 
 
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_radiorequired'; ?>">
                 <div class="pmradio pm_gender">
-                    <div class="pm-radio-option"><input title="<?php echo esc_attr($row->field_desc); ?>" type="radio" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="<?php esc_attr_e('Male', 'profilegrid-user-profiles-groups-and-communities') ?>" <?php if ($value == 'Male') echo 'checked'; ?>> <?php esc_html_e('Male', 'profilegrid-user-profiles-groups-and-communities') ?></div>
-                    <div class="pm-radio-option"><input title="<?php echo esc_attr($row->field_desc); ?>" type="radio" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="<?php esc_attr_e('Female', 'profilegrid-user-profiles-groups-and-communities') ?>" <?php if ($value == 'Female') echo 'checked'; ?>> <?php esc_html_e('Female', 'profilegrid-user-profiles-groups-and-communities') ?></div>
-                    <div class="pm-radio-option"><input title="<?php echo esc_attr($row->field_desc); ?>" type="radio" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="<?php esc_attr_e('Others', 'profilegrid-user-profiles-groups-and-communities') ?>" <?php if ($value == 'Others') echo 'checked'; ?>> <?php esc_html_e('Others', 'profilegrid-user-profiles-groups-and-communities') ?></div>
+                    <div class="pm-radio-option"><input title="<?php echo esc_attr($row->field_desc); ?>" type="radio" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="Male" <?php if ($value == 'Male') echo 'checked'; ?>> <?php esc_html_e('Male', 'profilegrid-user-profiles-groups-and-communities') ?></div>
+                    <div class="pm-radio-option"><input title="<?php echo esc_attr($row->field_desc); ?>" type="radio" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="Female" <?php if ($value == 'Female') echo 'checked'; ?>> <?php esc_html_e('Female', 'profilegrid-user-profiles-groups-and-communities') ?></div>
+                    <div class="pm-radio-option"><input title="<?php echo esc_attr($row->field_desc); ?>" type="radio" class="<?php if (!empty($field_options)) echo esc_attr($field_options['css_class_attribute']); ?>" id="<?php echo esc_attr($row->field_key); ?>" name="<?php echo esc_attr($row->field_key); ?>" value="Others" <?php if ($value == 'Others') echo 'checked'; ?>> <?php esc_html_e('Others', 'profilegrid-user-profiles-groups-and-communities') ?></div>
                 </div>
                 <div class="errortext" style="display:none;"></div>
             </div>
@@ -883,8 +900,8 @@ class PM_Custom_Fields {
 
 
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
            <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_select_required'; ?>">
@@ -905,8 +922,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_datepicker <?php if ($row->is_required == 1) echo 'pm_required'; ?>">              
@@ -952,8 +969,8 @@ class PM_Custom_Fields {
         }
         ?>        
         <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input <?php if ($row->is_required == 1) echo 'pm_select_required'; ?>">
@@ -996,8 +1013,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_facebook_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1018,8 +1035,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_twitter_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1037,8 +1054,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_google_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1056,8 +1073,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_linked_in_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1075,8 +1092,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                  <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_youtube_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1095,8 +1112,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                 <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_mixcloud_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1114,8 +1131,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_soundcloud_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1134,8 +1151,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_instagram_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">
@@ -1154,8 +1171,8 @@ class PM_Custom_Fields {
             $value = $field_options['default_value'];
         ?>        
       <div class="pm-col">
-            <div class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></div>
             <div class="pm-field-lable">
+                 <span class="pm-form-field-icon"><?php echo wp_get_attachment_image($row->field_icon, array(16, 16), false, false); ?></span>
                 <label for="<?php echo esc_attr($row->field_key); ?>"><?php echo esc_attr($row->field_name); ?><?php if ($row->is_required == 1): ?><sup class="pm_estric">*</sup><?php endif; ?></label>
             </div>
             <div class="pm-field-input pm_instagram_url  <?php if ($row->is_required == 1) echo 'pm_required'; ?>">

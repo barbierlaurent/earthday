@@ -298,6 +298,8 @@ jQuery( function( $ ) {
                 } else{
                     minDate = new Date();
                 }
+            } else if( start == 'event_start' ){
+                minDate = em_start_date;
             }
             // max
             let end = $( this ).data( 'end' );
@@ -826,13 +828,11 @@ jQuery( function( $ ) {
         if ( $.inArray( date, cdates ) < 0 ) {
             cdates.push( date );
         }
-
         return cdates;
     }
     // remove date from date array
     function removeDate( index, cdates ) {
         cdates.splice( index, 1 );
-
         return cdates;
     }
     
@@ -904,20 +904,20 @@ jQuery( function( $ ) {
                      attendee_fields +='</div>';
                     attendee_fields += '</div>';
                     attendee_fields += '<div class="ep-box-col-12 ep-event-checkout-fields-expand-section" id="ep_event_checkout_fields_middle_name_expand">';
-                     attendee_fields += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';  
-                       attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
-                            attendee_fields += '<label for="em_event_checkout_name_middle_name_required">';
-                                if( $( '#em_event_checkout_name_middle_name_required_popup' ).is( ':checked' ) ){
-                                    attendee_fields += '<input type="checkbox" name="em_event_checkout_name_middle_name_required" id="em_event_checkout_name_middle_name_required" value="1" checked="checked">';
-                                } else{
-                                    attendee_fields += '<input type="checkbox" name="em_event_checkout_name_middle_name_required" id="em_event_checkout_name_middle_name_required" value="1">';
-                                }
-                                attendee_fields += '<span>'+$( '#em_event_checkout_name_middle_name_required_popup' ).data( 'label')+'</span>';
-                            attendee_fields += '</label>';
+                        attendee_fields += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';  
+                            attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
+                                attendee_fields += '<label for="em_event_checkout_name_middle_name_required">';
+                                    if( $( '#em_event_checkout_name_middle_name_required_popup' ).is( ':checked' ) ){
+                                        attendee_fields += '<input type="checkbox" name="em_event_checkout_name_middle_name_required" id="em_event_checkout_name_middle_name_required" value="1" checked="checked">';
+                                    } else{
+                                        attendee_fields += '<input type="checkbox" name="em_event_checkout_name_middle_name_required" id="em_event_checkout_name_middle_name_required" value="1">';
+                                    }
+                                    attendee_fields += '<span>'+$( '#em_event_checkout_name_middle_name_required_popup' ).data( 'label')+'</span>';
+                                attendee_fields += '</label>';
+                            attendee_fields += '</div>';
+                            attendee_fields += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_middle_name_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_middle_name">'+em_event_meta_box_object.remove_label+'</button></div>';
                         attendee_fields += '</div>';
-                        attendee_fields += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_middle_name_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_middle_name">'+em_event_meta_box_object.remove_label+'</button></div>';
-                        attendee_fields += '</div>';
-                        attendee_fields += '</div>';
+                    attendee_fields += '</div>';
                 }
                 if( $( '#em_event_checkout_name_last_name_popup' ).is( ':checked' ) ) {
                     attendee_fields += '<div class="ep-box-col-12 ep-bg-white" id="ep_event_checkout_fields_last_name_top">';
@@ -934,19 +934,19 @@ jQuery( function( $ ) {
                       attendee_fields +='</div>' 
                     attendee_fields += '</div>';
                     attendee_fields += '<div class="ep-box-col-12 ep-event-checkout-fields-expand-sectionn" id="ep_event_checkout_fields_last_name_expand">';
-                    attendee_fields += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';
-                       attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
-                            attendee_fields += '<label for="em_event_checkout_name_last_name_required">';
-                                if( $( '#em_event_checkout_name_last_name_required_popup' ).is( ':checked' ) ){
-                                    attendee_fields += '<input type="checkbox" name="em_event_checkout_name_last_name_required" id="em_event_checkout_name_last_name_required" value="1" checked="checked">';
-                                } else{
-                                    attendee_fields += '<input type="checkbox" name="em_event_checkout_name_last_name_required" id="em_event_checkout_name_last_name_required" value="1">';
-                                }
-                                attendee_fields += '<span>'+$( '#em_event_checkout_name_last_name_required_popup' ).data( 'label')+'</span>';
-                            attendee_fields += '</label>';
+                        attendee_fields += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';
+                            attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
+                                attendee_fields += '<label for="em_event_checkout_name_last_name_required">';
+                                    if( $( '#em_event_checkout_name_last_name_required_popup' ).is( ':checked' ) ){
+                                        attendee_fields += '<input type="checkbox" name="em_event_checkout_name_last_name_required" id="em_event_checkout_name_last_name_required" value="1" checked="checked">';
+                                    } else{
+                                        attendee_fields += '<input type="checkbox" name="em_event_checkout_name_last_name_required" id="em_event_checkout_name_last_name_required" value="1">';
+                                    }
+                                    attendee_fields += '<span>'+$( '#em_event_checkout_name_last_name_required_popup' ).data( 'label')+'</span>';
+                                attendee_fields += '</label>';
+                            attendee_fields += '</div>';
+                            attendee_fields += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_last_name_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_last_name">'+em_event_meta_box_object.remove_label+'</button></div>';
                         attendee_fields += '</div>';
-                        attendee_fields += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_last_name_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_last_name">'+em_event_meta_box_object.remove_label+'</button></div>';
-                    attendee_fields += '</div>';
                     attendee_fields += '</div>';
                 }
             }
@@ -958,29 +958,41 @@ jQuery( function( $ ) {
                     let field_label = $( this ).data( 'label' );
                     let field_type = $( this ).data( 'type' );
                     attendee_fields += '<div class="ep-box-col-12 ep-bg-white" id="ep_event_checkout_fields_data_'+field_id+'_top">';
-                    attendee_fields += '<div class="ep-border ep-rounded-1 ep-p-2 ep-mx-2 ep-mb-2 ep-d-flex ep-align-items-center ep-text-small">';
-                        attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data[]" id="ep_event_checkout_fields_data_'+field_id+'" value="'+field_id+'" checked="checked" style="display:none;">';
-                        attendee_fields += '<div class="ep-d-inline-block ep-checkout-field-drag"><span class="material-icons ep-fs-6">drag_indicator</span></div>'
-                        attendee_fields += '<div class="ep-d-inline-block ep-ml-3 ep-checkout-field-name">'+field_label+'</div>';
-                        attendee_fields += '<div class="ep-d-inline-block ep-mx-auto ep-text-muted">'+field_type+'</div>';
-                        attendee_fields += '<div class="ep-field-options-expand ep-d-inline-block ep-ms-auto"><span class="material-icons ep-cursor ep-event-checkout-fields-expand" data-id="ep_event_checkout_fields_data_'+field_id+'_expand">expand_more</span></div>';
+                        attendee_fields += '<div class="ep-border ep-rounded-1 ep-p-2 ep-mx-2 ep-mb-2 ep-d-flex ep-align-items-center ep-text-small">';
+                            attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data[]" id="ep_event_checkout_fields_data_'+field_id+'" value="'+field_id+'" checked="checked" style="display:none;">';
+                            attendee_fields += '<div class="ep-d-inline-block ep-checkout-field-drag"><span class="material-icons ep-fs-6">drag_indicator</span></div>'
+                            attendee_fields += '<div class="ep-d-inline-block ep-ml-3 ep-checkout-field-name">'+field_label+'</div>';
+                            attendee_fields += '<div class="ep-d-inline-block ep-mx-auto ep-text-muted">'+field_type+'</div>';
+                            attendee_fields += '<div class="ep-field-options-expand ep-d-inline-block ep-ms-auto"><span class="material-icons ep-cursor ep-event-checkout-fields-expand" data-id="ep_event_checkout_fields_data_'+field_id+'_expand">expand_more</span></div>';
                         attendee_fields += '</div>';
-                        attendee_fields += '</div>';
+                    attendee_fields += '</div>';
                     attendee_fields += '<div class="ep-box-col-12 ep-event-checkout-fields-expand-section" id="ep_event_checkout_fields_data_'+field_id+'_expand">';
-                    attendee_fields += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';
-                    attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
-                            attendee_fields += '<label for="ep_event_checkout_fields_data_required_'+field_id+'">';
-                                if( $( '#ep_event_checkout_field_required_' + field_id ).is( ':checked' ) ) {
-                                    attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data_required[]" id="ep_event_checkout_fields_data_required_'+field_id+'" value="'+field_id+'" checked="checked"> ';
-                                } else{
-                                    attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data_required[]" id="ep_event_checkout_fields_data_required_'+field_id+'" value="'+field_id+'"> ';
-                                }
-                                attendee_fields += '<span>'+ em_event_meta_box_object.required_text +'</span>';
-                            attendee_fields += '</label>';
+                        attendee_fields += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';
+                            attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
+                                attendee_fields += '<label for="ep_event_checkout_fields_data_required_'+field_id+'">';
+                                    if( $( '#ep_event_checkout_field_required_' + field_id ).is( ':checked' ) === true ) {
+                                        attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data_required[]" id="ep_event_checkout_fields_data_required_'+field_id+'" value="'+field_id+'" checked="checked"> ';
+                                    } else{
+                                        attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data_required[]" id="ep_event_checkout_fields_data_required_'+field_id+'" value="'+field_id+'"> ';
+                                    }
+                                    attendee_fields += '<span>'+ em_event_meta_box_object.required_text +'</span>';
+                                attendee_fields += '</label>';
+                            attendee_fields += '</div>';
+                            if( em_event_meta_box_object.enabled_attendees_list == 1 ) {
+                                attendee_fields += '<div class="ep-event-checkout-selected-fields-attributes">';
+                                    attendee_fields += '<label for="ep_event_checkout_fields_data_show_attendee_list_'+field_id+'">';
+                                        if( $( '#ep_event_checkout_field_show_attendee_list_' + field_id ).is( ':checked' ) === true ) {
+                                            attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data_show_attendee_list[]" id="ep_event_checkout_fields_data_show_attendee_list_'+field_id+'" value="'+field_id+'" checked="checked"> ';
+                                        } else{
+                                            attendee_fields += '<input type="checkbox" name="em_event_checkout_fields_data_show_attendee_list[]" id="ep_event_checkout_fields_data_show_attendee_list_'+field_id+'" value="'+field_id+'"> ';
+                                        }
+                                        attendee_fields += '<span>'+ em_event_meta_box_object.show_in_attendees_list_text +'</span>';
+                                    attendee_fields += '</label>';
+                                attendee_fields += '</div>';
+                            }
+                            attendee_fields += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_data_'+field_id+'_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_data_'+field_id+'">'+em_event_meta_box_object.remove_label+'</button></div>';
                         attendee_fields += '</div>';
-                        attendee_fields += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_data_'+field_id+'_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_data_'+field_id+'">'+em_event_meta_box_object.remove_label+'</button></div>';
-                        attendee_fields += '</div>';
-                        attendee_fields += '</div>';
+                    attendee_fields += '</div>';
                 });
             }
         } else{
@@ -1114,11 +1126,18 @@ jQuery( function( $ ) {
     
     // other checkout fields
     $( document ).on( 'click', '.em_event_checkout_field_ids', function() {
-        if( !$( this ).is( ':checked' ) ) {
-            let checkout_field_id = $( this ).val();
-            if( checkout_field_id ) {
+        let checkout_field_id = $( this ).val();
+        if( checkout_field_id ) {
+            if( !$( this ).is( ':checked' ) ) {
                 if( $( '#ep_event_checkout_field_required_' + checkout_field_id ).prop( 'checked' ) == true ) {
                     $( '#ep_event_checkout_field_required_' + checkout_field_id ).prop( 'checked', false );
+                }
+                if( $( '#ep_event_checkout_field_show_attendee_list_' + checkout_field_id ).length > 0 ) {
+                    $( '#ep_event_checkout_field_show_attendee_list_' + checkout_field_id ).attr( 'disabled', 'disabled' );
+                }
+            } else{
+                if( $( '#ep_event_checkout_field_show_attendee_list_' + checkout_field_id ).length > 0 ) {
+                    $( '#ep_event_checkout_field_show_attendee_list_' + checkout_field_id ).removeAttr( 'disabled' );
                 }
             }
         }
@@ -1126,10 +1145,12 @@ jQuery( function( $ ) {
     $( document ).on( 'click', '.em_event_checkout_field_requires', function() {
         if( $( this ).is( ':checked' ) ) {
             let checkout_field_id = $( this ).data( 'field_id' );
-            console.log(checkout_field_id);
             if( checkout_field_id ) {
                 if( $( '#em_event_checkout_field_id_' + checkout_field_id ).prop( 'checked' ) == false ) {
                     $( '#em_event_checkout_field_id_' + checkout_field_id ).prop( 'checked', true );
+                    if( $( '#ep_event_checkout_field_show_attendee_list_' + checkout_field_id ).length > 0 ) {
+                        $( '#ep_event_checkout_field_show_attendee_list_' + checkout_field_id ).removeAttr( 'disabled' );
+                    }
                 }
             }
         }
@@ -1151,84 +1172,149 @@ jQuery( function( $ ) {
     $( document ).on( 'click', '#ep_save_checkout_fixed_fields', function() {
         let em_fixed_content_html = '';
         $( '#ep_event_checkout_fixed_fields_modal .ep-error-message' ).html( '' );
+        let booking_fields_exists = '';
         if( $( '#em_event_checkout_fixed_terms' ).is( ':checked' ) ){
+            booking_fields_exists = 1;
+        }
+        var original_data = $( '#ep_event_checkout_booking_fields_table' ).find(
+			'input, select, textarea'
+		);
+        let booking_fields_data = original_data.serialize().split('&');
+        if( booking_fields_data.length > 0 && booking_fields_data[0] ){
+            booking_fields_exists = 1;
+        }
+        if( booking_fields_exists ){
             let requireString = get_translation_string( 'required' );
-            let em_event_checkout_fixed_terms = $( '#em_event_checkout_fixed_terms' ).val();
-            let em_event_checkout_terms_label = $( '#em_event_checkout_terms_label' ).val();
-            if( !em_event_checkout_terms_label ) {
-                $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_label_error' ).html( requireString );
-                return false;
-            }
-            let em_event_checkout_terms_option = $( 'input[name="em_event_checkout_terms_option"]:checked' ).val();
-            if( !em_event_checkout_terms_option ) {
-                $( '#ep_event_checkout_fixed_fields_modal #ep_event_fixed_field_bottom_error' ).html( em_event_meta_box_object.fixed_field_term_option_required );
-                return false;
-            }
-            let em_event_checkout_terms_options_value = '';
-            if( em_event_checkout_terms_option == 'page' ) {
-                em_event_checkout_terms_options_value = $( '#em_event_checkout_terms_page' ).val();
-                if( !em_event_checkout_terms_options_value ) {
-                    $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_page_option_error' ).html( requireString );
+            if( $( '#em_event_checkout_fixed_terms' ).is( ':checked' ) ){
+                let em_event_checkout_fixed_terms = $( '#em_event_checkout_fixed_terms' ).val();
+                let em_event_checkout_terms_label = $( '#em_event_checkout_terms_label' ).val();
+                if( !em_event_checkout_terms_label ) {
+                    $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_label_error' ).html( requireString );
+                    document.getElementById( 'em_event_checkout_terms_label' ).focus();
                     return false;
                 }
-            } else if( em_event_checkout_terms_option == 'url' ) {
-                em_event_checkout_terms_options_value = $( '#em_event_checkout_terms_url' ).val();
-                if( !em_event_checkout_terms_options_value ) {
-                    $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_url_option_error' ).html( requireString );
+                let em_event_checkout_terms_option = $( 'input[name="em_event_checkout_terms_option"]:checked' ).val();
+                if( !em_event_checkout_terms_option ) {
+                    $( '#ep_event_checkout_fixed_fields_modal #ep_event_fixed_field_bottom_error' ).html( em_event_meta_box_object.fixed_field_term_option_required );
                     return false;
                 }
-                if( !is_valid_url( em_event_checkout_terms_options_value ) ) {
-                    let invalidUrlString = get_translation_string( 'invalid_url' );
-                    $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_url_option_error' ).html( invalidUrlString );
-                    return false;
+                let em_event_checkout_terms_options_value = '';
+                if( em_event_checkout_terms_option == 'page' ) {
+                    em_event_checkout_terms_options_value = $( '#em_event_checkout_terms_page' ).val();
+                    if( !em_event_checkout_terms_options_value ) {
+                        $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_page_option_error' ).html( requireString );
+                        document.getElementById( 'em_event_checkout_terms_page' ).focus();
+                        return false;
+                    }
+                } else if( em_event_checkout_terms_option == 'url' ) {
+                    em_event_checkout_terms_options_value = $( '#em_event_checkout_terms_url' ).val();
+                    if( !em_event_checkout_terms_options_value ) {
+                        $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_url_option_error' ).html( requireString );
+                        document.getElementById( 'em_event_checkout_terms_url' ).focus();
+                        return false;
+                    }
+                    if( !is_valid_url( em_event_checkout_terms_options_value ) ) {
+                        let invalidUrlString = get_translation_string( 'invalid_url' );
+                        $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_url_option_error' ).html( invalidUrlString );
+                        document.getElementById( 'em_event_checkout_terms_url' ).focus();
+                        return false;
+                    }
+                } else if( em_event_checkout_terms_option == 'content' ) {
+                    if( $( '#description' ).is(':visible') ) {
+                        em_event_checkout_terms_options_value = $('#description').val();
+                    } else{
+                        em_event_checkout_terms_options_value = tinymce.get('description').getContent();   
+                    }
+                    if( !em_event_checkout_terms_options_value ) {
+                        $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_custom_option_error' ).html( requireString );
+                        return false;
+                    }
                 }
-            } else if( em_event_checkout_terms_option == 'content' ) {
-                if( $( '#description' ).is(':visible') ) {
-                    em_event_checkout_terms_options_value = $('#description').val();
-                } else{
-                    em_event_checkout_terms_options_value = tinymce.get('description').getContent();   
-                }
-                if( !em_event_checkout_terms_options_value ) {
-                    $( '#ep_event_checkout_fixed_fields_modal #ep_fixed_field_custom_option_error' ).html( requireString );
-                    return false;
-                }
-            }
             
-            em_fixed_content_html += '<div class="ep-box-col-12 ep-bg-white" id="ep_event_checkout_fields_fixed_terms_top">';
-              em_fixed_content_html += '<div class="ep-border ep-rounded-1 ep-p-2 ep-mx-2 ep-mb-2 ep-d-flex ep-align-items-center ep-text-small">';
-                em_fixed_content_html += '<input type="checkbox" name="em_event_checkout_fixed_terms_enabled" value="1" id="em_event_checkout_fixed_terms_enabled" checked="checked" style="display:none;">';
-                em_fixed_content_html += '<input type="hidden" name="em_event_checkout_fixed_terms_label" value="'+em_event_checkout_terms_label+'">';
-                em_fixed_content_html +='<div class="ep-d-inline-block ep-checkout-field-drag"><span class="material-icons ep-fs-6">drag_indicator</span></div>'
-                em_fixed_content_html += '<div class="ep-d-inline-block ep-ml-3 ep-checkout-field-name">' + em_event_checkout_terms_label + '</div>';
-                em_fixed_content_html += '<div class="ep-d-inline-block ep-mx-auto ep-text-muted">' + em_event_checkout_terms_option +'</div>';
-                em_fixed_content_html += '<div class="ep-field-options-expand ep-d-inline-block ep-ms-auto"><span class="material-icons ep-cursor ep-event-checkout-fields-expand" data-id="ep_event_checkout_fields_fixed_terms_expand">expand_more</span></div>';
-              em_fixed_content_html += '</div>';
-            em_fixed_content_html += '</div>';
+                em_fixed_content_html += '<div class="ep-box-col-12 ep-bg-white" id="ep_event_checkout_fields_fixed_terms_top">';
+                    em_fixed_content_html += '<div class="ep-border ep-rounded-1 ep-p-2 ep-mx-2 ep-mb-2 ep-d-flex ep-align-items-center ep-text-small">';
+                        em_fixed_content_html += '<input type="checkbox" name="em_event_checkout_fixed_terms_enabled" value="1" id="em_event_checkout_fixed_terms_enabled" checked="checked" style="display:none;">';
+                        em_fixed_content_html += '<input type="hidden" name="em_event_checkout_fixed_terms_label" value="'+em_event_checkout_terms_label+'">';
+                        em_fixed_content_html += '<div class="ep-d-inline-block ep-checkout-field-drag"><span class="material-icons ep-fs-6">drag_indicator</span></div>'
+                        em_fixed_content_html += '<div class="ep-d-inline-block ep-ml-3 ep-checkout-field-name">' + em_event_checkout_terms_label + '</div>';
+                        em_fixed_content_html += '<div class="ep-d-inline-block ep-mx-auto ep-text-muted">' + em_event_checkout_terms_option +'</div>';
+                        em_fixed_content_html += '<div class="ep-field-options-expand ep-d-inline-block ep-ms-auto"><span class="material-icons ep-cursor ep-event-checkout-fields-expand" data-id="ep_event_checkout_fields_fixed_terms_expand">expand_more</span></div>';
+                    em_fixed_content_html += '</div>';
+                em_fixed_content_html += '</div>';
 
-            em_fixed_content_html += '<div class="ep-box-col-12 ep-event-checkout-fields-expand-section" id="ep_event_checkout_fields_fixed_terms_expand">';
-              em_fixed_content_html += '<input type="hidden" name="em_event_checkout_fixed_terms_option" value="'+em_event_checkout_terms_option+'" style="display:none;" />';
-                em_fixed_content_html += '<input type="hidden" name="em_event_checkout_fixed_terms_content" value="'+em_event_checkout_terms_options_value+'" style="display:none;" />';
-                em_fixed_content_html += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">'
-                em_fixed_content_html += '<div class="ep-event-checkout-selected-fields-attributes">';
-                    if( em_event_checkout_terms_option == 'page' ) {
-                        em_fixed_content_html += '<label class="">Page: ' + em_event_meta_box_object.all_site_data[em_event_checkout_terms_options_value] + '</label>';
-                    }
-                    if( em_event_checkout_terms_option == 'url' ) {
-                        em_fixed_content_html += '<span class="em-event-checkout-fixed-terms-option">Url: ' + em_event_checkout_terms_options_value + '</span>';
-                    }
-                    if( em_event_checkout_terms_option == 'content' ) {
-                        em_fixed_content_html += '<span class="em-event-checkout-fixed-terms-option">Content: ' + em_event_checkout_terms_options_value + '</span>';
-                    }
+                em_fixed_content_html += '<div class="ep-box-col-12 ep-event-checkout-fields-expand-section" id="ep_event_checkout_fields_fixed_terms_expand">';
+                    em_fixed_content_html += '<input type="hidden" name="em_event_checkout_fixed_terms_option" value="'+em_event_checkout_terms_option+'" >';
+                    em_fixed_content_html += '<input type="hidden" name="em_event_checkout_fixed_terms_content" value="'+em_event_checkout_terms_options_value+'" >';
+                    em_fixed_content_html += '<div class="checkout-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">'
+                        em_fixed_content_html += '<div class="ep-event-checkout-selected-fields-attributes">';
+                            if( em_event_checkout_terms_option == 'page' ) {
+                                em_fixed_content_html += '<label class="">Page: ' + em_event_meta_box_object.all_site_data[em_event_checkout_terms_options_value] + '</label>';
+                            }
+                            if( em_event_checkout_terms_option == 'url' ) {
+                                em_fixed_content_html += '<span class="em-event-checkout-fixed-terms-option">Url: ' + em_event_checkout_terms_options_value + '</span>';
+                            }
+                            if( em_event_checkout_terms_option == 'content' ) {
+                                em_fixed_content_html += '<span class="em-event-checkout-fixed-terms-option">Content: ' + em_event_checkout_terms_options_value + '</span>';
+                            }
+                        em_fixed_content_html += '</div>';
+                        em_fixed_content_html += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_fixed_terms_expand">';
+                            em_fixed_content_html += '<button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_fixed_terms">';
+                                em_fixed_content_html += em_event_meta_box_object.remove_label;
+                            em_fixed_content_html += '</button>';
+                        em_fixed_content_html += '</div>';
+                    em_fixed_content_html += '</div>';
                 em_fixed_content_html += '</div>';
-                em_fixed_content_html += '<div class="ep-event-checkout-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_checkout_fields_fixed_terms_expand">';
-                    em_fixed_content_html += '<button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_checkout_fields_fixed_terms">';
-                        em_fixed_content_html += em_event_meta_box_object.remove_label;
-                    em_fixed_content_html += '</button>';
-                em_fixed_content_html += '</div>';
-             em_fixed_content_html += '</div>';
-            em_fixed_content_html += '</div>';
+            }
+
+            // booking fields selection
+            if( $( '.em_event_booking_field_ids:checked' ).length > 0 ) {
+                // updated code
+                $( '.em_event_booking_field_ids:checked' ).each( function() {
+                    let field_id = $( this ).val();
+                    let field_label = $( this ).data( 'label' );
+                    let field_type = $( this ).data( 'type' );
+                    em_fixed_content_html += '<div class="ep-box-col-12 ep-bg-white" id="ep_event_booking_fields_data_'+field_id+'_top">';
+                        em_fixed_content_html += '<div class="ep-border ep-rounded-1 ep-p-2 ep-mx-2 ep-mb-2 ep-d-flex ep-align-items-center ep-text-small">';
+                            em_fixed_content_html += '<input type="checkbox" name="em_event_booking_fields_data[]" id="ep_event_booking_fields_data_'+field_id+'" value="'+field_id+'" checked="checked" style="display:none;">';
+                            em_fixed_content_html += '<div class="ep-d-inline-block ep-booking-field-drag"><span class="material-icons ep-fs-6">drag_indicator</span></div>'
+                            em_fixed_content_html += '<div class="ep-d-inline-block ep-ml-3 ep-booking-field-name">'+field_label+'</div>';
+                            em_fixed_content_html += '<div class="ep-d-inline-block ep-mx-auto ep-text-muted">'+field_type+'</div>';
+                            em_fixed_content_html += '<div class="ep-field-options-expand ep-d-inline-block ep-ms-auto"><span class="material-icons ep-cursor ep-event-booking-fields-expand" data-id="ep_event_booking_fields_data_'+field_id+'_expand">expand_more</span></div>';
+                        em_fixed_content_html += '</div>';
+                    em_fixed_content_html += '</div>';
+                    em_fixed_content_html += '<div class="ep-box-col-12 ep-event-booking-fields-expand-section" id="ep_event_booking_fields_data_'+field_id+'_expand">';
+                        em_fixed_content_html += '<div class="booking-field-options ep-border ep-rounded-1 ep-p-2 ep-py-4 ep-d-flex ep-justify-content-between ep-mx-2 ep-mb-2 ep-text-small">';
+                            em_fixed_content_html += '<div class="ep-event-booking-selected-fields-attributes">';
+                                em_fixed_content_html += '<label for="ep_event_booking_fields_data_required_'+field_id+'">';
+                                    if( $( '#ep_event_booking_field_required_' + field_id ).is( ':checked' ) === true ) {
+                                        em_fixed_content_html += '<input type="checkbox" name="em_event_booking_fields_data_required[]" id="ep_event_booking_fields_data_required_'+field_id+'" value="'+field_id+'" checked="checked"> ';
+                                    } else{
+                                        em_fixed_content_html += '<input type="checkbox" name="em_event_booking_fields_data_required[]" id="ep_event_booking_fields_data_required_'+field_id+'" value="'+field_id+'"> ';
+                                    }
+                                    em_fixed_content_html += '<span>'+ em_event_meta_box_object.required_text +'</span>';
+                                em_fixed_content_html += '</label>';
+                            em_fixed_content_html += '</div>';
+
+                            /* if( em_event_meta_box_object.enabled_attendees_list == 1 ) {
+                                em_fixed_content_html += '<div class="ep-event-booking-selected-fields-attributes">';
+                                    em_fixed_content_html += '<label for="ep_event_booking_fields_data_show_attendee_list_'+field_id+'">';
+                                        if( $( '#ep_event_booking_field_show_attendee_list_' + field_id ).is( ':checked' ) === true ) {
+                                            em_fixed_content_html += '<input type="checkbox" name="em_event_booking_fields_data_show_attendee_list[]" id="ep_event_booking_fields_data_show_attendee_list_'+field_id+'" value="'+field_id+'" checked="checked"> ';
+                                        } else{
+                                            em_fixed_content_html += '<input type="checkbox" name="em_event_booking_fields_data_show_attendee_list[]" id="ep_event_booking_fields_data_show_attendee_list_'+field_id+'" value="'+field_id+'"> ';
+                                        }
+                                        em_fixed_content_html += '<span>'+ em_event_meta_box_object.show_in_attendees_list_text +'</span>';
+                                    em_fixed_content_html += '</label>';
+                                em_fixed_content_html += '</div>';
+                            } */
+
+                            em_fixed_content_html += '<div class="ep-event-booking-selected-fields-remove ep-mt-auto ep-text-end" data-parent-id="ep_event_booking_fields_data_'+field_id+'_expand"><button type="button" name="'+em_event_meta_box_object.remove_label+'" class="ep-event-checkout-fields-remove button button-large" data-main_id="ep_event_booking_fields_data_'+field_id+'">'+em_event_meta_box_object.remove_label+'</button></div>';
+                        em_fixed_content_html += '</div>';
+                    em_fixed_content_html += '</div>';
+                });
+            }
         } else{
-            $( '#ep_event_checkout_fixed_fields_modal #ep_event_fixed_field_bottom_error' ).html( em_event_meta_box_object.fixed_field_not_selected );
+            $( '#ep_event_checkout_fixed_fields_modal #ep_event_fixed_field_bottom_error' ).html( em_event_meta_box_object.one_booking_field_req );
             return false;
         }
         $( '#ep_event_checkout_fixed_fields_container' ).html( em_fixed_content_html );
@@ -1237,6 +1323,63 @@ jQuery( function( $ ) {
             anim: (!$(this).attr('data-animation') || $(this).data('animation') == null) ? 'ep-modal-' : $(this).data('animation')
         });
         $( 'body' ).removeClass( 'ep-modal-open-body' );
+    });
+
+    // toggle booking field
+    $( document ).on( 'click', '.ep-event-booking-fields-expand', function() {
+        let field_id = $( this ).data( 'id' );
+        if( field_id ) {
+            if( $( '#' + field_id ).css( 'display' ) == 'block' ) {
+                $( '#' + field_id ).css( 'display', 'none' );
+                $( this ).html( 'expand_more' );
+            } else{
+                $( '#' + field_id ).css( 'display', 'block' );
+                $( this ).html( 'expand_less' );
+            }
+        }
+    });
+
+    // remove booking field
+    $( document ).on( 'click', '.ep-event-booking-fields-remove', function() {
+        let field_main_id = $( this ).data( 'main_id' );
+        if( $( '#' + field_main_id + '_expand' ).length > 0 ) {
+            $( '#' + field_main_id + '_expand' ).remove();
+        }
+        if( $( '#' + field_main_id + '_top' ).length > 0 ) {
+            $( '#' + field_main_id + '_top' ).remove();
+        }
+    });
+
+    // other booking fields
+    $( document ).on( 'click', '.em_event_booking_field_ids', function() {
+        let booking_field_id = $( this ).val();
+        if( booking_field_id ) {
+            if( !$( this ).is( ':checked' ) ) {
+                if( $( '#ep_event_booking_field_required_' + booking_field_id ).prop( 'checked' ) == true ) {
+                    $( '#ep_event_booking_field_required_' + booking_field_id ).prop( 'checked', false );
+                }
+                if( $( '#ep_event_booking_field_show_attendee_list_' + booking_field_id ).length > 0 ) {
+                    $( '#ep_event_booking_field_show_attendee_list_' + booking_field_id ).attr( 'disabled', 'disabled' );
+                }
+            } else{
+                if( $( '#ep_event_booking_field_show_attendee_list_' + booking_field_id ).length > 0 ) {
+                    $( '#ep_event_booking_field_show_attendee_list_' + booking_field_id ).removeAttr( 'disabled' );
+                }
+            }
+        }
+    });
+    $( document ).on( 'click', '.em_event_booking_field_requires', function() {
+        if( $( this ).is( ':checked' ) ) {
+            let booking_field_id = $( this ).data( 'field_id' );
+            if( booking_field_id ) {
+                if( $( '#em_event_booking_field_id_' + booking_field_id ).prop( 'checked' ) == false ) {
+                    $( '#em_event_booking_field_id_' + booking_field_id ).prop( 'checked', true );
+                    if( $( '#ep_event_booking_field_show_attendee_list_' + booking_field_id ).length > 0 ) {
+                        $( '#ep_event_booking_field_show_attendee_list_' + booking_field_id ).removeAttr( 'disabled' );
+                    }
+                }
+            }
+        }
     });
     
     //Countdowns tab
@@ -1626,15 +1769,28 @@ jQuery( function( $ ) {
     }
     function em_ticket_type_options() {
         var booking_type = get_booking_type();
-        $("#ep-bookings-options").hide();
-        $("#ep-bookings-url").hide();
-        $("#ep_existing_tickets_category_list").hide();
+        $( "#ep-bookings-options" ).hide();
+        $( "#ep-bookings-url" ).hide();
+        $( "#ep_existing_tickets_category_list" ).hide();
+        $( "#ep-event-tickets-options" ).hide();
+        $( "#ep_event_booking_not_enabled_warning" ).show();
+        if( $( '#ep_show_event_expire_warning' ).length == 1 ) {
+            $( "#ep_event_booking_not_enabled_warning" ).hide();
+        }
 
-        if (booking_type === 'bookings_on') {
-            $("#ep-bookings-options").fadeIn( 500 );
-            $("#ep_existing_tickets_category_list").fadeIn( 500 );
-        } else if (booking_type === 'external_bookings') {
-            $("#ep-bookings-url").fadeIn( 500 );
+        if ( booking_type === 'bookings_on' ) {
+            $( "#ep-bookings-options" ).fadeIn( 500 );
+            $( "#ep-event-tickets-options" ).show();
+            $( "#ep_existing_tickets_category_list" ).show();
+            $( "#ep_event_booking_not_enabled_warning" ).hide();
+            $( "#ep_event_booking_disabled_warning" ).hide();
+        } else if ( booking_type === 'external_bookings' ) {
+            $( "#ep-bookings-url" ).fadeIn( 500 );
+            $( "#ep_event_booking_disabled_warning" ).show();
+        } else if ( booking_type === 'bookings_off' ) {
+            if( $( '#ep_event_booking_not_enabled_warning' ).length == 0 || $( '#ep_event_booking_not_enabled_warning' ).css( 'display' ) == 'none' ) {
+                $( "#ep_event_booking_disabled_warning" ).show();
+            }
         }
     }
 
@@ -3396,6 +3552,32 @@ jQuery( function( $ ) {
         if( em_event_text_color_field ) {
             $( '#em_event_text_color' ).val( em_event_text_color_field );
         }
+    });
+
+    // first time on load
+    $( '.ep_result_start_from_type_options' ).hide();
+    let until_type_val_init = $( '#ep_result_start_from_type' ).val();
+    $( '.ep_result_start_from_type_' + until_type_val_init ).show();
+    // trigget on chage allow until type
+    $( document ).on( 'change', '#ep_result_start_from_type', function() {
+        $( '.ep_result_start_from_type_options' ).hide();
+        let until_type_val = $( this ).val();
+        $( '.ep_result_start_from_type_' + until_type_val ).show();
+    });
+
+    // edit booking options
+    $( document ).on( 'click', '#ep_allow_edit_booking', function() {
+        $( '#ep_edit_booking_date_options' ).hide();
+        if ( $( this ).is( ':checked' ) ) {
+            $( '#ep_edit_booking_date_options' ).show();
+        }
+    });
+
+    // trigget on chage allow edit booking date type
+    $( document ).on( 'change', '#ep_edit_booking_date_type', function() {
+        $( '.ep_edit_booking_date_type_options' ).hide();
+        let edit_booking_date_type_val = $( this ).val();
+        $( '.ep_edit_booking_date_type_' + edit_booking_date_type_val ).show();
     });
 
 });

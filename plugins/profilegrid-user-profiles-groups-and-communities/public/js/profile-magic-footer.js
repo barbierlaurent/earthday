@@ -912,7 +912,18 @@ if ($('.pm-no-blog-img-wrap')[0]) {
 }
  
 
+//Toggle Password
 
+$(".pg-toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    pgPasswordinput = $(this).parent().find("#user_pass");
+    if (pgPasswordinput.attr("type") == "password") {
+        pgPasswordinput.attr("type", "text");
+    } else {
+        pgPasswordinput.attr("type", "password");
+    }
+});
 
 
 })(jQuery);
+

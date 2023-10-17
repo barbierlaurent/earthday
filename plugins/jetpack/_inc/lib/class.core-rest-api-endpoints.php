@@ -18,9 +18,7 @@ use Automattic\Jetpack\Status\Visitor;
 use Automattic\Jetpack\Waf\Brute_Force_Protection\Brute_Force_Protection_Shared_Functions;
 use Automattic\Jetpack\Waf\Waf_Compatibility;
 
-/**
- * Disable direct access.
- */
+// Disable direct access.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -2496,7 +2494,7 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'description'       => esc_html__( 'Enabled Services and those hidden behind a button', 'jetpack' ),
 				'type'              => 'object',
 				'default'           => array(
-					'visible' => array( 'twitter', 'facebook' ),
+					'visible' => array( 'facebook', 'x' ),
 					'hidden'  => array(),
 				),
 				'validate_callback' => __CLASS__ . '::validate_services',
@@ -4264,5 +4262,4 @@ class Jetpack_Core_Json_Api_Endpoints {
 			)
 		);
 	}
-
 } // class end

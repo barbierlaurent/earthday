@@ -38,7 +38,17 @@ class EventM_Action_Service {
         add_action( 'ep_after_save_event_data', array( $this, 'ep_update_event_data_after_save' ), 10, 2 );
 
         // template include
-        add_filter( 'template_include', array( $this, 'ep_load_single_template' ), 99 );
+        add_filter( 'template_include', array( $this, 'ep_load_single_template' ), 1000 );
+
+        //add_filter( 'template_redirect', array( $this, 'ep_load_single_template_redirect' ), 99 );
+
+        // add statisticts in the event
+        add_action( 'ep_event_stats_list', array( $this, 'ep_add_event_statisticts_data' ), 10, 1 );
+        // calendar icon
+        add_action( 'ep_event_view_calendar_icon', array( $this, 'ep_event_add_calendar_icon' ), 10, 2 );
+
+        // add premium banner
+        add_action( 'ep_add_custom_banner', array( $this, 'ep_add_custom_banner' ) );
     }
 
     /**
@@ -99,7 +109,7 @@ class EventM_Action_Service {
             if( $event && ! empty( $event->id ) ) { 
                 if( $page == 'event_detail' ) {?>
                     <div class="ep-sl-event-action ep-cursor ep-position-relative">
-                        <span class="material-icons-outlined ep-handle-share ep-button-text-color ep-mr-3 ep-cursor ss">share</span>
+                        <span class="material-icons-outlined ep-handle-share ep-button-text-color ep-mr-3 ep-cursor">share</span>
                         <?php
                         $social_links_url = $event->event_url;?>
                         <ul class="ep-event-share ep-m-0 ep-p-0" style="display:none;">
@@ -194,8 +204,8 @@ class EventM_Action_Service {
                             }
                         } else{
                             if( $start_date == $end_date ) {?>
-                                <span class="ep-event-date ep-fw-bold ep-text-dark">
-                                    <?php echo esc_html( date( 'D', $start_date ) . ', ' . $event->fstart_date );
+                                <span class="ep-event-date ep-fw-bold ep-text-dark"><?php
+                                    echo esc_html__( date( 'D', $start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );
                                     if( ! empty( $event->em_all_day ) || ( ep_show_event_date_time( 'em_start_time', $event ) && ( ! empty( $event->em_start_time ) ) ) ) {
                                         echo ',' . '&nbsp;';
                                     }?>
@@ -223,8 +233,8 @@ class EventM_Action_Service {
                                     }
                                 }
                             } else{?>
-                                <span class="ep-fw-bold ep-text-dark">
-                                    <?php echo esc_html( date( 'D', $start_date ) . ', ' . $event->fstart_date );
+                                <span class="ep-fw-bold ep-text-dark"><?php
+                                    echo esc_html__( date( 'D', $start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );
                                     if( ep_show_event_date_time( 'em_end_date', $event ) && ( ! empty( $event->em_end_date ) ) ) {?>
                                         <span><?php echo ' - ' . esc_html( $event->fend_date );?></span><?php
                                     }?>
@@ -249,8 +259,8 @@ class EventM_Action_Service {
                             }
                         } else{
                             if( empty( $event->em_start_time ) || ! ep_show_event_date_time( 'em_start_time', $event ) ) {?>
-                                <span class="ep-card-event-date-start ep-text-primary">
-                                    <?php echo esc_html( date( 'D', $event->em_start_date ) . ', ' . $event->fstart_date );?>
+                                <span class="ep-card-event-date-start ep-text-primary hunny">
+                                    <?php echo esc_html__( date( 'D', $event->em_start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );?>
                                 </span><?php
                                 if( ! empty( $event->em_all_day ) ) {?>
                                     <span> <?php echo ', ' . esc_html__( 'All Day', 'eventprime-event-calendar-management' );?></span><?php
@@ -258,11 +268,11 @@ class EventM_Action_Service {
                             } else{
                                 if( ! empty( $event_date_time ) ) {?>
                                     <span class="ep-card-event-date-start ep-text-primary">
-                                        <?php echo esc_html( $event_date_time );?>
+                                        <?php echo esc_html__( $event_date_time, 'eventprime-event-calendar-management' );?>
                                     </span><?php
                                 } else{?>
                                     <span class="ep-card-event-date-start ep-text-primary">
-                                        <?php echo esc_html( date( 'D', $event->em_start_date ) . ', ' . $event->fstart_date );?>
+                                        <?php echo esc_html__( date( 'D', $event->em_start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );?>
                                     </span>
                                     <span class="ep-card-event-time-start ep-text-primary">
                                         <?php echo ', ' . esc_html( ep_convert_time_with_format( $event->em_start_time ) );?>
@@ -290,7 +300,7 @@ class EventM_Action_Service {
                             }
                         } else{?>
                             <span class="ep-fw-bold ep-text-dark">
-                                <?php echo esc_html( date( 'D', $start_date ) . ', ' . $event->fstart_date );?>
+                                <?php echo esc_html__( date( 'D', $start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );?>
                             </span><?php
                         }
                     } else{
@@ -311,17 +321,17 @@ class EventM_Action_Service {
                             }
                         } else{
                             if( empty( $event->em_start_time ) || ! ep_show_event_date_time( 'em_start_time', $event ) ) {?>
-                                <span class="ep-card-event-date-start ep-text-primary">
-                                    <?php echo esc_html( date( 'D', $event->em_start_date ) . ', ' . $event->fstart_date );?>
+                                <span class="ep-card-event-date-start ep-text-primary hb">
+                                    <?php echo esc_html__( date( 'D', $event->em_start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );?>
                                 </span><?php
                             } else{
                                 if( ! empty( $event_date_time ) ) {?>
-                                    <span class="ep-card-event-date-start ep-text-primary">
+                                    <span class="ep-card-event-date-start ep-text-primary ll">
                                         <?php echo esc_html( $event_date_time );?>
                                     </span><?php
                                 } else{?>
-                                    <span class="ep-card-event-date-start ep-text-primary">
-                                        <?php echo esc_html( date( 'D', $event->em_start_date ) . ', ' . $event->fstart_date );?>
+                                    <span class="ep-card-event-date-start ep-text-primary mm">
+                                        <?php echo esc_html__( date( 'D', $event->em_start_date ), 'eventprime-event-calendar-management' ) . esc_html( ', ' . $event->fstart_date );?>
                                     </span>
                                     <span class="ep-card-event-time-start ep-text-primary">
                                         <?php echo ', ' . esc_html( ep_convert_time_with_format( $event->em_start_time ) );?>
@@ -344,7 +354,7 @@ class EventM_Action_Service {
      */
     public function ep_event_add_event_price( $event, $view = '' ) {
         if( ! empty( $view ) && $view == 'card' ) {?>
-            <div class="ep-event-list-price ep-text-dark ep-di-flex ep-align-items-center"><?php
+            <div class="ep-event-list-price ep-text-dark ep-di-flex ep-align-items-center ep-mt-auto"><?php
                 if( $event && ! empty( $event->id ) && $event->em_enable_booking != 'external_bookings' ) { 
                     if ( ! empty( $event->ticket_price_range ) ) {?>
                         <span class="material-icons-outlined ep-align-middle ep-fs-5 ep-mr-1">confirmation_number</span><?php
@@ -382,11 +392,11 @@ class EventM_Action_Service {
         } else{
             if( $event && ! empty( $event->id ) && $event->em_enable_booking != 'external_bookings' ) { 
                 if ( ! empty( $event->ticket_price_range ) ) {?>
-                    <div class="ep-event-list-price ep-my-2 ep-text-dark ep-di-flex ep-align-items-center">
+                    <div class="ep-event-list-price ep-my-2 ep-text-dark ep-align-items-center ep-d-flex">
                         <span class="material-icons-outlined ep-align-middle ep-fs-5 ep-mr-1">confirmation_number</span><?php
                         if ( isset( $event->ticket_price_range['multiple'] ) && $event->ticket_price_range['multiple'] == 1 ) { 
                             if( $event->ticket_price_range['min'] == $event->ticket_price_range['max'] ) {?>
-                                <span class="ep-fw-bold ep-fs-6 ep-lh-0 ep-ml-1"><?php 
+                                <span class="ep-fw-bold ep-lh-0 ep-ml-1"><?php 
                                     echo ' ';
                                     if( ! empty( $event->ticket_price_range['min'] ) ) {
                                         echo esc_html( ep_price_with_position( $event->ticket_price_range['min'] ) );
@@ -396,12 +406,12 @@ class EventM_Action_Service {
                                 </span><?php
                             } else{?>
                                 <?php esc_html_e( 'Starting', 'eventprime-event-calendar-management' );?>
-                                <span class="ep-fw-bold ep-fs-6 ep-lh-0 ep-ml-1">
+                                <span class="ep-fw-bold ep-lh-0 ep-ml-1">
                                     <?php echo ' ' . esc_html( ep_price_with_position( $event->ticket_price_range['min'] ) ); ?>
                                 </span><?php
                             }
                         } else { ?>
-                            <span class="ep-fw-bold ep-fs-6 ep-lh-0 ep-ml-1"><?php
+                            <span class="ep-fw-bold ep-lh-0 ep-ml-1"><?php
                                 echo ' ';
                                 if( ! empty( $event->ticket_price_range['price'] ) ) {
                                     echo esc_html( ep_price_with_position( $event->ticket_price_range['price'] ) );
@@ -439,7 +449,6 @@ class EventM_Action_Service {
             $new_window = ( ! empty( ep_get_global_settings( 'open_detail_page_in_new_tab' ) ) ? 'target="_blank"' : '' );
             if( check_event_has_expired( $event ) ) {
 				// means event has ended. So user can only view the event detail.?>
-                
 				<a href="<?php echo esc_url( $event->event_url );?>" <?php echo esc_attr( $new_window );?>>
 					<div class="ep-btn ep-btn-dark ep-box-w-100 ep-my-0 ep-py-2">
 						<span class="ep-fw-bold ep-text-small">
@@ -475,14 +484,14 @@ class EventM_Action_Service {
 							$check_for_booking_status = $event_controller->check_for_booking_status( $event->all_tickets_data, $event );
 							if( ! empty( $check_for_booking_status ) ) {
 								if( $check_for_booking_status['status'] == 'not_started' ) {?>
-									<div class="ep-btn ep-btn-light ep-box-w-100 ep-my-1 ep-p-2">
+									<div class="ep-btn ep-btn-light ep-box-w-100 ep-my-0 ep-py-2">
 										<span class="material-icons-outlined ep-align-middle ep-text-muted ep-fs-6">history_toggle_off</span>
 										<span class="ep-text-muted ep-text-smaller"><em>
                                             <?php echo esc_html( $check_for_booking_status['message'] );?>
 										</em></span>
 									</div><?php
 								} elseif( $check_for_booking_status['status'] == 'off' ) {?>
-									<div class="ep-btn ep-btn-light ep-box-w-100 ep-my-1 ep-p-2">
+									<div class="ep-btn ep-btn-light ep-box-w-100 ep-my-0 ep-py-2">
 										<span class="material-icons-outlined ep-align-middle ep-text-muted ep-fs-6">block</span>
 										<span class="ep-text-muted ep-text-small"><em>
                                             <?php echo esc_html( $check_for_booking_status['message'] );?>
@@ -638,7 +647,7 @@ class EventM_Action_Service {
         if( ! empty( $event ) ) {
             $event_booking_status_option = ep_get_global_settings( 'event_booking_status_option' );
             if( ! empty( $event_booking_status_option ) ) {?>
-                <div class="ep-text-small ep-event-booking-status ep-text-dark ep-d-flex ep-align-items-center"><?php
+                <div class="ep-text-small ep-event-booking-status ep-text-dark ep-d-flex ep-align-items-center ep-mt-2 ep-mb-3"><?php
                     if( ! empty( $event->em_enable_booking ) && $event->em_enable_booking != 'external_bookings' ) {
                         if( ! check_event_has_expired( $event ) && ! empty( $event->all_tickets_data ) ) {
                             $enable_status = isset( $event->em_hide_booking_status ) ? $event->em_hide_booking_status : 0;
@@ -765,8 +774,12 @@ class EventM_Action_Service {
     }
 
     // add loader on the page
-    public function ep_add_loader_section() {?>
-        <div class="ep-event-loader" role="alert" aria-live="polite" style="display:none;">
+    public function ep_add_loader_section( $default = 'none' ) {
+        $style = 'style=display:none;';
+        if( $default == 'show' ) {
+            $style = 'style=display:flex;';
+        }?>
+        <div class="ep-event-loader" role="alert" aria-live="polite" <?php echo esc_attr( $style );?>>
             <div class="ep-event-loader-circles-wrap">
                 <svg class="ep-event-loader-circle-icon ep-event-loader-circle-icon-dot ep-event-loader-circle-dot ep-event-loader-first" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5"></circle></svg>
                 <svg class="ep-event-loader-circle-icon ep-event-loader-circle-icon-dot ep-event-loader-circle-dot ep-event-loader-second" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5"></circle></svg>
@@ -873,6 +886,23 @@ class EventM_Action_Service {
 		return $template;
 	}
 
+    public function ep_load_single_template_redirect(){
+        if( get_post_type() == EM_EVENT_POST_TYPE ) {
+            $template = locate_template( 'single-' . EM_EVENT_POST_TYPE . '.php' );
+            if( $template == '' ) {
+                $template = ep_get_template_part( 'events/single-ep-event' );
+            }
+            exit;
+        }
+        if( get_post_type() == EM_PERFORMER_POST_TYPE ) {
+            $template = locate_template( 'single-' . EM_PERFORMER_POST_TYPE . '.php' );
+            if( $template == '' ) {
+                $template = ep_get_template_part( 'performers/single-ep-performer' );
+            }
+            exit;
+        }
+    }
+
     /**
      * Load single event content for block theme
      * 
@@ -885,7 +915,8 @@ class EventM_Action_Service {
         $post = get_post();
         if( $post->post_status !== 'trash' ) {
             $events = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
-            return $events->render_detail_template( array( 'id' => get_the_ID() ) );
+            $event_detail_page = $events->render_detail_template( array( 'id' => get_the_ID() ) );
+            return $event_detail_page;
         } else{
             return;
         }
@@ -927,6 +958,65 @@ class EventM_Action_Service {
         }
     }
 
+    /**
+     * Add event data like no. of booking, no. of attendees
+     */
+    public function ep_add_event_statisticts_data( $post ) {
+        $event_id = $post->ID;
+        // get total bookings data
+        $booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+        $event_bookings = $booking_controller->get_event_bookings_by_event_id( $event_id );
+        $event_booking_count = count( $event_bookings );?>
+        <div class="ep-event-summary-data-list">
+            <label><?php esc_html_e( 'Total Bookings:', 'eventprime-event-calendar-management' );?></label>
+            <label>
+                <?php esc_attr_e( $event_booking_count );
+                if( ! empty( $event_booking_count ) ) {
+                    $event_booking_url = admin_url( 'edit.php?s&post_status=all&post_type=em_booking&event_id=' . esc_attr( $event_id ) );?> 
+                    <a href="<?php echo esc_url( $event_booking_url );?>" target="__blank">
+                        <?php esc_html_e( 'View', 'eventprime-event-calendar-management' );?>
+                    </a><?php
+                }?>
+            </label>
+        </div><?php
+        // get total attendees
+        $total_booking_numbers = EventM_Factory_Service::get_total_booking_number_by_event_id( $event_id );?>
+        <div class="ep-event-summary-data-list">
+            <label><?php esc_html_e( 'Total Attendees:', 'eventprime-event-calendar-management' );?></label>
+            <label>
+                <?php esc_attr_e( $total_booking_numbers );
+                if( ! empty( $total_booking_numbers ) ) {
+                    $event_attendee_page_url = admin_url( 'admin.php?page=ep-event-attendees-list&event_id=' . esc_attr( $event_id ) );?> 
+                    <a href="<?php echo esc_url( $event_attendee_page_url );?>" target="__blank">
+                        <?php esc_html_e( 'View', 'eventprime-event-calendar-management' );?>
+                    </a><?php
+                }?>
+            </label>
+        </div><?php
+    }
+
+    /**
+     * Add calendar icon
+     */
+    public function ep_event_add_calendar_icon( $event, $pag ) {?>
+        <div class="ep-sl-event-action ep-cursor ep-position-relative ep-event-ical-action">
+            <span class="material-icons-outlined ep-handle-share ep-button-text-color ep-mr-3 ep-cursor">calendar_month</span>
+            <ul class="ep-event-share ep-m-0 ep-p-0" style="display:none;">
+                <li class="ep-event-social-icon">
+                    <a href="javascript:void(;);" title="<?php esc_html_e( '+ iCal Export','eventprime-event-calendar-management' ); ?>" id="ep_event_ical_export" data-event_id="<?php echo esc_attr( $event->em_id );?>">
+                        <?php esc_html_e( '+ iCal Export','eventprime-event-calendar-management' ); ?>
+                    </a>
+                </li>
+            </ul>
+        </div><?php
+    }
+
+    /**
+     * Premium banner
+     */
+    public function ep_add_custom_banner() {
+        include_once EP_BASE_DIR . 'includes/core/admin/template/custom-banner.php';
+    }
 }
 
 new EventM_Action_Service();

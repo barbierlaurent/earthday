@@ -10,8 +10,8 @@ Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 4.6
 Tested up to: 6.3
-Stable tag: 20230811
-Version:    20230811
+Stable tag: 20230914
+Version:    20230914
 Requires PHP: 5.6.20
 Text Domain: usp
 Domain Path: /languages
@@ -344,6 +344,7 @@ User Submitted Posts provides a set of useful shortcodes. Check out the "Display
 	[user-submitted-posts]                        : displays the form on any Post or Page
 	[usp-login-form]                              : displays a login/register/password form
 	[usp_display_posts]                           : displays list of all submitted posts
+	[usp_gallery]                                 : displays a gallery of all submitted images for the current post
 	[usp-reset-button url="https://example.com/"] : displays a button to reset the form
 	[usp_access cap="read" deny=""][/usp_access]  : limits access to specific user capability
 	[usp_visitor deny=""][/usp_visitor]           : limits access to visitors (not logged in) only
@@ -391,17 +392,14 @@ __Note:__ This shortcode works only when added to a submitted post. It does noth
 
 Displays a gallery of all submitted images for the current post. Customize via the following attributes:
 
-	$size   = image size as thumbnail, medium, large or full -> default = thumbnail
-	$before = text/markup displayed before the image URL     -> default = {a href='%%url%%'}{img src='
-	$after  = text/markup displayed after the image URL      -> default = ' /}{/a}
-	$number = the number of images to display for each post  -> default = false (display all)
-	$postId = an optional post ID to use                     -> default = false (uses global/current post)
+	size    = image size as thumbnail, medium, large or full -> default = thumbnail
+	format  = whether to make the image a linked image       -> default = image (can use image or image_link)
+	target  = whether to open linked image in new tab        -> default = blank (can use blank or self)
+	class   = optional custom class name(s)                  -> default = none
+	number  = the number of images to display for each post  -> default = 100
+	post_id = an optional post ID to use                     -> default = false (uses global/current post)
 	
-	Notes: 
-		Use curly brackets to output angle brackets
-		Use single quotes in before/after attributes
-		Can use %%url%% to get the URL of the full-size image
-		Check out the source code inline notes for more info
+	Check out the source code inline notes for more info
 
 
 __`[usp-reset-button]`__
@@ -525,23 +523,17 @@ User Submitted Posts provides a set of useful template tags:
 	
 	/*
 		Get an array of image URLs, wrapped in optional HTML
-		Syntax: <?php if (function_exists('usp_get_images')) $images = usp_get_images($size, $before, $after, $number, $postId); ?>  
-		Usage: <?php if (function_exists('usp_get_images')) $images = usp_get_images(); foreach ($images as $image) echo $image; ?>
+		Syntax: <?php if (function_exists('usp_get_images')) $images = usp_get_images($size, $format, $target, $class, $number, $post_id); ?>
+		Usage:  <?php if (function_exists('usp_get_images')) $images = usp_get_images(); foreach ($images as $image) echo $image; ?>
 		Parameters:
-			$size   = image size as thumbnail, medium, large or full -> default = thumbnail
-			$before = text/markup displayed before the image URL     -> default = {img src="
-			$after  = text/markup displayed after the image URL      -> default = " /}
-			$number = the number of images to display for each post  -> default = false (display all)
-			$postId = an optional post ID to use                     -> default = false (uses global/current post)
-			
-		Notes:
-			For $before/$after parameters, use curly brackets instead of angle brackets, for example:
-			usp_get_images('thumbnail', '{img src="', '" /}'); 
-			// results in each image URL wrapped like: <img src="[image URL]" />
-			
-			For $before/$after parameters, use %%url%% to get the URL of the full-size image, for example:
-			usp_get_images('thumbnail', '{a href="%%url%%"}{img src="', '" /}{/a}'); 
-			// outputs for each image: <a href="[full-size image URL]"><img src="[image URL]" /></a>
+				$size    = image size as thumbnail, medium, large or full -> default = thumbnail
+				$format  = whether to make the image a linked image       -> default = image (can use image or image_link)
+				$target  = whether to open linked image in new tab        -> default = blank (can use blank or self)
+				$class   = optional custom class name(s)                  -> default = none
+				$number  = the number of images to display for each post  -> default = 100
+				$post_id = an optional post ID to use                     -> default = false (uses global/current post)
+		
+		Check out the source code inline notes for more info
 	*/
 	
 	usp_get_images()
@@ -817,6 +809,25 @@ Links, tweets and likes also appreciated. Thanks! :)
 
 If you like USP, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/user-submitted-posts/reviews/?rate=5#new-post). It helps to keep development and support going strong. Thank you!
 
+
+> Breaking changes in this update (v20230901): If you are using the `[usp_gallery]` shortcode or `usp_get_images()` function to display images, please check the plugin [installation docs](https://wordpress.org/plugins/user-submitted-posts/#installation) for new shortcode/function syntax.
+
+
+**20230914**
+
+* Improves sanitization of uploaded files
+* Tests on WordPress 6.3 and 6.4 (alpha)
+
+**20230902**
+
+* Adds function to remove USP shortcodes from submitted content
+* Improves sanitization of shortcodes and their attributes
+* Tests on WordPress 6.3
+
+**20230901**
+
+* Refactors `usp_get_images()` and `[usp_gallery]` (Thanks [ancorn_](https://twitter.com/ancorn_))
+* Tests on WordPress 6.3
 
 **20230811**
 

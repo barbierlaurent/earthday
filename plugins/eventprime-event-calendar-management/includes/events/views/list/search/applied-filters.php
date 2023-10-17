@@ -7,5 +7,5 @@
 </div>
 
 <!-- Event Loader -->
-<?php do_action( 'ep_add_loader_section' );?>
+<?php do_action( 'ep_add_loader_section', 'show' );?>
 <!-- Event Loader End -->

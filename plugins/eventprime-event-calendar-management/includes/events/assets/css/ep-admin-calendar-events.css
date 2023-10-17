@@ -160,7 +160,7 @@
 
 #ep_event_calendar .fc-h-event .fc-event-time,
 #ep_event_calendar .fc-daygrid-event .fc-event-time {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 0.8rem;
     font-weight: bold;
     margin-bottom: 4px;

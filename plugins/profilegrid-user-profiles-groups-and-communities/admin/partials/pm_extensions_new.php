@@ -30,10 +30,8 @@ if ( $mgp ) {
 
     <div class="pg-ext-list-wrap"> 
         
-        <div class="pg-ext-list-title"><?php esc_html_e( 'Official Extensions', 'profilegrid-user-profiles-groups-and-communities' ); ?><span class="pg-box-sep"></span><span class="pg-scblock-mg-logo"><img src="<?php echo esc_url( $path . 'images/mg-logo.png' ); ?>"></span></div>
+        <div class="pg-ext-list-title"><?php esc_html_e( 'Official Extensions', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
 
-
-    
         <div class="pg-ext-list" id="the-list">
          <div id="pgmyBtnContainer">
              

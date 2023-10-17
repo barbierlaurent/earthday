@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <!-- Modal Wrap Ends: -->
-                <div class="ep-modal-footer ep-mt-3 ep-d-flex ep-items-end ep-content-right" id="ep_modal_buttonset">
+                <div class="ep-modal-footer ep-d-flex ep-items-end ep-content-right" id="ep_modal_buttonset">
                     <button type="button" class="button ep-mr-3 ep-modal-close ep-checkout-field-modal-close close-popup" data-id="ep_event_settings_checkout_fields_container" title="<?php echo esc_attr( 'Close', 'eventprime-event-calendar-management' ); ?>"><?php esc_html_e('Close', 'eventprime-event-calendar-management'); ?></button>
                     <button type="button" class="button button-primary button-large" id="ep_save_checkout_field" title="<?php echo esc_attr( 'Save', 'eventprime-event-calendar-management' ); ?>"><?php esc_html_e('Save', 'eventprime-event-calendar-management'); ?></button>
                 </div>

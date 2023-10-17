@@ -1,11 +1,21 @@
 <div class="ep-tab-content ep-item-hide" id="ep-list-my-events" role="tabpanel" aria-labelledby="#list-allbookings-list">
     <?php //if( ! empty( $args->submitted_events ) && count( $args->submitted_events ) ) {?>
-        <div class="ep-box-row ep-mb-4">
-            <div class="ep-box-col-12 ep-border-left ep-border-3 ep-ps-3 ep-border-warning ep-mb-4">
+        <div class="ep-box-row">
+            <div class="ep-box-col-8 ep-border-left ep-border-3 ep-ps-3 ep-border-warning">
                 <span class="ep-text-uppercase ep-fw-bold ep-text-small">
                     <?php esc_html_e( 'My Events', 'eventprime-event-calendar-management');?>
                 </span>
             </div>
+            <?php $event_submit_form_url = ep_get_custom_page_url( 'event_submit_form' );
+            if( ! empty( $event_submit_form_url ) && ! empty( ep_get_global_settings( 'fes_show_add_event_in_profile' ) ) ) {?>
+                <div class="ep-box-col-4 ep-text-end" id="ep-user-profile-event-add-button">
+                    <a href="<?php echo esc_url( $event_submit_form_url );?>" target="_blank">
+                        <button type="button" class="ep-btn ep-btn-warning ep-btn-sm">
+                            <?php esc_html_e( 'Add Event', 'eventprime-event-calendar-management' ); ?>
+                        </button>
+                    </a>
+                </div><?php
+            }?>
         </div>
         <div class="ep-box-row mb-4">
             <div class="ep-box-col-12 ep-text-center">
@@ -38,10 +48,14 @@
                 </div>
             </div><?php
         }?>
-        <?php foreach( $args->submitted_events as $event ) {?>
-            <div class="ep-my-booking-row ep-box-row ep-border ep-rounded ep-overflow-hidden ep-text-small ep-mb-4">
+        <?php foreach( $args->submitted_events as $event ) {
+            $image_url = $event->image_url;
+            if( empty( $image_url ) ) {
+                $image_url = $event->placeholder_image_url;
+            }?>
+            <div class="ep-my-booking-row ep-box-row ep-border ep-rounded ep-overflow-hidden ep-text-small ep-mb-4" id="ep_user_profile_my_events_<?php echo esc_attr( $event->id );?>">
                 <div class="ep-box-col-2 ep-m-0 ep-p-0">
-                    <img class="ep-event-card-img" src="<?php echo esc_url( $event->image_url );?>" style="width:100%;" alt="<?php echo esc_html( $event->name );?>">
+                    <img class="ep-event-card-img" src="<?php echo esc_url( $image_url );?>" style="width:100%;" alt="<?php echo esc_html( $event->name );?>">
                 </div>
                 <div class="ep-box-col-6 ps-4 ep-d-flex ep-items-center ep-justify-content-between">
                     <div>
@@ -72,23 +86,23 @@
                         </div>
                     </div>
                     <div class="ep-text-end">
-                        <div class="ep-btn-group ep-btn-group-sm">
-                            <?php 
+                        <div class="ep-btn-group ep-btn-group-sm"><?php 
                             $submit_page_id = ep_get_global_settings( 'event_submit_form' );
                             if($submit_page_id){
                                 $submit_event_url =  get_permalink($submit_page_id);
                             }
-                            $submit_event_url = add_query_arg(array('event_id' => $event->id),$submit_event_url);
-                            ?>
+                            $submit_event_url = add_query_arg(array('event_id' => $event->id),$submit_event_url);?>
                             <a href="<?php echo esc_url($submit_event_url);?>" target="__blank" class="ep-btn ep-btn-warning">
                                 <span class="material-icons-round ep-fs-6">edit</span>
                             </a>
-                            <a href="javascript:void(0);" onclick="ep_event_download_attendees('<?php echo esc_html( $event->id );?>')" class="ep-btn ep-btn-warning" title="<?php echo __("Download Attendees", 'eventprime-event-calendar-management'); ?>">
+                            <a href="javascript:void(0);" onclick="ep_event_download_attendees('<?php echo esc_attr( $event->id );?>')" class="ep-btn ep-btn-warning" title="<?php echo esc_attr__( 'Download Attendees', 'eventprime-event-calendar-management' ); ?>">
                                 <span class="material-icons-round ep-fs-6">list</span>
-                            </a>
-                            <a href="#" class="ep-btn ep-btn-danger">
-                                <span class="material-icons-round ep-fs-6">delete_forever</span>
-                            </a>
+                            </a><?php
+                            if( ! empty( ep_get_global_settings( 'fes_allow_user_to_delete_event' ) ) ){?>
+                                <a href="javascript:void(0);" class="ep-btn ep-btn-danger" id="ep_user_profile_delete_user_fes_event" data-fes_event_id="<?php echo esc_attr( $event->id );?>" title="<?php echo esc_attr__( 'Delete Event', 'eventprime-event-calendar-management' ); ?>">
+                                    <span class="material-icons-round ep-fs-6">delete_forever</span>
+                                </a><?php
+                            }?>
                         </div>
                     </div>
                 </div>
@@ -96,7 +110,7 @@
         }?>
         </div>
         
-        <?php do_action('ep_profile_event_tabs_content',$args->current_user);?>
+        <?php do_action( 'ep_profile_event_tabs_content', $args->current_user );?>
     
 
         <!-- <div class="ep-box-row">

@@ -125,6 +125,23 @@ class JLTMA_Progress_Bar extends Widget_Base
 			]
 		);
 
+		$this->add_control(
+			'ma_el_progress_bar_bubble_position',
+			[
+				'label' => __('Bubble Position', 'master-addons' ),
+				'type' => Controls_Manager::SLIDER,
+				'unit' => '',
+				'size' => '',
+				'selectors' => [
+					'{{WRAPPER}} [class*="jltma-progress-bar-"].line-bubble .ldBar-label' => 'top: {{SIZE}}{{UNIT}} !important;',
+				],
+				'condition' => [
+					'ma_el_progress_bar_preset' => 'line-bubble'
+				]
+
+			]
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(

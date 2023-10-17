@@ -3,14 +3,14 @@
  * Plugin Name: EventPrime – Modern Events Calendar, Bookings and Tickets
  * Plugin URI: https://theeventprime.com
  * Description: Beginner-friendly Events Calendar plugin to create free as well as paid Events. Includes Event Types, Event Sites & Performers too.
- * Version: 3.1.8
+ * Version: 3.2.7
  * Author: EventPrime
  * Text Domain: eventprime-event-calendar-management
  * Domain Path: /languages
  * Author URI: https://theeventprime.com
- * Requires at least: 6.0
- * Tested up to: 6.3
- * Requires PHP: 7.4
+ * Requires at least: 4.8
+ * Tested up to: 6.3.1
+ * Requires PHP: 5.6
  *
  * @package EventPrime
  */

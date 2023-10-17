@@ -20,7 +20,7 @@
     }
     $new_window = ( ! empty( ep_get_global_settings( 'open_detail_page_in_new_tab' ) ) ? 'target="_blank"' : '' );?>
     <div class="ep-event-card ep-mb-4 ep-card-col-<?php echo esc_attr( $args->cols ) ;?>">
-        <div class="ep-box-card-item ep-border ep-rounded-1 ep-overflow-hidden ep-box-h-100 ep-mb-4 ep-bg-opacity-4 ep-bg-white ep-position-relative">
+        <div class="ep-box-card-item ep-border ep-rounded-1 ep-overflow-hidden ep-box-h-100 ep-mb-4 ep-bg-opacity-4 ep-bg-white ep-position-relative ep-d-flex ep-flex-column">
             <div class="ep-box-card-thumb ep-overflow-hidden ep-position-relative">
                 <?php if ( ! empty( $event->_thumbnail_id ) ) { ?>
                     <a href="<?php echo $url; ?>" class="ep-img-link" <?php echo esc_attr( $new_window );?>>
@@ -43,14 +43,14 @@
 
             <?php do_action( 'ep_event_view_before_event_title', $event );?>
 
-            <div class="ep-box-card-content ep-text-small ep-p-3">
+            <div class="ep-box-card-content ep-text-small ep-p-3 ep-d-flex ep-flex-column ep-flex-1">
                 <!-- Event Title -->
                 <div class="ep-box-title ep-box-card-title ep-text-truncate ep-mb-2">
                     <a href="<?php echo $url; ?>" <?php echo esc_attr( $new_window );?> class="ep-fw-bold ep-fs-6 ep-my-3 ep-text-dark">
                         <?php echo esc_html( $event->em_name ); ?>
                     </a>
                 </div>
-                <div class="ep-box-card-venue ep-card-venue ep-text-muted ep-text-truncate"><?php 
+                <div class="ep-box-card-venue ep-card-venue ep-text-muted ep-text-small ep-text-truncate"><?php 
                     // venue
                     if( ! empty( $event->em_venue ) ) {
                         $event_venue_details = $args->venues[$event->em_venue];
@@ -67,14 +67,14 @@
                 if( ! empty( $event->em_start_date ) ) {?>
                     <div class="ep-event-details ep-d-flex ep-justify-content-between ep-mb-2">
                         <div class="ep-card-event-date ep-d-flex ep-text-muted ">
-                            <div class="ep-card-event-date-wrap ep-d-flex ep-fw-bold">
+                            <div class="ep-card-event-date-wrap ep-d-flex ep-fw-bold ep-text-small">
                                 <?php do_action( 'ep_event_view_event_dates', $event, 'card' );?>
                             </div>
                         </div>
                     </div><?php
                 }?>
                 <!-- Event Description -->
-                <div class="ep-box-card-desc ep-text-small ep-mb-2">
+                <div class="ep-box-card-desc ep-text-small ">
                     <?php if ( ! empty( $event->description ) ) {
                         echo wp_trim_words( wp_kses_post( $event->description ), 20 );
                     }?>

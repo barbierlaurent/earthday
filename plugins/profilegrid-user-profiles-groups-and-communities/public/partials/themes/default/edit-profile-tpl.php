@@ -16,7 +16,7 @@ $rd = filter_input(INPUT_GET, 'rd');
 ?>
 <div class="pmagic"> 
   <!-----Operationsbar Starts----->
-  <div class="pm-group-view pm-dbfl pm-bg-lt">
+  <div class="pm-group-view pm-dbfl pm-bg-lt pg-theme-bg">
     <?php if(isset($is_field) && !empty($is_field)):?>  
       
     <form class="pmagic-form pm-dbfl" method="post" action="" id="pm_edit_form" name="pm_edit_form"  enctype="multipart/form-data">

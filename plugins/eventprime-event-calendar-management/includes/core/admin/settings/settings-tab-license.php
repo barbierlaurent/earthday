@@ -56,7 +56,7 @@ foreach ( $ext_list as $ext ) {
                     <tbody>
                         <tr valign="top" class="ep_premium">
                             <td><?php esc_html_e( 'EventPrime Premium', 'eventprime-event-calendar-management' );?></td>
-                            <td><input id="ep_premium_license_key" name="ep_premium_license_key" type="text" class="regular-text ep-box-wrap ep-license-block" data-prefix="ep_premium" value="<?php esc_attr_e( ( isset( $ep_premium_license_key ) && ! empty( $ep_premium_license_key ) ) ? $ep_premium_license_key : '' ); ?>" placeholder="<?php esc_html_e( 'Enter Your License Key', 'eventprime-event-calendar-management' );?>" /></td>
+                            <td><input id="ep_premium_license_key" name="ep_premium_license_key" type="text" class="regular-text ep-box-wrap ep-license-block" data-prefix="ep_premium" value="<?php echo ( ! empty( $ep_premium_license_key ) ? esc_attr( $ep_premium_license_key ) : '' ); ?>" placeholder="<?php esc_html_e( 'Enter Your License Key', 'eventprime-event-calendar-management' );?>" /></td>
                             <td>         
                                 <span class="license-expire-date" style="padding-bottom:2rem;" >
                                     <?php

@@ -343,7 +343,7 @@ class EventM_Event_Controller_Frontend_Submission {
             $title = isset($post_data['name']) ? sanitize_text_field($post_data['name']) : 'Event';
             $description = isset($post_data['description']) ? $post_data['description'] : '';
             $status = isset($post_data['status']) ? $post_data['status'] : 'publish';
-            if(isset($post_data['event_id']) && !empty($post_data['event_id']) ){
+            if( isset( $post_data['event_id'] ) && ! empty( $post_data['event_id'] ) ){
                 $post_id = $post_data['event_id'];
                 $post_update = array(
                     'ID'         => $post_id,

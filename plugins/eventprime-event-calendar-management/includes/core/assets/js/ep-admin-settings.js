@@ -506,4 +506,13 @@ jQuery( function( $ ) {
             $( '#event_detail_image_height_custom_data' ).show();
         }
     });
+
+    // show/hide the trending event type options
+    $( document ).on( 'change', '#ep_show_trending_event_types', function() {
+        if( $( this ).prop( 'checked' ) == true ) {
+            $( '.ep-settings-trending-event-type-option' ).show();
+        } else{
+            $( '.ep-settings-trending-event-type-option' ).hide();
+        }
+    });
 });

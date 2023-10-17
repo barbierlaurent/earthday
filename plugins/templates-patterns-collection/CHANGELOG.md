@@ -1,3 +1,31 @@
+##### [Version 1.2.3](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.2...v1.2.3) (2023-10-09)
+
+### Bug Fixes
+- **Security Patch**: Addressed an issue where log files had a predictable name, enhancing the privacy of WordPress details.
+
+##### [Version 1.2.2](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.1...v1.2.2) (2023-10-05)
+
+### Improvements
+- **Onboarding UX**: Enhanced the onboarding process for a smoother user experience.
+
+### Bug Fixes
+- **Onboarding redirection**: Fixed the issue where users got redirected to the old onboarding if they were installing the Cloud Templates & Patterns collection plugin from the dashboard
+
+##### [Version 1.2.1](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.0...v1.2.1) (2023-09-25)
+
+- [Fix] Open the new onboarding when Templates Patterns Collection is installed from Neve welcome notice
+
+#### [Version 1.2.0](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.1.39...v1.2.0) (2023-09-25)
+
+- [Feat] New onboarding for Neve theme
+- [Fix] PHP Warning on import when having PHP 8.1
+- [Fix] Editing a template name does not work
+- [Fix] Error while trying to activate the plugin when having PHP 5.6
+- Increased the minimum required version of WordPress
+- Add a documentation notice after the import for the Podcast starter site
+- Increase the minimum required version of WordPress
+- Update plugin description
+
 ##### [Version 1.1.39](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.1.38...v1.1.39) (2023-06-19)
 
 - Feat: Allow post types from Pods plugin to be imported

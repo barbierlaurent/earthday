@@ -80,10 +80,15 @@ jQuery( function( $ ) {
     sessionStorage.setItem( "allow_process_for_payment_step", 0 );
     // action on click on the checkout button
     $( document ).on( 'click', '#ep_event_booking_checkout_btn', function() {
-        //console.log(sessionStorage.getItem( "allow_process_for_payment_step" ));
         let active_step = $( this ).data( 'active_step' );
         var enabled_guest_booking = ep_event_booking.enabled_guest_booking;
         var enabled_woocommerce_integration = ep_event_booking.enabled_woocommerce_integration;
+        var enabled_woocommerce_checkout = ep_event_booking.enabled_woocommerce_checkout;
+        var ep_enabled_product = ep_event_booking.booking_data.event.em_enable_product;
+        var ep_wc_products_count = 0;
+        if( ep_event_booking.booking_data.event && ep_event_booking.booking_data.event.em_selectd_products ) {
+            var ep_wc_products_count = ep_event_booking.booking_data.event.em_selectd_products.length;
+        }
         var show_guest_booking_form = 0; var allow_process_for_payment_step = 0;
         if( active_step == 1 ) {
             var attendees_data = $( '#ep_event_booking_attendee_section' ).find(
@@ -185,6 +190,7 @@ jQuery( function( $ ) {
                 if( chkUserId == 0 && enabled_guest_booking == 0 ) {
                     $( '#ep_event_booking_attendee_section' ).hide( 500 );
                     $( '#ep_event_booking_checkout_user_section' ).show( 500 );
+                    $( '#ep-woocommerce-checkout-forms' ).hide();
 
                     let filled_user_registration_detail = 0;
                     $( '.ep-error-message' ).text( '' );
@@ -291,17 +297,34 @@ jQuery( function( $ ) {
                             filled_user_registration_detail = 1;
                         }
                     }
-                    if( filled_user_registration_detail == 1 ) {
+                   /*  if( filled_user_registration_detail == 1 ) {
                         if( enabled_woocommerce_integration == 0 ) {
                             $( '#ep_event_booking_checkout_user_section' ).hide( 500 );
                             sessionStorage.setItem( "allow_process_for_payment_step", 1 );
                         } else{
                             if( $( '#ep-woocommerce-checkout-forms' ).length > 0 ) {
+                                $( '#ep-woocommerce-checkout-forms' ).show( 500 );
                                 let scrollToWoocommerce = $( '#ep-woocommerce-checkout-forms' );
                                 $('html, body').stop().animate({
                                     'scrollTop': scrollToWoocommerce.offset().top
                                 }, 800, 'swing' );
                             }
+                        }
+                    } */
+                    $( '#ep-woocommerce-checkout-forms' ).hide();
+                    if( filled_user_registration_detail == 1 ) {
+                        if( enabled_woocommerce_integration == 1 && ep_enabled_product == 1 && ep_wc_products_count > 0 ) {
+                            $( '#ep_event_checkout_registration_form' ).hide( 500 );
+                            if( $( '#ep-woocommerce-checkout-forms' ).length > 0 ) {
+                                $( '#ep-woocommerce-checkout-forms' ).show( 500 );
+                                let scrollToWoocommerce = $( '#ep-woocommerce-checkout-forms' );
+                                $('html, body').stop().animate({
+                                    'scrollTop': scrollToWoocommerce.offset().top
+                                }, 800, 'swing' );
+                            }
+                        } else{
+                            $( '#ep_event_booking_checkout_user_section' ).hide( 500 );
+                            sessionStorage.setItem( "allow_process_for_payment_step", 1 );
                         }
                     }
                     
@@ -314,7 +337,7 @@ jQuery( function( $ ) {
                             $( '#ep_event_booking_attendee_section' ).hide( 500 );
                             $( '#ep_event_booking_checkout_user_section' ).show( 500 );
                             $( '#ep_event_booking_payment_section' ).hide();
-                            if( enabled_woocommerce_integration == 1 ) {
+                            if( enabled_woocommerce_integration == 1 && ep_enabled_product == 1 && ep_wc_products_count > 0 ) {
                                 $( '#ep-woocommerce-checkout-forms' ).hide();
                                 let woocommerce_integration_button = '<button type="button" class="ep-btn ep-btn-warning ep-box-w-100 ep-mb-2 step1" id="ep_woocommerce_integration_checkout_button" data-active_step="1">'+ep_event_booking.checkout_text+'</button>';
                                 $( woocommerce_integration_button ).insertAfter( '#ep_event_booking_checkout_btn' );
@@ -328,16 +351,35 @@ jQuery( function( $ ) {
                             sessionStorage.setItem( "allow_process_for_payment_step", 1 );
                         }
                     } else{
-                        sessionStorage.setItem( "allow_process_for_payment_step", 1 );
+                        if( $( '#ep-woocommerce-checkout-forms' ).length > 0 ) {
+                            sessionStorage.setItem( "allow_process_for_payment_step", 0 );
+                            $( this ).hide();
+                            $( '#ep_event_booking_attendee_section' ).hide( 500 );
+                            $( '#ep_event_booking_checkout_user_section' ).show( 500 );
+                            $( '#ep_event_booking_payment_section' ).hide();
+                            $( '#ep-woocommerce-checkout-forms' ).show( 500 );
+                            // $( '#ep_woocommerce_integration_checkout_button' ).show( 500 );
+                            let woocommerce_integration_button = '<button type="button" class="ep-btn ep-btn-warning ep-box-w-100 ep-mb-2 step1" id="ep_woocommerce_integration_checkout_button" data-active_step="1">'+ep_event_booking.checkout_text+'</button>';
+                            $( woocommerce_integration_button ).insertAfter( '#ep_event_booking_checkout_btn' );
+                        } else{
+                            sessionStorage.setItem( "allow_process_for_payment_step", 1 );
+                        }
                     }
                 } else{
                     if( chkUserId && chkUserId > 0 ) {
                         sessionStorage.setItem( "allow_process_for_payment_step", 1 );
                     }
                 }
-                
+
+                // if woo checkout enabled then show the add to cart button
+                if( enabled_woocommerce_checkout == 1 ){
+                    if( $( '#ep_event_booking_cart_btn' ).length > 0 ) {
+                        $( '#ep_event_booking_cart_btn' ).hide();
+                    }
+                }
+
                 // woocommerce integration check
-                if( enabled_woocommerce_integration == 1 ){ 
+                if( enabled_woocommerce_integration == 1 && ep_enabled_product == 1 && ep_wc_products_count > 0 ){ 
                     if( enabled_guest_booking == 1 ){
                         if( chkUserId == 0 ) {
                             if( $( '#ep-woocommerce-checkout-forms' ).length > 0 ) {
@@ -354,7 +396,13 @@ jQuery( function( $ ) {
                                 }
                             }
                         } else{
-                            sessionStorage.setItem( "allow_process_for_payment_step", 1 );
+                           
+                            // sessionStorage.setItem( "allow_process_for_payment_step", 1 );
+                            if( $( '#ep-woocommerce-checkout-forms' ).length > 0 ) {
+                                sessionStorage.setItem( "allow_process_for_payment_step", 0 );
+                                $( '#ep-woocommerce-checkout-forms' ).show( 500 );
+                                $( '#ep_woocommerce_integration_checkout_button' ).show( 500 );
+                            }
                         }
                     }else{
                         if( chkUserId == 0 && sessionStorage.getItem( "allow_process_for_payment_step" ) == 0 ) {
@@ -398,6 +446,7 @@ jQuery( function( $ ) {
                     $('#ep-booking-step-2').removeClass('ep-text-muted');
                     $('#ep-booking-step-2').addClass('ep-text-dark');
                     $( '#ep_event_booking_attendee_section' ).hide( 500 );
+                    $( '#ep-woocommerce-checkout-forms' ).hide( 500 );
                     
                     loadPaymentSection();
                     if( chkUserId > 0 ) {
@@ -513,7 +562,7 @@ jQuery( function( $ ) {
         return false;
     });
     
-    $(document).ready(function() {
+    $( document ).ready(function() {
         var booking_data = ep_event_booking.booking_data;
         sessionStorage.setItem('ep_booking_data', ep_event_booking.booking_data);
         sessionStorage.setItem('ep_booking_tickets', ep_event_booking.booking_data.tickets);
@@ -531,7 +580,6 @@ jQuery( function( $ ) {
         };
         const couponArray = JSON.stringify(coupon);
         sessionStorage.setItem('ep_coupon', couponArray);
-        
     });
 
     // set/unset the terms field
@@ -554,9 +602,127 @@ jQuery( function( $ ) {
         }
         $( '#ep_single_ticket'+seat_ticket_id+'_seat_info' ).toggle( 500 );
     });
+
+    // update booking action
+    $( document ).on( 'click', '#ep_event_update_booking_button', function() {
+        let booking_attendees_data = $( '#ep_event_booking_attendee_section' ).find(
+            'input, select, textarea'
+        );
+        let error = 0;
+        let requireString = get_translation_string( 'required' );
+        let invalid_email_string = get_translation_string( 'invalid_email' );
+        let invalid_phone_string = get_translation_string( 'invalid_phone' );
+        let invalid_number_string = get_translation_string( 'invalid_number' );
+        
+        $( booking_attendees_data ).each( function() {
+            let input_name = $( this ).attr( 'name' );
+            let attr_id = $( 'input[name="' + input_name + '"]' ).attr( 'id' );
+            if( attr_id ) {
+                $( '#' + attr_id + '_error' ).text( '' );
+                if( $( '#' + attr_id ).attr( 'required' ) ) {
+                    let input_val = $( '#' + attr_id ).val();
+                    if( !input_val ) {
+                        $( '#' + attr_id + '_error' ).text( requireString );
+                        document.getElementById( attr_id ).focus();
+                        error = 1;
+                        return false;
+                    }
+                }
+
+                // check for types
+                let type = $( '#' + attr_id ).attr( 'type' );
+                // check email type
+                if( type == 'email' ) {
+                    let input_val = $( '#' + attr_id ).val();
+                    if( input_val ) {
+                        if( !is_valid_email( input_val ) ) {
+                            $( '#' + attr_id + '_error' ).text( invalid_email_string );
+                            document.getElementById( attr_id ).focus();
+                            error = 1;
+                            return false;
+                        }
+                    }
+                } else if( type == 'tel' ) { // check tel type
+                    let input_val = $( '#' + attr_id ).val();
+                    if( input_val ) {
+                        if( !is_valid_phone( input_val ) ) {
+                            $( '#' + attr_id + '_error' ).text( invalid_phone_string );
+                            document.getElementById( attr_id ).focus();
+                            error = 1;
+                            return false;
+                        }
+                    }
+                } else if( type == 'number' ) { // check number type
+                    let input_val = $( '#' + attr_id ).val();
+                    if( input_val ) { 
+                        if( isNaN( input_val ) ) {
+                            $( '#' + attr_id + '_error' ).text( invalid_number_string );
+                            document.getElementById( attr_id ).focus();
+                            error = 1;
+                            return false;
+                        }
+                    }
+                } else if( type == 'checkbox' || type == 'radio' ) { // check checkbox and radio type
+                    $( '#' + attr_id + '_error' ).text( '' );
+                    if( $( '#' + attr_id ).attr( 'required' ) ) {
+                        let checkbox_checked_len = $( 'input[name="' + input_name + '"]:checked' ).length;
+                        if( !checkbox_checked_len ) {
+                            $( '#' + attr_id + '_error' ).text( requireString );
+                            document.getElementById( attr_id ).focus();
+                            error = 1;
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            // check for dropdown and textarea
+            let attr_id_st = '';
+            if( $( 'select[name="' + input_name + '"]' ).length > 0 ) {
+                attr_id_st = $( 'select[name="' + input_name + '"]' ).attr( 'id' );
+            } else if( $( 'textarea[name="' + input_name + '"]' ).length > 0 ) {
+                attr_id_st = $( 'textarea[name="' + input_name + '"]' ).attr( 'id' );
+            }
+            if( attr_id_st ) {
+                $( '#' + attr_id_st + '_error' ).text( '' );
+                if( $( '#' + attr_id_st ).attr( 'required' ) ) {
+                    let input_val = $( '#' + attr_id_st ).val();
+                    if( !input_val ) {
+                        $( '#' + attr_id_st + '_error' ).text( requireString );
+                        document.getElementById( attr_id_st ).focus();
+                        error = 1;
+                        return false;
+                    }
+                }
+            }
+        });
+        if( error == 0 ) {
+            var form = $( "#ep_event_edit_booking_form" );
+            let data = { 
+                action: 'ep_update_event_booking_action', 
+                data  : form.serialize(),
+            };
+            $('.ep-event-loader').show();
+            $.ajax({
+                type    : "POST",
+                url     : eventprime.ajaxurl,
+                data    : data,
+                success : function( response ) {
+                    if( response.success == true ) {
+                        show_toast( 'success', response.data.message );
+                        setTimeout( function() {
+                            location.href = response.data.redirect_url;
+                        }, 2000);
+                    } else{
+                        show_toast( 'error', response.data.error );
+                    }
+                    $('.ep-event-loader').hide();
+                }
+            });
+        }
+    });
     
 });
-
 
 // load payment section
 function loadPaymentSection() {
@@ -573,7 +739,8 @@ function loadPaymentSection() {
         } else{
             if( eventprime.global_settings.paypal_processor == 1 ) {
                 let paypal_client_id = eventprime.global_settings.paypal_client_id;
-                let default_payment_processor = eventprime.global_settings.default_payment_processor;
+                //let default_payment_processor = eventprime.global_settings.default_payment_processor;
+                let default_payment_processor = ep_event_booking.default_payment_processor;
                 if( paypal_client_id ) {
                     if( ep_event_booking.booking_data.tickets ) {
                         if( !default_payment_processor || default_payment_processor == 'undefined' || default_payment_processor == 'paypal_processor' ){
@@ -631,7 +798,7 @@ function loadPaymentSection() {
 
                             if (sessionStorage.getItem("ep_booking_additional_price") !== null) {
                                 const additional_price = sessionStorage.getItem('ep_booking_additional_price');
-                                if( ep_event_booking.enabled_woocommerce_integration == 1 && additional_price != 'undefined'){
+                                if( ep_event_booking.enabled_woocommerce_integration == 1 && additional_price != 'undefined' && ep_event_booking.booking_data.event.em_enable_product == 1 && ep_event_booking.booking_data.event.em_selectd_products.length > 0 ){
                                     let item_data = {
                                         "name": "Additional Prices",
                                         "description": "Aditional Prices",
@@ -647,11 +814,8 @@ function loadPaymentSection() {
                             
                             if (sessionStorage.getItem("ep_coupon") !== null) {
                                 const coupon_data = sessionStorage.getItem('ep_coupon');
-                                
                                 const couponArray = JSON.parse(coupon_data);
-                                
                                 if(couponArray.code !== null){
-                                    
                                     let ep_cc_dis = couponArray.discount_amount;
                                     if( ep_cc_dis ) {
                                         ep_cc_dis = atob( ep_cc_dis );
@@ -662,25 +826,7 @@ function loadPaymentSection() {
                                 }
                             }
                             total_discount = total_discount.toFixed(2);
-                            
-                            // if( ep_event_booking.enabled_woocommerce_integration == 1 ){
-                            //     woocommerce_products_total = $('#ep_wc_product_total').val();
-                            //     woocommerce_products_total = parseFloat( woocommerce_products_total );
-                            //     if( woocommerce_products_total > 0 ){
-                                    
-                            //         let item_data = {
-                            //             "name": "Woocommerce Products Total Prices",
-                            //             "description": "Woocommerce Products Total Prices",
-                            //             "unit_amount": {
-                            //                 "currency_code": ep_currency,
-                            //                 "value": woocommerce_products_total
-                            //             },
-                            //             "quantity": 1
-                            //         }
-                            //         items.push( item_data );
-                            //     } 
-
-                            // }
+                            booking_price = parseFloat( booking_price ).toFixed(2);
 
                             var order_id = 0;
                             var checkout_form = jQuery( "#ep_event_checkout_form" );
@@ -698,7 +844,6 @@ function loadPaymentSection() {
                                         data    : booking_data,
                                         success : function( response ) {
                                             if( response.success == true ) {
-                                                //alert( "Booking created successfully" );
                                                 if( response.data.payment_method == "paypal" ) {
                                                     order_id      = response.data.order_id;
                                                     let booking_total = response.data.booking_total;

@@ -1,3 +1,5 @@
+<?php defined( 'ABSPATH' ) || exit;?>
+
 <div class="emagic">
     <div class="ep-migration-box-wrap ep-box-wrap ep-mt-5">
         <div class="ep-box-row ep-items-start ep-g-4 ep-mt-5">

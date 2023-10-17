@@ -10,8 +10,10 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <div class="ep-box-col-2">
     <div class="ep-single-box-thumb">
-        <div class="ep-single-figure-box">
-            <img src="<?php echo esc_url( $args->organizer->image_url ); ?>" alt="<?php echo esc_attr( $args->organizer->name ); ?>" class="ep-no-image" >
+        <div class="ep-single-figure-box"><?php
+            if( ! empty( $args->organizer->image_url ) ) {?>
+                <img src="<?php echo esc_url( $args->organizer->image_url ); ?>" alt="<?php echo esc_attr( $args->organizer->name ); ?>" class="ep-no-image" ><?php
+            }?>
         </div>
     </div>
 </div>

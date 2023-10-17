@@ -131,6 +131,21 @@
                 <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Enabling it will hide the wishlist icon from front end.', 'eventprime-event-calendar-management' );?></div>
             </td>
         </tr>
+
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="enable_dark_mode">
+                    <?php esc_html_e( 'Enable Dark Mode', 'eventprime-event-calendar-management' );?>
+                </label>
+            </th>
+            <td class="forminp forminp-text">
+                <label class="ep-toggle-btn">
+                    <input name="enable_dark_mode" id="enable_dark_mode" type="checkbox" value="1" <?php echo isset($global_options->enable_dark_mode ) && $global_options->enable_dark_mode == 1 ? 'checked' : '';?>>
+                    <span class="ep-toogle-slider round"></span>
+                </label>
+                <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Enabling it to switch to the dark mode.', 'eventprime-event-calendar-management' );?></div>
+            </td>
+        </tr>
         
     </tbody>
 </table>

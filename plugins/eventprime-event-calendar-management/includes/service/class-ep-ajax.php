@@ -57,6 +57,12 @@ class EventM_Ajax_Service {
             'calendar_events_delete'            => false,
             'eventprime_activate_license'       => false,
             'eventprime_deactivate_license'     => false,
+            'update_event_booking_action'       => false,
+            'event_print_all_attendees'         => false,
+            'load_edit_booking_attendee_data'   => false,
+            'sanitize_input_field_data'         => true,
+            'send_plugin_deactivation_feedback' => false,
+            'delete_user_fes_event'             => false,
         );
 
         foreach ( $ajax_requests as $action => $nopriv ) {
@@ -278,91 +284,98 @@ class EventM_Ajax_Service {
      * Save event booking
      */
     public function save_event_booking() {
-        wp_verify_nonce( 'ep_save_event_booking', 'ep_save_event_booking_nonce' );
-        
-        parse_str( wp_unslash( $_POST['data'] ), $data );
-
-        $event_id       = absint( $data['ep_event_booking_event_id'] );
-        $event_name     = get_the_title( $event_id );
-        $user_id        = absint( $data['ep_event_booking_user_id'] );
-        $payment_method = sanitize_text_field( $data['payment_processor'] );
-        if(!isset($data['ep_event_booking_total_price']) || empty( $data['ep_event_booking_total_price'] )){
-            $payment_method = 'none';
-        }
-        $post_status    = 'pending';
-        
-        if(isset($data['ep_rg_field_email']) && !empty($data['ep_rg_field_email'])){
-            if(isset($data['ep_rg_field_user_name']) && !empty($data['ep_rg_field_user_name'])){
-                $user_controller = EventM_Factory_Service::ep_get_instance( 'EventM_User_Controller');
-                $user_data = new stdClass();
-                $user_data->email = sanitize_text_field($data['ep_rg_field_email']);
-                $user_data->username = sanitize_text_field($data['ep_rg_field_user_name']);
-                $user_data->fname = isset($data['ep_rg_field_first_name']) ? sanitize_text_field($data['ep_rg_field_first_name']) : '';
-                $user_data->lname = isset($data['ep_rg_field_last_name']) ? sanitize_text_field($data['ep_rg_field_last_name']) : '';
-                $user_data->password = sanitize_text_field($data['ep_rg_field_password']);
-                $user = get_user_by( 'email', $user_data->email );
-                if(!empty($user)){
-                    $user_id = $user->ID;
-                }else{
-                    
-                $user_id = $user_controller->ep_checkout_registration($user_data);
-                
+        if( ! empty( $_POST['data'] ) ) {
+            parse_str( wp_unslash( $_POST['data'] ), $data );
+            if( wp_verify_nonce( $data['ep_save_event_booking_nonce'], 'ep_save_event_booking' ) ) {
+                $event_id       = absint( $data['ep_event_booking_event_id'] );
+                $event_name     = get_the_title( $event_id );
+                $user_id        = absint( $data['ep_event_booking_user_id'] );
+                $payment_method = sanitize_text_field( $data['payment_processor'] );
+                if( ! isset( $data['ep_event_booking_total_price'] ) || empty( $data['ep_event_booking_total_price'] ) ) {
+                    $payment_method = 'none';
                 }
-            }
-        }
-        // add new booking
-        $new_post = array(
-            'post_title'  => $event_name,
-            'post_status' => $post_status,
-            'post_type'   => EM_BOOKING_POST_TYPE,
-            'post_author' => $user_id,
-        );
-        $new_post_id = wp_insert_post( $new_post ); // new post id
-        
-        update_post_meta( $new_post_id, 'em_id', $new_post_id );
-        update_post_meta( $new_post_id, 'em_event', $event_id );
-        update_post_meta( $new_post_id, 'em_date', current_time( 'timestamp' ) );
-        update_post_meta( $new_post_id, 'em_user', $user_id );
-        update_post_meta( $new_post_id, 'em_name', $event_name );
-        update_post_meta( $new_post_id, 'em_status', $post_status );
-        update_post_meta( $new_post_id, 'em_payment_method', $payment_method );
-        if( isset( $_POST['rid'] ) && ! empty( $_POST['rid'] ) ) {
-            update_post_meta( $new_post_id, 'em_random_order_id', sanitize_text_field( $_POST['rid'] ) );
-        }
-        // order info
-        $order_info = array();
-        $order_info['tickets']           = json_decode( $data['ep_event_booking_ticket_data'] );
-        $order_info['event_fixed_price'] = ( ! empty( $data['ep_event_booking_event_fixed_price'] ) ? $data['ep_event_booking_event_fixed_price'] : 0.00 );
-        $order_info['booking_total']     = ( ! empty( $data['ep_event_booking_total_price'] ) ? $data['ep_event_booking_total_price'] : 0.00 );
-        $order_info = apply_filters('ep_update_booking_order_info', $order_info, $data);
-        update_post_meta( $new_post_id, 'em_order_info', $order_info );
-        update_post_meta( $new_post_id, 'em_notes', array() );
-        update_post_meta( $new_post_id, 'em_payment_log', array() );
-        update_post_meta( $new_post_id, 'em_booked_seats', array() );
-        update_post_meta( $new_post_id, 'em_attendee_names', $data['ep_booking_attendee_fields'] );
-        
-        do_action( 'ep_after_booking_created', $new_post_id, $data );
-        
-        // if booking total is 0 then confirm booking
-        if( $payment_method == 'none' && empty( $order_info['booking_total'] ) ){
-            $data['payment_gateway'] = 'none';
-            $data['payment_status']  = 'completed';
-            $data['total_amount']    = $order_info['booking_total'];
-            $booking_controller      = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
-            $booking_controller->confirm_booking( $new_post_id, $data );
-        }
+                $post_status = 'pending';
+                
+                if( isset( $data['ep_rg_field_email'] ) && ! empty( $data['ep_rg_field_email'] ) ) {
+                    if( isset($data['ep_rg_field_user_name'] ) && ! empty( $data['ep_rg_field_user_name'] ) ) {
+                        $user_controller = EventM_Factory_Service::ep_get_instance( 'EventM_User_Controller');
+                        $user_data = new stdClass();
+                        $user_data->email = sanitize_text_field($data['ep_rg_field_email']);
+                        $user_data->username = sanitize_text_field($data['ep_rg_field_user_name']);
+                        $user_data->fname = isset($data['ep_rg_field_first_name']) ? sanitize_text_field($data['ep_rg_field_first_name']) : '';
+                        $user_data->lname = isset($data['ep_rg_field_last_name']) ? sanitize_text_field($data['ep_rg_field_last_name']) : '';
+                        $user_data->password = sanitize_text_field($data['ep_rg_field_password']);
+                        $user = get_user_by( 'email', $user_data->email );
+                        if(!empty($user)){
+                            $user_id = $user->ID;
+                        }else{
+                            $user_id = $user_controller->ep_checkout_registration($user_data);
+                        }
+                    }
+                }
+                // add new booking
+                $new_post = array(
+                    'post_title'  => $event_name,
+                    'post_status' => $post_status,
+                    'post_type'   => EM_BOOKING_POST_TYPE,
+                    'post_author' => $user_id,
+                );
+                $new_post_id = wp_insert_post( $new_post ); // new post id
+            
+                update_post_meta( $new_post_id, 'em_id', $new_post_id );
+                update_post_meta( $new_post_id, 'em_event', $event_id );
+                update_post_meta( $new_post_id, 'em_date', current_time( 'timestamp' ) );
+                update_post_meta( $new_post_id, 'em_user', $user_id );
+                update_post_meta( $new_post_id, 'em_name', $event_name );
+                update_post_meta( $new_post_id, 'em_status', $post_status );
+                update_post_meta( $new_post_id, 'em_payment_method', $payment_method );
+                if( isset( $_POST['rid'] ) && ! empty( $_POST['rid'] ) ) {
+                    update_post_meta( $new_post_id, 'em_random_order_id', sanitize_text_field( $_POST['rid'] ) );
+                }
+                // order info
+                $order_info = array();
+                $order_info['tickets']           = json_decode( $data['ep_event_booking_ticket_data'] );
+                $order_info['event_fixed_price'] = ( ! empty( $data['ep_event_booking_event_fixed_price'] ) ? $data['ep_event_booking_event_fixed_price'] : 0.00 );
+                $order_info['booking_total']     = ( ! empty( $data['ep_event_booking_total_price'] ) ? $data['ep_event_booking_total_price'] : 0.00 );
+                $order_info = apply_filters('ep_update_booking_order_info', $order_info, $data);
+                update_post_meta( $new_post_id, 'em_order_info', $order_info );
+                update_post_meta( $new_post_id, 'em_notes', array() );
+                update_post_meta( $new_post_id, 'em_payment_log', array() );
+                update_post_meta( $new_post_id, 'em_booked_seats', array() );
+                update_post_meta( $new_post_id, 'em_attendee_names', $data['ep_booking_attendee_fields'] );
+                // check for booking fields data
+                $em_booking_fields_data = array();
+                if( ! empty( $data['ep_booking_booking_fields'] ) ) {
+                    $em_booking_fields_data = $data['ep_booking_booking_fields'];
+                }
+                update_post_meta( $new_post_id, 'em_booking_fields_data', $em_booking_fields_data );
+                
+                do_action( 'ep_after_booking_created', $new_post_id, $data );
+                
+                // if booking total is 0 then confirm booking
+                if( $payment_method == 'none' && empty( $order_info['booking_total'] ) ){
+                    $data['payment_gateway'] = 'none';
+                    $data['payment_status']  = 'completed';
+                    $data['total_amount']    = $order_info['booking_total'];
+                    $booking_controller      = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+                    $booking_controller->confirm_booking( $new_post_id, $data );
+                }
 
-        $response                 = new stdClass();
-        $response->order_id       = $new_post_id;
-        $response->payment_method = $payment_method;
-        $response->post_status    = $post_status;
-        $response->booking_total  = $data['ep_event_booking_total_price'];
-        $response->item_total     = $data['ep_event_booking_total_tickets'];
-        $redirect                 = esc_url( add_query_arg( array( 'order_id' => $new_post_id ), get_permalink( ep_get_global_settings( 'booking_details_page' ) ) ) );
-        $response->redirect       = apply_filters( 'ep_booking_redirection_url', $redirect, $new_post_id );
-        
-        wp_send_json_success( $response );
-        
+                $response                 = new stdClass();
+                $response->order_id       = $new_post_id;
+                $response->payment_method = $payment_method;
+                $response->post_status    = $post_status;
+                $response->booking_total  = $data['ep_event_booking_total_price'];
+                $response->item_total     = $data['ep_event_booking_total_tickets'];
+                $redirect                 = esc_url( add_query_arg( array( 'order_id' => $new_post_id ), get_permalink( ep_get_global_settings( 'booking_details_page' ) ) ) );
+                $response->redirect       = apply_filters( 'ep_booking_redirection_url', $redirect, $new_post_id );
+                wp_send_json_success( $response );
+            } else{
+                wp_send_json_error( array( 'error' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+            }
+        } else{
+            wp_send_json_error( array( 'error' => esc_html__( 'Data Not Found', 'eventprime-event-calendar-management' ) ) );
+        }
     }
 
     /**
@@ -478,17 +491,17 @@ class EventM_Ajax_Service {
                 if( empty( $wishlist_meta ) ) { // if empty the add event id
                     $wishlist_array = array( $event_id => 1 );
                     update_user_meta( $user_id, 'ep_wishlist_event', $wishlist_array );
-                    wp_send_json_success( array( 'action' => 'add', 'message' => esc_html__( 'Event added successfully into wishlist', 'eventprime-event-calendar-management' ) ) );
+                    wp_send_json_success( array( 'action' => 'add', 'title'=> ep_global_settings_button_title( 'Remove From Wishlist' ), 'message' => esc_html__( 'Event added successfully into wishlist', 'eventprime-event-calendar-management' ) ) );
                 } else{
                     // if already added then remove the event from wishlist
                     if( array_key_exists( $event_id, $wishlist_meta ) ) {
                         unset( $wishlist_meta[$event_id] );
                         update_user_meta( $user_id, 'ep_wishlist_event', $wishlist_meta );
-                        wp_send_json_success( array( 'action' => 'remove', 'message' => esc_html__( 'Event removed successfully from wishlist', 'eventprime-event-calendar-management' ) ) );
+                        wp_send_json_success( array( 'action' => 'remove', 'title'=> ep_global_settings_button_title( 'Add To Wishlist' ), 'message' => esc_html__( 'Event removed successfully from wishlist', 'eventprime-event-calendar-management' ) ) );
                     } else{
                         $wishlist_meta[$event_id] = 1;
                         update_user_meta( $user_id, 'ep_wishlist_event', $wishlist_meta );
-                        wp_send_json_success( array( 'action' => 'add', 'message' => esc_html__( 'Event added successfully into wishlist', 'eventprime-event-calendar-management' ) ) );
+                        wp_send_json_success( array( 'action' => 'add', 'title'=> ep_global_settings_button_title( 'Remove From Wishlist' ), 'message' => esc_html__( 'Event added successfully into wishlist', 'eventprime-event-calendar-management' ) ) );
                     }
                 }
             } else{
@@ -529,7 +542,7 @@ class EventM_Ajax_Service {
 
             $event_description = wp_kses_post( stripslashes( $data['em_descriptions'] ) );
             
-            if(isset($data['event_id']) && !empty($data['event_id']) ){
+            if( isset( $data['event_id'] ) && ! empty( $data['event_id'] ) ) {
                 $post_id = $data['event_id'];
                 $post_update = array(
                     'ID'         => $post_id,
@@ -591,6 +604,20 @@ class EventM_Ajax_Service {
                 $em_start_time = '12:00 AM'; $em_end_time = '11:59 PM';
                 update_post_meta( $post_id, 'em_start_time', $em_start_time );
                 update_post_meta( $post_id, 'em_end_time', $em_end_time );
+            }
+            // update start and end datetime meta
+            $ep_date_time_format = 'Y-m-d';
+            $start_date = get_post_meta( $post_id, 'em_start_date', true );
+            $start_time = get_post_meta( $post_id, 'em_start_time', true );
+            $merge_start_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $start_date, 'Y-m-d', 1 ) . ' ' . $start_time, $ep_date_time_format, '', 0, 1 );
+            if( ! empty( $merge_start_date_time ) ) {
+                update_post_meta( $post_id, 'em_start_date_time', $merge_start_date_time );
+            }
+            $end_date = get_post_meta( $post_id, 'em_end_date', true );
+            $end_time = get_post_meta( $post_id, 'em_end_time', true );
+            $merge_end_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $end_date, 'Y-m-d', 1 ) . ' ' . $end_time, $ep_date_time_format, '', 0, 1 );
+            if( ! empty( $merge_end_date_time ) ) {
+                update_post_meta( $post_id, 'em_end_date_time', $merge_end_date_time );
             }
 
             $em_event_date_placeholder = isset( $data['em_event_date_placeholder'] ) ? sanitize_text_field( $data['em_event_date_placeholder'] ) : '';
@@ -1323,7 +1350,11 @@ class EventM_Ajax_Service {
                     $submit_message = $ues_confirm_message;
                 }
             } else{
-                $submit_message = esc_html__( 'Event saved successfully.', 'eventprime-event-calendar-management' );
+                if( ! empty( $data['event_id'] ) ) {
+                    $submit_message = esc_html__( 'Event Updated Successfully.', 'eventprime-event-calendar-management' );
+                } else{
+                    $submit_message = esc_html__( 'Event Saved Successfully.', 'eventprime-event-calendar-management' );
+                }
             }
             
             wp_send_json_success( array( 'message' => $submit_message ) );
@@ -1980,10 +2011,355 @@ class EventM_Ajax_Service {
                 $license_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Admin_Controller_License' );
                 $response = $license_controller->ep_deactivate_license_settings( $form_data );
             }
-
             wp_send_json_success( $response );
+        } else{
+            wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+        }
+    }
 
-        }else{
+    /**
+     * Update booking action
+     */
+    public function update_event_booking_action() {
+        parse_str( wp_unslash( $_POST['data'] ), $data );
+        if( wp_verify_nonce( $data['ep_update_event_booking_nonce'], 'ep_update_event_booking' ) ) {
+            $ep_event_booking_id = ( ! empty( $data['ep_event_booking_id'] ) ? $data['ep_event_booking_id'] : '' );
+            if( ! empty( $ep_event_booking_id ) ) {
+                $booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+                $single_booking = $booking_controller->load_booking_detail( $ep_event_booking_id );
+                if( ! empty( $single_booking ) ) {
+                    if( ! empty( $data['ep_booking_attendee_fields'] ) ) {
+                        update_post_meta( $ep_event_booking_id, 'em_attendee_names', $data['ep_booking_attendee_fields'] );
+                    }
+                }
+                wp_send_json_success( array( 'message' => esc_html__( 'Booking Updated Successfully.', 'eventprime-event-calendar-management' ), 'redirect_url' => esc_url( ep_get_custom_page_url( 'profile_page' ) ) ) );
+            } else{
+                wp_send_json_error( array( 'message' => esc_html__( 'Booking id can\'t be null. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+            }
+        } else{
+            wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+        }
+    }
+
+    // Print all attendees of an event
+    public function event_print_all_attendees() {
+        if( wp_verify_nonce( $_POST['security'], 'ep_print_event_attendees' ) ) {
+            $event_id = ( ! empty( $_POST['event_id'] ) ? absint( $_POST['event_id'] ) : '' );
+            if( ! empty( $event_id ) ) {
+                $em_event_checkout_attendee_fields = get_post_meta( $event_id, 'em_event_checkout_attendee_fields', true );
+                $attendee_fileds_data = ( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_fields_data'] ) ? $em_event_checkout_attendee_fields['em_event_checkout_fields_data'] : array() );
+                $bookings_data = array(); 
+                $bookings_data[0]['id']   = esc_html__( 'Booking ID', 'eventprime-event-calendar-management' );
+                $bookings_data[0]['event'] = esc_html__( 'Event', 'eventprime-event-calendar-management' );
+                if( empty( $attendee_fileds_data ) ) {
+                    $bookings_data[0]['first_name'] = esc_html__( 'First Name', 'eventprime-event-calendar-management' );
+                    $bookings_data[0]['last_name']  = esc_html__( 'Last Name', 'eventprime-event-calendar-management' );
+                } else{
+                    if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name'] ) ) {
+                        if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_first_name'] ) ) {
+                            $bookings_data[0]['first_name'] = esc_html__( 'First Name', 'eventprime-event-calendar-management' );
+                        }
+                        if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_middle_name'] ) ) {
+                            $bookings_data[0]['middle_name'] = esc_html__( 'Middle Name', 'eventprime-event-calendar-management' );
+                        }
+                        if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_last_name'] ) ) {
+                            $bookings_data[0]['last_name'] = esc_html__( 'Last Name', 'eventprime-event-calendar-management' );
+                        }
+                    }
+                    foreach( $attendee_fileds_data as $fields ) {
+                        $label = EventM_Factory_Service::get_checkout_field_label_by_id( $fields );
+                        $bookings_data[0][$label->label] = esc_html( $label->label );
+                    }
+                }
+                $bookings_data[0]['user_email']  = esc_html__( 'Email', 'eventprime-event-calendar-management' );
+                $bookings_data[0]['ticket_name'] = esc_html__( 'Ticket', 'eventprime-event-calendar-management' );
+                $bookings_data[0]['booked_on']   = esc_html__( 'Booked On', 'eventprime-event-calendar-management' );
+
+                $booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+                $event_bookings = $booking_controller->get_event_bookings_by_event_id( $event_id );
+                if( ! empty( $event_bookings ) ) {
+                    $row = 1;
+                    foreach( $event_bookings as $booking ) {
+                        $booking_id = $booking->ID;
+                        $em_attendee_names = get_post_meta( $booking_id, 'em_attendee_names', true );
+                        if( ! empty( $em_attendee_names ) ) {
+                            $ticket_name = '';
+                            foreach( $em_attendee_names as $ticket_id => $ticket_attendees ) {
+                                $ticket_name = EventM_Factory_Service::get_ticket_name_by_id( $ticket_id );
+                                if( ! empty( $ticket_attendees ) && count( $ticket_attendees ) > 0 ) {
+                                    foreach( $ticket_attendees as $attendee_data ) {
+                                        //$bookings_data[$row]['id'] = $bookings_data[$row]['event'] = $bookings_data[$row]['user_email'] = $bookings_data[$row]['booked_on'] = '';
+                                        $bookings_data[$row]['id'] = $booking_id;
+                                        $bookings_data[$row]['event'] = get_the_title( $event_id );
+                                        if( empty( $attendee_fileds_data ) ) {
+                                            $bookings_data[$row]['first_name'] = $attendee_data['name']['first_name'];
+                                            $bookings_data[$row]['last_name']  = $attendee_data['name']['last_name'];
+                                        } else{
+                                            if( isset( $attendee_data['name'] ) ) {
+                                                if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_first_name'] ) ) {
+                                                    $bookings_data[$row]['first_name']  = $attendee_data['name']['first_name'];
+                                                }
+                                                if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_middle_name'] ) ) {
+                                                    $bookings_data[$row]['middle_name'] = $attendee_data['name']['middle_name'];
+                                                }
+                                                if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_last_name'] ) ) {
+                                                    $bookings_data[$row]['last_name']   = $attendee_data['name']['last_name'];
+                                                }
+                                            }
+                                            foreach( $attendee_fileds_data as $fields ) {
+                                                $checkout_field_val = '';
+                                                if( ! empty( $attendee_data[$fields] ) ) {
+                                                    $label_val = $attendee_data[$fields]['label'];
+                                                    $input_name = ep_get_slug_from_string( $label_val );
+                                                    if( ! empty( $attendee_data[$fields][$input_name] ) ) {
+                                                        $input_val = $attendee_data[$fields][$input_name];
+                                                        if( is_array( $input_val ) ) {
+                                                            $checkout_field_val = esc_html( implode( ', ', $input_val ) );
+                                                        } else{
+                                                            $checkout_field_val = esc_html( $attendee_data[$fields][$input_name] );
+                                                        }
+                                                    }
+                                                }
+                                                $bookings_data[$row][$label_val] = $checkout_field_val;
+                                            }
+                                        }
+
+                                        $user_id = get_post_meta( $booking_id, 'em_user', true );
+                                        if( ! empty( $user_id ) ) {
+                                            $user = get_user_by( 'id', $user_id );
+                                            if( ! empty( $user ) ) {
+                                                $booking_user_email = esc_html( $user->user_email );
+                                            } else{
+                                                $booking_user_email = '----';
+                                            }
+                                        } else{
+                                            $is_guest_booking = get_post_meta( $booking_id, 'em_guest_booking', true );
+                                            if( ! empty( $is_guest_booking ) ) {
+                                                $em_order_info = get_post_meta( $booking_id, 'em_order_info', true );
+                                                if( ! empty( $em_order_info ) && ! empty( $em_order_info['user_email'] ) ) {
+                                                    $booking_user_email = esc_html( $em_order_info['user_email'] );
+                                                }
+                                            }
+                                        }
+                                        $bookings_data[$row]['user_email'] = $booking_user_email;
+                                        $bookings_data[$row]['ticket_name'] = $ticket_name;
+                                        $em_date = get_post_meta( $booking_id, 'em_date', true );
+                                        if( ! empty( $em_date ) ) {
+                                            $bookings_data[$row]['booked_on'] = esc_html( ep_timestamp_to_date( $em_date, 'd M, Y' ) );
+                                        }
+                                        $row++;
+                                    }
+                                }
+                            }
+                        } else{
+                            $tickets_info = ( ! empty( $booking->em_order_info['tickets'] ) ? $booking->em_order_info['tickets'] : array() );
+                            if( ! empty( $tickets_info ) && count( $tickets_info ) > 0 ) {
+                                for( $con = 0; $con < count( $tickets_info ); $con++ ) {
+                                    $bookings_data[$row]['id'] = $booking_id;
+                                    $bookings_data[$row]['event'] = get_the_title( $event_id );
+                                    $ticket_id = ( ! empty( $tickets_info[$con] ) && ! empty( $tickets_info[$con]->id ) ) ? $tickets_info[$con]->id : '';
+                                    $ticket_name = ( ! empty( $ticket_id ) ? EventM_Factory_Service::get_ticket_name_by_id( $ticket_id ) : '----' );
+                                    if( empty( $attendee_fileds_data ) ) {
+                                        $bookings_data[$row]['first_name'] = '----';
+                                        $bookings_data[$row]['last_name']  = '----';
+                                    } else{
+                                        if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name'] ) ) {
+                                            if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_first_name'] ) ) {
+                                                $bookings_data[$row]['first_name'] = '----';
+                                            }
+                                            if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_middle_name'] ) ) {
+                                                $bookings_data[$row]['middle_name'] = '----';
+                                            }
+                                            if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_last_name'] ) ) {
+                                                $bookings_data[$row]['last_name'] = '----';
+                                            }
+                                        }
+                                        foreach( $attendee_fileds_data as $fields ) {
+                                            $label = EventM_Factory_Service::get_checkout_field_label_by_id( $fields );
+                                            $bookings_data[$row][$label->label] = '----';
+                                        }
+                                    }
+                                    $user_id = get_post_meta( $booking_id, 'em_user', true );
+                                    if( ! empty( $user_id ) ) {
+                                        $user = get_user_by( 'id', $user_id );
+                                        if( ! empty( $user ) ) {
+                                            $booking_user_email = esc_html( $user->user_email );
+                                        } else{
+                                            $booking_user_email = '----';
+                                        }
+                                    } else{
+                                        $is_guest_booking = get_post_meta( $booking_id, 'em_guest_booking', true );
+                                        if( ! empty( $is_guest_booking ) ) {
+                                            $em_order_info = get_post_meta( $booking_id, 'em_order_info', true );
+                                            if( ! empty( $em_order_info ) && ! empty( $em_order_info['user_email'] ) ) {
+                                                $booking_user_email = esc_html( $em_order_info['user_email'] );
+                                            }
+                                        }
+                                    }
+                                    $bookings_data[$row]['user_email'] = $booking_user_email;
+                                    $bookings_data[$row]['ticket_name'] = $ticket_name;
+                                    $em_date = get_post_meta( $booking_id, 'em_date', true );
+                                    if( ! empty( $em_date ) ) {
+                                        $bookings_data[$row]['booked_on'] = esc_html( ep_timestamp_to_date( $em_date, 'd M, Y' ) );
+                                    }
+                                    $row++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                header('Content-Type: text/csv; charset=utf-8');
+                header('Content-Disposition: attachment; filename="ep-bookings-'.md5(time().mt_rand(100, 999)).'.csv"');
+                $f = fopen('php://output', 'w');
+                foreach ( $bookings_data as $line ) {
+                    fputcsv( $f, $line );
+                }
+                die;
+            } else{
+                wp_send_json_error( array( 'message' => esc_html__( 'Event id can\'t be null. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+            }
+        } else{
+            wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+        }
+    }
+
+    // load attendee fields html for edit booking
+    public function load_edit_booking_attendee_data() {
+        $response = new stdClass();
+        if( wp_verify_nonce( $_POST['security'], 'ep_booking_attendee_data' ) ) {
+            $event_id = ( ! empty( $_POST['event_id'] ) ? absint( $_POST['event_id'] ) : '' );
+            $booking_id = ( ! empty( $_POST['booking_id'] ) ? absint( $_POST['booking_id'] ) : '' );
+            $ticket_id = ( ! empty( $_POST['ticket_id'] ) ? absint( $_POST['ticket_id'] ) : '' );
+            $ticket_key = ( ! empty( $_POST['ticket_key'] ) ? absint( $_POST['ticket_key'] ) : '' );
+            $attendee_val = ( ! empty( $_POST['attendee_val'] ) ? absint( $_POST['attendee_val'] ) : '' );
+            if( ! empty( $event_id ) && ! empty( $booking_id ) && ! empty( $ticket_id ) && ! empty( $ticket_key ) && ! empty( $attendee_val ) ) {
+                
+            } else{
+                wp_send_json_error( array( 'message' => esc_html__( 'Some data is missing. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+            }
+        }
+    }
+
+    // sanitize input field data
+    public function sanitize_input_field_data() {
+        if( wp_verify_nonce( $_POST['security'], 'ep-frontend-nonce' ) ) {
+            if( isset( $_POST['input_val'] ) && ! empty( $_POST['input_val'] ) ) {
+                $input_val = sanitize_text_field( $_POST['input_val'] );
+                wp_send_json_success( $input_val );
+            } else{
+                wp_send_json_error( array( 'message' => esc_html__( 'Value is missing.', 'eventprime-event-calendar-management' ) ) );
+            }
+        } else{
+            wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+        }
+    }
+
+    // send feedback
+    public function send_plugin_deactivation_feedback() {
+        if( wp_verify_nonce( $_POST['security'], 'ep-plugin-deactivation-nonce' ) ) {
+            if( isset( $_POST['feedback'] ) && ! empty( $_POST['feedback'] ) ) {
+                $feedback = sanitize_text_field( $_POST['feedback'] );
+                $message = sanitize_text_field( $_POST['message'] );
+                $email_message = '';
+                $from_email_address = '<' . get_option('admin_email') . '>';
+                switch( $feedback ) {
+                    case 'feature_not_available': $body='Feature not available: '; break;
+                    case 'feature_not_working': $body='Feature not working: '; break;
+                    case 'found_a_better_plugin': $body='Found a better plugin: '; break;
+                    case 'plugin_broke_site': $body='Plugin broke my site'; break;
+                    case 'plugin_stopped_working': $body='Plugin stopped working'; break;
+                    case 'temporary_deactivation': $body = "It's a temporary deactivation"; break;
+                    case 'other': $body='Other: '; break;
+                    default: return;
+                }
+                if( ! empty( $feedback ) ) {
+                    $email_message .= $body."\n\r";
+                    if( ! empty( $message ) ) {
+                        $email_message .= $message."\n\r";
+                    }
+                    $email_message .= "\n\r EventPrime Version - ".EVENTPRIME_VERSION;
+                    $headers = "MIME-Version: 1.0\r\n";
+                    $headers .= "Content-type:text/html;charset=UTF-8\r\n";
+                    $headers .= 'From:'.$from_email_address."\r\n";
+                    if ( wp_mail( 'feedback@theeventprime.com', 'EventPrime Uninstallation Feedback', $email_message, $headers ) )
+                        wp_send_json_success();
+                    else
+                        wp_send_json_error();
+                }
+            } else{
+                wp_send_json_error( array( 'message' => esc_html__( 'Feedback is missing.', 'eventprime-event-calendar-management' ) ) );
+            }
+        } else{
+            wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
+        }
+    }
+
+    // delete fes event from user profile
+    public function delete_user_fes_event() {
+        if( wp_verify_nonce( $_POST['security'], 'ep-frontend-nonce' ) ) {
+            if( isset( $_POST['fes_event_id'] ) && ! empty( $_POST['fes_event_id'] ) ) {
+                global $wpdb;
+                $fes_event_id = absint( $_POST['fes_event_id'] );
+                $current_user_id = get_current_user_id();
+                $event_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
+                $single_event = $event_controller->get_single_event( $fes_event_id );
+                if( empty( $single_event ) ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'Event does not found.', 'eventprime-event-calendar-management' ) ) );
+                }
+                if( empty( $single_event->em_frontend_submission ) ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'Event can\'t be deleted.', 'eventprime-event-calendar-management' ) ) );
+                }
+                // check if the logged user is same
+                $event_user = $single_event->em_user;
+                if( $event_user != $current_user_id ) {
+                    wp_send_json_error( array( 'message' => esc_html__( 'You are not authorised to delete this event.', 'eventprime-event-calendar-management' ) ) );
+                }
+                // start event deletion
+                // first check for recurring events
+                $booking_controllers = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+                $metaboxes_controllers = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Admin_Meta_Boxes' );
+                $metaboxes_controllers->ep_delete_child_events( $fes_event_id );
+                // check category and tickets and delete them
+                $cat_table_name = $wpdb->prefix.'eventprime_ticket_categories';
+                $price_options_table = $wpdb->prefix.'em_price_options';
+                // delete all ticket categories
+                if( ! empty( $single_event->ticket_categories ) ) {
+                    foreach( $single_event->ticket_categories as $category ) {
+                        if( ! empty( $category->id ) ) {
+                            $wpdb->delete( $cat_table_name, array( 'id' => $category->id ) );
+                        }
+                    }
+                }
+                // delete all tickets
+                if( ! empty( $single_event->all_tickets_data ) ) {
+                    foreach( $single_event->all_tickets_data as $ticket ) {
+                        if( ! empty( $ticket->id ) ) {
+                            $wpdb->delete( $price_options_table, array( 'id' => $ticket->id ) );
+                        }
+                    }
+                }
+                // delete booking of this event
+                $event_bookings = $booking_controllers->get_event_bookings_by_event_id( $fes_event_id );
+                if( ! empty( $event_bookings ) ) {
+                    foreach( $event_bookings as $booking ) {
+                        // delete booking
+                        wp_delete_post( $booking->ID, true );
+                    }
+                }
+                // delete terms relationships
+                wp_delete_object_term_relationships( $fes_event_id, array( EM_EVENT_VENUE_TAX, EM_EVENT_TYPE_TAX, EM_EVENT_ORGANIZER_TAX ) );
+
+                // delete ext data
+                do_action( 'ep_delete_event_data', $fes_event_id );
+
+                wp_delete_post( $fes_event_id, true );
+
+                wp_send_json_success( array( 'message' => esc_html__( 'Event Deleted Successfully', 'eventprime-event-calendar-management' ) ) );
+            } else{
+                wp_send_json_error( array( 'message' => esc_html__( 'Event Id Is Missing.', 'eventprime-event-calendar-management' ) ) );
+            }
+        } else{
             wp_send_json_error( array( 'message' => esc_html__( 'Security check failed. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ) ) );
         }
     }

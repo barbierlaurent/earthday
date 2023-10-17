@@ -42,6 +42,11 @@ jQuery( function( $ ) {
         if(epEventListwidth < 210){
             $(".ep-box-list-right-col .ep-event-list-view-action").addClass("ep-column-small");
         }
+
+        // set dark mode
+        if( eventprime.global_settings.enable_dark_mode == 1 ) {
+            $( 'body' ).addClass( 'ep-dark-mode-enabled' );
+        }
         
     });
     
@@ -94,7 +99,8 @@ jQuery( function( $ ) {
                             $( '#ep_event_wishlist_action_' + event_id + ' .ep-handle-fav' ).text( 'favorite_border' );
                             $( '#ep_event_wishlist_action_' + event_id + ' .ep-handle-fav' ).removeClass( 'ep-text-danger' );
                         }
-
+                        $( '#ep_event_wishlist_action_' + event_id ).attr( 'title', response.data.title );
+                        
                         // remove block of user profile
                         if( remove_row_id ) {
                             $( '#' + remove_row_id ).remove();

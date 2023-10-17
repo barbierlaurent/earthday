@@ -1862,6 +1862,7 @@ input.pm_toggle:checked + label:after {
 
 .uimagic input[type=text],
 .uimagic input[type=number],
+.uimagic input[type=url],
 .uimagic input[type=password],
 .uimagic textarea,
 .pm-new-form input[type=text] {
@@ -1881,6 +1882,7 @@ input.pm_toggle:checked + label:after {
 
 .uimagic input[type=text]:focus,
 .uimagic input[type=number]:focus,
+.uimagic input[type=url]:focus,
 .uimagic input[type=password]:focus,
 .uimagic textarea:focus,
 .pm-new-form input[type=text]:focus {
@@ -6793,6 +6795,10 @@ a.pg-premium-extension-link:hover span {
 .uimheader.pg-options-head  {
     display: flex;
     align-items: center;
+}
+
+.uimheader.pg-options-head .pg-group-pre-btn a{
+    font-weight: normal;
 }
 
 .uimheader.pg-options-head .pg-premium-options {

@@ -143,14 +143,15 @@ ep-sl-event-action span:hover{
     margin: 0px auto;
 }
 
-#ep_attendee_register_form {
+/* #ep_attendee_register_form {
     width: 100%;
     max-width: 600px;
     margin: 0px auto;
-}
+} */
 
 #ep_attendee_register_form_wrapper{
     width: 100%;
+    max-width: 600px;
     margin: 0px auto;
 }
 

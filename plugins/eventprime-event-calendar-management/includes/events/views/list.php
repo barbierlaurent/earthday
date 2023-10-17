@@ -17,10 +17,10 @@
             // Load event search template
             ep_get_template_part( 'events/list/search', null, $args );
         }?>
-
+        
         <?php do_action( 'ep_events_list_before_content', $args ); ?>
-        <div id="ep-events-content-container" class="ep-mt-4">
-            <?php
+
+        <div id="ep-events-content-container" class="ep-mt-4"><?php
             if( isset( $args->events ) && !empty( $args->events ) ) {?>
                 <div class="ep-events ep-box-row ep-event-list-<?php echo esc_attr( $args->display_style );?>-container <?php if( $args->display_style == 'masonry' ) { echo esc_attr( 'masonry-entry' ); } ?>" id="ep_events_front_views_<?php echo esc_attr( $args->display_style);?>">
                     <?php

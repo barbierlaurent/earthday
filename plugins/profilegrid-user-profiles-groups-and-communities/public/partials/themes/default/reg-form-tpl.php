@@ -53,7 +53,7 @@ else:
 
 <div class="pmagic">   
 <!-----Form Starts----->
-  <div class="pg-group-box-wrap pg-group-reg-form pm-dbfl">
+  <div class="pg-group-box-wrap pg-group-reg-form pg-group-form-field-icon pm-dbfl">
 <form class="pmagic-form pm-dbfl" method="post" action="" id="pm_regform_<?php echo esc_attr($gid); ?>" name="pm_regform_<?php echo esc_attr($gid); ?>" onsubmit="return profile_magic_frontend_validation(this)" enctype="multipart/form-data">
    <?php
   $html_creator->get_custom_fields_html_singlepage($gid,$fields,1,$value);

@@ -25,7 +25,6 @@ class EventM_Shortcodes {
 			'em_booking'           => __CLASS__. '::load_booking',
 			'em_booking_details'   => __CLASS__. '::load_event_booking_details',
 			'em_event'             => __CLASS__. '::load_single_event',
-			
 			'em_sponsors'		   => __CLASS__. '::load_sponsors',
 			'em_sponsor'		   => __CLASS__. '::load_single_sponsor',
         );
@@ -45,8 +44,16 @@ class EventM_Shortcodes {
         $events = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
 		$atts = array_change_key_case( (array) $atts, CASE_LOWER );
 		if( isset( $_GET['event'] ) && ! empty( $_GET['event'] ) || isset( $atts['id'] ) && ! empty( $atts['id'] ) && ! isset( $atts['view'] ) ) {
-			if( ! empty( $_GET['event'] ) ){ $event_id = absint( $_GET['event'] ); }
-			if( ! empty( $atts['id'] ) ){ $event_id = absint( $atts['id'] ); }
+			if( ! empty( $_GET['event'] ) ){ 
+				$event_id = absint( $_GET['event'] );
+			}
+			if( ! empty( $atts['id'] ) ){
+				if( strpos( $atts['id'], ',' ) !== false ) {
+					$atts['id'] = explode( ',', $atts['id'] );
+					return $events->render_template( $atts );
+				}
+				$event_id = absint( $atts['id'] );
+			}
 			$atts['id'] = $event_id;
 			return $events->render_detail_template( $atts );
 		} else{

@@ -38,7 +38,14 @@ class EventM_Notification_Service {
             $booking_user_name = isset($order_info['user_name']) ? $order_info['user_name'] : '';
             $booking_user_phone = (isset($order_info['user_phone']) && !empty($order_info['user_phone']) ? $order_info['user_phone'] : 'N/A');
         }
-        $from = get_bloginfo('name') . '<' . get_bloginfo('admin_email') . '>';
+
+        // if admin email from set in global settings
+        if( isset( $global_setting->ep_admin_email_from ) && ! empty( $global_setting->ep_admin_email_from ) ){
+            $admin_email = $global_setting->ep_admin_email_from;
+            $from = get_bloginfo('name') . '<' . $admin_email . '>';
+        }else{
+            $from = get_bloginfo('name') . '<' . get_bloginfo('admin_email') . '>';
+        }
         $headers[] = 'From: ' . $from;
         if( ! empty( $global_setting->send_booking_confirm_email ) && empty( $global_setting->disable_frontend_email ) ) {
             $gcal_link = self::gcal_link($booking->event_data, $booking->event_data->venue_details);
@@ -61,9 +68,12 @@ class EventM_Notification_Service {
             // order item data
             $order_item_html = '';
             $order_item_style = "text-align:left;vertical-align:middle;border:1px solid #eee;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word;color:#737373;padding:12px";
-            $ticket_sub_total = 0;
+            $ticket_sub_total = $offers = 0;
             // add ticket data
             foreach( $tickets as $ticket ) {
+                if( ! empty( $ticket->offer ) ) {
+                    $offers += $ticket->offer;
+                }
                 $order_item_html .= '<tr>';
                     $additional_fees = array();
                     if( isset( $ticket->additional_fee ) ) {
@@ -85,10 +95,15 @@ class EventM_Notification_Service {
                 $order_item_html .= '</tr>';
             }
 
+            // add offers in discount
+            if( ! empty( $offers ) ) {
+                $order_info['discount'] += $offers;
+            }
+
             $sub_total = $ticket_sub_total + $order_info['event_fixed_price'];
             $mail_body = str_replace( "<td>(order_item_data)</td>", $order_item_html, $mail_body );
                 
-            $mail_body = str_replace( "$(Discount)", ep_price_with_position( isset($order_info['discount']) ? $order_info['discount'] : 0 ), $mail_body );
+            $mail_body = str_replace( "$(Discount)", ep_price_with_position( isset( $order_info['discount'] ) ? $order_info['discount'] : 0 ), $mail_body );
             $mail_body = str_replace( "$(Fixed Event Fee)", ep_price_with_position( $order_info['event_fixed_price'] ), $mail_body );
             $mail_body = str_replace( "$(Order Total)", ep_price_with_position( $order_info['booking_total'] ), $mail_body );
             $payment_gateway = ( ! empty( $booking->em_payment_method ) ? ucfirst( $booking->em_payment_method ) : 'N/A' );
@@ -147,7 +162,11 @@ class EventM_Notification_Service {
         /* send Mail to Admin */   
         if( empty( $global_setting->disable_admin_email ) && $global_setting->send_admin_booking_confirm_email == 1 ) {
             $mail_body = $global_setting->admin_booking_confirmed_email;
-            $to = get_option('admin_email'); 
+            if( isset( $global_setting->ep_admin_email_to ) && ! empty( $global_setting->ep_admin_email_to ) ){
+                $to = $global_setting->ep_admin_email_to; 
+            }else{
+                $to = get_option('admin_email'); 
+            }
             $subject = ( ! empty( $global_setting->admin_booking_confirmed_email_subject ) ? $global_setting->admin_booking_confirmed_email_subject : esc_html__( 'New event booking', 'eventprime-event-calendar-management' ) );
             $mail_body = str_replace( "(user_email)", $booking_user_email, $mail_body );
             $mail_body = str_replace( "(event_name)", $booking->em_name, $mail_body );
@@ -692,9 +711,9 @@ class EventM_Notification_Service {
     }
 
     private static function configure_mail() {  
-        add_filter('wp_mail_content_type', 'em_set_mail_content_type_html');
-        add_filter('wp_mail_from', 'em_set_mail_from');
-        add_filter('wp_mail_from_name', 'em_set_mail_from_name');
+        add_filter('wp_mail_content_type', 'ep_set_mail_content_type_html');
+        add_filter('wp_mail_from', 'ep_set_mail_from');
+        add_filter('wp_mail_from_name', 'ep_set_mail_from_name');
     }
 
     private static function gcal_link( $event, $venue ) {

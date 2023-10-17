@@ -1,5 +1,4 @@
 jQuery( function( $ ) {
-    
     // initialize the select2 on click on the filter
     $( document ).on( 'click', '.ep-filter-bar-toggle-filter', function(){
         // close other filters first
@@ -289,6 +288,7 @@ jQuery( function( $ ) {
         $("#ep_event_keyword_search").on('click', function(){
             $("#ep-search-filters").css("animation", "ep-searchfilters 1s forwards normal 1");
             $(".ep-search-filter-overlay").show();
+             jQuery("#ep_event_find_events_btn").addClass("ep-z-index-3").removeClass("ep-z-index-1");
         });
         
         $(".ep-search-filter-overlay").on('click',function(){
@@ -296,7 +296,15 @@ jQuery( function( $ ) {
                 $("#ep-search-filters").css("animation", "ep-searchfilters-exit 1s forwards normal 1");
             }
             $(".ep-search-filter-overlay").hide();
+            jQuery("#ep_event_find_events_btn").addClass("ep-z-index-1").removeClass("ep-z-index-3");
         });
+        $("#ep_filter_next_weekend, #ep_filter_next_week, #ep_filter_next_month, #ep_filter_online").on('click',function(){
+            if ($("#ep-search-filters").css("visibility") === "visible") {
+                $("#ep-search-filters").css("animation", "ep-searchfilters-exit 1s forwards normal 1");
+            }
+            $(".ep-search-filter-overlay").hide();
+        });
+
 
         /* let ep_mcontainer = document.querySelector( '#ep_events_front_views_staggered_grid' );
         if ( ep_mcontainer ) {
@@ -309,7 +317,33 @@ jQuery( function( $ ) {
         } */
 
         epCalViewWidhth();
- 
+
+    ///  Event square card Image Setting start
+                
+    var styleElement = jQuery("<style>");
+
+    // Set the text content to include dynamic variables in :root
+    var styleContent = ":root {\n";
+
+    if(eventprime.global_settings.events_image_visibility_options){
+       styleContent += " --ep-imageCardObjectFit: " + eventprime.global_settings.events_image_visibility_options +  ";\n";
+    }   else{
+        styleContent += " --ep-imageCardObjectFit: " + 'cover' + ";\n"; 
+    }
+    if(eventprime.global_settings.events_image_height){
+        styleContent += "  --ep-imageCardHeight: " + eventprime.global_settings.events_image_height + "px" + ";\n";
+    }
+    else{
+        styleContent += " --ep-imageCardHeight: " + '140' + "px" + ";\n"; 
+    }
+
+    styleContent += "}\n";
+    styleElement.text(styleContent);
+
+    //  Append the <style> element to the <head> of the document
+     jQuery("head").append(styleElement);
+
+    //   Event square card Image Setting end
     });
 
     // Load More
@@ -366,6 +400,7 @@ jQuery( function( $ ) {
                         });
                     }
                 }
+                epCard_width_adjust( ".ep-event-card" );
             }
         }); 
     });
@@ -418,15 +453,35 @@ jQuery( function( $ ) {
     });
     // keyword search
     $( document ).on( 'click', '#ep_event_find_events_btn', function() {
+        $("#ep-search-filters").css("animation", "ep-searchfilters-exit 1s forwards normal 1");
+        $(".ep-search-filter-overlay").hide();
         let search_keyword = $( '#ep_event_keyword_search' ).val();
         if( search_keyword ) {
-            // render html
-            let param = { label: 'Keyword', key:'keyword', value: search_keyword };
-            // update html
-            event_applied_filters_render_content( param );
-            //event_search_params.push( param );
-            event_filters_selection_update(event_search_params, param);
-            
+            // sanitize the input first
+            let post_data = {
+                action   : 'ep_sanitize_input_field_data',
+                security : em_front_event_object._nonce,
+                input_val: search_keyword,
+            };
+            $.ajax({
+                type    : "POST",
+                url     : eventprime.ajaxurl,
+                data    : post_data,
+                success : function( response ) {
+                    if( response.success ) {
+                        search_keyword = response.data;
+                        // render html
+                        let param = { label: 'Keyword', key: 'keyword', value: search_keyword };
+                        // update html
+                        event_applied_filters_render_content( param );
+                        //event_search_params.push( param );
+                        event_filters_selection_update(event_search_params, param);                         
+                    } else{
+                        show_toast( 'error', response.data.message );
+                        return false;
+                    }
+                }
+            });
         }
         let display_style = $('#ep-events-style').val();
         event_applied_filters( display_style, event_search_params );
@@ -452,7 +507,6 @@ jQuery( function( $ ) {
             let param = { label: 'From', key:'date_from', value: filter_value, text: filter_value };
             event_applied_filters_render_content( param );
             event_filters_selection_update(event_search_params, param);
-            
         }
         let date_filter_value = $('#filter-date-days').val();
         let filter_end_date_value = $( '#filter-date-to' ).val();
@@ -603,22 +657,6 @@ jQuery( function( $ ) {
         }
     });
 
-    // on hover on the card and masonry images
-   /*  $( document ).on( 'hover', '.ep-box-card-item', function() {
-
-    }); */
-
-    /* $(".ep-box-card-item").hover(
-        function() {
-            $(this).addClass("ep-shadow");
-            $(this).find(".ep-box-card-thumb img").css("transform", "scale(1.1,1.1)");
-        },
-        function() {
-            $(this).removeClass("ep-shadow");
-            $(this).find(".ep-box-card-thumb img").css("transform", "scale(1,1)");
-        }
-    ); */
-
 });
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -628,14 +666,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
             var msnry;
             imagesLoaded( container, function() {
                 msnry = new Masonry( container, {
-                    itemSelector: '#ep_events_front_views_staggered_grid .ep-event-card',
+                    itemSelector: '#ep_events_front_views_staggered_grid .ep-event-card'
                 });
             });
         }
 
-        if (eventprime.global_settings.events_no_of_columns === null){
+        if (!eventprime.global_settings.events_no_of_columns){
             epCard_width_adjust( ".ep-event-card" );
         }
+        
+        //Event FilterBar for Smaller Screen
+        
+        epSearch_width_adjust(".ep-event-views-col");
+        epSearch_bar_width_adjust(".ep-search-filter-bar");
+        
+        jQuery( '.ep-event-loader' ).hide();
     });
 });
 
@@ -709,6 +754,7 @@ function event_applied_filters( event_view_name, event_search_params ) {
                         } else{
                             jQuery( '#ep_event_various_filters_section' ).hide();
                         }
+                        epCard_width_adjust( ".ep-event-card" );
                     }
                 }
             }
@@ -974,7 +1020,7 @@ function columnHeaderFormat( format ) {
 
 function epCard_width_adjust(cardClass) {
     $ = jQuery;
-    jQuery(".ep-event-card").removeClass(["ep-card-col-1", "ep-card-col-2", "ep-card-col-3", "ep-card-col-4", "ep-card-col-5"]);
+    jQuery(".ep-event-card").removeClass(["ep-card-col-","ep-card-col-1", "ep-card-col-2", "ep-card-col-3", "ep-card-col-4", "ep-card-col-5"]);
     kfWidth = $("#ep-events-content-container").innerWidth();
 
     if (kfWidth < 720) {
@@ -1009,14 +1055,61 @@ function epCard_width_adjust(cardClass) {
             break;
     }
 }
+function epSearch_width_adjust(searchFilterClass) {
+    $ = jQuery;
+    jQuery(".ep-event-views-col").removeClass(["ep-box-col-4"]);
+    searchWidth = $("#ep_event_search_form").innerWidth();
+    //console.log(searchWidth);
+    switch (true) {
+
+        case searchWidth <= 650:
+            $(searchFilterClass).addClass("ep-box-col-12");
+    
+        default:
+            $(searchFilterClass).addClass("ep-box-col-4 ep-default");
+            break;
+    }
+}
+function epSearch_bar_width_adjust(searchBarFilterClass) {
+    $ = jQuery;
+    jQuery(".ep-search-filter-bar").removeClass(["ep-box-col-8"]);
+    searchWidth = $("#ep_event_search_form").innerWidth(); 
+    switch (true) {
+
+        case searchWidth <= 650:
+            $(searchBarFilterClass).addClass("ep-box-col-12");
+    
+        default:
+            $(searchBarFilterClass).addClass("ep-box-col-8 ep-default");
+            break;
+    }
+}
 
 // on window resize
 jQuery(window).resize(function(){
-    if(jQuery(".ep-event-card").length > 0){
-        jQuery(".ep-event-card").removeClass(["ep-card-col-12", "ep-card-col-6", "ep-card-col-4", "ep-card-col-3", "ep-card-col-2"]);
+
+    if(jQuery("#ep-events-content-container").length > 0){
+        jQuery(".ep-event-card").removeClass(["ep-card-col-","ep-card-col-12", "ep-card-col-6", "ep-card-col-4", "ep-card-col-3", "ep-card-col-2"]);
         epCard_width_adjust(".ep-event-card");
     }
+
+    if (eventprime.global_settings.events_no_of_columns === 3){
+        jQuery(".ep-event-card").addClass([ "ep-card-col-4"]);
+        jQuery(".ep-event-card").removeClass([ "ep-card-col-3"]);
+    }
+
+    if (eventprime.global_settings.events_no_of_columns === 2){
+        jQuery(".ep-event-card").addClass([ "ep-card-col-6"]);
+        jQuery(".ep-event-card").removeClass([ "ep-card-col-3", "ep-card-col-4"]);
+    }
+
+    if (eventprime.global_settings.events_no_of_columns === 1){
+        jQuery(".ep-event-card").addClass([ "ep-card-col-12"]);
+        jQuery(".ep-event-card").removeClass([ "ep-card-col-3", "ep-card-col-4", "ep-card-col-6"]);
+    }
+
     epCalViewWidhth();
+
 }); 
 
 // check calendar view width
@@ -1039,7 +1132,6 @@ function epCalViewWidhth() {
     }
 }
 
-
 jQuery(document).ready(function () {
     // Check if the user is using a mobile device
     setTimeout(function () {
@@ -1051,3 +1143,4 @@ jQuery(document).ready(function () {
         }
     }, 3000);
 });
+

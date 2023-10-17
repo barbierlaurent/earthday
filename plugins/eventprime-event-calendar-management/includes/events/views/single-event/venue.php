@@ -1,7 +1,7 @@
 <?php 
 if( ! empty( $args->event->em_venue ) ) {
     $event_venue = EventM_Factory_Service::ep_get_venue_by_id( $args->event->em_venue );
-    if( !empty( $event_venue ) ) {
+    if( ! empty( $event_venue ) ) {
         $other_events = EventM_Factory_Service::get_upcoming_event_by_venue_id( $args->event->em_venue, array( $args->event->id ) );?>
         <div class="ep-box-col-12 mt-3" id="ep_sl_event_venue_detail">
             <div class="ep-sl-event-venue-box ep-overflow-hidden ep-py-2">
@@ -102,7 +102,7 @@ if( ! empty( $args->event->em_venue ) ) {
                             <!-- Weather -->
                             <?php if( empty( ep_get_global_settings( 'hide_weather_tab' ) ) ) {?>
                                 <div class="ep-tab-content ep-item-hide" id="ep-sl-venue-weather" role="tabpanel">
-                                    <?php do_action( 'ep_event_detail_weather_data', $event_venue );?>
+                                    <?php //do_action( 'ep_event_detail_weather_data', $event_venue );?>
                                 </div>
                             <?php }?>
                             <!-- Other Events -->

@@ -63,7 +63,9 @@ class UR_Shortcode_My_Account {
 
 		if ( ! is_user_logged_in() ) {
 
-			$redirect_url = isset( $atts['redirect_url'] ) ? esc_url( trim( $atts['redirect_url'] ) ) : '';
+			$redirect_url = isset( $atts['redirect_url'] ) ? trim( $atts['redirect_url'] ) : '';
+			$redirect_url = UR_Shortcodes::check_is_valid_redirect_url( $redirect_url );
+			$redirect_url = esc_url( $redirect_url );
 			$redirect_url      = ( isset( $_GET['redirect_to'] ) && empty( $redirect_url ) ) ? esc_url( wp_unslash( $_GET['redirect_to'] ) ) : $redirect_url; // @codingStandardsIgnoreLine
 			$form_id      = isset( $atts['form_id'] ) ? absint( $atts['form_id'] ) : 0;
 			$message      = apply_filters( 'user_registration_my_account_message', '' );
@@ -387,14 +389,10 @@ class UR_Shortcode_My_Account {
 			ur_add_notice( $errors->get_error_message(), 'error' );
 			return false;
 		}
+		$error_message =  apply_filters( 'user_registration_invalid_username_or_email_error_message', __( 'Invalid username or email.', 'user-registration' ) );
 
-		if ( ! $user_data ) {
-			ur_add_notice( __( 'Invalid username or email.', 'user-registration' ), 'error' );
-			return false;
-		}
-
-		if ( is_multisite() && ! is_user_member_of_blog( $user_data->ID, get_current_blog_id() ) ) {
-			ur_add_notice( __( 'Invalid username or email.', 'user-registration' ), 'error' );
+		if ( ! $user_data || ( is_multisite() && ! is_user_member_of_blog( $user_data->ID, get_current_blog_id() ) ) ) {
+			ur_add_notice( $error_message, 'error' );
 			return false;
 		}
 

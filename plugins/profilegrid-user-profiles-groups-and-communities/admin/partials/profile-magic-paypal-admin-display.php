@@ -119,3 +119,14 @@ $deactivate_extensions = $pmrequest->pg_check_premium_extension();
     </span> </div>
 </div>
 <?php endif; ?>
+
+<?php if ( !in_array( 'Profilegrid_Credit', $deactivate_extensions ) ) : ?>
+<div class="uimrow pg-no-setting-extension pg-extension-modal" data-popup="pg-terawallet-integration-ext-active" onclick="CallExtensionModal(this)">
+    <div class="pm_setting_image"> <img src="<?php echo esc_url( $path . 'images/pg-wallet-icon.png' ); ?>" class="options" alt="options"> </div>
+  <div class="pm-setting-heading"> <span class="pm-setting-icon-title">
+    <?php esc_html_e( 'Customized TeraWallet Integration', 'profilegrid-user-profiles-groups-and-communities' ); ?>
+    </span> <span class="pm-setting-description">
+    <?php esc_html_e( 'Offers powerful Group based credit control to admins and Group leaders.', 'profilegrid-user-profiles-groups-and-communities' ); ?>
+    </span> </div>
+</div>
+<?php endif; ?>

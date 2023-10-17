@@ -23,13 +23,13 @@ class EventM_Organizer_Controller_List {
             'meta_query' => array(
                 'relation'=>'OR',
                 array(
-                  'key'     => 'em_status',
-                  'value'   => 0,
-                  'compare' => '!='
+                    'key'     => 'em_status',
+                    'value'   => 0,
+                    'compare' => '!='
                 ),
                 array(
-                  'key'     => 'em_status',
-                  'compare' => 'NOT EXISTS'
+                    'key'     => 'em_status',
+                    'compare' => 'NOT EXISTS'
                 )
             )
         );
@@ -60,13 +60,13 @@ class EventM_Organizer_Controller_List {
             'meta_query' => array(
                 'relation'=>'OR',
                 array(
-                  'key'     => 'em_status',
-                  'value'   => 0,
-                  'compare' => '!='
+                    'key'     => 'em_status',
+                    'value'   => 0,
+                    'compare' => '!='
                 ),
                 array(
-                  'key'     => 'em_status',
-                  'compare' => 'NOT EXISTS'
+                    'key'     => 'em_status',
+                    'compare' => 'NOT EXISTS'
                 )
             )
         );
@@ -90,21 +90,19 @@ class EventM_Organizer_Controller_List {
                 array(
                     'relation'=>'OR',
                     array(
-                      'key'     => 'em_status',
-                      'value'   => 0,
-                      'compare' => '!='
+                        'key'     => 'em_status',
+                        'value'   => 0,
+                        'compare' => '!='
                     ),
                     array(
-                      'key'     => 'em_status',
-                      'compare' => 'NOT EXISTS'
+                        'key'     => 'em_status',
+                        'compare' => 'NOT EXISTS'
                     )
                 )
-                
             );           
         }  
 
-        if( $popular == 1 )
-        return 1;
+        if( $popular == 1 ) return 1;
         
         $ep_search = ( $ep_search != 'false' ) ? $ep_search : '';
         $args['name__like'] = $ep_search;
@@ -126,13 +124,13 @@ class EventM_Organizer_Controller_List {
             'meta_query' => array(
                 'relation'=>'OR',
                 array(
-                  'key'     => 'em_status',
-                  'value'   => 0,
-                  'compare' => '!='
+                    'key'     => 'em_status',
+                    'value'   => 0,
+                    'compare' => '!='
                 ),
                 array(
-                  'key'     => 'em_status',
-                  'compare' => 'NOT EXISTS'
+                    'key'     => 'em_status',
+                    'compare' => 'NOT EXISTS'
                 )
             )
         );
@@ -157,20 +155,19 @@ class EventM_Organizer_Controller_List {
                 array(
                     'relation'=>'OR',
                     array(
-                      'key'     => 'em_status',
-                      'value'   => 0,
-                      'compare' => '!='
+                        'key'     => 'em_status',
+                        'value'   => 0,
+                        'compare' => '!='
                     ),
                     array(
-                      'key'     => 'em_status',
-                      'compare' => 'NOT EXISTS'
+                        'key'     => 'em_status',
+                        'compare' => 'NOT EXISTS'
                     )
                 )
-                
             );           
         }  
 
-        $terms      = get_terms( $this->term_type, $args );
+        $terms = get_terms( $this->term_type, $args );
 
         // check no of events in event organizers
         $events_controller = new EventM_Event_Controller_List();
@@ -206,10 +203,6 @@ class EventM_Organizer_Controller_List {
             }   
         }
         
-        // if( count( $organizers ) > $count ){
-        //     $organizers = array_slice( $organizers, 0, $count );
-        // }
-
         $wp_query        = new WP_Term_Query( $args );
         $wp_query->terms = $organizers;
         return $wp_query;
@@ -221,9 +214,9 @@ class EventM_Organizer_Controller_List {
     public function get_featured_event_organizers($count = 5){
         $args = array( 
             'hide_empty' => false ,
-            'number'=>$count,
+            'number'     => $count,
             'meta_query' => array(
-                'relation'=>'AND',
+                'relation' => 'AND',
                 array(
                     'relation' => 'OR',
                     array(
@@ -240,13 +233,13 @@ class EventM_Organizer_Controller_List {
                 array(
                     'relation'=>'OR',
                     array(
-                      'key'     => 'em_status',
-                      'value'   => 0,
-                      'compare' => '!='
+                        'key'     => 'em_status',
+                        'value'   => 0,
+                        'compare' => '!='
                     ),
                     array(
-                      'key'     => 'em_status',
-                      'compare' => 'NOT EXISTS'
+                        'key'     => 'em_status',
+                        'compare' => 'NOT EXISTS'
                     )
                 )
             )
@@ -289,6 +282,8 @@ class EventM_Organizer_Controller_List {
         if( empty( $term ) ) {
             $term = get_term( $term_id );
         }
+
+        if( empty( $term ) ) return;
         $organizer->id            = $term->term_id;
         $organizer->name          = htmlspecialchars_decode($term->name);
         $organizer->slug          = $term->slug;
@@ -310,9 +305,21 @@ class EventM_Organizer_Controller_List {
      * @return object Post.
      */
     public function get_upcoming_events_for_organizer( $organizer_id, $args = array() ) {
+        $hide_past_events = ep_get_global_settings( 'single_organizer_hide_past_events' );
+        $past_events_meta_qry = '';
+        if( ! empty( $hide_past_events ) ) {
+            $past_events_meta_qry = array(
+                'relation' => 'OR',
+                array(
+                    'key'     => 'em_start_date_time',
+                    'value'   => current_time( 'timestamp' ),
+                    'compare' => '>=',
+                ),
+            );
+        }
         $filter = array(
-            'meta_key'    => 'em_start_date',
-            'orderby'     => 'em_start_date',
+            'meta_key'    => 'em_start_date_time',
+            'orderby'     => 'meta_value',
             'numberposts' => -1,
             'order'       => 'ASC',
             'meta_query'  => array( 'relation' => 'AND',
@@ -322,39 +329,15 @@ class EventM_Organizer_Controller_List {
                         'value'   =>  serialize( strval ( $organizer_id ) ),
                         'compare' => 'LIKE'
                     ),
-                    /* array(
-                        'key'     => 'em_hide_event_from_events',
-                        'value'   => '1',
-                        'compare' => '!='
-                    ), */ 
-                    array(
-                        'relation' => 'OR',
-                        array(
-                            'key'     => 'em_start_date',
-                            'value'   => current_time( 'timestamp' ),
-                            'compare' => '>=',
-                        ),
-                        /*array(
-                            'key'     => 'em_end_date',
-                            'value'   => current_time( 'timestamp' ),
-                            'compare' => '<=',
-                        )*/
-                    ),
-                    /* array(
-                        'key'     => 'em_hide_event_from_calendar',
-                        'value'   => '1',
-                        'compare' => '!='
-                    ) */
+                    $past_events_meta_qry,
                 )
             ),
             'post_type' => EM_EVENT_POST_TYPE
         );
 
         $args = wp_parse_args($args, $filter);
-        add_filter(' posts_orderby', 'em_posts_order_by' );
         $wp_query = new WP_Query( $args );
         $wp_query->organizer_id = $organizer_id;
-        remove_filter( 'posts_orderby', 'em_posts_order_by' ); 
         return $wp_query;
     }
 
@@ -477,7 +460,7 @@ class EventM_Organizer_Controller_List {
         $organizer_id            = absint( $atts['id'] );
         $term                    = get_term( $organizer_id );
         $organizers_data         = array();
-        if( ! empty( $term ) ) {
+        if( ! empty( $term ) && ! empty( $term->term_id ) ) {
             $organizers_data['term'] = $term;
             $organizers_data['organizer'] = $this->get_single_organizer( $term->term_id );
             // upcoming events

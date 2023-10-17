@@ -28,46 +28,47 @@
     </div>
     <div class="ep-box-row ep-text-small ep-g-5">
         <div class="ep-box-col-3">
-            <ul class="ep-list-group ep-myaccount-tabs ep-mx-0 ep-px-0 ep-mb-3" role="tablist">
-                <li class="ep-list-group-item  ep-text-center ep-py-4" role="presentation">
+            <ul class="ep-list-group ep-myaccount-tabs ep-mx-0 ep-mb-3 ep-pl-0 ep-overflow-hidden" role="tablist">
+                <li class="ep-list-group-item ep-text-center ep-py-4 ep-user-profile-avatar-tab" role="presentation">
                     <img class="ep-rounded-circle" src="<?php echo esc_url( get_avatar_url( $args->current_user->ID ) ); ?>" style="max-width:50%;">
                 </li>
-                <li class="ep-list-group-item ep-tab-item" role="presentation">
+                <li class="ep-list-group-item ep-tab-item ep-user-profile-upcoming-booking-tab" role="presentation">
                     <a href="javascript:void(0);" data-tag="ep-coming-up-bookings" class="ep-list-group-item-light ep-tab-link ep-tab-active">
                         <?php esc_html_e( 'Coming Up', 'eventprime-event-calendar-management');?>
                         <span class="ep-bg-warning ep-rounded-5 ep-px-2 ep-py-1 ep-text-small ep-text-dark ep-fw-bold ep-ml-4"><?php echo absint( count( $args->upcoming_bookings ) );?></span>
                     </a>
                 </li>
-                <li class="ep-list-group-item ep-tab-item" role="presentation">
+                <li class="ep-list-group-item ep-tab-item ep-user-profile-my-booking-tab" role="presentation">
                     <a href="javascript:void(0);" data-tag="ep-list-all-bookings" class="ep-list-group-item-ligh ep-tab-link">
                         <?php esc_html_e( 'My Bookings', 'eventprime-event-calendar-management');?>
                     </a>
                 </li>
                 
-                <li class="ep-list-group-item ep-tab-item" role="presentation">
+                <li class="ep-list-group-item ep-tab-item ep-user-profile-my-event-tab" role="presentation">
                     <a href="javascript:void(0);" data-tag="ep-list-my-events" class="ep-list-group-item-ligh ep-tab-link">
                         <?php esc_html_e( 'My Events', 'eventprime-event-calendar-management');?>
                     </a>
                 </li>
                 
-                <li class="ep-list-group-item ep-tab-item" role="presentation">
+                <li class="ep-list-group-item ep-tab-item ep-user-profile-my-wishlist-tab" role="presentation">
                     <a href="javascript:void(0);" data-tag="ep-list-my-list" class="ep-list-group-item-ligh ep-tab-link">
                         <?php esc_html_e( 'My Wishlists', 'eventprime-event-calendar-management');?>
                     </a>
                 </li>
                 
-                <li class="ep-list-group-item ep-tab-item" role="presentation">
+                <li class="ep-list-group-item ep-tab-item ep-user-profile-my-transaction-tab" role="presentation">
                     <a href="javascript:void(0);" data-tag="ep-list-transactions" class="ep-list-group-item-ligh ep-tab-link">
                         <?php esc_html_e( 'My Transactions', 'eventprime-event-calendar-management');?>
                     </a>
                 </li>
                 
-                <li class="ep-list-group-item ep-tab-item" role="presentation">
+                <?php echo do_action( 'ep_profile_tabs_list', $args->current_user );?>
+
+                <li class="ep-list-group-item ep-tab-item ep-user-profile-my-account-tab" role="presentation">
                     <a href="javascript:void(0);" data-tag="ep-list-profile" class="ep-list-group-item-ligh ep-tab-link">
                         <?php esc_html_e( 'My Account', 'eventprime-event-calendar-management');?>
                     </a>
                 </li>
-                <?php echo do_action('ep_profile_tabs_list', $args->current_user);?>
             </ul>
         </div>
         

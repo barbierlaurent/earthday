@@ -129,12 +129,6 @@ class EventM_Booking_Admin_Meta_Boxes {
 	 * Register meta box for event
 	 */
 	public function ep_bookings_register_meta_boxes() {
-		/*add_meta_box( 
-			'ep_booking_action', 
-			__( 'Booking Actions', 'eventprime-event-calendar-management' ), 
-			array( $this, 'ep_booking_actions_box' ),
-			'em_booking', 'side', 'high' 
-		);*/
         add_meta_box(
 			'ep_booking_general',
 			esc_html__( 'General Details', 'eventprime-event-calendar-management' ),
@@ -159,6 +153,13 @@ class EventM_Booking_Admin_Meta_Boxes {
 			esc_html__( 'Booking Notes', 'eventprime-event-calendar-management' ), 
 			array( $this, 'ep_booking_notes_box' ),
 			'em_booking', 'side', 'low' 
+		);
+
+        add_meta_box( 
+			'ep_tickets_booking_fields', 
+			esc_html__( 'Booking Fields Data', 'eventprime-event-calendar-management' ), 
+			array( $this, 'ep_tickets_booking_fields_box' ),
+			'em_booking', 'normal', 'low' 
 		);
 
         do_action( 'ep_bookings_register_meta_boxes_addon');
@@ -195,6 +196,7 @@ class EventM_Booking_Admin_Meta_Boxes {
      * Attendies Section
      */
     public function ep_tickets_attendies_box( $post ): void {
+        wp_nonce_field( 'ep_booking_attendee_data', 'ep_booking_attendee_data_nonce' );
 		include_once __DIR__ .'/views/meta-box-booking-attendees.php';
 	}
         
@@ -218,6 +220,13 @@ class EventM_Booking_Admin_Meta_Boxes {
     public function ep_transacton_log_box($post):void {
         include_once __DIR__ .'/views/meta-box-transaction-log.php';
     }
+
+    /**
+     * Show booking fields data
+     */
+    public function ep_tickets_booking_fields_box( $post ): void {
+		include_once __DIR__ .'/views/meta-box-booking-fields-data.php';
+	}
         
     /*
 	 * Adding Sponsor logo in List Column
@@ -228,13 +237,14 @@ class EventM_Booking_Admin_Meta_Boxes {
         unset( $defaults['date'] );
         unset( $defaults['title'] );
         $sponsor_column = array(
-            'ep_title'      => esc_html__( 'Event','eventprime-event-sponsor' ),
-            'ep_booking_id' => esc_html__( 'Booking ID','eventprime-event-sponsor' ),
-            'ep_user_email' => esc_html__( 'User Email','eventprime-event-sponsor' ),
-            'ep_event_date' => esc_html__( 'Event Date','eventprime-event-sponsor' ),
-            'ep_attendees'  => esc_html__( 'No. Of Attendees','eventprime-event-sponsor' ),
-            'ep_status'     => esc_html__( 'Booking Status','eventprime-event-sponsor' ),
-            'ep_gateway'    => esc_html__( 'Payment Gateway','eventprime-event-sponsor' ),
+            'ep_title'          => esc_html__( 'Event', 'eventprime-event-calendar-management' ),
+            'ep_booking_id'     => esc_html__( 'Booking ID', 'eventprime-event-calendar-management' ),
+            'ep_user_email'     => esc_html__( 'User Email', 'eventprime-event-calendar-management' ),
+            'ep_event_date'     => esc_html__( 'Event Date', 'eventprime-event-calendar-management' ),
+            'ep_attendees'      => esc_html__( 'No. Of Attendees', 'eventprime-event-calendar-management' ),
+            'ep_status'         => esc_html__( 'Booking Status', 'eventprime-event-calendar-management' ),
+            'ep_gateway'        => esc_html__( 'Payment Gateway', 'eventprime-event-calendar-management' ),
+            'ep_payment_status' => esc_html__( 'Payment Status', 'eventprime-event-calendar-management' ),
         );
 		return array_merge(array_slice($defaults, 0, $offset), $sponsor_column, array_slice($defaults, $offset, null));
 	}
@@ -251,6 +261,14 @@ class EventM_Booking_Admin_Meta_Boxes {
             $this->set_booking_cache( $post_id, $booking );
         }
         $booking_event_id = $booking->em_event;
+        $payment_method = '';
+        if( ! empty( $booking->em_payment_method ) ) {
+            $payment_method = ucfirst( $booking->em_payment_method );
+        } else{
+            if( ! empty( $booking->em_order_info['payment_gateway'] ) ) {
+                $payment_method = ucfirst( $booking->em_order_info['payment_gateway'] );
+            }
+        }
         if( $column_name == 'ep_booking_id' ) {?>
             <strong>
                 <?php echo '#'. absint( $post_id );?>
@@ -367,14 +385,29 @@ class EventM_Booking_Admin_Meta_Boxes {
             }
 		}
         if( $column_name == 'ep_gateway' ) {
-            if( ! empty( $booking->em_payment_method ) ) {
-                echo esc_html( ucfirst( $booking->em_payment_method ) );
+            if( ! empty( $payment_method ) ) {
+                echo esc_html( $payment_method );
             } else{
-                if( ! empty( $booking->em_order_info['payment_gateway'] ) ) {
-                    echo esc_html( ucfirst( $booking->em_order_info['payment_gateway'] ) );
+                echo '--';
+            }
+        }
+        if( $column_name == 'ep_payment_status' ) {
+            $payment_log = isset( $booking->em_payment_log ) ? $booking->em_payment_log : array();
+            if( ! empty( $payment_log ) ) {
+                if( strtolower( $payment_method ) == 'offline' ) {
+                    echo isset( $payment_log['offline_status'] ) ? esc_html( $payment_log['offline_status'] ) : '';
                 } else{
-                    echo '--';
+                    $payment_status = $payment_log['payment_status'];
+                    if( ! empty( $payment_status ) ) {
+                        if( $payment_status == 'completed' ) {
+                            echo esc_html( EventM_Constants::$offline_status['Received'] );
+                        } else{
+                            echo esc_html( ucfirst( $payment_status ) );
+                        }
+                    }
                 }
+            } else{
+                echo '--';
             }
         }
 	}
@@ -544,7 +577,13 @@ class EventM_Booking_Admin_Meta_Boxes {
         if( ! empty( $all_booking_data[$booking_id] ) ) {
             return $all_booking_data[$booking_id];
         } else{
-            return '';
+            $booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
+            $booking = $booking_controller->load_booking_detail( $booking_id );
+            $this->set_booking_cache( $booking_id, $booking );
+            $all_booking_data = get_transient( $key );
+            if( ! empty( $all_booking_data[$booking_id] ) ) {
+                return $all_booking_data[$booking_id];
+            }
         }
     }
 

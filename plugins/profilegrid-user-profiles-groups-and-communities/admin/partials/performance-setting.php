@@ -54,7 +54,7 @@ if ( filter_input( INPUT_POST, 'submit_settings' ) ) {
            <input name="pm_combine_js" id="pm_combine_js" type="checkbox" <?php checked( $dbhandler->get_global_option_value( 'pm_combine_js', '0' ), '1' ); ?> class="pm_toggle" value="1" style="display:none;" />
           <label for="pm_combine_js"></label>
         </div>
-        <div class="uimnote"><?php esc_html_e( 'Turn on the payment system(s) you want to use for accepting payments. Make sure you configure them right.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+        <div class="uimnote"><?php esc_html_e( 'Turning this option on will combine most Javascript files being used by ProfileGrid. This may improve the performance by minimizing the number of script files being loaded.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
       </div>
         
          <div class="uimrow">
@@ -65,7 +65,7 @@ if ( filter_input( INPUT_POST, 'submit_settings' ) ) {
            <input name="pm_combine_css" id="pm_combine_css" type="checkbox" <?php checked( $dbhandler->get_global_option_value( 'pm_combine_css', '0' ), '1' ); ?> class="pm_toggle" value="1" style="display:none;" />
           <label for="pm_combine_css"></label>
         </div>
-        <div class="uimnote"><?php esc_html_e( 'Turn on the payment system(s) you want to use for accepting payments. Make sure you configure them right.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+        <div class="uimnote"><?php esc_html_e( 'Turning this option on will combine most CSS files being used by ProfileGrid. This may improve the performance by minimizing the number of stylesheet files being loaded.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
       </div>
       
       

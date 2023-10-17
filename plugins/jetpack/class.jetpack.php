@@ -691,7 +691,16 @@ class Jetpack {
 		require_once JETPACK__PLUGIN_DIR . 'class.jetpack-gutenberg.php';
 		add_action( 'plugins_loaded', array( 'Jetpack_Gutenberg', 'load_independent_blocks' ) );
 		add_action( 'plugins_loaded', array( 'Jetpack_Gutenberg', 'load_block_editor_extensions' ), 9 );
-		add_action( 'enqueue_block_editor_assets', array( 'Jetpack_Gutenberg', 'enqueue_block_editor_assets' ) );
+		/**
+		 * We've switched from enqueue_block_editor_assets to enqueue_block_assets in WP-Admin because the assets with the former are loaded on the main site-editor.php.
+		 *
+		 * With the latter, the assets are now loaded in the SE iframe; the implementation is now faster because Gutenberg doesn't need to inject the assets in the iframe on client-side.
+		 */
+		if ( is_admin() ) {
+			add_action( 'enqueue_block_assets', array( 'Jetpack_Gutenberg', 'enqueue_block_editor_assets' ) );
+		} else {
+			add_action( 'enqueue_block_editor_assets', array( 'Jetpack_Gutenberg', 'enqueue_block_editor_assets' ) );
+		}
 		add_filter( 'render_block', array( 'Jetpack_Gutenberg', 'display_deprecated_block_message' ), 10, 2 );
 
 		add_action( 'set_user_role', array( $this, 'maybe_clear_other_linked_admins_transient' ), 10, 3 );
@@ -1535,7 +1544,7 @@ class Jetpack {
 		return 0;
 	}
 
-// phpcs:disable WordPress.WP.CapitalPDangit.Misspelled
+	// phpcs:disable WordPress.WP.CapitalPDangit.MisspelledInComment
 	/**
 	 * Gets updates and stores in jetpack_updates.
 	 *
@@ -1569,7 +1578,7 @@ class Jetpack {
 		}
 		return isset( $updates ) ? $updates : array();
 	}
-	// phpcs:enable
+	// phpcs:enable WordPress.WP.CapitalPDangit.MisspelledInComment
 
 	/**
 	 * Get update details for core, plugins, and themes.
@@ -1699,7 +1708,7 @@ class Jetpack {
 			$notice = sprintf(
 				/* translators: %s is a URL */
 				__( 'In <a href="%s" target="_blank">Offline Mode</a>:', 'jetpack' ),
-				Redirect::get_url( 'jetpack-support-development-mode' )
+				esc_url( Redirect::get_url( 'jetpack-support-development-mode' ) )
 			);
 
 			$notice .= ' ' . self::development_mode_trigger_text();
@@ -1710,14 +1719,14 @@ class Jetpack {
 		// Throw up a notice if using a development version and as for feedback.
 		if ( self::is_development_version() ) {
 			/* translators: %s is a URL */
-			$notice = sprintf( __( 'You are currently running a development version of Jetpack. <a href="%s" target="_blank">Submit your feedback</a>', 'jetpack' ), Redirect::get_url( 'jetpack-contact-support-beta-group' ) );
+			$notice = sprintf( __( 'You are currently running a development version of Jetpack. <a href="%s" target="_blank">Submit your feedback</a>', 'jetpack' ), esc_url( Redirect::get_url( 'jetpack-contact-support-beta-group' ) ) );
 
 			echo '<div class="updated" style="border-color: #f0821e;"><p>' . $notice . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- All provided text.
 		}
 		// Throw up a notice if using staging mode.
 		if ( ( new Status() )->is_staging_site() ) {
 			/* translators: %s is a URL */
-			$notice = sprintf( __( 'You are running Jetpack on a <a href="%s" target="_blank">staging server</a>.', 'jetpack' ), Redirect::get_url( 'jetpack-support-staging-sites' ) );
+			$notice = sprintf( __( 'You are running Jetpack on a <a href="%s" target="_blank">staging server</a>.', 'jetpack' ), esc_url( Redirect::get_url( 'jetpack-support-staging-sites' ) ) );
 
 			echo '<div class="updated" style="border-color: #f0821e;"><p>' . $notice . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- All provided text.
 		}
@@ -3723,9 +3732,9 @@ p {
 		$faq_url     = Redirect::get_url( 'jetpack-faq' );
 		$current_screen->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:', 'jetpack' ) . '</strong></p>' .
-			'<p><a href="' . $faq_url . '" rel="noopener noreferrer" target="_blank">' . __( 'Jetpack FAQ', 'jetpack' ) . '</a></p>' .
-			'<p><a href="' . $support_url . '" rel="noopener noreferrer" target="_blank">' . __( 'Jetpack Support', 'jetpack' ) . '</a></p>' .
-			'<p><a href="' . self::admin_url( array( 'page' => 'jetpack-debugger' ) ) . '">' . __( 'Jetpack Debugging Center', 'jetpack' ) . '</a></p>'
+			'<p><a href="' . esc_url( $faq_url ) . '" rel="noopener noreferrer" target="_blank">' . __( 'Jetpack FAQ', 'jetpack' ) . '</a></p>' .
+			'<p><a href="' . esc_url( $support_url ) . '" rel="noopener noreferrer" target="_blank">' . __( 'Jetpack Support', 'jetpack' ) . '</a></p>' .
+			'<p><a href="' . esc_url( self::admin_url( array( 'page' => 'jetpack-debugger' ) ) ) . '">' . __( 'Jetpack Debugging Center', 'jetpack' ) . '</a></p>'
 		);
 	}
 
@@ -3750,8 +3759,8 @@ p {
 
 		if ( current_user_can( 'jetpack_manage_modules' ) && ( self::is_connection_ready() || ( new Status() )->is_offline_mode() ) ) {
 			return array_merge(
-				array( 'settings' => sprintf( '<a href="%s">%s</a>', self::admin_url( 'page=jetpack#/settings' ), __( 'Settings', 'jetpack' ) ) ),
-				array( 'support' => sprintf( '<a href="%s">%s</a>', $support_link, __( 'Support', 'jetpack' ) ) ),
+				array( 'settings' => sprintf( '<a href="%s">%s</a>', esc_url( self::admin_url( 'page=jetpack#/settings' ) ), __( 'Settings', 'jetpack' ) ) ),
+				array( 'support' => sprintf( '<a href="%s">%s</a>', esc_url( $support_link ), __( 'Support', 'jetpack' ) ) ),
 				$actions
 			);
 		}
@@ -4295,15 +4304,17 @@ p {
 						'%1$s = deactivation URL, %2$s = "Deactivate {list of Jetpack module/feature names}',
 						'jetpack'
 					),
-					wp_nonce_url(
-						self::admin_url(
-							array(
-								'page'   => 'jetpack',
-								'action' => 'deactivate',
-								'module' => rawurlencode( $module_slugs ),
-							)
-						),
-						"jetpack_deactivate-$module_slugs"
+					esc_url(
+						wp_nonce_url(
+							self::admin_url(
+								array(
+									'page'   => 'jetpack',
+									'action' => 'deactivate',
+									'module' => rawurlencode( $module_slugs ),
+								)
+							),
+							"jetpack_deactivate-$module_slugs"
+						)
 					),
 					esc_attr( wp_kses( wp_sprintf( _x( 'Deactivate %l', '%l = list of Jetpack module/feature names', 'jetpack' ), $module_names ), array() ) )
 				),
@@ -5435,7 +5446,7 @@ endif;
 			$die_error = sprintf(
 				/* translators: %s is a URL */
 				__( 'Your site is incorrectly double-encoding redirects from http to https. This is preventing Jetpack from authenticating your connection. Please visit our <a href="%s">support page</a> for details about how to resolve this.', 'jetpack' ),
-				Redirect::get_url( 'jetpack-support-double-encoding' )
+				esc_url( Redirect::get_url( 'jetpack-support-double-encoding' ) )
 			);
 		}
 
@@ -6054,6 +6065,10 @@ endif;
 			'jetpack_are_blogging_prompts_enabled'         => array(
 				'replacement' => null,
 				'version'     => 'jetpack-11.8.0',
+			),
+			'jetpack_subscriptions_modal_enabled'          => array(
+				'replacement' => null,
+				'version'     => 'jetpack-12.7.0',
 			),
 		);
 
@@ -6760,7 +6775,7 @@ endif;
 		);
 
 		$products['akismet'] = array(
-			'title'             => __( 'Akismet Anti-Spam', 'jetpack' ),
+			'title'             => __( 'Akismet Anti-spam', 'jetpack' ),
 			'slug'              => 'jetpack_anti_spam',
 			'description'       => __( 'Save time and get better responses by automatically blocking spam from your comments and forms.', 'jetpack' ),
 			'show_promotion'    => true,
@@ -6855,5 +6870,4 @@ endif;
 
 		return true;
 	}
-
 }

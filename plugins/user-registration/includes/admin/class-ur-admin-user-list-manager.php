@@ -145,8 +145,7 @@ class UR_Admin_User_List_Manager {
 			$status       = $action;
 			$user_id      = isset( $_GET['user'] ) ? absint( $_GET['user'] ) : 0;
 			$user_manager = new UR_Admin_User_Manager( $user_id );
-			$form_id      = ur_get_form_id_by_userid( $user_id );
-			$login_option = ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) );
+			$login_option = ur_get_user_login_option( $user_id );
 
 			if ( 'approve' === $status ) {
 
@@ -182,21 +181,7 @@ class UR_Admin_User_List_Manager {
 	 */
 	public function user_registration_pending_users_notices() {
 
-		$args = array(
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'ur_user_status',
-					'value'   => 0,
-					'compare' => '=',
-				),
-				array(
-					'key'     => 'ur_confirm_email',
-					'value'   => 0,
-					'compare' => '=',
-				),
-			),
-		);
+		$args = $this->get_pending_users_meta_query();
 
 		// Remove previously set filter to get exact pending users count.
 		remove_filter( 'pre_get_users', array( $this, 'filter_users_by_approval_status' ) );
@@ -292,13 +277,29 @@ class UR_Admin_User_List_Manager {
 	 */
 	public function add_column_cell( $val, $column_name, $user_id ) {
 
-		$form_id = ur_get_form_id_by_userid( $user_id );
-
 		if ( 'ur_user_user_status' === $column_name ) {
 			$user_manager = new UR_Admin_User_Manager( $user_id );
 			$status       = $user_manager->get_user_status();
 
+			if ( in_array( $status['login_option'], array( 'email_confirmation', 'admin_approval_after_email_confirmation' ), true ) ) {
+				if ( '0' == $status['approval_status'] || '' == $status['approval_status'] ) {
+					if ( 0 == $status['email_status'] || 'false' == $status['email_status'] ) {
+						return __( 'Awaiting Email Confirmation', 'user-registration' );
+					}
+				} elseif ( '-1' == $status['approval_status'] ) {
+					return UR_Admin_User_Manager::get_status_label( '-1' );
+				}
+			}
+
 			if ( ! empty( $status ) ) {
+				if ( $user_manager->is_denied() ) {
+					return UR_Admin_User_Manager::get_status_label( '-1' );
+				}
+
+				if ( $user_manager->is_email_pending() ) {
+					return UR_Admin_User_Manager::email_pending_label();
+				}
+
 				return UR_Admin_User_Manager::get_status_label( $status['user_status'] );
 			}
 		} elseif ( 'ur_user_user_registered_source' === $column_name ) {
@@ -367,6 +368,8 @@ class UR_Admin_User_List_Manager {
 		$pending_label  = UR_Admin_User_Manager::get_status_label( UR_Admin_User_Manager::PENDING );
 		$denied_label   = UR_Admin_User_Manager::get_status_label( UR_Admin_User_Manager::DENIED );
 
+		$pending_email_label = __( 'Awaiting Email Confirmation', 'user-registration' );
+
 		?>
 		</div><!-- .alignleft.actions opened in extra_tablenav() - class-wp-users-list-table.php:259 -->
 		<div class="alignleft actions">
@@ -380,6 +383,7 @@ class UR_Admin_User_List_Manager {
 		echo '<option value="approved" ' . esc_attr( selected( 'approved', $status_filter_value ) ) . '>' . esc_html( $approved_label ) . '</option>';
 		echo '<option value="pending" ' . esc_attr( selected( 'pending', $status_filter_value ) ) . '>' . esc_html( $pending_label ) . '</option>';
 		echo '<option value="denied" ' . esc_attr( selected( 'denied', $status_filter_value ) ) . '>' . esc_html( $denied_label ) . '</option>';
+		echo '<option value="pending_email" ' . esc_attr( selected( 'pending_email', $status_filter_value ) ) . '>' . esc_html( $pending_email_label ) . '</option>';
 		?>
 		</select>
 
@@ -441,57 +445,19 @@ class UR_Admin_User_List_Manager {
 		if ( isset( $status ) && '' !== $status ) {
 			switch ( $status ) {
 				case 'approved':
-					$status = UR_Admin_User_Manager::APPROVED;
+					$meta_query = $this->get_approved_users_meta_query();
 					break;
 				case 'pending':
-					$status = UR_Admin_User_Manager::PENDING;
+					$meta_query = $this->get_pending_users_meta_query();
 					break;
 				case 'denied':
-					$status = UR_Admin_User_Manager::DENIED;
+					$meta_query = $this->get_denied_users_meta_query();
+					break;
+				case 'pending_email':
+					$meta_query = $this->get_pending_email_meta_query();
 					break;
 				default:
 					return;
-			}
-
-			$meta_query = array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'ur_user_status',
-					'value'   => $status,
-					'compare' => '=',
-				),
-				array(
-					'key'     => 'ur_confirm_email',
-					'value'   => $status,
-					'compare' => '=',
-				),
-			);
-
-			if ( UR_Admin_User_Manager::APPROVED === $status ) {
-				$meta_query = array(
-					'relation' => 'OR',
-					array(
-						'relation' => 'AND',
-						array(
-							'key'     => 'ur_user_status',
-							'compare' => 'NOT EXISTS', // works!
-							'value'   => '', // This is ignored, but is necessary...
-						),
-						array(
-							'key'     => 'ur_confirm_email',
-							'compare' => 'NOT EXISTS', // works!
-							'value'   => '', // This is ignored, but is necessary...
-						),
-					),
-					array(
-						'key'   => 'ur_user_status',
-						'value' => UR_Admin_User_Manager::APPROVED,
-					),
-					array(
-						'key'   => 'ur_confirm_email',
-						'value' => UR_Admin_User_Manager::APPROVED,
-					),
-				);
 			}
 		}
 
@@ -660,6 +626,162 @@ class UR_Admin_User_List_Manager {
 			$new_status = sanitize_text_field( wp_unslash( $_POST['ur_user_email_confirmation_status'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 			return update_user_meta( absint( $user_id ), 'ur_confirm_email', $new_status );
 		}
+	}
+
+	/**
+	 * Returns meta query array to fetch approved users.
+	 *
+	 * @return array
+	 */
+	private function get_approved_users_meta_query() {
+		$meta_query = array(
+			'relation' => 'OR',
+			array(
+				'relation' => 'AND',
+				array(
+					'key'     => 'ur_user_status',
+					'compare' => 'NOT EXISTS', // works!
+					'value'   => '', // This is ignored, but is necessary...
+				),
+				array(
+					'key'     => 'ur_confirm_email',
+					'compare' => 'NOT EXISTS', // works!
+					'value'   => '', // This is ignored, but is necessary...
+				),
+			),
+			array(
+				'relation' => 'AND',
+				array(
+					'key'   => 'ur_user_status',
+					'value' => UR_Admin_User_Manager::APPROVED,
+				),
+				array(
+					'key'     => 'ur_admin_approval_after_email_confirmation',
+					'compare' => 'NOT EXISTS', // works!
+					'value'   => '', // This is ignored, but is necessary...
+				),
+			),
+			array(
+				'relation' => 'AND',
+				array(
+					'key'   => 'ur_user_status',
+					'value' => UR_Admin_User_Manager::APPROVED,
+				),
+				array(
+					'key'   => 'ur_admin_approval_after_email_confirmation',
+					'value' => true,
+				),
+			),
+		);
+
+		return $meta_query;
+	}
+
+	/**
+	 * Returns meta query array to fetch pending users.
+	 *
+	 * @return array
+	 */
+	private function get_pending_users_meta_query() {
+		$meta_query = array(
+			'meta_query' => array(
+				'relation' => 'AND',
+				array(
+					'key'     => 'ur_user_status',
+					'value'   => '0',
+					'compare' => '=',
+				),
+				array(
+					'relation' => 'AND',
+					array(
+						'relation' => 'OR',
+						array(
+							'key'     => 'ur_confirm_email',
+							'value'   => '0',
+							'compare' => '!=',
+						),
+						array(
+							'key'     => 'ur_confirm_email',
+							'compare' => 'NOT EXISTS',
+						),
+					),
+					array(
+						'relation' => 'OR',
+						array(
+							'key'     => 'ur_admin_approval_after_email_confirmation',
+							'value'   => 'false',
+							'compare' => '=',
+						),
+						array(
+							'key'     => 'ur_admin_approval_after_email_confirmation',
+							'compare' => 'NOT EXISTS',
+						),
+					),
+				),
+			),
+		);
+
+		return $meta_query;
+	}
+
+	/**
+	 * Returns meta query array to fetch denied users.
+	 *
+	 * @return array
+	 */
+	private function get_denied_users_meta_query() {
+		$meta_query = array(
+			'meta_query' => array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'ur_user_status',
+					'value'   => '-1',
+					'compare' => '=',
+				),
+				array(
+					'key'     => 'ur_confirm_email',
+					'value'   => '-1',
+					'compare' => '=',
+				),
+			),
+		);
+
+		return $meta_query;
+	}
+
+	/**
+	 * Returns meta query array to fetch email pending users.
+	 *
+	 * @return array
+	 */
+	private function get_pending_email_meta_query() {
+		$meta_query = array(
+			'meta_query' => array(
+
+				array(
+					'relation' => 'AND',
+					array(
+						'relation' => 'OR',
+						array(
+							'key'     => 'ur_user_status',
+							'compare' => 'NOT EXISTS',
+						),
+						array(
+							'key'     => 'ur_user_status',
+							'value'   => '0',
+							'compare' => '=',
+						),
+					),
+					array(
+						'key'     => 'ur_confirm_email',
+						'value'   => '0',
+						'compare' => '=',
+					),
+				),
+			),
+		);
+
+		return $meta_query;
 	}
 }
 

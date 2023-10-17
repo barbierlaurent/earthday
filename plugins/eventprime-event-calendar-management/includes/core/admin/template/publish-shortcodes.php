@@ -1,4 +1,5 @@
-<?php 
+<?php defined( 'ABSPATH' ) || exit;
+
 $global_settings = EventM_Factory_Service::ep_get_instance( 'EventM_Admin_Model_Settings' );
 $options = $global_settings->ep_get_settings();
 $ext_list = ep_list_all_exts();?>

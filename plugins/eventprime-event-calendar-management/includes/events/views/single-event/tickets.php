@@ -5,15 +5,16 @@ $get_ticket_now_text = ep_global_settings_button_title('Get Tickets Now');
 $checkout_text = ep_global_settings_button_title('Checkout');
 $add_details_and_checkout_text = ep_global_settings_button_title('Add Details & Checkout');
 $sold_out_text = ep_global_settings_button_title('Sold Out');
-$booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event->em_enable_booking == 'bookings_on' ? 1 : 0 );?>
-
+$booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event->em_enable_booking == 'bookings_on' ? 1 : 0 );
+$is_event_expired = check_event_has_expired( $args->event );
+?>
 <div class="ep-box-col-4 ep-position-relative" id="ep-sl-right-area">
     <?php do_action( 'ep_event_detail_before_ticket_block', $args->event );
     if( ( ! empty( $args->event->em_enable_booking ) && $args->event->em_enable_booking != 'bookings_off' ) || ( ep_get_global_settings( 'show_qr_code_on_single_event' ) == 1 ) ) {?>
         <div class="ep-box-row ep-border ep-rounded"><?php
             if( ! empty( $args->event->em_enable_booking ) && $args->event->em_enable_booking != 'bookings_off' ) {
                 if( $args->event->post_status == 'publish' || ( ! empty( $all_tickets ) && count( $all_tickets ) > 0 ) ) {
-                    if( ! check_event_has_expired( $args->event ) ) {?>
+                    if( ! $is_event_expired ) {?>
                         <div class="ep-box-col-12 ep-px-4 ep-pt-3">
                             <span class="ep-fs-4"><?php echo esc_html( $buy_ticket_text ); ?> </span>
                         </div><?php
@@ -68,7 +69,7 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                 <a href="<?php echo esc_url( $url );?>" class="ep-btn ep-btn-dark ep-box-w-100 ep-mb-2 ep-py-2" <?php echo esc_attr( $new_window );?>>
                                     <?php echo esc_html( $get_ticket_now_text ); ?>
                                 </a><?php
-                            } else if( check_event_has_expired( $args->event ) ) {?>
+                            } else if( $is_event_expired ) {?>
                                 <div class="ep-btn-light ep-box-w-100 ep-mb-2 ep-py-2">
                                     <?php esc_html_e( 'This event has ended', 'eventprime-event-calendar-management' );?>
                                 </div><?php
@@ -146,9 +147,11 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                     }
                 }
             }
+
+            do_action( 'ep_event_detail_after_ticket_block', $args );
             
             if( ep_get_global_settings( 'show_qr_code_on_single_event' ) == 1 ) {
-                if( ( ! empty( $all_tickets ) && count( $all_tickets ) > 0 ) || $args->event->em_enable_booking == 'external_bookings' ) {?>
+                if( ! $is_event_expired && ( ! empty( $all_tickets ) && count( $all_tickets ) > 0 ) || $args->event->em_enable_booking == 'external_bookings' ) {?>
                     <div class="ep-box-col-12 ep-border-top"></div><?php
                 }?>
                 <div class="ep-box-col-12 ep-qr-code-section ep-p-4 mx-auto ep-text-center">
@@ -203,7 +206,7 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
     }?>
     
 </div>
-<?php if( ! empty( $booking_allowed ) && $args->event->post_status == 'publish' && ! check_event_has_expired( $args->event ) ) {
+<?php if( ! empty( $booking_allowed ) && $args->event->post_status == 'publish' && ! $is_event_expired ) {
     if( ! empty( $all_tickets ) && count( $all_tickets ) > 0 ) {
         $ticket_booking_start = $visible_ticket = 0;
         $all_event_bookings = EventM_Factory_Service::get_event_booking_by_event_id( $args->event->em_id, true );
@@ -250,7 +253,7 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                             $ticket_offers_data = $offer_applied_data = array();
                                             if( ! empty( $ticket->offers ) ){
                                                 $ticket_offers_data = json_decode( $ticket->offers );
-                                                $offer_applied_data = EventM_Factory_Service::get_event_offer_applied_data( $ticket_offers_data, $ticket );
+                                                $offer_applied_data = EventM_Factory_Service::get_event_offer_applied_data( $ticket_offers_data, $ticket, $args->event->em_id );
                                             }
                                             if( ! empty( $ticket->name ) ) {
                                                 $ticket->name = esc_html( stripslashes( $ticket->name ) );
@@ -259,23 +262,24 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                                 $ticket->description = esc_html( stripslashes( $ticket->description ) );
                                             }?>
                                             <div class="ep-box-row ep-mb-3 ep-box-w-100 ep-border-bottom <?php echo esc_attr( $ticket_disabled_class );?>" id="ep_single_modal_ticket_<?php echo absint( $ticket->id );?>" data-ticket_id="<?php echo absint( $ticket->id );?>" data-ticket_data='<?php echo json_encode( $ticket );?>'>
-                                                <div class="ep-box-col-12 ep-fs-5 ep-fw-bold ep-d-flex ep-align-items-center"> 
+                                                <div class="ep-box-col-12 ep-fs-5 ep-fw-bold ep-d-flex ep-align-items-center ep-event-ticket-modal-ticket-name"> 
                                                     <?php if( ! empty( $ticket->icon ) ) {
                                                         $ticket_icon_url = wp_get_attachment_url( $ticket->icon );?>
                                                         <img src="<?php echo esc_url( $ticket_icon_url );?>" style="max-width:100px;max-height: 100px"><span>&nbsp;&nbsp;<?php
                                                     }
                                                     echo esc_html( stripslashes( $ticket->name ) );?> </span>
                                                 </div>
-                                                <div class="ep-box-col-12 ep-text-small">
+                                                <div class="ep-box-col-12 ep-text-small ep-event-ticket-modal-event-type">
                                                     <?php if( ! empty( $ticket->category_id ) ) {?>
                                                         <span class="material-icons-outlined ep-fs-6 ep-align-middle">folder</span> 
                                                         <?php echo esc_html( EventM_Factory_Service::get_ticket_category_name( $ticket->category_id, $args->event ) );?> 
                                                         <span class="border-end border-2 mx-2"></span><?php
                                                     }?>
-                                                    <span class="material-icons-outlined ep-fs-6 ep-align-middle">groups</span> <?php esc_html_e( 'Capacity', 'eventprime-event-calendar-management' );?>: <?php echo absint( $ticket->capacity );?>
+                                                    <span class="material-icons-outlined ep-fs-6 ep-align-middle ep-event-ticket-modal-ticket-capacity-icon">groups</span>
+                                                    <span class="ep-event-ticket-modal-ticket-capacity-icon"><?php esc_html_e( 'Capacity', 'eventprime-event-calendar-management' );?>: <?php echo absint( $ticket->capacity );?></span>
                                                 </div>
                                                 <?php if( ! empty( $ticket->description ) ) {?>
-                                                    <div class="ep-box-col-12 ep-ticket-description ep-text-small ep-py-2">
+                                                    <div class="ep-box-col-12 ep-ticket-description ep-text-small ep-py-2 ep-event-ticket-modal-ticket-description">
                                                         <span class="ep-ticket-description-text">
                                                             <?php echo esc_html( stripslashes( $ticket->description ) );?>
                                                         </span> 
@@ -320,7 +324,7 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                                             $max_caps = $remaining_caps;
                                                         }
                                                         if( $ticket->show_remaining_tickets == 1 ) {?>
-                                                            <div class="ep-text-small ep-text-white ep-mt-2">
+                                                            <div class="ep-text-small ep-text-white ep-mt-2 ep-event-ticket-modal-ticket-left">
                                                                 <span class="ep-bg-danger ep-py-1 ep-px-2 ep-rounded-1 ep-text-smalll">
                                                                     <?php 
                                                                     if( $ticket_sold_out == 1 ) {
@@ -336,7 +340,7 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                                                 </span>
                                                             </div><?php
                                                         }?>
-                                                        <div class="ep-my-3">
+                                                        <div class="ep-my-3 ep-event-ticket-modal-ticket-price">
                                                             <span class="ep-fs-5 ep-fw-bold" id="ep_ticket_price_<?php echo absint( $ticket->id );?>" data-row_ticket_price="<?php echo esc_attr( $ticket->price );?>">
                                                                 <?php 
                                                                 if( $ticket->price ) {
@@ -372,12 +376,12 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                                 <div class="ep-box-col-12 ep-text-small ep-mt-2 ep-text-muted">
                                                     <?php
                                                     if( absint( $ticket->min_ticket_no ) > 0 ) {?>
-                                                        <div class="ep-ticket-min-qty ep-text-small ep-d-inline-flex ep-mr-3 ep-align-items-center">
+                                                        <div class="ep-ticket-min-qty ep-text-small ep-d-inline-flex ep-mr-3 ep-align-items-center ep-event-ticket-modal-ticket-min-quantity">
                                                             <span class="material-icons-outlined ep-fs-6 ep-align-top ep-mr-1">task_alt</span> <?php esc_html_e( 'Min Qnty', 'eventprime-event-calendar-management' );?>: <?php echo absint( $ticket->min_ticket_no );?>
                                                         </div><?php
                                                     }
                                                     if( absint( $ticket->max_ticket_no ) > 0 ) {?>
-                                                        <div class="ep-ticket-max-qty ep-text-small ep-d-inline-flex ep-mr-3 ep-align-items-center">
+                                                        <div class="ep-ticket-max-qty ep-text-small ep-d-inline-flex ep-mr-3 ep-align-items-center ep-event-ticket-modal-ticket-max-quantity">
                                                             <span class="material-icons-outlined ep-fs-6 ep-align-top ep-mr-1">task_alt</span> <?php esc_html_e( 'Max Qnty', 'eventprime-event-calendar-management' );?>: <?php echo absint( $ticket->max_ticket_no );?>
                                                         </div><?php
                                                     }?>
@@ -389,11 +393,11 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                                             <?php esc_html_e( 'Available Offers', 'eventprime-event-calendar-management' );?>
                                                         </span>
                                                     </div>
-                                                    <div class="ep-ticket-offers-wrapper ep-box-col-12 ep-d-flex ep-text-small" >
+                                                    <div class="ep-ticket-offers-wrapper ep-box-col-12 ep-d-flex ep-text-small ep-event-ticket-modal-ticket-offers">
                                                         <?php 
                                                         $off = 1;
                                                         foreach( $event_offers['show_ticket_offers'][$ticket->id] as $offer ) {?>
-                                                            <div class="ep-text-small ep-d-inline-flex ep-border ep-rounded ep-p-2 ep-flex-column ep-mr-2 ep-box-w-25 ep-position-relative <?php if(! empty( $offer->em_ticket_offer_type ) && $offer->em_ticket_offer_type == 'volume_based'){ echo esc_html( 'em_ticket_volumn_based_offer' );}?>" data-offer_data='<?php echo json_encode( $offer );?>'>
+                                                            <div class="ep-text-small ep-d-inline-flex ep-border ep-rounded ep-p-2 ep-flex-column ep-mr-2 ep-box-w-25 ep-position-relative <?php if( ! empty( $offer->em_ticket_offer_type ) && $offer->em_ticket_offer_type == 'volume_based' ){ echo esc_html( 'em_ticket_volumn_based_offer' );}?>" data-offer_data='<?php echo json_encode( $offer );?>' id="ep_single_ticket_offer_<?php echo esc_attr( $ticket->id );?>_<?php echo esc_attr( $offer->uid );?>">
                                                                 <div class="ep-fw-bold ep-mb-1 ep-text-small"><?php echo esc_html( $offer->em_ticket_offer_name );?></div>
                                                                 <div class="ep-text-small ep-mb-1 ep-content-truncate">
                                                                     <?php if( ! empty( $offer->em_ticket_offer_description ) ) {
@@ -407,11 +411,13 @@ $booking_allowed = ( ! empty( $args->event->em_enable_booking ) && $args->event-
                                                                         <span class="material-icons-outlined ep-fs-6 ep-text-small ep-align-top ep-mt-1 ep-mr-1">schedule</span> <?php echo esc_html( $offer_date );?>
                                                                     </div><?php
                                                                 }
-                                                                if( isset( $event_offers['applicable_offers'][$ticket->id] ) && isset( $event_offers['applicable_offers'][$ticket->id][$offer->uid] ) ) { ?>
-                                                                    <span class="ep-rounded-5 ep-position-absolute ep-bg-white ep-text-warning ep-fs-3 ep-event-offer-applied" style="top:-10px; right:-7px;" id="ep_event_offer_<?php echo esc_attr( $off );?>">
-                                                                        <span class="material-icons-outlined ep-align-top">done</span>
-                                                                    </span><?php
+                                                                $ticket_offer_applied_style = 'top:-10px; right:-7px;';
+                                                                if( empty( $event_offers['applicable_offers'][$ticket->id] ) || empty( $event_offers['applicable_offers'][$ticket->id][$offer->uid] ) ) { 
+                                                                    $ticket_offer_applied_style .= 'display: none;';
                                                                 }?>
+                                                                <span class="ep-rounded-5 ep-position-absolute ep-bg-white ep-text-warning ep-fs-3 ep-event-offer-applied" style='<?php echo esc_attr( $ticket_offer_applied_style );?>' id="ep_event_offer_<?php echo esc_attr( $ticket->id );?>_<?php echo esc_attr( $off );?>">
+                                                                    <span class="material-icons-outlined ep-align-top">done</span>
+                                                                </span>
                                                             </div><?php
                                                             $off++;
                                                         }?>

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ProfileGrid\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-19 10:51+0000\n"
-"PO-Revision-Date: 2023-08-22 06:26+0000\n"
+"PO-Revision-Date: 2023-10-13 13:25+0000\n"
 "Last-Translator: Андрей Петрович\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -5285,6 +5285,9 @@ msgstr ""
 msgid "Johnston"
 msgstr ""
 
+msgid "Join Group"
+msgstr ""
+
 #: public/class-profile-magic-notifications.php:1351
 msgid "Joined New Group"
 msgstr "Присоединился к новой группе"
@@ -6227,6 +6230,9 @@ msgstr ""
 
 #: admin/partials/global-settings.php:659
 msgid "More power to your group managers.!"
+msgstr ""
+
+msgid "More..."
 msgstr ""
 
 #: includes/country_option_list.php:149
@@ -8538,6 +8544,9 @@ msgstr ""
 msgid ""
 "Show Instagram tab on User Profile page with user’s Instagram photos "
 "displayed in the tab."
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 #: admin/partials/elements-visibility-setting.php:185
@@ -11118,6 +11127,11 @@ msgstr ""
 "Вы можете сбросить свой пароль, перейдя на вкладку «Изменить пароль» в "
 "разделе «Настройки» вашего профиля."
 
+msgid ""
+"You do not have any friends yet. You can add friends by sending friendship "
+"requests to people from their user profiles."
+msgstr ""
+
 #: public/partials/profile-magic-settings.php:12
 msgid "You entered incorrect password. Please try again."
 msgstr "Вы ввели неверный пароль. Пожалуйста, попробуйте еще раз."
@@ -11168,6 +11182,9 @@ msgstr ""
 msgid "You must define a Group Manager first, before making a Group closed."
 msgstr ""
 "Вы должны сначала определить менеджера группы, прежде чем закрыть группу."
+
+msgid "You sent membership request to join this Group on %s"
+msgstr ""
 
 #: admin/partials/global-settings.php:1164
 msgid ""

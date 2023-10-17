@@ -20,7 +20,6 @@ class EventM_Admin_Menus {
         // action to submit setting form
         add_action( 'admin_post_ep_setting_form', array( $this, 'ep_setting_form_submit' ) );
         add_filter( 'parent_file', array($this, 'admin_menu_separator') );
-        
     }
     
     /**
@@ -28,7 +27,8 @@ class EventM_Admin_Menus {
      */
 
     public function enqueue_admin_settings_scripts( $hook ) {
-        if( $hook && ('eventprime_page_ep-settings' == $hook || 'eventprime_page_ep-bulk-emails' == $hook) ){
+        //if( $hook && ('eventprime_page_ep-settings' == $hook || 'eventprime_page_ep-bulk-emails' == $hook) ){
+        if( $hook && ( strpos( $hook, 'ep-settings' ) != false || strpos( $hook, 'ep-bulk-emails' ) != false ) ){
             wp_enqueue_script(
                 'ep-admin-settings-js',
                 EP_BASE_URL . '/includes/core/assets/js/ep-admin-settings.js',
@@ -45,23 +45,18 @@ class EventM_Admin_Menus {
                 'activate_payment'    	  		=> esc_html__( 'Please activate the', 'eventprime-event-calendar-management' ),
                 'payment_text'    	  		    => esc_html__( 'payment', 'eventprime-event-calendar-management' ),
             );
-
             wp_localize_script( 'ep-admin-settings-js', 'ep_admin_settings', $params );
-
             // enqueue select2
             wp_enqueue_style( 'em-admin-select2-css' );
             wp_enqueue_script( 'em-admin-select2-js' );
-
             wp_enqueue_style(
                 'ep-admin-settings-css',
                 EP_BASE_URL . '/includes/core/assets/css/ep-admin-settings.css',
                 false, EVENTPRIME_VERSION
             );
-            
             if( isset( $_GET['sub_tab'] ) && array_key_exists( sanitize_text_field( $_GET['sub_tab'] ), $this->ep_get_front_view_settings_sub_tabs() ) ) {
                 wp_enqueue_script( 'em-admin-jscolor' );
             }
-
             wp_enqueue_style( 'ep-toast-css' );
             wp_enqueue_script( 'ep-toast-js' );
             wp_enqueue_script( 'ep-toast-message-js' );
@@ -72,27 +67,34 @@ class EventM_Admin_Menus {
      * Load admin menus
      */
     public function menus() {
-        add_menu_page( esc_html__('EventPrime', 'eventprime-event-calendar-management'), esc_html__('EventPrime', 'eventprime-event-calendar-management'), 'edit_posts', "edit.php?post_type=em_event", '', 'dashicons-tickets-alt', '25');
+        $user = wp_get_current_user();
+        $em_user_caps_list = array_keys( $user->allcaps );
+        $ep_user_menus_caps = 'edit_em_event';
+        if( in_array( 'edit_posts', $em_user_caps_list ) ) {
+            $ep_user_menus_caps = 'edit_posts';
+        }
+
+        add_menu_page( esc_html__('Events', 'eventprime-event-calendar-management'), esc_html__('Events', 'eventprime-event-calendar-management'), $ep_user_menus_caps, "edit.php?post_type=em_event", '', 'dashicons-tickets-alt', '25');
         
         remove_menu_page('edit.php?post_type=em_event');
-        add_submenu_page( 'edit.php?post_type=em_event', esc_html__( 'Calendar', 'eventprime-event-calendar-management' ), esc_html__( 'Calendar', 'eventprime-event-calendar-management' ), 'edit_posts', 'ep-event-calendar', array( $this, 'ep_event_calendar' ), 2 );
-        add_submenu_page( 'edit.php?post_type=em_event', esc_html__( 'EventPrime settings', 'eventprime-event-calendar-management' ), esc_html__( 'Settings', 'eventprime-event-calendar-management' ), 'manage_options', 'ep-settings', array( $this, 'settings_page' ), 3 );
+        add_submenu_page( 'edit.php?post_type=em_event', esc_html__( 'Calendar', 'eventprime-event-calendar-management' ), esc_html__( 'Calendar', 'eventprime-event-calendar-management' ), $ep_user_menus_caps, 'ep-event-calendar', array( $this, 'ep_event_calendar' ), 2 );
         
         $report_admin = EventM_Factory_Service::ep_get_instance( 'EventM_Report_Admin' );
         
-        add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Reports', 'eventprime-event-calendar-management'), esc_html__('Reports', 'eventprime-event-calendar-management'), "edit_posts", "ep-events-reports", array( $report_admin, 'eventprime_reports' ), class_exists( 'EM_Sponsor' ) ? 10 : 9 );
-        add_submenu_page( 'edit.php?post_type=em_event', esc_html__( 'Email Attendees', 'eventprime-event-calendar-management' ), esc_html__( 'Email Attendees', 'eventprime-event-calendar-management' ), 'edit_posts', 'ep-bulk-emails', array( $this, 'bulk_emails_page' ),13 );
-
+        add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Reports', 'eventprime-event-calendar-management'), esc_html__('Reports', 'eventprime-event-calendar-management'), $ep_user_menus_caps, "ep-events-reports", array( $report_admin, 'eventprime_reports' ), class_exists( 'EM_Sponsor' ) ? 10 : 9 );
+        add_submenu_page( 'edit.php?post_type=em_event', esc_html__( 'Email', 'eventprime-event-calendar-management' ), esc_html__( 'Email', 'eventprime-event-calendar-management' ), $ep_user_menus_caps, 'ep-bulk-emails', array( $this, 'bulk_emails_page' ), 13 );
         if( get_option( 'ep_db_need_to_run_migration' ) == 1 ) {
-            add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Migration', 'eventprime-event-calendar-management'), esc_html__('Migration', 'eventprime-event-calendar-management'), "edit_posts", "ep-revamp-migration", array( $this, 'eventprime_revamp_migration' ) );
+            add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Migration', 'eventprime-event-calendar-management'), esc_html__('Migration', 'eventprime-event-calendar-management'), $ep_user_menus_caps, "ep-revamp-migration", array( $this, 'eventprime_revamp_migration' ) );
         }
-       
-        add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Shortcodes', 'eventprime-event-calendar-management'), esc_html__('Shortcodes', 'eventprime-event-calendar-management'), "edit_posts", "ep-publish-shortcodes", array( $this, 'eventprime_publish_shortcodes' ) );
+        add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Shortcodes', 'eventprime-event-calendar-management'), esc_html__('Shortcodes', 'eventprime-event-calendar-management'), $ep_user_menus_caps, "ep-publish-shortcodes", array( $this, 'eventprime_publish_shortcodes' ) );
         
         do_action( 'ep_admin_menus' );
 
-        add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Extensions', 'eventprime-event-calendar-management'), esc_html__('Extensions', 'eventprime-event-calendar-management'), "edit_posts", "ep-extensions", array( $this, 'eventprime_extensions' ) );
+        add_submenu_page( 'edit.php?post_type=em_event', esc_html__( 'EventPrime settings', 'eventprime-event-calendar-management' ), esc_html__( 'Settings', 'eventprime-event-calendar-management' ), 'manage_options', 'ep-settings', array( $this, 'settings_page' ) );
 
+        add_submenu_page( "edit.php?post_type=em_event", esc_html__( 'Extensions', 'eventprime-event-calendar-management'), esc_html__('Extensions', 'eventprime-event-calendar-management'), $ep_user_menus_caps, "ep-extensions", array( $this, 'eventprime_extensions' ) );
+        // attendees list page
+        add_submenu_page( "", __( 'Attendees List', 'eventprime-event-calendar-management'), __('Attendees List', 'eventprime-event-calendar-management'), $ep_user_menus_caps, 'ep-event-attendees-list', array( $this, 'ep_show_event_attendees_list' ) );
     }
 
     public function admin_menu_separator( $parent_file ) {
@@ -100,53 +102,24 @@ class EventM_Admin_Menus {
         $submenu = &$GLOBALS['submenu'];
         //epd($submenu);
         $available_sub_menus = array();
-        foreach( $submenu as $key => $item )
-        {
-            foreach ( $item as $index => $data )
-            {   
+        foreach( $submenu as $key => $item ) {
+            foreach ( $item as $index => $data ){   
                 $available_sub_menus[] = $data[2];
-                if(strpos($data[2], "em_event_type2") !== false){
+                if( strpos( $data[2], "em_event_type2" ) !== false ){
                     $data[4] = 'ep-show-divider';
                     $submenu[ $key ][ $index ] = $data;
-                }elseif(strpos($data[2], "em_performer") !== false){
+                } elseif( strpos( $data[2], "em_performer" ) !== false ){
                     $data[4] = 'ep-show-divider';
                     $submenu[ $key ][ $index ] = $data;
                 }
-                
             }
-            foreach ( $item as $index => $data )
-            {   
-                if(in_array('ep-settings',$available_sub_menus)){
-                    if(strpos($data[2], "ep-settings") !== false){
+            foreach ( $item as $index => $data ) {   
+                if( in_array( 'ep-settings', $available_sub_menus ) ) {
+                    if( strpos($data[2], "ep-settings" ) !== false ) {
                         $data[4] = 'ep-show-divider';
-                        $submenu[ $key ][ $index ] = $data;
+                        $submenu[$key][$index] = $data;
                     }
                 }
-                /*if(in_array('edit.php?post_type=em_coupon',$available_sub_menus)){
-                    if(strpos($data[2], "em_coupon") !== false){
-                        $data[4] = 'ep-show-divider';
-                        $submenu[ $key ][ $index ] = $data;
-                    }
-                }elseif(in_array('edit.php?post_type=em_ticket',$available_sub_menus)){
-                    if(strpos($data[2], "em_ticket") !== false){
-                        $data[4] = 'ep-show-divider';
-                        $submenu[ $key ][ $index ] = $data;
-                    }
-                }elseif(strpos($data[2], "ep-events-reports") !== false){
-                        $data[4] = 'ep-show-divider';
-                        $submenu[ $key ][ $index ] = $data;
-                }
-                
-                if(in_array('ep-import-export',$available_sub_menus)){
-                    if(strpos($data[2], "ep-import-export") !== false){
-                        $data[4] = 'ep-show-divider';
-                        $submenu[ $key ][ $index ] = $data;
-                    }
-                }elseif(strpos($data[2], "ep-bulk-emails") !== false){
-                        $data[4] = 'ep-show-divider';
-                        $submenu[ $key ][ $index ] = $data;
-                        
-                }*/
             }
         }
         return $parent_file;
@@ -175,7 +148,6 @@ class EventM_Admin_Menus {
                             $tab_url
                         );
                         $active = $active_tab == $tab_id ? ' nav-tab-active' : '';
-
                         echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
                             echo esc_html( $tab_name );
                         echo '</a>';
@@ -186,18 +158,17 @@ class EventM_Admin_Menus {
                             $tab_url
                         );
                         $active =' nav-tab-active';
-
                         echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $this->ep_get_settings_tabs()['extension'][$active_tab] ) . '" class="nav-tab' . $active . '">';
                             echo esc_html( $this->ep_get_settings_tabs()['extension'][$active_tab] );
                         echo '</a>';
-                    }
-                    ?>
+                    }?>
                 </h2>
                 <?php $this->ep_get_settings_tabs_content( $active_tab );
                 
                 do_action( 'ep_setting_submit_button' );?>
             </form>
         </div><?php
+        do_action( 'ep_add_custom_banner' );
     }
 
     /**
@@ -264,14 +235,14 @@ class EventM_Admin_Menus {
         $global_options = $global_settings->ep_get_settings();
         $gateways = $this->ep_payments_gateways_list();
         $ordered_gateways = array();
-        if(isset($global_options->payment_order) && !empty($global_options->payment_order)){
-            foreach($global_options->payment_order as $payment_order){
-                if(isset($gateways[$payment_order])){
+        if( isset( $global_options->payment_order ) && ! empty( $global_options->payment_order ) ) {
+            foreach( $global_options->payment_order as $payment_order ) {
+                if( isset( $gateways[$payment_order] ) ) {
                     $ordered_gateways[$payment_order] = $gateways[$payment_order];
                 }
             }
-            foreach ($gateways as $key => $method){
-                if(!isset($ordered_gateways[$key])){
+            foreach ( $gateways as $key => $method ) {
+                if( ! isset( $ordered_gateways[$key] ) ) {
                     $ordered_gateways[$key] = $method;
                 }
             }
@@ -280,7 +251,6 @@ class EventM_Admin_Menus {
         else{
             return $gateways;
         }
-        
     }
     
     //Register payment gateways
@@ -498,7 +468,7 @@ class EventM_Admin_Menus {
      * Label sections
      */
     public function get_label_section_lists() {
-        $labelsections = array( 'Event-Type', 'Event-Types', 'Venue', 'Venues', 'Performer', 'Performers', 'Organizer', 'Organizers', 'Add To Wishlist', 'Remove From Wishlist', 'Ticket', 'Tickets Left' );
+        $labelsections = array( 'Event-Type', 'Event-Types', 'Venue', 'Venues', 'Performer', 'Performers', 'Organizer', 'Organizers', 'Add To Wishlist', 'Remove From Wishlist', 'Ticket', 'Tickets Left', 'Organized by' );
         return apply_filters( 'ep_settings_language_labels', $labelsections );
     }
 
@@ -526,12 +496,12 @@ class EventM_Admin_Menus {
      */
     public function ep_get_front_view_settings_sub_tabs() {
         $sub_tabs = array();
-        $sub_tabs['events']     = esc_html__( 'Events', 'eventprime-event-calendar-management' );
-        $sub_tabs['eventdetails']     = esc_html__( 'Event Details', 'eventprime-event-calendar-management' );
-        $sub_tabs['eventtypes'] = esc_html__( 'Event-Types', 'eventprime-event-calendar-management' );
-        $sub_tabs['performers'] = esc_html__( 'Performers', 'eventprime-event-calendar-management' );
-        $sub_tabs['venues']     = esc_html__( 'Venues', 'eventprime-event-calendar-management' );
-        $sub_tabs['organizers'] = esc_html__( 'Organizers', 'eventprime-event-calendar-management' );
+        $sub_tabs['events']       = esc_html__( 'Event Listings', 'eventprime-event-calendar-management' );
+        $sub_tabs['eventdetails'] = esc_html__( 'Event', 'eventprime-event-calendar-management' );
+        $sub_tabs['eventtypes']   = esc_html__( 'Event-Types', 'eventprime-event-calendar-management' );
+        $sub_tabs['performers']   = esc_html__( 'Performers', 'eventprime-event-calendar-management' );
+        $sub_tabs['venues']       = esc_html__( 'Venues', 'eventprime-event-calendar-management' );
+        $sub_tabs['organizers']   = esc_html__( 'Organizers', 'eventprime-event-calendar-management' );
         
         return apply_filters( 'ep_admin_front_view_settings_sub_tabs', $sub_tabs );
     }
@@ -578,6 +548,8 @@ class EventM_Admin_Menus {
             'yy.mm.dd&Y.m.d' => date('Y.m.d') .' (Y.m.d)',
         );
         
+        $sub_options['image_visibility_options'] = EventM_Factory_Service::get_image_visibility_options();
+
         ob_start();
         if(in_array($active_sub_tab, $core_tabs)){
             include __DIR__ .'/settings/settings-tab-'. $active_sub_tab .'.php';
@@ -751,14 +723,13 @@ class EventM_Admin_Menus {
     
     public function ep_setting_extensions_list(){
         $extension_settings = array();
-        return apply_filters('ep_extensions_settings',$extension_settings);
+        return apply_filters( 'ep_extensions_settings', $extension_settings );
     }
     
     public function bulk_emails_page(){
         $event_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
         //$events = $event_controller->get_events_post_data(array());
         $events = $event_controller->get_events_field_data(array( 'id', 'name' ) );
-        
         include __DIR__ .'/settings/settings-tab-bulk-emails.php';
     }
 
@@ -793,7 +764,6 @@ class EventM_Admin_Menus {
     
     public function ep_event_calendar(){
         $event_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
-        
         wp_enqueue_script( 'jquery-ui-datepicker' );
         wp_enqueue_style( 'em-admin-jquery-timepicker' );
 	    wp_enqueue_script( 'em-admin-timepicker-js' );
@@ -904,7 +874,17 @@ class EventM_Admin_Menus {
         include __DIR__ .'/settings/settings-admin-calendar.php';
     }
     
-    
+    /**
+     * Show attendees lists of the event
+     */
+    public function ep_show_event_attendees_list() {
+        if( isset( $_GET['event_id'] ) && ! empty( $_GET['event_id'] ) ) {
+            $event_id = absint( $_GET['event_id'] );
+            $em_event_checkout_attendee_fields = get_post_meta( $event_id, 'em_event_checkout_attendee_fields', true );
+            $attendee_fileds_data = ( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_fields_data'] ) ? $em_event_checkout_attendee_fields['em_event_checkout_fields_data'] : array() );
+            include_once EP_BASE_DIR . 'includes/core/admin/template/event-attendee-list.php';
+        }
+    }
 }
 
 return new EventM_Admin_Menus();

@@ -69,9 +69,11 @@
 
 </div>
 <script>
-    google.load('visualization', '1', {packages: ['corechart']});
-    google.charts.setOnLoadCallback( function() { 
-        drawBookingsChart(<?php echo json_encode( $bookings_data->chart );?>);
+    document.addEventListener( "DOMContentLoaded", function(event) {
+        google.load('visualization', '1', {packages: ['corechart']});
+        google.charts.setOnLoadCallback( function() { 
+            drawBookingsChart(<?php echo json_encode( $bookings_data->chart );?>);
+        });
     });
 </script>
 

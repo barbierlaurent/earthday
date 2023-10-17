@@ -192,3 +192,103 @@
     text-overflow: ellipsis;
     text-decoration: none;
 }
+
+
+/*-- Slider css---*/
+
+/* Event Slider View ---*/
+
+.ep-event-slide-container .ep-block-rslides {
+    box-shadow: 0 5px 35px 0 rgb(0 0 0 / 13%);
+}
+
+.ep-event-slide-container .ep-block-rslides .ep-slider-items {
+    height: fit-content;
+    width: 100%;
+}
+
+.ep-event-slide-container {
+    margin: 0px 0px 3rem 0px;
+    padding: 0px;
+
+}
+
+.ep-event-slide-container .ep-slider-icon-group{
+    left: auto;
+}
+
+.ep-event-slide-container {
+    position: relative
+}
+
+.ep-event-slide-container .ep-event-slider-nav .ep-event-rslides_nav {
+    opacity: 1;
+    width: 54px;
+    height: 54px;
+    line-height: 66px;
+    border-radius: 0;
+    text-align: center;
+    background: #000;
+    box-shadow: 0 2px 11px 0 rgb(0 0 0 / 5%);
+    transition: all .25s ease;
+    -webkit-transition: all .25s ease;
+    position: absolute;
+    top: 50%;
+    margin-top: -27px;
+    cursor: pointer;
+    z-index: 9;
+
+}
+
+.ep-event-slide-container .ep-event-slider-nav .ep-event-rslides_nav span {
+    color: #fff !important;
+}
+
+.ep-event-slide-container .ep-event-slider-nav .ep-event-rslides_nav.prev {
+    right: auto;
+    left: -26px;
+}
+
+.ep-event-slide-container .ep-event-slider-nav .ep-event-rslides_nav.next {
+    left: auto;
+    right: -26px;
+}
+
+.ep-event-slide-container .ep-slider-items .ep-slide-item {
+    width: 50%;
+}
+
+.ep-event-slide-container .ep-slider-items .ep-slide-item a:hover {
+    opacity: 1;
+}
+
+.ep-event-slide-container .ep-slide-item.ep-slide-item-left {
+    padding: 6%;
+}
+
+.ep-event-slide-container .ep-box-card-desc {
+    -webkit-line-clamp: 5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 100px;
+    max-height: 120px;
+}
+
+.ep-event-slide-container .ep-slide-item-right a.ep-img-link {
+    height: 100%;
+    display: inline-block;
+}
+
+.ep-event-slide-container .ep-slide-item-right img {
+    height: 100%;
+    border-radius: 0px;
+    object-fit: cover;
+    width: 100%;
+    min-height: 458px;
+
+}
+
+.ep-block-event-slide img {
+    width: 100%;
+}

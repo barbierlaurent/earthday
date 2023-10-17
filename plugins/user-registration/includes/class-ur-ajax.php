@@ -162,6 +162,9 @@ class UR_AJAX {
 		} elseif ( 'hCaptcha' === $recaptcha_type ) {
 			$site_key   = get_option( 'user_registration_captcha_setting_recaptcha_site_key_hcaptcha' );
 			$secret_key = get_option( 'user_registration_captcha_setting_recaptcha_site_secret_hcaptcha' );
+		}  elseif ( 'cloudflare' === $recaptcha_type ) {
+			$site_key   = get_option( 'user_registration_captcha_setting_recaptcha_site_key_cloudflare' );
+			$secret_key = get_option( 'user_registration_captcha_setting_recaptcha_site_secret_cloudflare' );
 		}
 		if ( $recaptcha_enabled && ! empty( $site_key ) && ! empty( $secret_key ) ) {
 			if ( ! empty( $captcha_response ) ) {
@@ -173,6 +176,24 @@ class UR_AJAX {
 						wp_send_json_error(
 							array(
 								'message' => __( 'Error on hCaptcha. Contact your site administrator.', 'user-registration' ),
+							)
+						);
+					}
+				} elseif ( 'cloudflare' === $recaptcha_type ) {
+					$url          = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+					$params       = array(
+						'method' => 'POST',
+						'body'   => array(
+							'secret'   => $secret_key,
+							'response' => $captcha_response,
+						),
+					);
+					$data = wp_safe_remote_post( $url, $params );
+					$data = json_decode( wp_remote_retrieve_body( $data ) );
+					if ( empty( $data->success ) ) {
+						wp_send_json_error(
+							array(
+								'message' => __( 'Error on Cloudflare Turnstile. Contact your site administrator.', 'user-registration' ),
 							)
 						);
 					}
@@ -319,40 +340,12 @@ class UR_AJAX {
 					$single_field[ $key ] = isset( $single_field[ $key ] ) ? $single_field[ $key ] : '';
 					break;
 			}
-
-			// Hook to allow modification of value.
-			$single_field[ $key ] = apply_filters( 'user_registration_process_myaccount_field_' . $key, $single_field[ $key ] );
-
-			if ( 'email' === $field['type'] ) {
-				do_action( 'user_registration_validate_email_whitelist', $single_field[ $key ], '', $single_field, $form_id );
-			}
-
-			if ( 'user_registration_user_email' === $key ) {
-				// Check if email already exists before updating user details.
-				if ( email_exists( $single_field[ $key ] ) && email_exists( $single_field[ $key ] ) !== $user_id ) {
-					wp_send_json_error(
-						array(
-							'message' => __( 'Email already exists.', 'user-registration' ),
-						)
-					);
-				}
-			}
-
-			$disabled = false;
-			if ( isset( $field['custom_attributes'] ) && isset( $field['custom_attributes']['readonly'] ) && isset( $field['custom_attributes']['disabled'] ) ) {
-				if ( 'readonly' === $field['custom_attributes']['readonly'] || 'disabled' === $field['custom_attributes']['disabled'] ) {
-					$disabled = true;
-				}
-			}
-
-			// Action to add extra validation to edit profile fields.
-			do_action( 'user_registration_validate_' . $key, $single_field[ $key ] );
 		}
 
 		/**
 		 * Hook to perform validation of edit profile form.
 		 */
-		do_action( 'user_registration_validate_profile_update_ajax', $profile, $form_data, $form_id );
+		do_action( 'user_registration_validate_profile_update', $profile, $form_data, $form_id );
 
 		do_action( 'user_registration_after_save_profile_validation', $user_id, $profile );
 

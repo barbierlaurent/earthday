@@ -68,17 +68,22 @@ jQuery( function( $ ) {
             processData: false,       
             success: function(response) {
                 $('.ep-spinner').removeClass('ep-is-active');
-                if(response.data.success){
+                if( response.data.success ) {
                     $('.ep-register-response').html('<div class="ep-success-message">'+response.data.msg+"</div>");
-                    if(response.data.redirect !== ''){
+                    if( response.data.redirect !== '' ) {
                         setTimeout(function() {
-                            window.location.replace(response.data.redirect);
-                        }, 1000);
+                            if( response.data.redirect == 'reload' ) {
+                                setTimeout( function() {
+                                    location.reload();
+                                }, 1000 );
+                            } else{
+                                window.location.replace( response.data.redirect );
+                            }
+                        }, 1000 );
                     }
                 }else{
                     $('.ep-register-response').html('<div class="ep-error-message">'+response.data.msg+"</div>");
                 }
-                
             }
         });
     });
@@ -94,7 +99,6 @@ jQuery( function( $ ) {
         let time_zone = $( '#ep_user_profile_timezone_list' ).val();
         if( time_zone ) {
             $( '.ep-loader' ).show();
-            
             let data = { 
                 action    : 'ep_update_user_timezone',
                 security  : ep_frontend._nonce,
@@ -121,6 +125,40 @@ jQuery( function( $ ) {
                     }
                 }
             });
+        }
+    });
+
+    // delete fes event
+    $( document ).on( 'click', '#ep_user_profile_delete_user_fes_event', function() {
+        let fes_event_id = $( this ).data('fes_event_id' );
+        if( fes_event_id ) {
+            if( confirm( ep_frontend.delete_event_confirm ) == true ) {
+                $( '.ep-loader' ).show();
+                let data = { 
+                    action    : 'ep_delete_user_fes_event',
+                    security  : ep_frontend._nonce,
+                    fes_event_id : fes_event_id
+                };
+                $.ajax({
+                    type    : "POST",
+                    url     : eventprime.ajaxurl,
+                    data    : data,
+                    success : function( response ) {
+                        if( response == -1 ) {
+                            show_toast( 'error', ep_frontend.nonce_error );
+                            return false;
+                        }
+                        if( response.success == false ) {
+                            show_toast( 'error', response.data.error );
+                            return false;
+                        } else{
+                            show_toast( 'success', response.data.message );
+                            $( '.ep-loader' ).hide();
+                            $( '#ep_user_profile_my_events_' + fes_event_id ).remove();
+                        }
+                    }
+                });
+            }
         }
     });
 

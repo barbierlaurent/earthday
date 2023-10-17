@@ -10,8 +10,8 @@
 	Contributors: specialk
 	Requires at least: 4.6
 	Tested up to: 6.3
-	Stable tag: 20230811
-	Version:    20230811
+	Stable tag: 20230914
+	Version:    20230914
 	Requires PHP: 5.6.20
 	Text Domain: usp
 	Domain Path: /languages
@@ -38,7 +38,7 @@
 if (!defined('ABSPATH')) die();
 
 if (!defined('USP_WP_VERSION')) define('USP_WP_VERSION', '4.6');
-if (!defined('USP_VERSION'))    define('USP_VERSION', '20230811');
+if (!defined('USP_VERSION'))    define('USP_VERSION', '20230914');
 if (!defined('USP_PLUGIN'))     define('USP_PLUGIN', esc_html__('User Submitted Posts', 'usp'));
 if (!defined('USP_FILE'))       define('USP_FILE', plugin_basename(__FILE__));
 if (!defined('USP_PATH'))       define('USP_PATH', plugin_dir_path(__FILE__));
@@ -566,11 +566,22 @@ function usp_sanitize_content($content) {
 	
 	$allowed_tags = apply_filters('usp_content_allowed', $allowed_tags);
 	
-	$patterns = array('/target="_blank"/i', "/target='_blank'/i");
+	$patterns = array(
+					'/target="_blank"/i', 
+					"/target='_blank'/i", 
+					'/user-submitted-posts/i', 
+					'/usp-login-form/i', 
+					'/usp_display_posts/i', 
+					'/usp_gallery/i',
+					'/usp-reset-button/i', 
+					'/usp_access/i', 
+					'/usp_visitor/i', 
+					'/usp_member/i'
+				);
 	
 	$patterns = apply_filters('usp_content_patterns', $patterns);
 	
-	$replacements = array('', '');
+	$replacements = array('', '', '', '', '', '', '', '', '', '');
 	
 	$replacements = apply_filters('usp_content_replacements', $replacements);
 	
@@ -1158,7 +1169,7 @@ function usp_attach_images($post_id, $newPost, $files, $file_count) {
 			
 			$file = file_exists($file) ? usp_unique_filename($file) : $file;
 			
-			if (stripos($ext, 'php') === false) $bytes = file_put_contents($file, $file_local);
+			if (in_array($ext, array('jpg', 'jpeg', 'jpe', 'gif', 'png', 'bmp', 'tif', 'tiff', 'ico', 'webp', 'heic', 'heif', 'svg'))) $bytes = file_put_contents($file, $file_local);
 			
 			$file_type = isset($wp_filetype['type']) ? $wp_filetype['type'] : null;
 			

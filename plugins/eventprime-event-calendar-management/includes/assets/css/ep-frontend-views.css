@@ -12,6 +12,15 @@
     overflow: hidden;
 }
 
+/* if dark mode on --*/
+
+.ep-dark-mode-enabled .emagic .ep-box-wrap .ep-box-card-item {
+    background-color: #333;
+    border-bottom: 7px solid #464646;
+}
+
+/* dark mode off--*/
+
 .ep-performer-card-wrap .ep-box-card-thumb {
     padding: 0px;
 }
@@ -23,6 +32,10 @@
 
 .ep-box-card-item:hover .ep-box-card-content {
     background-color: rgba(var(--themeColor), 1);
+}
+
+.ep-dark-mode-enabled .ep-box-card-item:hover .ep-box-card-content {
+    background-color: rgba(var(--themeColor), 0.1);
 }
 
 #ep-performer-upcoming-events .ep-event-single-card .ep-box-card-item:hover .ep-box-card-content {
@@ -66,6 +79,15 @@
     text-decoration: none !important;
     box-shadow: none;
 }
+
+
+/* If Dark Theme---*/
+
+.ep-dark-mode-enabled .ep-box-title a{
+    color:#fff
+}
+
+/*If Dark Theme ends---*/
 
 .ep-box-card-role{
     margin: 0 0 0px;
@@ -214,6 +236,11 @@
 /*---List View ---*/
 
 .ep-event-list-item .ep-event-list-view-action.ep-flex-column{
+}
+
+#ep-performer-upcoming-events .ep-event-list-price, #ep-venue-events .ep-event-list-price{
+    justify-content: end;
+    -webkit-justify-content: flex-end;
 }
 
 .ep-list-view-main a.ep-img-link {
@@ -457,7 +484,6 @@ ul.ep-box-social-links li::marker{
     height: 100%;
     background-color:rgba(var(--themeColor), 0.95);
     border-radius: 25px;
-
 }
 
 .ep-single-box-content {
@@ -468,14 +494,19 @@ ul.ep-box-social-links li::marker{
     border-radius: 20px;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.95);
-
 }
+
+
+/* if dark Mode on --*/
+.ep-dark-mode-enabled .ep-single-box-content{
+    background-color: rgb(40 40 40 / 96%);
+}
+
+/* if dark Mode on end--*/
 
 .ep-modal-open-body .ep-single-box-content  {
     position: static;
 }
-
-
 
 .ep-single-figure-box {
     padding: 50px 0;
@@ -588,7 +619,6 @@ ul.ep-single-box-details-meta li svg {
 
 
 /*--Single Frontend Views Upcoming Event---*/
-
 
 
 /*--Card view --*/
@@ -751,8 +781,6 @@ ul.ep-event-share:after {
 /* -- Single Performer Responsive- End---*/
 
 
-
-
 /* -- Single Performer card View ---*/
 
 
@@ -824,7 +852,6 @@ ul.ep-event-share:after {
     width: 20px;
 }
 
-
 /* --Organizers View End--*/
 
 
@@ -834,12 +861,10 @@ ul.ep-event-share:after {
     width: 20px;
 }
 
-
 /* --Performer View End--*/
 
 
 /*-- Mini List View---*/
-
 
 .ep-mini-list .ep-event-image img {
     width: 108px;

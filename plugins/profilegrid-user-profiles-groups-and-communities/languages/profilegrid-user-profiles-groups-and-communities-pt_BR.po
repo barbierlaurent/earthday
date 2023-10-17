@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ProfileGrid\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-19 10:51+0000\n"
-"PO-Revision-Date: 2023-08-22 06:25+0000\n"
+"PO-Revision-Date: 2023-10-13 13:25+0000\n"
 "Last-Translator: Renato Barros <renato.barros@remax.pt>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -5485,6 +5485,9 @@ msgstr "Johannesburg"
 msgid "Johnston"
 msgstr "Johnston"
 
+msgid "Join Group"
+msgstr ""
+
 #: public/class-profile-magic-notifications.php:1351
 msgid "Joined New Group"
 msgstr "Entrou para Novo Grupo"
@@ -6437,6 +6440,9 @@ msgstr ""
 
 #: admin/partials/global-settings.php:659
 msgid "More power to your group managers.!"
+msgstr ""
+
+msgid "More..."
 msgstr ""
 
 #: includes/country_option_list.php:149
@@ -8830,6 +8836,9 @@ msgstr "Mostrar a aba da caixa de entrada"
 msgid ""
 "Show Instagram tab on User Profile page with user’s Instagram photos "
 "displayed in the tab."
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 #: admin/partials/elements-visibility-setting.php:185
@@ -11607,6 +11616,11 @@ msgstr ""
 "Você pode redefinir sua senha acessando a guia Alterar senha na seção "
 "Configurações do perfil."
 
+msgid ""
+"You do not have any friends yet. You can add friends by sending friendship "
+"requests to people from their user profiles."
+msgstr ""
+
 #: public/partials/profile-magic-settings.php:12
 msgid "You entered incorrect password. Please try again."
 msgstr "Você digitou a senha incorreta. Por favor, tente novamente."
@@ -11662,6 +11676,9 @@ msgid "You must define a Group Manager first, before making a Group closed."
 msgstr ""
 "Você deve definir um gerente de grupo primeiro, antes de fazer um grupo "
 "fechado."
+
+msgid "You sent membership request to join this Group on %s"
+msgstr ""
 
 #: admin/partials/global-settings.php:1164
 msgid ""

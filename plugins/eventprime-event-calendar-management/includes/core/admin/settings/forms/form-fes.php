@@ -106,10 +106,10 @@ $log_in_text = ep_global_settings_button_title('Log-In');
                 <?php 
                 $global_fes_sections = (array)$options['global']->frontend_submission_sections;
                 foreach( $options['fes_sections'] as $key => $section ){ ?>
-                    <label for="frontend_submission_sections_<?php echo $key;?>">
-                        <input type="checkbox" name="frontend_submission_sections[<?php echo $key;?>]" id="frontend_submission_sections_<?php echo $key;?>" <?php if( isset( $global_fes_sections[$key] ) ) { echo 'checked'; } ?>>
+                    <div for="frontend_submission_sections_<?php echo $key;?>" class="ep-mb-2">
+                        <input type="checkbox" name="frontend_submission_sections[<?php echo $key;?>]" id="frontend_submission_sections_<?php echo $key;?>" <?php if( isset( $global_fes_sections[$key] ) && ! empty( $global_fes_sections[$key] ) ) { echo 'checked'; } ?>>
                         <?php echo $section;?>
-                    </label><?php 
+                    </div><?php 
                 }?>
                 <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Choose which sections or features will be included in the form. These sections allow setting additional event properties.', 'eventprime-event-calendar-management' );?></div>
             </td>
@@ -125,7 +125,7 @@ $log_in_text = ep_global_settings_button_title('Log-In');
                 $global_fes_require = (array)$options['global']->frontend_submission_required;
                 foreach( $options['fes_required'] as $key => $section ){ ?>
                     <label for="frontend_submission_required_<?php echo $key;?>">
-                        <input type="checkbox" name="frontend_submission_required[<?php echo $key;?>]" id="frontend_submission_required_<?php echo $key;?>" <?php if( isset( $global_fes_require[$key] ) ) { echo 'checked'; } ?>>
+                        <input type="checkbox" name="frontend_submission_required[<?php echo $key;?>]" id="frontend_submission_required_<?php echo $key;?>" <?php if( isset( $global_fes_require[$key] ) && ! empty( $global_fes_require[$key] ) ) { echo 'checked'; } ?>>
                         <?php echo $section;?>
                     </label><?php
                 }?>
@@ -144,6 +144,34 @@ $log_in_text = ep_global_settings_button_title('Log-In');
                     <span class="ep-toogle-slider round"></span>
                 </label>
                 <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Enable it to allow users access to the WordPress Media Library to select event images. If this is disabled, users can only upload new images for events.', 'eventprime-event-calendar-management' );?></div>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="fes_show_add_event_in_profile">
+                    <?php esc_html_e( 'Show Add Event Button', 'eventprime-event-calendar-management' );?>
+                </label>
+            </th>
+            <td class="forminp forminp-text">
+                <label class="ep-toggle-btn">
+                    <input name="fes_show_add_event_in_profile" class="regular-text" id="fes_show_add_event_in_profile" type="checkbox" <?php if( $options['global']->fes_show_add_event_in_profile == 1 ) { echo 'checked'; }?> >
+                    <span class="ep-toogle-slider round"></span>
+                </label>
+                <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Enable to display an \'Add Event\' button inside the user area allowing users to create events.', 'eventprime-event-calendar-management' );?></div>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="fes_allow_user_to_delete_event">
+                    <?php esc_html_e( 'Allow Users to Delete Events', 'eventprime-event-calendar-management' );?>
+                </label>
+            </th>
+            <td class="forminp forminp-text">
+                <label class="ep-toggle-btn">
+                    <input name="fes_allow_user_to_delete_event" class="regular-text" id="fes_allow_user_to_delete_event" type="checkbox" <?php if( $options['global']->fes_allow_user_to_delete_event == 1 ) { echo 'checked'; }?> >
+                    <span class="ep-toogle-slider round"></span>
+                </label>
+                <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Enable to allow users to delete events they have created from frontend.', 'eventprime-event-calendar-management' );?></div>
             </td>
         </tr>
     </tbody>

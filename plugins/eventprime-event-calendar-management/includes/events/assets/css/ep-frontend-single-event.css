@@ -17,7 +17,6 @@
     visibility: hidden;
 }
 
-
 #ep_single_event_image img {
 
 }
@@ -30,18 +29,12 @@
     object-position: center;
 }
 
-
-
 #ep_single_event_recurring_events.fc .fc-scrollgrid table {
-       min-width: 100%;
-}
-
-#ep_single_event_recurring_events.fc .fc-scrollgrid table.fc-scrollgrid-sync-table {
-       min-height: 600px !important;
+    min-width: 100%;
 }
 
 #ep_single_event_recurring_events.fc .fc-daygrid-body {
-      min-width: 100%;
+    min-width: 100%;
 }
 
 .ep-event-performers .ep-event-performer {
@@ -64,7 +57,6 @@
 .ep-ticket-description .ep-ticket-description-more {
     display: none;
 }
-
 
 #ep-sl-venue .owl-carousel .owl-stage-outer .owl-stage {
     display: flex;
@@ -141,13 +133,15 @@
 #ep-tab-container .owl-carousel .owl-item img{
     width: 100px !important;
     height: 75px !important
-}  
+}
 
 #ep-tab-container .owl-carousel .owl-item {
     width: 100px !important;
 }
 
-#ep-tab-container .owl-theme .owl-nav { display: none;}
+#ep-tab-container .owl-theme .owl-nav {
+    display: none;
+}
 
 
 /*-- Additional Dates calendar --*/
@@ -167,21 +161,29 @@
 }
 
 /** hide arrow from number field **/
-.ep-select-event-ticket-number input[type=number]::-webkit-inner-spin-button, 
-.ep-select-event-ticket-number input[type=number]::-webkit-outer-spin-button { 
+.ep-select-event-ticket-number input[type=number]::-webkit-inner-spin-button,
+.ep-select-event-ticket-number input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 /*---Social Sharing--*/
 
-.ep-sl-event-action {}
+.ep-sl-event-action {
+}
 .ep-sl-event-action:hover .ep-event-share {
     display: block !important;
     visibility: visible;
     opacity: 1;
+}
+ul.ep-event-share li.ep-event-social-icon:first-child {
+    margin-top: 0.5rem !important;
+}
+
+ul.ep-event-share li.ep-event-social-icon:first-child svg {
+    width: 9px !important;
 }
 
 .ep-event-share {
@@ -249,19 +251,21 @@ ul.ep-event-share:after {
 
 .ep-event-action span:hover,
 .ep-sl-event-action span:hover{
-   color: rgba(var(--themeColor), 1);
+    color: rgba(var(--themeColor), 1);
 }
 
 .ep-event-action span,
-.ep-sl-event-action span{transition:0.5s}
+.ep-sl-event-action span{
+    transition:0.5s
+}
 
 #venue_hidden_details .ep-venue-details-tabs {
     margin: 0px;
     list-style: none;
 }
 
-
-#ep-sl-other-events a.ep-sl-other-event-link {}
+#ep-sl-other-events a.ep-sl-other-event-link {
+}
 
 /* Recurring Event Calendar --*/
 
@@ -272,9 +276,11 @@ ul.ep-event-share:after {
 
 #ep_single_event_recurring_events.fc .fc-view-harness{
     min-height: 500px;
+    overflow-y: auto;
 }
 
-#ep_single_event_recurring_events {}
+#ep_single_event_recurring_events {
+}
 
 #ep_single_event_recurring_events.fc .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1.5em;
@@ -283,7 +289,6 @@ ul.ep-event-share:after {
     padding: 19px;
 
 }
-
 
 #ep_single_event_recurring_events.fc .fc-toolbar.fc-header-toolbar .fc-button-primary {
     background-color: rgb(255 255 255);
@@ -439,9 +444,9 @@ ul.ep-event-share:after {
     margin: 0px;
 }
 
-#ep_single_event_recurring_events .fc-direction-ltr .fc-daygrid-event.fc-event-end, 
-#ep_single_event_recurring_events .fc-direction-ltr .fc-daygrid-event.fc-event-start, 
-#ep_single_event_recurring_events .fc-direction-rtl .fc-daygrid-event.fc-event-end, 
+#ep_single_event_recurring_events .fc-direction-ltr .fc-daygrid-event.fc-event-end,
+#ep_single_event_recurring_events .fc-direction-ltr .fc-daygrid-event.fc-event-start,
+#ep_single_event_recurring_events .fc-direction-rtl .fc-daygrid-event.fc-event-end,
 #ep_single_event_recurring_events .fc-direction-rtl .fc-daygrid-event.fc-event-start {
     margin-right: 0!important;
     margin-left: 0!important;
@@ -454,7 +459,9 @@ ul.ep-event-share:after {
 
 
 #ep_single_event_recurring_events.fc .fc-scroller-liquid-absolute,
-#ep_single_event_recurring_events.fc.fc .fc-scroller {overflow: visible !important;}
+#ep_single_event_recurring_events.fc.fc .fc-scroller {
+    overflow: visible !important;
+}
 
 #ep_single_event_recurring_events .fc-daygrid-event-harness {
     background-color: #fff;
@@ -464,8 +471,6 @@ ul.ep-event-share:after {
     max-height: 768px;
     overflow-x: hidden !important;
 }
-
-
 
 #ep_event_ticket_modal_left .ep-event-ticket-wrap::-webkit-scrollbar-track{
     -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
@@ -540,7 +545,8 @@ ul.ep-event-share:after {
 
 }
 
-.ep_event_popup_time {}
+.ep_event_popup_time {
+}
 
 
 
@@ -680,3 +686,68 @@ ul.ep-event-share:after {
     justify-content: flex-start;
 }
 
+.emagic .ep-event-detail-result-container .ep-event-note a {
+    text-decoration: underline !important;
+}
+
+.emagic .ep-event-detail-result-container .ep-event-note a:hover{
+    text-decoration: none !important;
+}
+
+/*--- Calendar Export Options ---*/
+
+
+.ep-calendar-exp-dropdown-content {
+    min-width: 120px;
+    left: -50px;
+}
+
+.ep-calendar-exp-dropdown-content li:first-child a{
+    padding-top: 5px;
+}
+
+.ep-calendar-exp-dropdown-content li a {
+    padding-bottom: 12px;
+    display: inline-block;
+    font-size: 12px;
+    color: rgba(var(--ep-dark-color), 1);
+}
+
+.ep-calendar-exp-dropdown-content li a:hover{
+    color:rgba(var(--themeColor), 1);
+}
+
+
+.ep-calendar-exp-dropdown-content.ep-event-share .ep-event-social-icon{
+    padding: 0px 8px;
+    text-align: left;
+}
+
+.single-em_event .ep-main-container {
+    max-width: 1350px;
+}
+
+
+.ep-dark-mode-enabled .ep-recurring-modal-icon {
+    background-color: rgb(60 61 60) !important;
+    color: rgb(255 255 255) !important;
+}
+
+.ep-dark-mode-enabled #ep_single_event_recurring_events.fc .fc-toolbar.fc-header-toolbar .fc-button-primary {
+    background-color: rgb(67 67 67);
+}
+
+.ep-dark-mode-enabled #ep_single_event_recurring_events table.fc-scrollgrid tr th {
+    --ep-border-width: 1px;
+    --ep-border-style: solid;
+    border-bottom: var(--ep-border-width) var(--ep-border-style) rgba(var(--ep-border-color-rgb), 1);
+}
+
+.ep-dark-mode-enabled #ep_single_event_recurring_events table.fc-scrollgrid tr th a {
+    color: #fff;
+}
+
+
+.ep-dark-mode-enabled #ep_single_event_recurring_events.fc .fc-daygrid-day-number {
+    color: #fff;
+}

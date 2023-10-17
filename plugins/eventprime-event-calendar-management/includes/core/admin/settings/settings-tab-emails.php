@@ -116,6 +116,28 @@ else:?>
                         <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'If enabled, all outgoing user emails will be toggled off simultaneously. Useful when you wish to stop sending out all emails from EventPrime to the users.', 'eventprime-event-calendar-management' );?></div>
                     </td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row" class="titledesc">
+                        <label for="ep_admin_email_to">
+                            <?php esc_html_e( 'Admin Recipient', 'eventprime-event-calendar-management' );?>
+                        </label>
+                    </th>
+                    <td class="forminp forminp-text">
+                        <input type="text" class="regular-text" name="ep_admin_email_to" id="ep_admin_email_to"  value="<?php echo ( isset( $global_options->ep_admin_email_to ) && ! empty( $global_options->ep_admin_email_to ) ) ? $global_options->ep_admin_email_to : '';?>">
+                        <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'The email address where the admin notification emails will be sent.', 'eventprime-event-calendar-management' );?></div>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row" class="titledesc">
+                        <label for="ep_admin_email_from">
+                            <?php esc_html_e( "Sender's Email", 'eventprime-event-calendar-management' );?>
+                        </label>
+                    </th>
+                    <td class="forminp forminp-text">
+                        <input type="text" class="regular-text" name="ep_admin_email_from" id="ep_admin_email_from"  value="<?php echo ( isset( $global_options->ep_admin_email_from ) && ! empty( $global_options->ep_admin_email_from ) ) ? $global_options->ep_admin_email_from : '';?>">
+                        <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'The email address from which the emails will be sent to the users. Make sure that your web server is allowed to send emails from this address.', 'eventprime-event-calendar-management' );?></div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

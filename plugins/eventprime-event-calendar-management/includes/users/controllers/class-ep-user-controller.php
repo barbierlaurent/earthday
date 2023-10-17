@@ -42,9 +42,10 @@ class EventM_User_Controller {
             'ep-user-views-js', 
             'ep_frontend', 
             array(
-                '_nonce'      => wp_create_nonce( 'ep-frontend-nonce' ),
-                'ajaxurl'     => admin_url( 'admin-ajax.php' ),
-                'nonce_error' => esc_html__( 'Please refresh the page and try again.', 'eventprime-event-calendar-management' )
+                '_nonce'                => wp_create_nonce( 'ep-frontend-nonce' ),
+                'ajaxurl'               => admin_url( 'admin-ajax.php' ),
+                'nonce_error'           => esc_html__( 'Please refresh the page and try again.', 'eventprime-event-calendar-management' ),
+                'delete_event_confirm'  => esc_html__( 'Are you sure you want to delete this event?', 'eventprime-event-calendar-management' )
             )
         );
     }
@@ -107,6 +108,48 @@ class EventM_User_Controller {
                 $args->redirect_url = 'reload';
             }
         }
+        //  Login Block Attributes start
+        if(! empty( $atts['block_login_custom_class'] ) ){
+            $args->block_login_custom_class = $atts['block_login_custom_class'];
+        }
+        if( ! empty( $atts['block_login_title'] ) ){
+            $args->block_login_title = $atts['block_login_title'];
+        }
+        if( ! empty( $atts['block_login_user_detail_label'] ) ){
+            $args->block_login_user_detail_label = $atts['block_login_user_detail_label'];
+        }
+        if( ! empty( $atts['block_login_password_label'] ) ){
+            $args->block_login_password_label = $atts['block_login_password_label'];   
+        }
+        if( ! empty( $atts['block_login_remember_me_label'] ) ){
+            $args->block_login_remember_me_label = $atts['block_login_remember_me_label'];   
+        }
+        if( ! empty( $atts['block_login_forget_password_label'] ) ){
+            $args->block_login_forget_password_label = $atts['block_login_forget_password_label'];
+        }
+        if( ! empty( $atts['block_login_click_here_label'] ) ){
+            $args->block_login_click_here_label = $atts['block_login_click_here_label'];
+        }
+        if( ! empty( $atts['block_login_button']  ) ){
+            $args->block_login_button_label = $atts['block_login_button'];
+        }
+        if( ! empty( $atts['block_login_dont_have_account_label'] ) ){
+            $args->block_login_dont_have_account_label = $atts['block_login_dont_have_account_label'];
+        }
+        if( ! empty( $atts['block_login_register_link_label'] ) ){
+            $args->block_login_register_link_label = $atts['block_login_register_link_label'];
+        }
+        if( ! empty( $atts['align'] ) ){
+            $args->align = $atts['align'];
+        }
+        if( ! empty( $atts['backgroundColor'] ) ){
+            $args->backgroundColor = $atts['backgroundColor'];
+        }
+        if( ! empty( $atts['textColor'] ) ){
+            $args->textColor = $atts['textColor'];
+        }
+        //  Login Block Attributes end
+        
         $args = $this->get_login_options( $args );
 
         $args->current_user = wp_get_current_user();
@@ -123,9 +166,7 @@ class EventM_User_Controller {
         global $wp;
 
         ob_start();
-
         $this->enqueue_style_script();
-
         $args = new stdClass();
         $args->show_register = 0;
         $args->redirect_url = ( ! empty( ep_get_global_settings( 'login_redirect_after_login' ) ) ) ? get_permalink( ep_get_global_settings( 'login_redirect_after_login' ) ) : get_permalink( ep_get_global_settings( 'profile_page' ) );
@@ -133,9 +174,53 @@ class EventM_User_Controller {
         if( isset( $_POST['ep_register'] ) ) {
             $args->show_register = 1;
         }
+        //  Register Block Attributes start
+        if(! empty( $atts['block_register_custom_class'] ) ){
+            $args->block_register_custom_class = $atts['block_register_custom_class'];
+        }
+        if( ! empty( $atts['block_register_user_name_label'] ) ){
+            $args->block_register_user_name_label = $atts['block_register_user_name_label'];
+        }
+        if( ! empty( $atts['block_register_user_email_label'] ) ){
+            $args->block_register_user_email_label = $atts['block_register_user_email_label'];
+        }
+        if( ! empty( $atts['block_register_password_label'] ) ){
+            $args->block_register_password_label = $atts['block_register_password_label'];   
+        }
+        if( ! empty( $atts['block_register_repeat_password_label'] ) ){
+            $args->block_register_repeat_password_label = $atts['block_register_repeat_password_label'];   
+        }
+        if( ! empty( $atts['block_register_phone_label'] ) ){
+            $args->block_register_phone_label = $atts['block_register_phone_label'];
+        }
+        if( ! empty( $atts['block_register_button'] ) ){
+            $args->block_register_button_label = $atts['block_register_button'];
+        }
+        if( ! empty( $atts['block_register_already__account_label'] ) ){
+            $args->block_register_already__account_label = $atts['block_register_already__account_label'];
+        }
+        if( ! empty( $atts['block_register_please__login_label'] ) ){
+            $args->block_register_please__login_label = $atts['block_register_please__login_label'];
+        }
+        if( ! empty( $atts['align'] ) ){
+            $args->align = $atts['align'];
+        }
+        if( ! empty( $atts['backgroundColor'] ) ){
+            $args->backgroundColor = $atts['backgroundColor'];
+        }
+        if( ! empty( $atts['textColor'] ) ){
+            $args->textColor = $atts['textColor'];
+        }
+        //  Register Block Attributes end
+
+        $args->redirect_url = '';
+        if(isset( $atts['redirect'] ) ) {
+            if( $atts['redirect'] == 'reload' ) {
+                $args->redirect_url = 'reload';
+            }
+        }
 
         $args = $this->get_register_options( $args );
-
         $args->current_user = wp_get_current_user();
             
         ep_get_template_part( 'users/register', null, $args );
@@ -149,12 +234,19 @@ class EventM_User_Controller {
      * 
      * @return object $args
      */
-    public function get_login_options( $args ) {
+    public function get_login_options( $args ) {  
         $args->login_heading_text = ( ! empty( ep_get_global_settings( 'login_heading_text' ) ) ? ep_get_global_settings( 'login_heading_text' ) : 'Login to Your Account' );
+
+        // block login title update field
+        if( ! empty( $args->block_login_title ) ){
+            $args->login_heading_text = $args->block_login_title;
+        }
+
         $args->login_subheading_text = ( ! empty( ep_get_global_settings( 'login_subheading_text' ) ) ? ep_get_global_settings( 'login_subheading_text' ) : '' );
         $args->login_username_label = esc_html__( 'Email/Username', 'eventprime-event-calendar-management' );
         $args->login_id_field = 'email_username';
         $login_id_field = ep_get_global_settings( 'login_id_field' );
+
         if( ! empty( $login_id_field ) ) {
             $login_username_label = ep_get_global_settings( 'login_id_field_label_setting' );
             if( empty( $login_username_label ) ) {
@@ -168,11 +260,24 @@ class EventM_User_Controller {
             }
             $args->login_id_field = $login_id_field;
         }
+        // Custom class for Login Block
+        if(! empty( $args->block_login_custom_class ) ){
+            $args->block_login_class = $args->block_login_custom_class;
+        }
+        // block user detail editable field
+        if( ! empty( $args->block_login_user_detail_label ) ){
+            $args->login_username_label = $args->block_login_user_detail_label;
+        }
 
         $args->login_password_label = esc_html__( 'Password', 'eventprime-event-calendar-management' );
         $login_password_label = ep_get_global_settings( 'login_password_label' );
+
         if( !empty( $login_password_label ) ) {
             $args->login_password_label = $login_password_label;
+        }
+        // block login password editable field
+        if( ! empty( $args->block_login_password_label ) ){
+            $args->login_password_label = $args->block_login_password_label;
         }
 
         $args->login_show_rememberme_label = esc_html__( 'Remember Me', 'eventprime-event-calendar-management' );
@@ -180,20 +285,46 @@ class EventM_User_Controller {
         if( !empty( $login_show_rememberme_label ) ) {
             $args->login_show_rememberme_label = $login_show_rememberme_label;
         }
-
+        // block login remember me editable field
+        if( ! empty( $args->block_login_remember_me_label ) ){
+            $args->login_show_rememberme_label = $args->block_login_remember_me_label;
+        }
+        
         $args->login_button_label = esc_html__( 'Log in', 'eventprime-event-calendar-management' );
         $login_button_label = ep_get_global_settings( 'login_button_label' );
         if( !empty( $login_button_label ) ) {
             $args->login_button_label = $login_button_label;
         }
-
+        // block login button editable field
+        if( ! empty( $args->block_login_button_label ) ){
+            $args->login_button_label = $args->block_login_button_label;
+        }
         $args->login_show_forgotpassword_label = esc_html__( 'Forgot Password?', 'eventprime-event-calendar-management' );
         if( ! empty( ep_get_global_settings( 'login_show_forgotpassword_label' ) ) ) {
             $args->login_show_forgotpassword_label = ep_get_global_settings( 'login_show_forgotpassword_label' );
         }
+        // block login forget password editable feild
+        if( ! empty( $args->block_login_forget_password_label ) ){
+            $args->login_show_forgotpassword_label = $args->block_login_forget_password_label;
+        }
+        $args->login_click_here_label = esc_html__( ' Click Here', 'eventprime-event-calendar-management' );
+
+        // block login Click Here label
+        if( ! empty( $args->block_login_click_here_label ) ){
+            $args->login_click_here_label = $args->block_login_click_here_label;
+        }
 
         $args->login_google_recaptcha = ep_get_global_settings('login_google_recaptcha');
         $args->google_recaptcha_site_key = ep_get_global_settings('google_recaptcha_site_key');
+
+        $args->dont_have_account_label = esc_html__( "Don't have an account.", 'eventprime-event-calendar-management' );
+        
+        // block login don't have account label
+        if( ! empty( $args->block_login_dont_have_account_label ) ){
+            $args->dont_have_account_label = $args->block_login_dont_have_account_label;
+        }
+
+        $args->register_text = '';
 
         return $args;
     }
@@ -217,6 +348,14 @@ class EventM_User_Controller {
         if( isset( $register_username['label'] ) && ! empty( $register_username['label'] ) ) {
             $args->register_username_label = $register_username['label'];
         }
+        // Register Block customer class
+        if(! empty( $args->block_register_custom_class ) ){
+            $args->block_register_class = $args->block_register_custom_class;
+        }
+        // Register block user name label update
+        if( ! empty( $args->block_register_user_name_label ) ){
+            $args->register_username_label = $args->block_register_user_name_label;
+        }
         $args->register_username_mandatory = 1;
         if( ! isset( $register_username['mandatory'] ) || $register_username['mandatory'] == 0 ) {
             $args->register_username_mandatory = 0;
@@ -232,7 +371,10 @@ class EventM_User_Controller {
         if( isset( $register_email['label'] ) && ! empty( $register_email['label'] ) ) {
             $args->register_email_label = $register_email['label'];
         }
-
+        // Register block user email label update
+        if( ! empty( $args->block_register_user_email_label ) ){
+            $args->register_email_label = $args->block_register_user_email_label;
+        }
         // password settings
         $register_password = ep_get_global_settings( 'register_password' );
         $args->register_password_show = 1;
@@ -251,6 +393,10 @@ class EventM_User_Controller {
         if(empty(ep_get_global_settings( 'login_registration_form' ))){
             $args->register_password_show = 1;
         }
+        // Register block password label update
+        if( ! empty( $args->block_register_password_label ) ){
+            $args->register_password_label = $args->block_register_password_label;
+        }
         // repeat password settings
         $register_repeat_password = ep_get_global_settings( 'register_repeat_password' );
         $args->register_repeat_password_show = 1;
@@ -265,7 +411,10 @@ class EventM_User_Controller {
         if( ! isset( $register_repeat_password['mandatory'] ) || $register_repeat_password['mandatory'] == 0 ) {
             $args->register_repeat_password_mandatory = 0;
         }
-
+        // Register block repeat password label update
+        if( ! empty( $args->block_register_repeat_password_label ) ){
+            $args->register_repeat_password_label = $args->block_register_repeat_password_label;
+        }
         // dob settings
         $register_dob = ep_get_global_settings( 'register_dob' );
         $args->register_dob_show = 1;
@@ -298,6 +447,10 @@ class EventM_User_Controller {
         if(empty(ep_get_global_settings( 'login_registration_form' ))){
             $args->register_phone_show = 1;
         }
+        // Register block phone label update
+        if( ! empty( $args->block_register_phone_label ) ){
+            $args->register_phone_label = $args->block_register_phone_label;
+        }
         // timezone settings
         $register_timezone = ep_get_global_settings( 'register_timezone' );
         $args->register_timezone_show = 1;
@@ -307,6 +460,11 @@ class EventM_User_Controller {
             if( isset( $register_timezone['label'] ) && ! empty( $register_timezone['label'] ) ) {
                 $args->register_timezone_label = $register_timezone['label'];
             }
+        }
+        $args->register_button_label = 'Register';
+        // Register block button label update
+        if( ! empty( $args->block_register_button_label ) ){
+            $args->register_button_label = $args->block_register_button_label;
         }
         $args->register_timezone_mandatory = 1;
         if( ! isset( $register_timezone['mandatory'] ) || $register_timezone['mandatory'] == 0 ) {
@@ -318,11 +476,26 @@ class EventM_User_Controller {
             $args->register_google_recaptcha = 1;
         }
 
+        $args->already_have_account_label = esc_html__( "Already have an account?", 'eventprime-event-calendar-management' );
+        
+        // block register don't have account label
+        if( ! empty( $args->block_register_already__account_label ) ){
+            $args->already_have_account_label = $args->block_register_already__account_label;
+        }
+        
         $args->login_button_label = esc_html__( 'Log in', 'eventprime-event-calendar-management' );
         $login_button_label = ep_get_global_settings( 'login_button_label' );
+        
         if( !empty( $login_button_label ) ) {
             $args->login_button_label = $login_button_label;
         }
+        $args->login_button_label = esc_html__( "Please Login", 'eventprime-event-calendar-management' );
+
+         // block register please login label
+         if( ! empty( $args->block_register_please__login_label ) ){
+            $args->login_button_label = $args->block_register_please__login_label;
+        }
+
         return $args;
     }
     
@@ -510,7 +683,6 @@ class EventM_User_Controller {
                             'msg'     => esc_html__( 'Password is required!', 'eventprime-event-calendar-management' )
                         );
                     }
-                    
                 }
                 // Repeat Password validation
                 if( ! empty( $args->register_repeat_password_show ) ) {
@@ -520,12 +692,12 @@ class EventM_User_Controller {
                             'msg'     => esc_html__( 'Repeat password is required!', 'eventprime-event-calendar-management' )
                         );
                     }
-                   if( $password != $re_password ) {
+                    if( $password != $re_password ) {
                         return $result = array(
                             'success' => 0,
                             'msg'     => esc_html__( 'Repeat password does not match', 'eventprime-event-calendar-management' )
                         );
-                   } 
+                    } 
                 }
                 
                 //DOB validation
@@ -536,7 +708,6 @@ class EventM_User_Controller {
                             'msg'     => esc_html__( 'Date of birth is required!', 'eventprime-event-calendar-management' )
                         );
                     }
-                    
                 }
                 
                 //Phone validation
@@ -547,7 +718,6 @@ class EventM_User_Controller {
                             'msg'     => esc_html__( 'Phone is required!', 'eventprime-event-calendar-management' )
                         );
                     }
-                    
                 }
                 
                 //Timezone validation
@@ -558,8 +728,8 @@ class EventM_User_Controller {
                             'msg'     => esc_html__( 'Timezone is required!', 'eventprime-event-calendar-management' )
                         );
                     }
-                    
                 }
+
                 $error = 0;
                 try {
                     $pass_auto = 0;
@@ -576,7 +746,7 @@ class EventM_User_Controller {
                             $password = wp_generate_password();
                             $pass_auto = 1;
                         }
-                        $username = !empty($username) ? $username : $email;
+                        $username = ( ! empty( $username ) ? $username : $email );
                         $new_customer = wp_create_user( $username, $password, $email );
                         if ( is_wp_error( $new_customer ) ) {
                             return $result = array(
@@ -591,7 +761,7 @@ class EventM_User_Controller {
                                 update_user_meta( $new_customer, 'ep_user_timezone_meta', $timezone );
                             }
 
-                            do_action('ep_after_user_registration', $new_customer);
+                            do_action( 'ep_after_user_registration', $new_customer, $_POST );
 
                             /*$info['user_login'] = $user->user_login;
                             $info['user_password'] = $password;
@@ -610,10 +780,16 @@ class EventM_User_Controller {
                             EventM_Notification_Service::user_registration($user_object);
                             
                             if ( ! empty( $_POST['redirect'] ) ) {
-                                $redirect = wp_unslash( $_POST['redirect'] );
+                                $reg_redirect = sanitize_text_field( $_POST['redirect'] );
+                                if( 'reload' == $reg_redirect ) {
+                                    $redirect = 'reload';
+                                } else{
+                                    $redirect = wp_unslash( $_POST['redirect'] );
+                                }
                             } else{
                                 $redirect = '';
                             }
+
                             return $result = array(
                                 'success' => 1,
                                 'msg'     => $success_msg,

@@ -20,6 +20,16 @@ class EventM_Venues_Admin {
         // sorting for ID column
         add_filter( 'manage_edit-em_venue_sortable_columns', array( $this, 'add_venue_sortable_custom_columns' ) );
         add_filter( 'pre_get_terms', array( $this, 'add_venue_sortable_columns_callback' ) );
+
+        // add banner
+		add_action( 'load-edit-tags.php', function(){
+			$screen = get_current_screen();
+			if( 'edit-em_venue' === $screen->id ) {
+				add_action( 'after-em_venue-table', function(){
+					do_action( 'ep_add_custom_banner' );
+				});
+			}
+		});
 	}
 
 	/**
@@ -51,7 +61,7 @@ class EventM_Venues_Admin {
                 </div>
             </div>
             <p class="emnote emeditor">
-                <?php esc_html_e('Mark map location for the Venue. This will be displayed on Event page.', 'eventprime-event-calendar-management'); ?>
+                <?php esc_html_e('This is used for displaying map marker on the event page.', 'eventprime-event-calendar-management'); ?>
             </p>
 
             <div class="form-field ep-venue-admin-field ep-venue-admin-location ep-d-flex">
@@ -251,7 +261,7 @@ class EventM_Venues_Admin {
                         <label for="changetype-geocode"><?php esc_html_e('Geocodes', 'eventprime-event-calendar-management'); ?></label>
                     </div>
                     <p class="description">
-                        <?php esc_html_e( 'Mark map location for the Venue. This will be displayed on Event page.', 'eventprime-event-calendar-management' ); ?>
+                        <?php esc_html_e( 'This is used for displaying map marker on the event page.', 'eventprime-event-calendar-management' ); ?>
                     </p> 
                 </td>
             </tr>

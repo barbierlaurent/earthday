@@ -1,8 +1,8 @@
 # Cloud Templates & Patterns collection #
 **Contributors:** [themeisle](https://profiles.wordpress.org/themeisle)  
 **Tags:** neve, templates, patterns, blocks, starter, sites, demo, content, import  
-**Requires at least:** 4.7  
-**Tested up to:** 6.2  
+**Requires at least:** 5.5  
+**Tested up to:** 6.3  
 **Requires PHP:** 5.6  
 **Stable tag:** trunk  
 **License:** GPLv3  
@@ -15,8 +15,8 @@ A cloud based service with 100+ templates and starter sites for Neve theme.
 ### A cloud based templates library which enables you to create or use existing ready-made website with 1-click. ###
 
 ### More than 100 Starter Sites and Templates available for the most popular page builders ###
-Free and premium templates and starter sites available for top 5 page builders: Elementor, Beaver Builder, Brizy, Gutenberg, Divi and Thrive.
-All templates can be previewed on [demosites.io](https://demosites.io/) and you can seamlessly import to any of your site.
+Browse a wide selection of templates and starter sites that are designed to help you build beautiful websites with Elementor and Gutenberg. All templates can be previewed on [demosites.io](https://demosites.io/) and you can seamlessly import them to any of your sites. Whether you're a beginner or a seasoned pro, our templates can help you save time and create stunning websites without any coding knowledge.
+In addition to our Elementor and Gutenberg templates, we also offer a handful of page templates for Beaver Builder. These templates are perfect for creating basic pages such as contact pages, about pages, and blog pages. If you're a Beaver Builder user, be sure to check out our selection of page templates.
 
 ### Your own private Templates Cloud [PRO] ###
 Boost productivity and speed up your workflow by saving all your designs and share them automatically to all your sites in 1-click.
@@ -39,10 +39,50 @@ Yes, you can. You can either chose to import one template or the entire starter 
 
 ## Changelog ##
 
+##### [Version 1.2.3](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.2...v1.2.3) (2023-10-09)
+
+### Bug Fixes
+- **Security Patch**: Addressed an issue where log files had a predictable name, enhancing the privacy of WordPress details.
+
+
+
+
+##### [Version 1.2.2](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.1...v1.2.2) (2023-10-05)
+
+### Improvements
+- **Onboarding UX**: Enhanced the onboarding process for a smoother user experience.
+
+### Bug Fixes
+- **Onboarding redirection**: Fixed the issue where users got redirected to the old onboarding if they were installing the Cloud Templates & Patterns collection plugin from the dashboard
+
+
+
+
+##### [Version 1.2.1](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.0...v1.2.1) (2023-09-25)
+
+- [Fix] Open the new onboarding when Templates Patterns Collection is installed from Neve welcome notice
+
+
+
+
+#### [Version 1.2.0](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.1.39...v1.2.0) (2023-09-25)
+
+- [Feat] New onboarding for Neve theme
+- [Fix] PHP Warning on import when having PHP 8.1
+- [Fix] Editing a template name does not work
+- [Fix] Error while trying to activate the plugin when having PHP 5.6
+- Increased the minimum required version of WordPress
+- Add a documentation notice after the import for the Podcast starter site
+- Increase the minimum required version of WordPress
+- Update plugin description
+
+
+
+
 ##### [Version 1.1.39](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.1.38...v1.1.39) (2023-06-19)
 
 - Feat: Allow post types from Pods plugin to be imported
-- Feat: Add support for Neve setting page 
+- Feat: Add support for Neve setting page
 - Fix: Import preview Elementor.
 - Fix: Improved Elementor styles for light and dark skin.
 - Fix: Error from TPC inside FSE editor.
@@ -272,7 +312,7 @@ Enhance compatibility with Mega menus import
 
 ##### [Version 1.1.11](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.1.10...v1.1.11) (2021-05-13)
 
-* Improve translations 
+* Improve translations
 * Improve texts and descriptions
 
 
@@ -297,7 +337,7 @@ Enhance compatibility with Mega menus import
 
 ##### [Version 1.1.8](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.1.7...v1.1.8) (2021-04-29)
 
-- Decode HTML entities in title 
+- Decode HTML entities in title
 - Improve Templates Cloud visibility
 - Fix meta not saving properly
 

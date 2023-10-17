@@ -61,6 +61,18 @@ ul.ep_event_metabox_tabs li.checkoutfields_options a::before{
     content: "\f481";
 }
 
+ul.ep_event_metabox_tabs li.booking_options a::before{
+    content: "\f174";
+}
+
+ul.ep_event_metabox_tabs li.social_options a::before{
+    content: "\f237";
+}
+
+ul.ep_event_metabox_tabs li.results_options a::before{
+    content: "\f488";
+}
+
 ul.ep_event_metabox_tabs li.ep-event-metabox-tab a span{
     margin-left: 0.618em;
     margin-right: 0.618em;
@@ -566,4 +578,9 @@ table.ep-attendee-fields-modal-table {
         width: 100%;
         height: 40px;
     }
+}
+
+/** Summary meta box **/
+.ep-event-summary-data-list{
+    margin-bottom: 0.75rem;
 }

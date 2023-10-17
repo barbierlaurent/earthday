@@ -1,6 +1,6 @@
 <?php $pmrequests = new PM_request;?>
 <div class="pmagic">  
- <div class="pm-login-box pm-dbfl pm-border pm-radius5"> 
+ <div class="pm-login-box pm-dbfl pg-theme-bg pm-border pm-radius5"> 
  <?php if(isset($pm_error) && $pm_error!='' && !is_user_logged_in()):?>
  <div class="pm-login-box-error pm-dbfl pm-pad10 pm-border-bt"><?php echo wp_kses_post($pm_error);?></div>
  <?php endif;?>
@@ -27,7 +27,7 @@ else:
   <?php wp_nonce_field('pm_login_form'); ?>
             <input type="text" name="<?php echo esc_attr('user_login');?>" id="<?php echo esc_attr('user_login');?>" placeholder="<?php esc_attr_e('Email or Username','profilegrid-user-profiles-groups-and-communities');?>" required="required">
             <input type="password" name="<?php echo esc_attr('user_pass');?>" id="<?php echo esc_attr('user_pass');?>" placeholder="<?php esc_attr_e('Password','profilegrid-user-profiles-groups-and-communities');?>" required="required">
-    
+            <span id="pg-toggle-password" class="pg-toggle-password fa fa-fw fa-eye-slash"></span>
             <div class="pm-login-box-bottom-container pm-dbfl pm-bg pm-border">
                 <input type="submit" value="<?php esc_attr_e('Login','profilegrid-user-profiles-groups-and-communities');?>" name="login_form_submit" class="pm-difl">
                 <?php if($register_link):?>

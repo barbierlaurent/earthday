@@ -1,11 +1,11 @@
-=== ProfileGrid - User Profiles, Memberships, Groups and Communities ===
+=== ProfileGrid – User Profiles, Memberships, Groups and Communities ===
 Contributors: profilegrid, metagauss
 Donate link: http://profilegrid.co
 Tags: user profile, community, membership, profile, profiles, employee profile, author profile, profile views, company profile, customer user profile, profile image, profile builder, profile description, profile picture, user profile page, embed profile, profile photo, profile avatar, edit profile, front end profile, profile page, user profile data, extended profile, academic profile, personal profile, social profile connect, team member profile, profile pages, wordpress user profiles, user profile plugin, wordpress front end user profile, wordpress display user profile, custom profile picture, corporate profile, user profile picture, team profile, wordpress profile system, communities, networks, user groups, edit profile, custom user profile, user profile data, dashboard user profile, profile widget, profile add fields, profile custom fields, profile display, profile directory, profle database, profile description, profile editor, profile fields, profile gallery, profile hide fields, profile html, profile image, profile login, profile location, profile manager, profile name, profile query, profile registration, profile user registration, register profile, profile search, profile shortcode, profile url, profile update, profile view, profile widget, business profile, custom user profile, display profile, edit profile, extend user profile, frontend user profile, hide profile fields, image profile, member profile, new user profile, plugin profile, public profile, staff profile, show user profile
 Requires at least: 3.5
 Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 5.5.8
+Stable tag: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -353,7 +353,7 @@ Create and add custom data fields to user groups! Now your user groups can have 
 
 [Custom Group Properties](https://profilegrid.co/extensions/custom-group-fields/)
 
-= Free bbPress Integration - ENHANCE BBPRESS USER PROFILES =
+= Free bbPress Integration – ENHANCE BBPRESS USER PROFILES =
 
 Integrate ProfileGrid user profile properties and sign up system with the immensely popular bbPress community forums plugin.
 
@@ -381,7 +381,7 @@ Allow users to subscribe to your MailChimp lists. Comes with custom field mappin
 
 [MailChimp Integration](https://profilegrid.co/extensions/mailchimp-integration/)
 
-= Free WooCommerce Integration - ENHANCE WOOCOMMERCE USER PROFILES =
+= Free WooCommerce Integration – ENHANCE WOOCOMMERCE USER PROFILES =
 
 [Combine the power of ProfileGrid's user membership groups with WooCommerce](https://profilegrid.co/woocommerce-user-profiles-purchases-reviews-social-activity/) to create enhanced WooCommerce user profiles with option to display purchases, reviews, manage addresses and more. This can be used instead of default WooCommerce user profile page for more engaging user experience.
 
@@ -672,6 +672,25 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 18. Dashboard Area - All the shortcodes associated with ProfileGrid.
 
 == Changelog ==
+
+= 5.6.3 =
+* Usability Fixes.
+* Integration Fixes.
+
+= 5.6.2 =
+* Usability fixes.
+
+= 5.6.1 =
+* Usability fixes.
+* Minor improvements.
+
+= 5.6.0 =
+* Design Improvements.
+* Minor Issue Fixes.
+* Usability Improvements.
+
+= 5.5.9 =
+* Multiple Issue Fixes and Usability Improvements.
 
 = 5.5.8 =
 * Multiple Issue Fixes and Usability Improvements.
@@ -1895,6 +1914,21 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Upgrade Notice ==
 
+= 5.6.2 =
+* Usability fixes.
+
+= 5.6.1 =
+* Usability fixes.
+* Minor improvements.
+
+= 5.6.0 =
+* Design Improvements.
+* Minor Issue Fixes.
+* Usability Improvements.
+
+= 5.5.9 =
+* Multiple Issue Fixes and Usability Improvements.
+
 = 5.5.8 =
 * Multiple Issue Fixes and Usability Improvements.
 * Translation Fixes and Improvements.
@@ -1904,25 +1938,27 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Minor Issue Fixes.
 
 = 5.5.6 =
-Usability improvements.
+* Usability improvements.
 
 = 5.5.5 =
-Multiple fixes and improvements.
+* Multiple Issue Fixes and Usability Improvements.
+* WordPress 6.3 Compatibility Changes.
 
 = 5.5.4 =
-Minor fixes and improvements.
+* Translation Fixes and Improvements.
+* Design and Usability Improvements.
 
 = 5.5.3 =
-Important release with security fixes.
+* Security updates.
 
 = 5.5.2 =
-Important release with security fixes.
+* Security updates.
 
 = 5.5.1 =
-This release includes essential security patch.
+* Security updates.
 
 = 5.5.0 =
-Maintenance release with minor fixes and improvements.
+* Maintenance release with minor fixes and improvements.
 
 = 5.4.9 =
 * Usability improvements.

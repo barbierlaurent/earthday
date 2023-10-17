@@ -63,7 +63,7 @@
     </div>
 
     <?php if ( current_user_can( 'edit_user', $args->current_user->ID ) ) { ?>
-        <div class="ep-box-row ep-text-small ep-mb-4">
+        <div class="ep-box-row ep-text-small ep-mb-4 ep-user-profile-edit-profile">
             <a href="<?php echo admin_url().'profile.php'; ?>">
                 <?php esc_html_e( 'Edit Profile', 'eventprime-event-calendar-management' ); ?>
             </a>

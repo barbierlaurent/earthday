@@ -3,7 +3,7 @@
 * Plugin Name: Cyclone Demo Importer
 * Description: Import all the demos on your site
 * Author: cyclonetheme
-* Version: 2.9.49
+* Version: 2.9.52
 * License: GPL2+
 * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 * 
@@ -304,6 +304,10 @@ switch ( $my_theme->Name ) {
 	case 'Green Protection':
 		require CDI_PLUGIN_DIR_PATH . 'themes/green-protection/demo.php';
 		break;
+
+	case 'Business Conference':
+		require CDI_PLUGIN_DIR_PATH . 'themes/business-conference/demo.php';
+		break;
 	
 	default:
 		# code...
@@ -391,7 +395,8 @@ function cdi_redirect() {
 			'get-education',
 			'construction-master',
 			'education-empowerment',
-			'green-protection'
+			'green-protection',
+			'business-conference',
 		);
 
 		if( in_array( $theme->get( 'TextDomain' ) , $available_themes ) ){			
@@ -671,6 +676,9 @@ function cdi_before_content_import( $selected_import ) {
         case 'Education Empowerment Free':
 		case 'Green Eco Homepage 6':
 		case 'Green Protection Homepage Free':
+		case 'Business Event Homepage 4':
+		case 'Business Conference Free':
+		case 'NGO Business Homepage 5':
 
         	// Skip installing extra plugins
         

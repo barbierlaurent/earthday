@@ -78,7 +78,8 @@ class EventM_Admin_Controller_Settings {
         $global_settings_data->show_qr_code_on_ticket         = isset($form_data['show_qr_code_on_ticket']) ? (int) $form_data['show_qr_code_on_ticket'] : 0;
         $global_settings_data->checkout_page_timer            = isset( $form_data['checkout_page_timer'] ) ? absint( $form_data['checkout_page_timer'] ) : 4;
         $global_settings_data->ep_frontend_font_size          = isset( $form_data['ep_frontend_font_size'] ) ? absint( $form_data['ep_frontend_font_size'] ) : 14;
-        $global_settings_data->hide_wishlist_icon = isset( $form_data['hide_wishlist_icon'] ) ? absint( $form_data['hide_wishlist_icon'] ) : 0;
+        $global_settings_data->hide_wishlist_icon             = isset( $form_data['hide_wishlist_icon'] ) ? absint( $form_data['hide_wishlist_icon'] ) : 0;
+        $global_settings_data->enable_dark_mode               = isset( $form_data['enable_dark_mode'] ) ? absint( $form_data['enable_dark_mode'] ) : 0;
         $global_settings->ep_save_settings( $global_settings_data );
 
         EventM_Admin_Notices::ep_add_notice( 'success', esc_html__('Setting saved successfully', 'eventprime-event-calendar-management' ) );
@@ -141,7 +142,7 @@ class EventM_Admin_Controller_Settings {
         $global_settings_data                  = $global_settings->ep_get_settings();
         $form_data                             = $_POST;
         $seo_settings                          = new stdClass();
-        $seo_settings->event_page_type_url     = ( !empty( $form_data['event_page_type_url'] ) ) ? sanitize_text_field( $form_data['event_page_type_url'] ) : '';
+        $seo_settings->event_page_type_url     = ( ! empty( $form_data['event_page_type_url'] ) ) ? sanitize_text_field( $form_data['event_page_type_url'] ) : '';
         $seo_settings->performer_page_type_url = ( ! empty( $form_data['performer_page_type_url'] ) ) ? sanitize_text_field( $form_data['performer_page_type_url'] ) : '';
         $seo_settings->organizer_page_type_url = ( ! empty( $form_data['organizer_page_type_url'] ) ) ? sanitize_text_field( $form_data['organizer_page_type_url'] ) : '';
         $seo_settings->venues_page_type_url    = ( ! empty( $form_data['venues_page_type_url'] ) ) ? sanitize_text_field( $form_data['venues_page_type_url'] ) : '';
@@ -291,6 +292,12 @@ class EventM_Admin_Controller_Settings {
                 $global_settings_data->admin_booking_confirmed_email_cc = wp_kses_post($form_data['admin_booking_confirmed_email_cc']);
                 $global_settings_data->admin_booking_confirm_email_attendees = isset($form_data['admin_booking_confirm_email_attendees']) ? 1 : 0;
             }
+            if( isset( $form_data['ep_admin_email_to'] ) && ! empty( $form_data['ep_admin_email_to'] ) ){
+                $global_settings_data->ep_admin_email_to = sanitize_email( $form_data['ep_admin_email_to'] );
+            }
+            if( isset( $form_data['ep_admin_email_from'] ) && ! empty( $form_data['ep_admin_email_from'] ) ){
+                $global_settings_data->ep_admin_email_from = sanitize_email( $form_data['ep_admin_email_from'] );
+            }
         }
         $global_settings->ep_save_settings( $global_settings_data );
         //update_option(EM_GLOBAL_SETTINGS, $global_settings_data, true);
@@ -346,8 +353,15 @@ class EventM_Admin_Controller_Settings {
         $global_settings_data->show_max_event_on_calendar_date = isset( $form_data['show_max_event_on_calendar_date'] ) ? (int) $form_data['show_max_event_on_calendar_date'] : 2;
         $global_settings_data->event_booking_status_option     = isset( $form_data['event_booking_status_option'] ) ? $form_data['event_booking_status_option'] : '';
         $global_settings_data->open_detail_page_in_new_tab     = isset( $form_data['open_detail_page_in_new_tab'] ) ? $form_data['open_detail_page_in_new_tab'] : 0;
-        $global_settings_data->events_no_of_columns            = ( ! empty( $_POST['events_no_of_columns'] ) ) ? absint( $_POST['events_no_of_columns'] ) : 4;
-        
+        $global_settings_data->events_no_of_columns            = ( ! empty( $form_data['events_no_of_columns'] ) ) ? absint( $form_data['events_no_of_columns'] ) : '';
+        $global_settings_data->events_image_visibility_options = ( ! empty( $form_data['events_image_visibility_options'] ) ) ? sanitize_text_field( $form_data['events_image_visibility_options'] ) : '';
+        $global_settings_data->events_image_height             = ( ! empty( $form_data['events_image_height'] ) ) ? absint( $form_data['events_image_height'] ) : '';
+        // trending event type settings
+        $global_settings_data->show_trending_event_types       = isset( $form_data['show_trending_event_types'] ) ? (int) $form_data['show_trending_event_types'] : 0;
+        $global_settings_data->no_of_event_types_displayed     = ( ! empty( $form_data['no_of_event_types_displayed'] ) ) ? (int) $form_data['no_of_event_types_displayed'] : 5;
+        $global_settings_data->show_events_per_event_type      = isset( $form_data['show_events_per_event_type'] ) ? (int) $form_data['show_events_per_event_type'] : 0;
+        $global_settings_data->sort_by_events_or_bookings      = isset( $form_data['sort_by_events_or_bookings'] ) ? $form_data['sort_by_events_or_bookings'] : '';
+
         $global_settings->ep_save_settings( $global_settings_data );
         EventM_Admin_Notices::ep_add_notice( 'success', esc_html__('Setting saved successfully', 'eventprime-event-calendar-management' ) );
         
@@ -554,6 +568,8 @@ class EventM_Admin_Controller_Settings {
         $global_settings_data->frontend_submission_sections         = isset( $_POST['frontend_submission_sections'] ) ? $_POST['frontend_submission_sections'] : array();
         $global_settings_data->frontend_submission_required         = isset( $_POST['frontend_submission_required'] ) ? $_POST['frontend_submission_required'] : array();
         $global_settings_data->fes_allow_media_library              = isset( $_POST['fes_allow_media_library'] ) ? 1 : 0;
+        $global_settings_data->fes_allow_user_to_delete_event       = isset( $_POST['fes_allow_user_to_delete_event'] ) ? 1 : 0;
+        $global_settings_data->fes_show_add_event_in_profile        = isset( $_POST['fes_show_add_event_in_profile'] ) ? 1 : 0;
         
         $global_settings->ep_save_settings( $global_settings_data );
         EventM_Admin_Notices::ep_add_notice( 'success', esc_html__('Setting saved successfully', 'eventprime-event-calendar-management' ) );
@@ -627,6 +643,7 @@ class EventM_Admin_Controller_Settings {
         $global_settings_data->event_detail_image_align           = ( ! empty( $form_data['event_detail_image_align'] ) ? $form_data['event_detail_image_align'] : '' );
         $global_settings_data->event_detail_image_auto_scroll     = ( ! empty( $form_data['event_detail_image_auto_scroll'] ) ? $form_data['event_detail_image_auto_scroll'] : 0 );
         $global_settings_data->event_detail_image_slider_duration = ( ! empty( $form_data['event_detail_image_slider_duration'] ) ? $form_data['event_detail_image_slider_duration'] : 4 );
+        $global_settings_data->event_detail_message_for_recap     = ( ! empty( $_POST['event_detail_message_for_recap'] ) ) ? sanitize_text_field( $_POST['event_detail_message_for_recap'] ) : '';
         
         $global_settings->ep_save_settings( $global_settings_data );
         EventM_Admin_Notices::ep_add_notice( 'success', esc_html__( 'Setting saved successfully', 'eventprime-event-calendar-management' ) );

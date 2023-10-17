@@ -46,7 +46,7 @@ else
 
 ?>
 <div class="pmagic">
-    <div class="pg-group-box-wrap">
+    <div class="pg-group-box-wrap pg-theme-bg">
   <div class="pm-group-container pm-dbfl">
       <?php if($pm_show_sorting_dropdown || $pm_show_view_icon || $pm_show_search_box ): ?>
        <div class="pg-group-filters-head pm-dbfl pm-bg">

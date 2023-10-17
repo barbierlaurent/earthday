@@ -212,7 +212,7 @@
                                     <div class="">
                                         <span class="ep-mr-2"><?php esc_html_e( 'Payment Status', 'eventprime-event-calendar-management' );?>:</span>
                                         <span class="ep-text-success">
-                                            <?php echo esc_html_e( isset($args->em_payment_log) && isset($args->em_payment_log['payment_status']) ? ucfirst( $args->em_payment_log['payment_status'] ) : '', 'eventprime-event-calendar-management' );?>
+                                            <?php echo ( ! empty( $args->em_payment_log ) && ( ! empty( $args->em_payment_log['payment_status'] ) ) ? esc_html( ucfirst( $args->em_payment_log['payment_status'] ) ) : '' );?>
                                         </span>
                                     </div>
                                     <div class="">
@@ -226,7 +226,7 @@
                                             <?php esc_html_e( 'Payment Method', 'eventprime-event-calendar-management' );?>:
                                         </span>
                                         <span>
-                                            <?php echo esc_html_e( isset($args->em_payment_log) && isset($args->em_payment_log['payment_gateway']) ? ucfirst( $args->em_payment_log['payment_gateway'] ) : '', 'eventprime-event-calendar-management' );?>
+                                            <?php echo ( ! empty( $args->em_payment_log ) && ( ! empty( $args->em_payment_log['payment_gateway'] ) ) ? esc_html( ucfirst( $args->em_payment_log['payment_gateway'] ) ) : '' );?>
                                         </span>
                                     </div>
                                 </div>
@@ -247,6 +247,7 @@
                                             $calendar_url .= '&location=' . esc_attr( $location );
                                         }
                                     }
+                                  
                                     if( ! empty( $gcal_starts ) && ! empty( $gcal_ends ) ) {?>
                                         <div class="ep-text-small ep-cursor ep-d-flex ep-align-items-center ep-mb-1">
                                             <a class="em-events-gcal em-events-button ep-di-flex ep-align-items-center ep-lh-0" href="<?php echo esc_url( $calendar_url );?>" target="_blank">
@@ -289,7 +290,7 @@
                                             </div><?php
                                         }
                                     }
-                                    if( 1 == $args->event_data->em_allow_cancellations && ( 'completed' == $args->em_status || 'pending' == $args->em_status ) ) {?>
+                                    if( ! empty( $args->event_data->em_allow_cancellations ) && 1 == $args->event_data->em_allow_cancellations && ( 'completed' == $args->em_status || 'pending' == $args->em_status ) ) {?>
                                         <div class="ep-text-small ep-cursor ep-text-danger ep-d-flex ep-align-items-center ep-mb-1" ep-modal-open="ep_booking_cancellation_modal">
                                             <span class="material-icons-outlined ep-fs-6 align-middle ep-lh-0 ep-mr-2">block</span>
                                             <?php esc_html_e('Cancel Booking','eventprime-event-calendar-management'); ?>
@@ -313,8 +314,9 @@
                             </div>
                             <?php $booking_attendees_field_labels = array();
                             foreach( $args->em_attendee_names as $ticket_id => $attendee_data ) {
-                                $booking_attendees_field_labels = ep_get_booking_attendee_field_labels( $attendee_data[1] );?>
-                                <div class="ep-box-row ep-border-bottom">
+                                $first_key = array_keys( $attendee_data )[0];
+                                $booking_attendees_field_labels = ep_get_booking_attendee_field_labels( $attendee_data[$first_key] );?>
+                                <div class="ep-box-row">
                                     <div class="ep-box-col-12 ep-p-4">
                                         <div class="ep-mb-3 ep-fw-bold ep-text-small">
                                             <?php echo esc_html( get_event_ticket_name_by_id_event( $ticket_id, $args->event_data ) );?>
@@ -378,6 +380,33 @@
                                 </div><?php
                             }?>
                         </div><?php
+                    }
+                    // booking data
+                    if( ! empty( $args->em_booking_fields_data ) && count( $args->em_booking_fields_data ) > 0 ) {
+                        foreach( $args->em_booking_fields_data as $booking_fields ) {
+                            $formated_val = ep_get_slug_from_string( $booking_fields['label'] );?>
+                            <div class="ep-box-col-12 ep-border ep-rounded ep-mt-5 ep-bg-white ep_booking_detail_booking_fields_container">
+                                <div class="ep-box-row ep-border-bottom">
+                                    <div class="ep-box-col-12 ep-py-4 ep-ps-4 ep-fw-bold ep-text-uppercase ep-text-small">
+                                        <?php echo esc_html( $booking_fields['label'] );?>
+                                    </div>
+                                </div>
+                                <div class="ep-box-row">
+                                    <div class="ep-box-col-12 ep-p-4">
+                                        <div class="ep-mb-3 ep-fw-bold ep-text-small">
+                                            <?php 
+                                            if( ! empty( $booking_fields[$formated_val] ) ) {
+                                                if( is_array( $booking_fields[$formated_val] ) ) {
+                                                    echo implode( ', ', $booking_fields[$formated_val] );
+                                                } else{
+                                                    echo esc_html( $booking_fields[$formated_val] );
+                                                }
+                                            }?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><?php
+                        }
                     }?>
 
                     <?php do_action('ep_front_user_booking_details_custom_data', $args );

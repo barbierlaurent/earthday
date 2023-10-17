@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: ProfileGrid\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
 "POT-Creation-Date: 2019-04-19 10:51+0000\n"
-"PO-Revision-Date: 2023-08-22 06:24+0000\n"
-"Last-Translator: admin <renu.tilwani@alcanttor.com>\n"
-"Language-Team: Italian\n"
+"PO-Revision-Date: 2023-10-16 05:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: Italiano\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.2.2; wp-5.0.4"
+"X-Loco-Version: 2.6.6; wp-6.3.2"
 
 #: admin/partials/security-settings.php:82
 msgid " Afrikaans "
@@ -402,9 +402,9 @@ msgid "% Comments"
 msgstr ""
 
 #: public/class-profile-magic-notifications.php:1418
-#, fuzzy, php-format
+#, php-format
 msgid "%d Members"
-msgstr "Membri"
+msgstr "%d membri"
 
 msgid "%s does not have any friends yet."
 msgstr ""
@@ -5480,6 +5480,9 @@ msgstr ""
 msgid "Johnston"
 msgstr ""
 
+msgid "Join Group"
+msgstr ""
+
 #: public/class-profile-magic-notifications.php:1351
 #, fuzzy
 msgid "Joined New Group"
@@ -6450,6 +6453,9 @@ msgstr ""
 
 #: admin/partials/global-settings.php:659
 msgid "More power to your group managers.!"
+msgstr ""
+
+msgid "More..."
 msgstr ""
 
 #: includes/country_option_list.php:149
@@ -8724,7 +8730,7 @@ msgstr ""
 "come immagine del profilo."
 
 #: admin/partials/upload-settings.php:55
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Set an upper limit to the size of cover images uploaded by users. Sizes are "
 "in Bytes. For example, for 2MB limit use 2097152. You can also use an <a "
@@ -8733,12 +8739,11 @@ msgid ""
 msgstr ""
 "Imposta un limite massimo per la dimensione delle immagini di copertina "
 "caricate dagli utenti. Le dimensioni sono espresse in byte. Ad esempio, per "
-"il limite di 2 MB utilizza 2097152. Puoi anche utilizzare un <a href=\"http:"
-"//whatsabyte.com/P1/byteconverter.htm\" target=\"_blank\">convertitore "
-"online</a> per scoprire i valori esatti."
+"il limite di 2 MB utilizza 2097152. Puoi anche utilizzare un <a href=\"%s\" "
+"target=\"_blank\">convertitore online</a> per scoprire i valori esatti."
 
 #: admin/partials/upload-settings.php:44
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Set an upper limit to the size of profile images uploaded by users. Sizes "
 "are in Bytes. For example, for 2MB limit use 2097152. You can also use an <a "
@@ -8747,9 +8752,8 @@ msgid ""
 msgstr ""
 "Imposta un limite massimo per la dimensione delle immagini del profilo "
 "caricate dagli utenti. Le dimensioni sono espresse in byte. Ad esempio, per "
-"il limite di 2 MB utilizza 2097152. Puoi anche utilizzare un <a href=\"http:"
-"//whatsabyte.com/P1/byteconverter.htm\" target=\"_blank\">convertitore "
-"online</a> per scoprire i valori esatti."
+"il limite di 2 MB utilizza 2097152. Puoi anche utilizzare un <a href=\"%s\" "
+"target=\"_blank\">convertitore online</a> per scoprire i valori esatti."
 
 #: admin/partials/general-settings.php:250
 msgid "Set Limit for Password Reset Tries"
@@ -8860,6 +8864,9 @@ msgstr ""
 msgid ""
 "Show Instagram tab on User Profile page with user’s Instagram photos "
 "displayed in the tab."
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 #: admin/partials/elements-visibility-setting.php:185
@@ -11620,6 +11627,11 @@ msgid ""
 "profile's Settings section."
 msgstr ""
 
+msgid ""
+"You do not have any friends yet. You can add friends by sending friendship "
+"requests to people from their user profiles."
+msgstr ""
+
 #: public/partials/profile-magic-settings.php:12
 msgid "You entered incorrect password. Please try again."
 msgstr "Password errata. Per favore riprova."
@@ -11673,6 +11685,9 @@ msgstr ""
 
 #: admin/class-profile-magic-admin.php:186
 msgid "You must define a Group Manager first, before making a Group closed."
+msgstr ""
+
+msgid "You sent membership request to join this Group on %s"
 msgstr ""
 
 #: admin/partials/global-settings.php:1164

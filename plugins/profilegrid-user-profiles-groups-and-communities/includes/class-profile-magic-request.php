@@ -811,10 +811,18 @@ class PM_request {
 					break;
 				default:
 						$value      = get_user_meta( $userid, $field, true );
-                                    
+                                                if ($value == "Female"){
+							$value = esc_html__("Female", 'profilegrid-user-profiles-groups-and-communities');
+						}
+						if ($value == "Male"){
+							$value = esc_html__("Male", 'profilegrid-user-profiles-groups-and-communities');
+						}
+                                                if ($value == "Others"){
+							$value = esc_html__("Others", 'profilegrid-user-profiles-groups-and-communities');
+						}
                                         if($field_type!='' && $field_type=='term_checkbox' && $value != '')
                                         {
-                                            $value = __('Yes','profilegrid-user-profiles-groups-and-communities');
+                                            $value = esc_html__('Yes','profilegrid-user-profiles-groups-and-communities');
                                         }
                                                 
 						$additional = maybe_unserialize( $value );
@@ -1003,9 +1011,35 @@ class PM_request {
 			  $dbhandler     = new PM_DBhandler();
 				$pmsanitizer = new PM_sanitizer();
 		if ( isset( $fields ) && ! empty( $fields ) ) :
+                        foreach ( $fields as $field ) {
+                                $value         = '';
+				$field_key     = $field->field_key;
+				if ( $field->field_type == 'user_url' ) {
+					$value = $pmsanitizer->get_sanitized_frontend_field( $field->field_type, $post[ $field_key ] );
+                                        if ( $value != '' ) 
+                                        {
+                                            wp_update_user(
+                                                        array(
+                                                                'ID'       => $user_id,
+                                                                'user_url' => $value,
+                                                        )
+                                                );
+                                        }
+                                        else
+                                        {
+                                            wp_update_user(
+                                                    array(
+                                                            'ID'       => $user_id,
+                                                            'user_url' => '',
+                                                    )
+                                            );
+                                        }
+				}
+                        }
+                    
 			foreach ( $fields as $field ) {
 
-				if ( $field->field_type == 'user_pass' || $field->field_type == 'confirm_pass' ) {
+				if ( $field->field_type == 'user_pass' || $field->field_type == 'confirm_pass' || $field->field_type == 'user_url' ) {
 					continue;
 				}
 				$value         = '';
@@ -3413,6 +3447,7 @@ class PM_request {
 		$dbhandler     = new PM_DBhandler();
 		$pmhtmlcreator = new PM_HTML_Creator( $profile_magic, $pg_version );
 		$leaders       = array();
+                $limit = $dbhandler->get_global_option_value('pm_number_of_users_on_group_page','10'); // number of rows in page
 		if ( $row->is_group_leader != 0 ) {
 			$leaders = $this->pg_get_group_leaders( $gid );
 		}
@@ -4917,7 +4952,8 @@ class PM_request {
                         'profilegrid_woocommerce_custom_product_price',
                         'Profilegrid_Custom_Group_Slug',
                         'Profilegrid_Woocommerce_Product_Restrictions',
-                        'Profilegrid_User_Invitation_Field'
+                        'Profilegrid_User_Invitation_Field',
+                        'Profilegrid_Credit'
 		);
 		$class_not_exist = array();
 		foreach ( $classes as $class ) {
@@ -4984,7 +5020,8 @@ class PM_request {
                         'profilegrid_woocommerce_custom_product_price',
                         'Profilegrid_Custom_Group_Slug',
                         'Profilegrid_Woocommerce_Product_Restrictions',
-                        'Profilegrid_User_Invitation_Field'
+                        'Profilegrid_User_Invitation_Field',
+                        'Profilegrid_Credit'
 		);
 		$free_exist = array();
 		foreach ( $free as $fc ) {

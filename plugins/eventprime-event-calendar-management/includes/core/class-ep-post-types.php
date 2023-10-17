@@ -30,6 +30,10 @@ class EventM_Post_types {
         $plural_type_text = ep_global_settings_button_title( 'Event-Types' );
         $singular_type_text = ep_global_settings_button_title( 'Event-Type' );
 
+        if( $plural_type_text == 'Event-Types' ) {
+            $plural_type_text = 'Types';
+        }
+
 		register_taxonomy(
 			'em_event_type',
 			'em_event',
@@ -62,13 +66,13 @@ class EventM_Post_types {
                     'delete_terms' => 'delete_em_event_terms',
                     'assign_terms' => 'assign_em_event_terms',
                 ),
-                //'show_in_rest' => false,
                 'rewrite'           => array(
                     'slug'       => ep_get_seo_page_url( 'event-type' ),
                     //'ep_mask'    => EP_EM_EVENTS,
                     'with_front' => true
                 ),
                 'meta_box_cb'       => 'ep_taxonomy_select_meta_box',
+                //'show_in_rest'      => true,
 			)
 		);
 
@@ -112,6 +116,7 @@ class EventM_Post_types {
                     'assign_terms' => 'assign_em_event_terms',
                 ),
                 'meta_box_cb'       => 'ep_taxonomy_select_meta_box',
+                //'show_in_rest'      => true,
 			)
 		);
 
@@ -154,6 +159,8 @@ class EventM_Post_types {
                     //'ep_mask'  => EP_EM_EVENTS,
                     'with_front' => true
                 ),
+                //'show_in_rest'      => true,
+
             )
         );
 
@@ -170,14 +177,14 @@ class EventM_Post_types {
 
         do_action( 'eventprime_register_post_type' );
 
-        $support = array('title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'page-attributes', 'publicize', 'wpcom-markdown', 'comments');
+        $support = array('title', 'editor', 'thumbnail', 'custom-fields', 'publicize', 'wpcom-markdown', 'comments');
 
 		register_post_type(
             'em_event', array(
                 'labels'              => array(
                     'name'                  => __( 'Events', 'eventprime-event-calendar-management' ),
                     'singular_name'         => __( 'Event', 'eventprime-event-calendar-management' ),
-                    'add_new'               => __( 'Add Event', 'eventprime-event-calendar-management' ),
+                    'add_new'               => __( 'Add New', 'eventprime-event-calendar-management' ),
                     'add_new_item'          => __( 'Add New Event', 'eventprime-event-calendar-management' ),
                     'edit'                  => __( 'Edit', 'eventprime-event-calendar-management' ),
                     'edit_item'             => __( 'Edit Event', 'eventprime-event-calendar-management' ),
@@ -190,7 +197,7 @@ class EventM_Post_types {
                     'set_featured_image'    => __( 'Set event image', 'eventprime-event-calendar-management' ),
                     'remove_featured_image' => __( 'Remove event image', 'eventprime-event-calendar-management' ),
                     'use_featured_image'    => __( 'Use as event image', 'eventprime-event-calendar-management' ),
-                    'menu_name'             => __( 'Events', 'eventprime-event-calendar-management'  ),
+                    'menu_name'             => __( 'All Events', 'eventprime-event-calendar-management'  ),
                     'search_items'          => __( 'Search Event', 'eventprime-event-calendar-management'  ),
                 ),
                 'description'         => __( 'Here you can add new events.', 'eventprime-event-calendar-management' ),
@@ -206,11 +213,12 @@ class EventM_Post_types {
                 'hierarchical'        => false,
                 'query_var'           => true,
 		        'menu_icon'           => 'dashicons-tickets-alt',
-                'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'page-attributes', 'publicize', 'wpcom-markdown', 'comments'),
+                'supports'            => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'publicize', 'wpcom-markdown', 'comments' ),
                 'rewrite'             => array(
                     'slug'       => ep_get_seo_page_url( 'event' ),
                     'with_front' => true
                 ),
+                //'show_in_rest'        => true,
             )
 		);
 

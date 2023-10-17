@@ -220,3 +220,44 @@
         </tr>
     </tbody>
 </table>
+
+<div class="ep-setting-tab-content">
+    <h2><?php esc_html_e( 'Event Results Options', 'eventprime-event-calendar-management' );?></h2>
+</div>
+<table class="form-table">
+    <tbody>
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="event_detail_result_heading">
+                    <?php esc_html_e( 'Heading', 'eventprime-event-calendar-management' );?>
+                </label>
+            </th>
+            <td class="forminp forminp-text">
+                <input class="regular-text" type="text" id="event_detail_result_heading" name="event_detail_result_heading" value="<?php echo esc_attr( $global_options->event_detail_result_heading );?>">
+                <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Heading of the results block on the event page.', 'eventprime-event-calendar-management' );?></div>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="event_detail_message_for_recap">
+                    <?php esc_html_e( 'Text', 'eventprime-event-calendar-management' );?>
+                </label>
+            </th>
+            <td class="forminp forminp-text">
+                <textarea id="event_detail_message_for_recap" name="event_detail_message_for_recap" rows="4" cols="50"><?php echo esc_html( $global_options->event_detail_message_for_recap );?></textarea>     
+                <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Text for the results block on the event page.', 'eventprime-event-calendar-management' );?></div>
+            </td>
+        </tr>
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="event_detail_result_button_label">
+                    <?php esc_html_e( 'Button Label', 'eventprime-event-calendar-management' );?>
+                </label>
+            </th>
+            <td class="forminp forminp-text">
+                <input class="regular-text" type="text" id="event_detail_result_button_label" name="event_detail_result_button_label" value="<?php echo esc_attr( $global_options->event_detail_result_button_label );?>">
+                <div class="ep-help-tip-info ep-my-2 ep-text-muted"><?php esc_html_e( 'Label for the button which takes the user to the results page for the event.', 'eventprime-event-calendar-management' );?></div>
+            </td>
+        </tr>
+    </tbody>
+</table>

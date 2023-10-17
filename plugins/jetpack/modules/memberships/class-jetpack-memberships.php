@@ -97,12 +97,18 @@ class Jetpack_Memberships {
 	private static $user_can_view_post_cache = array();
 
 	/**
+	 * Cached results of user_is_paid_subscriber() method.
+	 *
+	 * @var array
+	 */
+	private static $user_is_paid_subscriber_cache = array();
+
+	/**
 	 * Currencies we support and Stripe's minimum amount for a transaction in that currency.
 	 *
 	 * @link https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts
 	 *
-	 * List has to be in with `SUPPORTED_CURRENCIES` in extensions/shared/currencies.js and
-	 * `Memberships_Product::SUPPORTED_CURRENCIES` in the WP.com memberships library.
+	 * List has to be in with `SUPPORTED_CURRENCIES` in extensions/shared/currencies.js.
 	 */
 	const SUPPORTED_CURRENCIES = array(
 		'USD' => 0.5,
@@ -162,6 +168,15 @@ class Jetpack_Memberships {
 			),
 			'site_subscriber' => array(
 				'meta' => $meta_prefix . 'site_subscriber',
+			),
+			'product_id'      => array(
+				'meta' => $meta_prefix . 'product_id',
+			),
+			'tier'            => array(
+				'meta' => $meta_prefix . 'tier',
+			),
+			'is_deleted'      => array(
+				'meta' => $meta_prefix . 'is_deleted',
 			),
 		);
 		return $properties;
@@ -408,7 +423,7 @@ class Jetpack_Memberships {
 		$button_styles = implode( ';', $button_styles );
 
 		return sprintf(
-			'<div class="%1$s"><a role="button" %6$s href="%2$s" class="%3$s" style="%4$s">%5$s</a></div>',
+			'<div class="%1$s"><a role="button" href="%2$s" class="%3$s" style="%4$s">%5$s</a></div>',
 			esc_attr(
 				Blocks::classes(
 					self::$button_block_name,
@@ -419,8 +434,7 @@ class Jetpack_Memberships {
 			esc_url( $this->get_subscription_url( $plan_id ) ),
 			isset( $attrs['submitButtonClasses'] ) ? esc_attr( $attrs['submitButtonClasses'] ) : 'wp-block-button__link',
 			esc_attr( $button_styles ),
-			wp_kses( $button_label, self::$tags_allowed_in_the_button ),
-			isset( $attrs['submitButtonAttributes'] ) ? sanitize_text_field( $attrs['submitButtonAttributes'] ) : '' // Needed for arbitrary target=_blank on WPCOM VIP.
+			wp_kses( $button_label, self::$tags_allowed_in_the_button )
 		);
 	}
 
@@ -496,6 +510,23 @@ class Jetpack_Memberships {
 	 *
 	 * @return bool Whether the post can be viewed
 	 */
+	public static function user_is_paid_subscriber() {
+		$user_id = get_current_user_id();
+
+		require_once JETPACK__PLUGIN_DIR . 'extensions/blocks/premium-content/_inc/subscription-service/include.php';
+		$paywall            = \Automattic\Jetpack\Extensions\Premium_Content\subscription_service();
+		$is_paid_subscriber = $paywall->visitor_can_view_content( self::get_all_newsletter_plan_ids(), Token_Subscription_Service::POST_ACCESS_LEVEL_PAID_SUBSCRIBERS_ALL_TIERS );
+
+		self::$user_is_paid_subscriber_cache[ $user_id ] = $is_paid_subscriber;
+		return $is_paid_subscriber;
+	}
+
+	/**
+	 * Determines whether the current user can view the post based on the newsletter access level
+	 * and caches the result.
+	 *
+	 * @return bool Whether the post can be viewed
+	 */
 	public static function user_can_view_post() {
 		$user_id = get_current_user_id();
 		$post_id = get_the_ID();
@@ -505,7 +536,7 @@ class Jetpack_Memberships {
 		}
 
 		$cache_key = sprintf( '%d_%d', $user_id, $post_id );
-		if ( isset( self::$user_can_view_post_cache[ $cache_key ] ) ) {
+		if ( $user_id !== 0 && isset( self::$user_can_view_post_cache[ $cache_key ] ) ) {
 			return self::$user_can_view_post_cache[ $cache_key ];
 		}
 
@@ -513,6 +544,14 @@ class Jetpack_Memberships {
 		if ( Token_Subscription_Service::POST_ACCESS_LEVEL_EVERYBODY === $post_access_level ) {
 			self::$user_can_view_post_cache[ $cache_key ] = true;
 			return true;
+		}
+
+		if ( $user_id === 0 ) {
+			if ( defined( 'WPCOM_SENDING_POST_TO_SUBSCRIBERS' ) && WPCOM_SENDING_POST_TO_SUBSCRIBERS ) {
+				if ( Token_Subscription_Service::POST_ACCESS_LEVEL_SUBSCRIBERS === $post_access_level ) {
+					return true;
+				}
+			}
 		}
 
 		require_once JETPACK__PLUGIN_DIR . 'extensions/blocks/premium-content/_inc/subscription-service/include.php';
@@ -562,7 +601,7 @@ class Jetpack_Memberships {
 	}
 
 	/**
-	 * Return membership plans
+	 * Return all membership plans (deleted or not)
 	 *
 	 * @return array
 	 */
@@ -616,6 +655,27 @@ class Jetpack_Memberships {
 		}
 
 		self::$has_registered_block = true;
+	}
+
+	/**
+	 * Transforms a number into it's short human-readable version.
+	 *
+	 * @param int $subscribers_total The extrapolated excerpt string.
+	 *
+	 * @return string Human-readable version of the number. ie. 1.9 M.
+	 */
+	public static function get_join_others_text( $subscribers_total ) {
+		if ( $subscribers_total >= 1000000 ) {
+			/* translators: %s: number of folks following the blog, millions(M) with one decimal. i.e. 1.1 */
+			return sprintf( __( 'Join %sM other subscribers', 'jetpack' ), floatval( number_format_i18n( $subscribers_total / 1000000, 1 ) ) );
+		}
+		if ( $subscribers_total >= 10000 ) {
+			/* translators: %s: number of folks following the blog, thousands(K) with one decimal. i.e. 1.1 */
+			return sprintf( __( 'Join %sK other subscribers', 'jetpack' ), floatval( number_format_i18n( $subscribers_total / 1000, 1 ) ) );
+		}
+
+		/* translators: %s: number of folks following the blog */
+		return sprintf( _n( 'Join %s other subscriber', 'Join %s other subscribers', $subscribers_total, 'jetpack' ), number_format_i18n( $subscribers_total ) );
 	}
 }
 Jetpack_Memberships::get_instance();

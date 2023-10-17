@@ -22,6 +22,9 @@ defined( 'ABSPATH' ) || exit;
             <?php
             // Load icon template
             ep_get_template_part( 'events/single-event/icons', null, $args );
+
+            // Load result template
+            ep_get_template_part( 'events/single-event/result', null, $args );
             ?>
             <div class="ep-box-row ep-gx-5">
                 <div class="ep-box-col-8" id="ep-sl-left-area">
@@ -40,8 +43,7 @@ defined( 'ABSPATH' ) || exit;
                         ep_get_template_part( 'events/single-event/organizers', null, $args );
 
                         // Load performers template
-                        ep_get_template_part( 'events/single-event/performers', null, $args );
-                        ?>
+                        ep_get_template_part( 'events/single-event/performers', null, $args );?>
                     </div> 
                     <?php
                     // Load description template

@@ -193,7 +193,7 @@ class Profile_Magic {
 		$plugin_block = new Profile_Magic_Block( $this->get_profile_magic(), $this->get_version() );
 		$this->loader->add_action( 'init', $plugin_block, 'profilegrid_block_register' );
 		$this->loader->add_action( 'rest_api_init', $plugin_block, 'pm_register_rest_route' );
-
+		$this->loader->add_action('block_categories_all',  $plugin_block, 'profilegrid_add_block_categories');
 	}
 
 	private function define_admin_hooks() {

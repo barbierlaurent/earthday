@@ -3,8 +3,8 @@
  * Booking meta box html
  */
 defined( 'ABSPATH' ) || exit;
-$booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
 
+$booking_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Booking_Controller_List' );
 $booking_id = $post->ID;
 $post_meta = get_post_meta( $booking_id );
 $booking = $this->get_booking_cache( $booking_id );
@@ -116,7 +116,7 @@ $booking_date_time = isset( $booking->em_date ) ? esc_html( ep_timestamp_to_date
                             esc_html_e( EventM_Constants::$status[$booking_status], 'eventprime-event-calendar-management' );
                         }?>
                         <?php if(! empty( $booking_status ) && ( $booking_status == 'completed' || $booking_status == 'pending' || $booking_status == 'draft' || $booking_status == 'publish' ) ):?>
-                            <span class="icon-asset material-icons-outlined edit-booking-status ep-cursor ep-text-primary" id="ep-booking-status-edit">Edit</span>
+                            <span class="icon-asset edit-booking-status ep-cursor ep-text-primary" id="ep-booking-status-edit">Edit</span>
                         <?php endif;?>
                     </div>
 

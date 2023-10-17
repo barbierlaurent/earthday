@@ -289,31 +289,33 @@ class EventM_Install {
 		global $wp_rewrite;
 		self::default_notifications();
 		$instance = EP();
-
 		$global_options = get_option( EM_GLOBAL_SETTINGS );
-
 		if( ! ep_get_global_settings( 'payment_test_mode' ) ) {
 			$global_options->payment_test_mode = 1;
 		}
-
 		if( ! ep_get_global_settings( 'currency' ) ) {
 			$global_options->currency = EP_DEFAULT_CURRENCY;
 		}
-
 		if( ! ep_get_global_settings( 'event_tour' ) ) {
 			$global_options->event_tour = 0;
 		}
-
 		if( ! ep_get_global_settings( 'is_visit_welcome_page' ) ) {
 			$global_options->is_visit_welcome_page = 0;
 		}
-
 		if( ! ep_get_global_settings( 'dashboard_hide_past_events' ) ) {
 			$global_options->dashboard_hide_past_events = 0;
 		}
-
 		if( ! ep_get_global_settings( 'disable_filter_options' ) ) {
 			$global_options->disable_filter_options = 0;
+		}
+		if( ! ep_get_global_settings( 'front_switch_view_option' ) ) {
+			$global_options->front_switch_view_option = array( 'month', 'week', 'day', 'listweek', 'square_grid', 'staggered_grid', 'slider', 'rows' );
+		}
+		if( ! ep_get_global_settings( 'default_cal_view' ) ) {
+			$global_options->default_cal_view = 'month';
+		}
+		if( ! ep_get_global_settings( 'frontend_submission_sections' ) ) {
+			$global_options->frontend_submission_sections = array( 'fes_event_featured_image' => 1, 'fes_event_booking' => 1, 'fes_event_link' => 1, 'fes_event_type' => 1, 'fes_event_location' => 1, 'fes_event_performer' => 1, 'fes_event_organizer' => 1, 'fes_event_more_options' => 1, 'fes_event_text_color' => 1 );
 		}
 
 		// Update settings.
@@ -418,6 +420,7 @@ class EventM_Install {
 					self::default_settings();
 				}
 				update_option( EM_DB_VERSION, $instance->version );
+				self::update_event_date_time_meta_data();
 			}
 		}
     }
@@ -879,6 +882,58 @@ class EventM_Install {
 			}
 			foreach( $deactivate_extension_list as $ext_list ) {
 				deactivate_plugins( $ext_list );
+			}
+		}
+	}
+
+	/**
+	 * Add new meta for date time and update existing events
+	 */
+	private static function update_event_date_time_meta_data() {
+		$check_for_event_date_time = get_option( 'ep_update_event_date_time_meta' );
+		if( empty( $check_for_event_date_time ) || $check_for_event_date_time != 2 ) {
+			$default = array(
+				'post_status' => 'any',
+				'post_type'   => EM_EVENT_POST_TYPE,
+				'numberposts' => -1,
+			);
+			$posts = get_posts( $default );
+			if( ! empty( $posts ) ) {
+				foreach( $posts as $post ){
+					$event_id = $post->ID;
+					if( ! empty( $event_id ) ) {
+						$merge_start_date_time = $merge_end_date_time = '';
+						// start date
+						$start_date    = get_post_meta( $event_id, 'em_start_date', true );
+						$start_date = (int)$start_date;
+						if( ! empty( $start_date ) ) {
+							$start_time    = get_post_meta( $event_id, 'em_start_time', true );
+							if( empty( $start_time ) ) {
+								$start_time = '12:00 AM';
+							}
+							$convert_start_date = date( 'Y-m-d', $start_date );
+							$new_start_date = $convert_start_date . ' ' . $start_time;
+							$merge_start_date_time = strtotime( $new_start_date );
+							if( ! empty( $merge_start_date_time ) ) {
+								update_post_meta( $event_id, 'em_start_date_time', $merge_start_date_time );
+							}
+							// end date
+							$end_date      = get_post_meta( $event_id, 'em_end_date', true );
+							$end_date = (int)$end_date;
+							$end_time      = get_post_meta( $event_id, 'em_end_time', true );
+							if( empty( $end_time ) ) {
+								$end_time = '11:59 PM';
+							}
+							$convert_end_date = date( 'Y-m-d', $end_date );
+							$new_end_date = $convert_end_date . ' ' . $end_time;
+							$merge_end_date_time = strtotime( $new_end_date );
+							if( ! empty( $merge_end_date_time ) ) {
+								update_post_meta( $event_id, 'em_end_date_time', $merge_end_date_time );
+							}
+						}
+					}
+				}
+				update_option( 'ep_update_event_date_time_meta', 2 );
 			}
 		}
 	}

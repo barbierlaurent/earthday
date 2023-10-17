@@ -39,6 +39,15 @@ function cdi_import_files() {
             'local_import_widget_file'     => CDI_PLUGIN_DIR_PATH . '/themes/business-event-pro/inc/widgets.wie',
             'preview_url'                  => 'https://bizbergthemes.com/business-event-pro/business-event-homepage-2/'
         ),
+        array(
+            'import_file_name'             => __('Business Event Homepage 4','cdi'),
+            'categories'                   =>  array( 'Homepage' ),
+            'local_import_file'            => CDI_PLUGIN_DIR_PATH . '/themes/business-event-pro/inc/content.xml',
+            'local_import_customizer_file' => CDI_PLUGIN_DIR_PATH . '/themes/business-event-pro/inc/options.dat',
+            'import_preview_image_url'     => CDI_PLUGIN_DIR_URL . '/assets/images/business-event/homepage-4.jpg',
+            'local_import_widget_file'     => CDI_PLUGIN_DIR_PATH . '/themes/business-event-pro/inc/widgets.wie',
+            'preview_url'                  => 'https://bizbergthemes.com/business-event-pro/homepage-4/'
+        ),
     );
 }
 
@@ -73,6 +82,10 @@ function cdi_after_import_setup( $selected_import ) {
 
         case 'Business Event Homepage 3':
             $front_page_id = get_page_by_path( 'business-event-homepage-2' );
+            break;
+
+        case 'Business Event Homepage 4':
+            $front_page_id = get_page_by_path( 'homepage-4' );
             break;
         
         default:

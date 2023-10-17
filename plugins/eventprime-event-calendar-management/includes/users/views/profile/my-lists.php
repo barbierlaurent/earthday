@@ -53,7 +53,7 @@
                         </div>
                         <div class="ep-text-end">
                             <div class="ep-btn-group">
-                                <a href="javascript:void(0);" class="ep-btn ep-text-danger ep-event-action ep_event_wishlist_action ep-px-2" id="ep_event_wishlist_action" data-event_id="<?php echo esc_attr( $event_data['event']->id );?>" data-remove_row="ep_profile_wishlist_event_<?php echo esc_attr( $event_data['event']->id );?>">
+                                <a href="javascript:void(0);" class="ep-btn ep-text-danger ep-event-action ep_event_wishlist_action ep-px-2" id="ep_event_wishlist_action_<?php echo esc_attr( $event_data['event']->id );?>" data-event_id="<?php echo esc_attr( $event_data['event']->id );?>" data-remove_row="ep_profile_wishlist_event_<?php echo esc_attr( $event_data['event']->id );?>" title="<?php echo esc_attr( ep_global_settings_button_title( 'Remove From Wishlist' ) );?>">
                                     <span class="material-icons-round ep-fs-5">remove_circle</span>
                                 </a>
                             </div>

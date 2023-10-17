@@ -8,11 +8,13 @@
  */
 ?>
 <div id="ep-frontend-event-submission-section" class="emagic">
-    <?php 
-    if(isset($args->event) && isset($args->event->em_user_submitted)){
-        if($args->event->em_user_submitted != get_current_user_id()){
-            ?>
-            <div class="ep-danger"><?php esc_html_e( 'Event does not exists.', 'eventprime-event-calendar-management' );?></div><?php
+    <?php
+    if( isset( $args->event ) && isset( $args->event->em_user ) ) {
+        if( $args->event->em_user != get_current_user_id() ) {?>
+            <div class="ep-alert ep-alert-warning ep-mt-3 ep-fs-6">
+                <?php esc_html_e( 'Event does not exists.', 'eventprime-event-calendar-management' );?>
+            </div><?php
+            exit();
         }
     }
     // check if login required
@@ -138,7 +140,12 @@
                     <div class="ep-form-row ep-mt-2 ep-register-btn-section">
                         <?php wp_nonce_field( 'ep-frontend-event', 'ep-frontend-event-nonce' ); ?>
                         <button type="submit" class="ep-btn ep-btn-dark ep-frontend-event-form-submit" name="ep_frontend_event" value="<?php esc_html_e( 'Submit', 'eventprime-event-calendar-management' );?>" >
-                            <?php esc_html_e( 'Submit Event', 'eventprime-event-calendar-management' );?>
+                            <?php 
+                            if( ! empty( $args->event ) ) {
+                                esc_html_e( 'Update Event', 'eventprime-event-calendar-management' );
+                            } else{
+                                esc_html_e( 'Submit Event', 'eventprime-event-calendar-management' );
+                            }?>
                         </button>
                         <input type="hidden" name="redirect" value="" />
                         <span class="spinner"></span>

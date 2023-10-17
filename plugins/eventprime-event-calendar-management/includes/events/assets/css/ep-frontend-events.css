@@ -87,6 +87,16 @@
     padding: 2px 4px;
 }
 
+
+/*--if dark mode on---*/
+
+.ep-dark-mode-enabled .select2-container--default .select2-selection--multiple{
+    background-color: rgba(86,86,86,0.33);
+    border:1px solid rgba(170,170,170,0.25);
+}
+
+/*-- If dark mode on ends*/
+
 #ep-event-filterbar .select2-container {
     width: 100% !important;
 }
@@ -108,14 +118,12 @@
 #ep_event_search_form .ep-input-group #ep_event_keyword_search{
     margin-bottom: 0px;
     width: 1%;
-    background-color: #fff;
 }
 
 #ep-search-filters .ep-input-group #filter-date-from,
 #ep-search-filters .ep-input-group #filter-date-to{
     margin-bottom: 0px;
     width: 1%;
-    background-color: #fff;
 }
 
 .ep-box-search-form-wrap .ep-btn-group button span {
@@ -174,6 +182,11 @@
     vertical-align: middle;
     line-height: normal;
 }
+
+.ep-dark-mode-enabled #ep_event_calendar.fc .fc-toolbar.fc-header-toolbar .fc-button-primary {
+    background-color: rgb(67 67 67);
+}
+
 
 #ep_event_calendar.fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk:nth-child(3) .fc-button-primary {
     line-height: 1.5; 
@@ -244,13 +257,16 @@
     text-align: center;
     border-right: none !important;
     border-left: none !important;
-    border-bottom: 1px solid #e3e4e5;
+
     border-top: none;
     position: relative;
     z-index: 0;
 }
 
-#ep_event_calendar table.fc-scrollgrid tr th{
+.ep-dark-mode-enabled #ep_event_calendar table.fc-scrollgrid tr th{    
+    --ep-border-width: 1px;
+    --ep-border-style: solid;
+    border-bottom: var(--ep-border-width) var(--ep-border-style) rgba(var(--ep-border-color-rgb), 1);
 }
 
 #ep_event_calendar table.fc-scrollgrid tr th.fc-col-header-cell {
@@ -265,9 +281,11 @@
     box-shadow: none;
 }
 
-#ep_event_calendar table.fc-scrollgrid tr th a{
-
+/*If Dark Mode---*/
+.ep-dark-mode-enabled #ep_event_calendar table.fc-scrollgrid tr th a{
+   color: #fff;
 }
+/*If Dark Mode end---*/
 
 /*--- Calendar Head End -----*/
 
@@ -370,6 +388,12 @@
     box-shadow: none;
 }
 
+/*-- If Dark Mode---*/
+
+.ep-dark-mode-enabled #ep_event_calendar.fc .fc-daygrid-day-number{
+    color: #fff;
+}
+
 .fc .fc-daygrid-body-natural .fc-daygrid-day-events {
     margin-bottom: 1em;
 }
@@ -445,6 +469,30 @@
     box-shadow: 0 4px 13px rgb(0 0 0 / 7%);
     z-index: 9997
 }
+
+/*-- If Dark Mode on---*/
+
+
+.ep-dark-mode-enabled .ep_event_detail_popup{
+    background: rgb(51 51 51);
+    border: 1px solid rgb(76 76 76);
+}
+
+.ep-dark-mode-enabled .ep_event_detail_popup:after {
+    bottom: -16px;
+    border-color: #383838 transparent transparent transparent;
+}
+
+.ep-dark-mode-enabled .ep_event_detail_popup:before {
+    bottom: -17px;
+    border-color: #383838 transparent transparent transparent;
+}
+
+.ep-dark-mode-enabled .ep_event_popup_title {
+    color: #fff;
+}
+
+/*-- If Dark Mode on end---*/
 
 .ep_event_popup_image img {
     width: 100%;
@@ -555,9 +603,25 @@
 
 /*--Card view --*/
 
+.emagic .ep-events .ep-box-card-item{
+    transition: 0.5s;
+}
+
+.emagic .ep-events .ep-box-card-item:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.ep-events .ep-box-card-item .ep-box-card-thumb img.ep-event-cover{
+    transform: scale(1, 1);
+}
+
+.ep-events .ep-box-card-item:hover .ep-box-card-thumb img.ep-event-cover{
+    transform: scale(1.1, 1.1);
+}
+
 
 .ep-events .ep-box-card-item .ep-box-card-thumb {
-    max-height: 140px;
+    max-height: var(--ep-imageCardHeight);
     height: 100%;
 }
 
@@ -566,7 +630,6 @@
     object-fit: cover;
     height: 100%;
 }
-
 
 .ep-box-card-venue.ep-card-venue {
     min-height: 20px;
@@ -577,10 +640,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 56px;
-}
-
-.ep-box-card-desc {
 }
 
 .ep-box-card-title a {
@@ -701,7 +760,7 @@
     height: 100%;
     max-width: 100%;
     object-fit: cover;
-    min-height: 200px;
+    min-height: 260px;
     max-height: 260px;
 }
 
@@ -713,7 +772,7 @@
 }
 
 .ep-event-share {
-    padding: 8px 0 2px;
+    padding: 8px 0 2px !important;
     margin: 0 !important;
     margin-top: 6px;
     border-radius: 5px;
@@ -772,7 +831,33 @@ ul.ep-event-share:after {
     text-align: center;
     margin: 2px 0px;
 }
-
+/* staggered view sharing ICON start */
+#ep_events_front_views_staggered_grid .ep-event-share{
+    left: -66px;
+    padding: 2px 0.25rem !important;
+    bottom: 34px !important;
+}
+#ep_events_front_views_staggered_grid .ep-event-social-icon{
+    display: inline-block;
+    margin: 0px 2px;
+}
+#ep_events_front_views_staggered_grid ul.ep-event-share:before{
+    left: 88%;
+    border-width: 8px;
+    bottom: -16px;
+}
+#ep_events_front_views_staggered_grid ul.ep-event-share:after{
+    left: 88%;
+    border-width: 8px;
+    bottom: -14px;
+}
+/* staggered view sharing ICON end */
+#ep_events_front_views_square_grid .ep-event-share{
+    padding: 8px 0px !important;
+}
+ul.ep-event-share li.ep-event-social-icon:first-child svg {
+    width: 9px !important;
+  }
 .ep-event-social-icon .ep-social-title svg {
     width: 12px;
     height: auto;
@@ -795,13 +880,24 @@ ul.ep-event-share:after {
 .ep-box-card-icon-group .ep-event-action ul.ep-event-share {
      left: -8px;
 }
-
+#ep_events_front_views_rows .ep-event-share{
+    left: 0px;
+    bottom: 45px;
+}
+#ep_events_front_views_rows .ep-event-list-price{
+    justify-content: end;
+    -webkit-justify-content: flex-end;
+}
 .ep-slider-icon-group {
     right: 20px;
 }
 
+#ep_events_front_views_rows .ep-list-view-pricing-area{
+    height: auto;
+}
 #ep_events_front_views_rows .ep-event-booking-status{
-    margin-top: 1.5rem!important;
+    margin-top: auto !important;
+    margin-bottom: 0.55rem !important;
 }
 
 /*---For Mobile view---*/
@@ -957,7 +1053,7 @@ ul.ep-event-share:after {
     transition: 0.4s;
     transform: translateY(-10px);
     visibility: hidden;
-    z-index: 999999;
+    z-index: 9999;
 }
 
 .ep-search-filter-overlay {
@@ -966,7 +1062,7 @@ ul.ep-event-share:after {
     height: 100%;
     top: 0px;
     left: 0px;
-    z-index: 1;
+    z-index: 2;
 }
 
 
@@ -1090,6 +1186,7 @@ ul.ep-event-share:after {
     background-color: transparent;
     border: 0px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 #ui-datepicker-div.ui-datepicker.ui-widget.ep-ui-cal-wrap .ui-datepicker-next .ui-icon,
@@ -1259,8 +1356,13 @@ ul.ep-event-share:after {
         overflow: visible !important;
         text-overflow: unset;
     }
-
-
 }
-
-
+#ep_events_front_views_square_grid img{
+    object-fit: var(--ep-imageCardObjectFit);
+    height: var(--ep-imageCardHeight) !important;
+}
+@media (max-width:1068px){
+    .ep-list-view-pricing-area{
+        text-align: left !important;
+    }
+}

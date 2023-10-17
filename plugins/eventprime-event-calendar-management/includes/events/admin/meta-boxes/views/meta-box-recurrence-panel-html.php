@@ -33,7 +33,8 @@ if( empty( $post->post_parent ) ) {
     $em_event_slug_type_options    = get_post_meta( $post->ID, 'em_event_slug_type_options', true );
     $em_recurring_events_slug_format = get_post_meta( $post->ID, 'em_recurring_events_slug_format', true );
     $child_events = EventM_Factory_Service::ep_get_child_events( $post->ID );
-    $count_child_events = ( ! empty( $child_events ) ? count( $child_events ) : 0 );?>
+    $count_child_events = ( ! empty( $child_events ) ? count( $child_events ) : 0 );
+    $ep_get_current_week_no = ep_get_current_week_no();?>
 
     <div id="ep_event_recurrence_data" class="panel ep_event_options_panel">
         <input type="hidden" name="ep_event_count_child_events" id="ep_event_count_child_events" value="<?php echo absint( $count_child_events );?>" />
@@ -97,12 +98,11 @@ if( empty( $post->post_parent ) ) {
                                 <div class="ep-box-col-12 ep-mt-3 ep-meta-box-data">
                                     <label for="em_recurrence_monthly_custom_day">
                                         <input type="radio" name="em_recurrence_monthly_day" id="em_recurrence_monthly_custom_day" value="<?php echo esc_attr( 'day' ); ?>" <?php if( $em_recurrence_monthly_day == 'day' ) { echo 'checked="checked"'; } ?>>
-                                        <select name="em_recurrence_monthly_weekno">
-                                            <?php
-                                            $current_week_no = ( ! empty( $em_recurrence_monthly_weekno ) ? $em_recurrence_monthly_weekno : ep_get_current_week_no() );
+                                        <select name="em_recurrence_monthly_weekno"><?php
+                                            $current_week_no = ( ! empty( $em_recurrence_monthly_weekno ) ? $em_recurrence_monthly_weekno : $ep_get_current_week_no );
                                             foreach ( ep_get_week_number() as $dnum => $dname ) {?>
                                                 <option value="<?php echo esc_attr( $dnum ); ?>" 
-                                                    <?php if ($current_week_no == $dnum) { echo 'selected="selected"';} ?> >
+                                                    <?php if ( $current_week_no == $dnum ) { echo 'selected="selected"';} ?> >
                                                     <?php echo esc_html( $dname ); ?>
                                                 </option><?php 
                                             }?>
@@ -110,12 +110,11 @@ if( empty( $post->post_parent ) ) {
                                     </label>
 
                                     <label for="em_recurrence_monthly_custom_weekname">
-                                        <select name="em_recurrence_monthly_fullweekday" id="em_recurrence_monthly_weekname">
-                                            <?php
-                                            $current_day = ( ! is_null( $em_recurrence_monthly_fullweekday ) ? $em_recurrence_monthly_fullweekday : date('w') );
-                                            foreach (ep_get_week_day_full() as $wnum => $wname) {?>
-                                                <option value="<?php echo esc_attr($wnum); ?>" 
-                                                    <?php if ($current_day == $wnum) { echo 'selected="selected"'; } ?> >
+                                        <select name="em_recurrence_monthly_fullweekday" id="em_recurrence_monthly_weekname"><?php
+                                            $current_day = ( ( is_null( $em_recurrence_monthly_fullweekday ) || $em_recurrence_monthly_fullweekday == '' ) ? date('w') : $em_recurrence_monthly_fullweekday );
+                                            foreach ( ep_get_week_day_full() as $wnum => $wname ) {?>
+                                                <option value="<?php echo esc_attr( $wnum ); ?>" 
+                                                    <?php if ( $current_day == $wnum ) { echo 'selected="selected"'; } ?> >
                                                     <?php echo esc_html( $wname ); ?>
                                                 </option><?php 
                                             }?>
@@ -146,7 +145,7 @@ if( empty( $post->post_parent ) ) {
                                 <input type="radio" name="em_recurrence_yearly_day" id="em_recurrence_yearly_custom_day" value="<?php echo esc_attr( 'day' ); ?>" <?php if( $em_recurrence_yearly_day == 'day' ) { echo 'checked="checked"'; } ?>>
                                 <select name="em_recurrence_yearly_weekno">
                                     <?php 
-                                    $current_week_no = ( ! is_null( $em_recurrence_yearly_weekno ) ? $em_recurrence_yearly_weekno : ep_get_current_week_no() );
+                                    $current_week_no = ( ( is_null( $em_recurrence_yearly_weekno ) || $em_recurrence_yearly_weekno == '' ) ? $ep_get_current_week_no : $em_recurrence_yearly_weekno );
                                     foreach( ep_get_week_number() as $dnum => $dname ) {?>
                                         <option value="<?php echo esc_attr( $dnum );?>" <?php if( $current_week_no == $dnum ) { echo 'selected="selected"'; }?>>
                                             <?php echo esc_html( $dname );?>
@@ -158,12 +157,11 @@ if( empty( $post->post_parent ) ) {
                             <label for="em_recurrence_monthly_custom_weekname">
                                 <select name="em_recurrence_yearly_fullweekday" id="em_recurrence_yearly_weekname">
                                     <?php 
-                                    $current_day = ( ! is_null( $em_recurrence_yearly_fullweekday ) ? $em_recurrence_yearly_fullweekday : date( 'w' ) );
+                                    $current_day = ( ( is_null( $em_recurrence_yearly_fullweekday ) || $em_recurrence_yearly_fullweekday == '' ) ? date( 'w' ) : $em_recurrence_yearly_fullweekday );
                                     foreach( ep_get_week_day_full() as $wnum => $wname ) {?>
                                         <option value="<?php echo esc_attr( $wnum );?>" <?php if( $current_day == $wnum ) {echo 'selected="selected"';}?>>
                                             <?php echo esc_html( $wname );?>
-                                        </option>
-                                        <?php
+                                        </option><?php
                                     }?>
                                 </select>
                             </label>

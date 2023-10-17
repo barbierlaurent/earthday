@@ -47,10 +47,18 @@ class EventM_Event_Admin_Meta_Boxes {
         );
 		$performer_data = array();
 		$performers = EventM_Factory_Service::ep_get_instance( 'EventM_Performer_Controller_List' );
-		if( !empty( $performers ) ) {
+		if( ! empty( $performers ) ) {
 			$fields = ['id', 'name'];
 			$performer_data = $performers->get_performer_field_data( $fields );
 		}
+		// check if attendee list extension enabled
+		$enabled_attendees_list = 0;
+		$extensions = EP()->extensions;
+		if( ! empty( $extensions ) && in_array( 'attendees_list', $extensions ) ) {
+			$enabled_attendees_list = 1;
+		}
+
+	
 		wp_localize_script(
             'em-meta-box-admin-custom-js', 
             'em_event_meta_box_object', 
@@ -93,7 +101,7 @@ class EventM_Event_Admin_Meta_Boxes {
 				'one_checkout_field_req'  => esc_html__( 'Please select atleast one attendee field.', 'eventprime-event-calendar-management' ),
 				'no_name_field_option'    => esc_html__( 'Please select name field option.', 'eventprime-event-calendar-management' ),
 				'some_issue_found'    	  => esc_html__( 'Some issue found. Please refresh the page and try again later.', 'eventprime-event-calendar-management' ),
-				'fixed_field_not_selected'=> esc_html__( 'Please selecte fixed field.', 'eventprime-event-calendar-management' ),
+				'fixed_field_not_selected'=> esc_html__( 'Please selecte booking field.', 'eventprime-event-calendar-management' ),
 				'fixed_field_term_option_required'=> esc_html__( 'Please select one terms option.', 'eventprime-event-calendar-management' ),
 				'repeat_child_event_prompt'=> esc_html__( 'The event have multiple recurrences. They will be deleted after update event.', 'eventprime-event-calendar-management' ),
 				'empty_event_title'		  => esc_html__( 'Event title is required.', 'eventprime-event-calendar-management' ),
@@ -105,6 +113,9 @@ class EventM_Event_Admin_Meta_Boxes {
 				'offer_per_more_then_100' => esc_html__( 'Discount value can\'t be more then 100.', 'eventprime-event-calendar-management' ),
 				'all_site_data'		      => ep_get_all_pages_list(),
 				'end_time_less_start_time'=> esc_html__( 'Event end time can not be less then event start time.', 'eventprime-event-calendar-management' ),
+				'show_in_attendees_list_text'=> esc_html__( 'Add to Attendees List', 'eventprime-event-calendar-management' ),
+				'enabled_attendees_list'  => $enabled_attendees_list,
+				'one_booking_field_req'   => esc_html__( 'Please select atleast one booking field.', 'eventprime-event-calendar-management' ),
             )
         );
     }
@@ -131,10 +142,16 @@ class EventM_Event_Admin_Meta_Boxes {
 			array( $this, 'ep_add_event_setting_box' ),
 			'em_event', 'normal', 'high'
 		);
-
+		add_meta_box( 
+			'ep_event-stats', 
+			__( 'Summary', 'eventprime-event-calendar-management' ), 
+			array( $this, 'ep_add_event_stats_box' ),
+			'em_event', 'side', 'high'
+		);
+		$plural_performer_text = ep_global_settings_button_title( 'Performers' );
 		add_meta_box( 
 			'ep_event-performers', 
-			__( 'Performers', 'eventprime-event-calendar-management' ), 
+			$plural_performer_text,
 			array( $this, 'ep_add_event_performer_box' ),
 			'em_event', 'side', 'low' 
 		);
@@ -197,6 +214,12 @@ class EventM_Event_Admin_Meta_Boxes {
 					'class'      => array( 'ep_event_date_time' ),
 					'priority'   => 10,
 				),
+				'booking'       => array(
+					'label'      => esc_html__( 'Bookings', 'eventprime-event-calendar-management' ),
+					'target'     => 'ep_event_booking_data',
+					'class'      => array( 'ep_event_bookings' ),
+					'priority'   => 20,
+				),
 				'ticket'       => array(
 					'label'      => esc_html__( 'Tickets', 'eventprime-event-calendar-management' ),
 					'target'     => 'ep_event_ticket_data',
@@ -221,13 +244,18 @@ class EventM_Event_Admin_Meta_Boxes {
 					'class'    => array( 'ep_event_social_info' ),
 					'priority' => 80,
 				),
+				'results' => array(
+					'label'      => esc_html__( 'Results', 'eventprime-event-calendar-management' ),
+					'target'   	 => 'ep_event_results_data',
+					'class'    	 => array( 'ep_event_results' ),
+					'priority' 	 => 90,
+				),
 				'othersettings' => array(
 					'label'      => esc_html__( 'Other Settings', 'eventprime-event-calendar-management' ),
 					'target'   	 => 'ep_event_other_settings_data',
 					'class'    	 => array( 'ep_event_other_settings' ),
-					'priority' 	 => 90,
-				)
-
+					'priority' 	 => 200,
+				),
 			)
 		);
 
@@ -263,6 +291,9 @@ class EventM_Event_Admin_Meta_Boxes {
 	 */
 	private static function ep_event_tab_content() {
 		global $post, $thepostid;
+		$event_controller = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
+		$single_event_data = $event_controller->get_single_event( $post->ID, $post );
+		
 		include __DIR__ .'/views/meta-box-date-panel-html.php';
 		include __DIR__ .'/views/meta-box-recurrence-panel-html.php';
 		include __DIR__ .'/views/meta-box-schedule-panel-html.php';
@@ -271,6 +302,8 @@ class EventM_Event_Admin_Meta_Boxes {
 		include __DIR__ .'/views/meta-box-tickets-panel-html.php';
 		include __DIR__ .'/views/meta-box-other-settings-panel-html.php';
 		include __DIR__ .'/views/meta-box-social-panel-html.php';
+		include __DIR__ .'/views/meta-box-results-panel-html.php';
+		include __DIR__ .'/views/meta-box-bookings-panel-html.php';
 		do_action( 'ep_event_tab_content' );
 	}
 
@@ -544,11 +577,12 @@ class EventM_Event_Admin_Meta_Boxes {
 		update_post_meta( $post_id, 'em_id', $post->ID );
 		update_post_meta( $post_id, 'em_name', $post->post_title );
 		// tax_input
-		if( isset( $_POST['tax_input'] ) && !empty( $_POST['tax_input'] ) ) {
+		$event_type_val = $venue_val = $organizer_val = '';$performer_val = array();
+		if( isset( $_POST['tax_input'] ) && ! empty( $_POST['tax_input'] ) ) {
 			$tax_input = $_POST['tax_input'];
 			// event type
 			if( isset( $tax_input['em_event_type'] ) && count( $tax_input['em_event_type'] ) > 0 ) {
-				update_post_meta( $post_id, 'em_event_type', $tax_input['em_event_type'][0] );
+				$event_type_val = $tax_input['em_event_type'][0];
 			}
 			// venue
 			if( isset( $tax_input['em_venue'] ) && count( $tax_input['em_venue'] ) > 0 ) {
@@ -562,17 +596,22 @@ class EventM_Event_Admin_Meta_Boxes {
                         update_post_meta( $post_id, 'em_seat_data', array() );        
                     }
 				}
-				update_post_meta( $post_id, 'em_venue', $tax_input['em_venue'][0] );
+				$venue_val = $tax_input['em_venue'][0];
 			}
 			// Organizer
 			if( isset( $tax_input['em_event_organizer'] ) && count( $tax_input['em_event_organizer'] ) > 0 ) {
-				update_post_meta( $post_id, 'em_organizer', $tax_input['em_event_organizer'] );
+				$organizer_val = $tax_input['em_event_organizer'];
 			}
 			// Performer
 			if( isset( $tax_input['em_performer'] ) && count( $tax_input['em_performer'] ) > 0 ) {
-				update_post_meta( $post_id, 'em_performer', $tax_input['em_performer'] );
+				$performer_val = $tax_input['em_performer'];
 			}
 		}
+		update_post_meta( $post_id, 'em_event_type', $event_type_val );
+		update_post_meta( $post_id, 'em_venue', $venue_val );
+		update_post_meta( $post_id, 'em_organizer', $organizer_val );
+		update_post_meta( $post_id, 'em_performer', $performer_val );
+
 		// event gallery
 		$em_gallery_image_ids = isset( $_POST['em_gallery_image_ids'] ) ? $_POST['em_gallery_image_ids'] : '';
 		update_post_meta( $post_id, 'em_gallery_image_ids', $em_gallery_image_ids );
@@ -634,6 +673,21 @@ class EventM_Event_Admin_Meta_Boxes {
 					}
 				}
 			}
+		}
+
+		// update start and end datetime meta
+		$ep_date_time_format = 'Y-m-d';
+		$start_date = get_post_meta( $post_id, 'em_start_date', true );
+		$start_time = get_post_meta( $post_id, 'em_start_time', true );
+		$merge_start_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $start_date, 'Y-m-d', 1 ) . ' ' . $start_time, $ep_date_time_format, '', 0, 1 );
+		if( ! empty( $merge_start_date_time ) ) {
+			update_post_meta( $post_id, 'em_start_date_time', $merge_start_date_time );
+		}
+		$end_date = get_post_meta( $post_id, 'em_end_date', true );
+		$end_time = get_post_meta( $post_id, 'em_end_time', true );
+		$merge_end_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $end_date, 'Y-m-d', 1 ) . ' ' . $end_time, $ep_date_time_format, '', 0, 1 );
+		if( ! empty( $merge_end_date_time ) ) {
+			update_post_meta( $post_id, 'em_end_date_time', $merge_end_date_time );
 		}
 
 		//event date placeholder
@@ -1057,6 +1111,23 @@ class EventM_Event_Admin_Meta_Boxes {
 			}
 		}
 		update_post_meta( $post_id, 'em_event_checkout_fixed_fields', $event_checkout_fixed_fields );
+		
+		$em_event_checkout_booking_fields = array();
+		// check for booking fields
+		if( isset( $_POST['em_event_booking_fields_data'] ) && count( $_POST['em_event_booking_fields_data'] ) > 0 ) {
+			$em_event_checkout_booking_fields['em_event_booking_fields_data'] = array();
+			foreach( $_POST['em_event_booking_fields_data'] as $cfd ) {
+				$em_event_checkout_booking_fields['em_event_booking_fields_data'][] = absint( $cfd );
+			}
+			// get required field data
+			if( isset( $_POST['em_event_booking_fields_data_required'] ) && count( $_POST['em_event_booking_fields_data_required'] ) > 0 ) {
+				$em_event_checkout_booking_fields['em_event_booking_fields_data_required'] = array();
+				foreach( $_POST['em_event_booking_fields_data_required'] as $cfdr ) {
+					$em_event_checkout_booking_fields['em_event_booking_fields_data_required'][] = absint( $cfdr );
+				}
+			}
+		}
+		update_post_meta( $post_id, 'em_event_checkout_booking_fields', $em_event_checkout_booking_fields );
 
 		// handle recurring events request
 		if( isset( $_POST['em_enable_recurrence'] ) && $_POST['em_enable_recurrence'] == 1 ) {
@@ -1257,7 +1328,7 @@ class EventM_Event_Admin_Meta_Boxes {
 		update_post_meta( $post_id, 'em_social_links', $em_social_links );
 
 		// check for update recurrences
-		if( $_POST['em_enable_recurrence'] == 1 ) {
+		if( ! empty( $_POST['em_enable_recurrence'] ) && $_POST['em_enable_recurrence'] == 1 ) {
 			if( ! empty( $_POST['ep_event_child_events_update_confirm'] ) ) {
 				$ep_event_child_events_update_confirm = $_POST['ep_event_child_events_update_confirm'];
 				if( $ep_event_child_events_update_confirm == 'update_children' ) {
@@ -1266,6 +1337,47 @@ class EventM_Event_Admin_Meta_Boxes {
 				}
 			}
 		}
+
+		// add result settings meta box
+		$ep_select_result_page = isset( $_POST['ep_select_result_page'] ) ? sanitize_text_field( $_POST['ep_select_result_page'] ) : '';
+		update_post_meta( $post_id, 'ep_select_result_page', $ep_select_result_page );
+
+		$ep_result_start_from_type = isset( $_POST['ep_result_start_from_type'] ) ? sanitize_text_field( $_POST['ep_result_start_from_type'] ) : '';
+		update_post_meta( $post_id, 'ep_result_start_from_type', $ep_result_start_from_type );
+
+		//result start date
+		$ep_result_start_date = isset( $_POST['ep_result_start_date'] ) ? ep_date_to_timestamp( sanitize_text_field( $_POST['ep_result_start_date'] ) ) : '';
+		update_post_meta( $post_id, 'ep_result_start_date', $ep_result_start_date );
+
+		//result start time
+		$ep_result_start_time = isset( $_POST['ep_result_start_time'] ) ? sanitize_text_field( $_POST['ep_result_start_time'] ) : '';
+		update_post_meta( $post_id, 'ep_result_start_time', $ep_result_start_time );
+
+		$ep_result_start_days = isset( $_POST['ep_result_start_days'] ) ? sanitize_text_field( $_POST['ep_result_start_days'] ) : '';
+		update_post_meta( $post_id, 'ep_result_start_days', $ep_result_start_days );
+
+		$ep_result_start_days_option = isset( $_POST['ep_result_start_days_option'] ) ? sanitize_text_field( $_POST['ep_result_start_days_option'] ) : '';
+		update_post_meta( $post_id, 'ep_result_start_days_option', $ep_result_start_days_option );
+
+		$ep_result_start_event_option = isset( $_POST['ep_result_start_event_option'] ) ? sanitize_text_field( $_POST['ep_result_start_event_option'] ) : '';
+		update_post_meta( $post_id, 'ep_result_start_event_option', $ep_result_start_event_option );
+
+		// edit booking
+		$em_allow_edit_booking = $em_edit_booking_date_data = '';
+		if( ! empty( $_POST['em_allow_edit_booking'] ) ) {
+			$em_allow_edit_booking = 1;
+			$em_edit_booking_date_data = array(
+				'em_edit_booking_date_type'         => sanitize_text_field( $_POST['em_edit_booking_date_type'] ),
+				'em_edit_booking_date_date'         => ( ! empty( $_POST['em_edit_booking_date_date'] ) ? ep_date_to_timestamp( sanitize_text_field( $_POST['em_edit_booking_date_date'] ) ) : '' ),
+				'em_edit_booking_date_time'         => sanitize_text_field( $_POST['em_edit_booking_date_time'] ),
+				'em_edit_booking_date_days'         => sanitize_text_field( $_POST['em_edit_booking_date_days'] ),
+				'em_edit_booking_date_days_option'  => sanitize_text_field( $_POST['em_edit_booking_date_days_option'] ),
+				'em_edit_booking_date_event_option' => sanitize_text_field( $_POST['em_edit_booking_date_event_option'] ),
+			);
+		}
+		update_post_meta( $post_id, 'em_allow_edit_booking', $em_allow_edit_booking );
+		update_post_meta( $post_id, 'em_edit_booking_date_data', $em_edit_booking_date_data );
+
 
 		do_action( 'ep_after_save_event_data', $post_id, $post );
 	}
@@ -1460,7 +1572,14 @@ class EventM_Event_Admin_Meta_Boxes {
 		$ticket_data['ticket_template_id'] = ( isset( $ticket['ticket_template_id'] ) && !empty( $ticket['ticket_template_id'] ) ) ? $ticket['ticket_template_id'] : '';
 		return $ticket_data;
 	}
-
+        
+	/*
+	 * Add Event Stats
+	 */
+	public function ep_add_event_stats_box(){
+		global $post;
+		echo do_action( 'ep_event_stats_list', $post );
+	}
 	/**
 	 * Add Performers meta box
 	 */
@@ -1770,6 +1889,8 @@ class EventM_Event_Admin_Meta_Boxes {
 				wp_delete_object_term_relationships( $child_post->ID, array( EM_EVENT_VENUE_TAX, EM_EVENT_TYPE_TAX, EM_EVENT_ORGANIZER_TAX ) );
 				// delete event
                 wp_delete_post( $child_post->ID, true );
+				// delete child event ext data
+				do_action( 'ep_delete_event_data', $child_post->ID );
             }
         }
 	}
@@ -2365,7 +2486,7 @@ class EventM_Event_Admin_Meta_Boxes {
 			$new_post_id = wp_insert_post( $new_post ); // new post id
 			$old_post_metas = get_post_custom( $post->ID );
 			// add all metas
-			if( !empty( $old_post_metas ) ) {
+			if( ! empty( $old_post_metas ) ) {
 				foreach( $old_post_metas as $meta_key => $meta_value ) {
 					if( $meta_key == 'em_start_date' ) {
 						update_post_meta( $new_post_id, $meta_key, $start_date );	
@@ -2388,6 +2509,20 @@ class EventM_Event_Admin_Meta_Boxes {
 					} else{
 						update_post_meta( $new_post_id, $meta_key, maybe_unserialize( $meta_value[0] ) );
 					}
+				}
+				// update start and end datetime meta
+				$ep_date_time_format = 'Y-m-d';
+				$start_date = get_post_meta( $new_post_id, 'em_start_date', true );
+				$start_time = get_post_meta( $new_post_id, 'em_start_time', true );
+				$merge_start_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $start_date, 'Y-m-d', 1 ) . ' ' . $start_time, $ep_date_time_format, '', 0, 1 );
+				if( ! empty( $merge_start_date_time ) ) {
+					update_post_meta( $new_post_id, 'em_start_date_time', $merge_start_date_time );
+				}
+				$end_date = get_post_meta( $new_post_id, 'em_end_date', true );
+				$end_time = get_post_meta( $new_post_id, 'em_end_time', true );
+				$merge_end_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $end_date, 'Y-m-d', 1 ) . ' ' . $end_time, $ep_date_time_format, '', 0, 1 );
+				if( ! empty( $merge_end_date_time ) ) {
+					update_post_meta( $new_post_id, 'em_end_date_time', $merge_end_date_time );
 				}
 			}
 
@@ -2586,14 +2721,18 @@ class EventM_Event_Admin_Meta_Boxes {
         unset( $columns['date'] );
         unset( $columns['tags'] );
 
-        $columns['title'] 	   = esc_html__( 'Title', 'eventprime-event-calendar-management' );
-        $columns['event_type'] = esc_html__( 'Event-Type', 'eventprime-event-calendar-management' );
-        $columns['venue'] 	   = esc_html__( 'Venue', 'eventprime-event-calendar-management' );
-        $columns['organizer']  = esc_html__( 'Organizer', 'eventprime-event-calendar-management' );
-        $columns['performer']  = esc_html__( 'Performer', 'eventprime-event-calendar-management' );
-        $columns['start_date'] = esc_html__( 'Start Date', 'eventprime-event-calendar-management' );
-        $columns['end_date']   = esc_html__( 'End Date', 'eventprime-event-calendar-management' );
-        $columns['repeat'] 	   = esc_html__( 'Repeat', 'eventprime-event-calendar-management' );
+        $columns['title'] 	     = esc_html__( 'Title', 'eventprime-event-calendar-management' );
+		$singular_type_text      = ep_global_settings_button_title( 'Event-Type' );
+        $columns['event_type']   = $singular_type_text;
+		$singular_venue_text     = ep_global_settings_button_title( 'Venue' );
+        $columns['venue'] 	     = $singular_venue_text;
+		$singular_organizer_text = ep_global_settings_button_title( 'Organizer' );
+        $columns['organizer']    = $singular_organizer_text;
+		$singular_performer_text = ep_global_settings_button_title( 'Performer' );
+        $columns['performer']    = $singular_performer_text;
+        $columns['start_date']   = esc_html__( 'Start Date', 'eventprime-event-calendar-management' );
+        $columns['end_date']     = esc_html__( 'End Date', 'eventprime-event-calendar-management' );
+        $columns['repeat'] 	     = esc_html__( 'Repeat', 'eventprime-event-calendar-management' );
         return $columns;
 	}
 
@@ -2889,6 +3028,7 @@ class EventM_Event_Admin_Meta_Boxes {
 				//$categories = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $cat_table_name WHERE `event_id` = %d ORDER BY `id` ASC", $post_id ) );
 				$events = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Controller_List' );
 				$parent_categories = $events->get_event_ticket_category( $post_id );
+				$individual_tickets = self::get_existing_individual_ticket_lists( $parent_post_data->ID, false );
 				foreach ( $child_events as $child_post ) {
 					// update all metas
 					$child_start_date = get_post_meta( $child_post->ID, 'em_start_date', true );
@@ -2925,7 +3065,7 @@ class EventM_Event_Admin_Meta_Boxes {
 
 					if( ! empty( $parent_post_metas ) ) {
 						foreach( $parent_post_metas as $meta_key => $meta_value ) {
-							if( $meta_key == 'em_start_date' || $meta_key == 'em_end_date' || $meta_key == 'em_id' || $meta_key == 'em_ls_seat_plan' || $meta_key == 'em_seat_data' ) {
+							if( $meta_key == 'em_start_date' || $meta_key == 'em_end_date' || $meta_key == 'em_id' || $meta_key == 'em_ls_seat_plan' || $meta_key == 'em_seat_data' || $meta_key == 'meeting_data' ) {
 								continue;
 							} elseif( $meta_key == 'em_name' ) {
 								update_post_meta( $child_post->ID, $meta_key, $child_event_name );
@@ -2942,6 +3082,20 @@ class EventM_Event_Admin_Meta_Boxes {
 							} else{
 								update_post_meta( $child_post->ID, $meta_key, maybe_unserialize( $meta_value[0] ) );
 							}
+						}
+						// update start and end datetime meta
+						$ep_date_time_format = 'Y-m-d';
+						$start_date = get_post_meta( $child_post->ID, 'em_start_date', true );
+						$start_time = get_post_meta( $child_post->ID, 'em_start_time', true );
+						$merge_start_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $start_date, 'Y-m-d', 1 ) . ' ' . $start_time, $ep_date_time_format, '', 0, 1 );
+						if( ! empty( $merge_start_date_time ) ) {
+							update_post_meta( $child_post->ID, 'em_start_date_time', $merge_start_date_time );
+						}
+						$end_date = get_post_meta( $child_post->ID, 'em_end_date', true );
+						$end_time = get_post_meta( $child_post->ID, 'em_end_time', true );
+						$merge_end_date_time = ep_datetime_to_timestamp( ep_timestamp_to_date( $end_date, 'Y-m-d', 1 ) . ' ' . $end_time, $ep_date_time_format, '', 0, 1 );
+						if( ! empty( $merge_end_date_time ) ) {
+							update_post_meta( $child_post->ID, 'em_end_date_time', $merge_end_date_time );
 						}
 					}
 					// category and ticket update
@@ -3064,8 +3218,7 @@ class EventM_Event_Admin_Meta_Boxes {
 					}
 
 					// check for individual ticket
-					$individual_tickets = self::get_existing_individual_ticket_lists( $parent_post_data->ID, false );
-					if( !empty( $individual_tickets ) ) {
+					if( ! empty( $individual_tickets ) ) {
 						foreach( $individual_tickets as $ticket ) {
 							$parent_price_option_id = $ticket->id;
 							$get_indi_ticket_data = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $price_options_table WHERE `event_id` = %d AND `parent_price_option_id` = %d", $child_post->ID, $parent_price_option_id ) );
@@ -3094,10 +3247,8 @@ class EventM_Event_Admin_Meta_Boxes {
 									'multiple_offers_option' 	   => $ticket->multiple_offers_option,
 									'multiple_offers_max_discount' => $ticket->multiple_offers_max_discount,
 									'ticket_template_id' 	  	   => $ticket->ticket_template_id,
-									'last_updated_by' 			   => get_current_user_id(),
 									'updated_at' 	  			   => date_i18n("Y-m-d H:i:s", time())
 								);
-
 								$wpdb->update( $price_options_table, 
 									$updated_ticket_data, 
 									array( 'id' => $get_indi_ticket_data->id )
@@ -3113,8 +3264,8 @@ class EventM_Event_Admin_Meta_Boxes {
 							}
 						}
 					}
-
 					$counter++;
+					do_action( 'ep_after_edit_event_child_data', $child_post->ID, $child_post );
 				}
 			}
 		}

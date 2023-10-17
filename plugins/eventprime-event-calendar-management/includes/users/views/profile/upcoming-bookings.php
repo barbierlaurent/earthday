@@ -8,7 +8,11 @@
             </div>
         </div>
         <div class="ep-box-row ep-box-row-cols-3 ep-text-small ep-g-3">
-            <?php foreach( $args->upcoming_bookings as $booking ){?>
+            <?php foreach( $args->upcoming_bookings as $booking ){
+                $image_url = $booking->event_data->image_url;
+                if( empty( $image_url ) ) {
+                    $image_url = $booking->event_data->placeholder_image_url;
+                }?>
                 <div class="ep-box-col">
                     <div class="ep-event-card">
                         <div class="ep-box-card-body ep-border ep-rounded-1 ep-overflow-hidden ep-position-relative">
@@ -17,7 +21,7 @@
                                     <?php esc_html_e( $booking->running_status, 'eventprime-event-calendar-management' );?>
                                 </div><?php
                             }?>
-                            <img src="<?php echo esc_url( $booking->event_data->image_url );?>" class="ep-event-card-img" alt="<?php echo esc_attr( $booking->event_data->name );?>">
+                            <img src="<?php echo esc_url( $image_url );?>" class="ep-event-card-img" alt="<?php echo esc_attr( $booking->event_data->name );?>">
                             <div class="ep-p-3">
                                 <div class="ep-mb-2 ep-text-end ep-d-flex ep-content-right">
                                     <a href="<?php echo esc_url( $booking->event_data->event_url );?>" target="_blank" class="ep-button-text-color">

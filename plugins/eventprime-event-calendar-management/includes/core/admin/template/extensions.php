@@ -1,3 +1,5 @@
+<?php defined( 'ABSPATH' ) || exit;?>
+
 <div class="emagic">
     <div class="ep-exts-bundle-banner ep-box-wrap ep-text-center ep-mt-5">
         <a href="https://theeventprime.com/all-extensions/" target="_blank" class="ep-inline-block">
@@ -33,12 +35,12 @@
             <?php $ext_list = ep_list_all_exts();
             foreach ( $ext_list as $ext ) {
                 $ext_details = em_get_more_extension_data($ext);?>
-                <div class="ep-box-col-3 ep-box-col-md-4 ep-box-col-sm-6  ep-ext-card <?php echo $ext_details['is_free'] == 0 ? 'paid-extensions' : 'free-extensions';?>">
+                <div class="ep-box-col-3 ep-box-col-md-4 ep-box-col-sm-6  ep-ext-card <?php echo ( isset( $ext_details['is_free'] ) && $ext_details['is_free'] == 0 ) ? 'paid-extensions' : 'free-extensions';?>">
                     <div class="ep-card ep-text-small ep-box-h-100">
                         <div class="ep-card-body">
                             <div class="ep-box-row ep-box-h-100">
                                 <div class="ep-box-col-3 ep-position-relative">
-                                    <?php if($ext_details['is_free'] == 1){?>
+                                    <?php if( isset( $ext_details['is_free'] ) && $ext_details['is_free'] == 1){?>
                                     <div class="ep-text-small ep-position-absolute">
                                         <div class="ep-free-tag ep-overflow-hidden ep-text-small ep-text-white ep-bg-success ep-rounded ep-px-1 ep-py-1 ep-position-relative ep-border ep-border-white">
                                         <span class="material-icons ep-fs-6 ep-align-middle">new_releases</span>
@@ -46,15 +48,20 @@
                                         <div class="ep-free-spark ep-bg-white ep-position-absolute ep-border ep-border-white ep-border-3">wqdwqd</div>
                                         </div>
                                     </div><?php }?>
-                                    <div class="ep-ext-box-icon ep-sm-text-center ep-xsm-text-center  ep-mb-2">
-                                        <img  class="ep-ext-icon ep-img-fluid" alt="" src="<?php echo esc_url( EP_BASE_URL . 'includes/assets/images/'.$ext_details['image'] ); ?>" >
+                                    <div class="ep-ext-box-icon ep-sm-text-center ep-xsm-text-center  ep-mb-2"><?php
+                                        if( ! empty( $ext_details['image'] ) ) {?>
+                                            <img class="ep-ext-icon ep-img-fluid" alt="<?php echo esc_attr( $ext );?>" src="<?php echo esc_url( EP_BASE_URL . 'includes/assets/images/'.$ext_details['image'] ); ?>" ><?php
+                                        }?>
                                     </div>
                                 </div> 
                                 
                                 <div class="ep-box-col-9">
-                                    <div class="ep-card-title ep-fs-6 ep-md-text-start ep-sm-text-center ep-xsm-text-center ep-fw-bold ep-mb-1"> <?php echo $ext;?></div>
+                                    <div class="ep-card-title ep-fs-6 ep-md-text-start ep-sm-text-center ep-xsm-text-center ep-fw-bold ep-mb-1"> <?php echo esc_html( $ext );?></div>
                                     <div class="ep-ext-box-description">
-                                        <p class="ep-col-desc"><?php echo $ext_details['desc'];?></p>    
+                                        <p class="ep-col-desc"><?php 
+                                        if( ! empty( $ext_details['desc'] ) ) {
+                                            echo esc_html( $ext_details['desc'] );
+                                        }?></p>
                                     </div>
                                 </div>
                             </div>

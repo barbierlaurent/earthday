@@ -21,8 +21,8 @@
     }
     $new_window = ( ! empty( ep_get_global_settings( 'open_detail_page_in_new_tab' ) ) ? 'target="_blank"' : '' );?>
     <div class="ep-event-card ep-mb-4 ep-card-col-<?php echo esc_attr( $args->cols ) ;?>">
-        <div class="ep-box-card-item ep-border ep-rounded ep-overflow-hidden ">
-            <div class="ep-box-card-thumb ep-overflow-hidden ep-position-relative">
+        <div class="ep-box-card-item ep-border ep-rounded ep-overflow-hidden ep-bg-white ep-bg-opacity-6">
+            <div class="ep-box-card-thumb ep-overflow-hidden ep-position-relative ">
                 <?php if ( ! empty( $event->_thumbnail_id ) ) { ?>
                     <a href="<?php echo $url; ?>" <?php echo esc_attr( $new_window );?> class="ep-img-link">
                         <?php echo get_the_post_thumbnail( $event->id, 'large', array('class' => 'img-fluid ep-rounded-1 ep-box-w-100 ep-event-cover') ); ?>
@@ -89,7 +89,7 @@
             
             <?php do_action( 'ep_event_view_before_event_button', $event );?>
 
-            <div class="ep-text-center ep-card-footer ep-bg-white">
+            <div class="ep-text-center ep-card-footer ep-border-top">
                 <?php do_action( 'ep_event_view_event_booking_button', $event );?>
             </div>
 

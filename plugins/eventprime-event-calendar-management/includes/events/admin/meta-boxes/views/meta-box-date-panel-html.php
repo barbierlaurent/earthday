@@ -27,7 +27,17 @@ $em_event_add_more_dates               = get_post_meta( $post->ID, 'em_event_add
 $disabled_fields_for_all_day = '';
 if( ! empty( $em_all_day ) ) {
     $disabled_fields_for_all_day = 'disabled';
-}?>
+}
+/* if( is_int( $em_start_date ) ) {
+	$em_start_date = ep_timestamp_to_date( $em_start_date, $date_format );
+    epd($em_start_date);
+}
+if( is_int( $em_end_date ) ) {
+	$em_end_date = ep_timestamp_to_date( $em_end_date, $date_format );
+} */
+
+$em_start_date = ep_timestamp_to_date( $em_start_date, $date_format );
+$em_end_date = ep_timestamp_to_date( $em_end_date, $date_format );?>
 <div id="ep_event_datetime_data" class="panel ep_event_options_panel">
     <!-- <div class="postbox-header ep-metabox-title"><h2><?php esc_html_e('Date and Time', 'eventprime-event-calendar-management'); ?></h2></div> -->
     <div class="ep-box-wrap ep-my-3">
@@ -37,7 +47,7 @@ if( ! empty( $em_all_day ) ) {
                     <span id="ep-start-date-hidden" class="material-icons ep-text-muted" style="display: none;">visibility_off</span>
                 </label>
                 <div class="ep-event-start-date">
-                    <input type="text" name="em_start_date" id="em_start_date" class="ep-form-control epDatePicker" autocomplete="off" placeholder="<?php esc_html_e('Start Date', 'eventprime-event-calendar-management'); ?>" value="<?php echo esc_html( ep_timestamp_to_date( $em_start_date, $date_format ) );?>">
+                    <input type="text" name="em_start_date" id="em_start_date" class="ep-form-control epDatePicker" autocomplete="off" placeholder="<?php esc_html_e('Start Date', 'eventprime-event-calendar-management'); ?>" value="<?php echo esc_html( $em_start_date );?>">
                 </div>
             </div>
 
@@ -82,7 +92,7 @@ if( ! empty( $em_all_day ) ) {
                     <span id="ep-end-date-hidden" class="material-icons ep-text-muted" style="display: none;">visibility_off</span>
                 </label>
                 <div class="ep-event-end-date">
-                    <input type="text" name="em_end_date" id="em_end_date" class="ep-form-control epDatePicker" autocomplete="off" placeholder="<?php esc_html_e('End Date', 'eventprime-event-calendar-management'); ?>" value="<?php echo esc_html( ep_timestamp_to_date( $em_end_date, $date_format ) );?>" <?php echo esc_attr( $disabled_fields_for_all_day );?>>
+                    <input type="text" name="em_end_date" id="em_end_date" class="ep-form-control epDatePicker" autocomplete="off" placeholder="<?php esc_html_e('End Date', 'eventprime-event-calendar-management'); ?>" value="<?php echo esc_html( $em_end_date );?>" <?php echo esc_attr( $disabled_fields_for_all_day );?>>
                 </div>
             </div>
             

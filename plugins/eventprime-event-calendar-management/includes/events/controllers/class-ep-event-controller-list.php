@@ -55,6 +55,10 @@ class EventM_Event_Controller_List {
             $event->post_parent        = $post->post_parent;
             $event->fstart_date        = ( ! empty( $event->em_start_date ) ) ? ep_timestamp_to_date( $event->em_start_date, 'd M', 1 ) : '';
             $event->fend_date          = ( ! empty( $event->em_end_date ) ) ? ep_timestamp_to_date( $event->em_end_date, 'd M', 1 ) : '';
+            if( ! empty( $event->em_start_date ) && ! empty( ep_get_global_settings( 'enable_event_time_to_user_timezone' ) ) ) {
+                $event->fstart_date = ep_convert_event_date_time_from_timezone( $event, 'd M', 0, 1 );
+                $event->fend_date   = ep_convert_event_date_time_from_timezone( $event, 'd M', 1, 1 );
+            }
             $event->start_end_diff     = ep_get_event_date_time_diff( $event );
             $event->event_url          = ep_get_custom_page_url( 'events_page', $event->id, 'event' );
             $event->ticket_categories  = $this->get_event_ticket_category( $event->id );
@@ -66,6 +70,7 @@ class EventM_Event_Controller_List {
             $event->organizer_details   = ( ! empty( $event->em_organizer ) ) ? EventM_Factory_Service::get_organizers_by_id( $event->em_organizer ) : array();
             $event->performer_details   = ( ! empty( $event->em_performer) ) ? EventM_Factory_Service::get_performers_by_id( $event->em_performer ) : array();
             $event->image_url           = $this->get_event_image_url( $event->id );
+            $event->placeholder_image_url = EP_BASE_URL . 'includes/assets/images/dummy_image.png';
             $other_events               = EventM_Factory_Service::ep_get_child_events( $post->ID );
             $event->child_events        = array();
             if( ! empty( $other_events ) && count( $other_events ) > 0 ) {
@@ -75,6 +80,7 @@ class EventM_Event_Controller_List {
             $event->all_offers_data  = EventM_Factory_Service::get_event_all_offers( $event );
             $event->qr_code          = EventM_Factory_Service::get_event_qr_code( $event );
             $event->em_event_checkout_attendee_fields = EventM_Factory_Service::get_event_checkout_fields( $event );
+            $event->em_event_checkout_booking_fields  = EventM_Factory_Service::get_event_checkout_booking_fields( $event );
             $event->event_in_user_wishlist = check_event_in_user_wishlist( $event->id );
         }
         return $event;
@@ -90,7 +96,7 @@ class EventM_Event_Controller_List {
             'post_type'   => $this->post_type,
             'numberposts' => -1,
             'offset'      => 0,
-            'meta_key'    => 'em_start_date',
+            'meta_key'    => 'em_start_date_time',
             'orderby'     => 'meta_value',
         );
         $args = wp_parse_args( $args, $default );
@@ -126,6 +132,7 @@ class EventM_Event_Controller_List {
             $ev['title'] = ( ! empty( $event->em_name ) ? $event->em_name : $event->name );
             $ev['id']    = $event->id;
             $ev['start'] = $ev['end'] = $ev['start_time'] = $ev['end_time'] = $ev['bg_color'] = $ev['type_text_color'] = $ev['address'] = $ev['image'] = $ev['date_custom_note'] = $ev['event_day'] = '';
+            $ev['bg_color'] = 'rgb( 34,113,177 )';
             if( ! empty( $event->em_start_date ) ) {
                 $start_date       = ep_timestamp_to_date( $event->em_start_date, 'Y-m-d', 1 );
                 $ev['start']      = $start_date;
@@ -169,7 +176,7 @@ class EventM_Event_Controller_List {
             if( ! empty( $event->em_event_type ) ) {
                 $event_type            = EventM_Factory_Service::ep_get_instance( 'EventM_Event_Type_Controller_List' );
                 $single_et             = $event_type->get_single_event_type( $event->em_event_type );
-                $ev['bg_color']        = ( ! empty( $single_et->em_color ) ) ? ep_hex2rgba( $single_et->em_color ) : '#2271B1';
+                $ev['bg_color']        = ( ! empty( $single_et->em_color ) ) ? ep_hex2rgba( $single_et->em_color ) : 'rgb( 34,113,177 )';
                 $ev['type_text_color'] = ( !empty( $single_et->em_type_text_color ) ) ? $single_et->em_type_text_color : '#000000';
             }
             // venue
@@ -192,12 +199,10 @@ class EventM_Event_Controller_List {
             $options['global'] = $settings->ep_get_settings();
             //$global_settings = EventM_Factory_Service::ep_get_instance( 'EventM_Admin_Model_Settings' );
             $global_options = $options['global'];
-            if($global_options->redirect_third_party == 1 && $event->em_enable_booking == 'external_bookings')
-            {
+            if( $global_options->redirect_third_party == 1 && $event->em_enable_booking == 'external_bookings' ) {
                 $em_custom_link   = get_post_meta( $event->id, 'em_custom_link', true );
                 $ev['event_url'] = $em_custom_link;
                 $ev['url'] = $em_custom_link;       
-                
             }
 
             // if hide start date then check for custom note
@@ -348,21 +353,27 @@ class EventM_Event_Controller_List {
         $settings        = EventM_Factory_Service::ep_get_instance( 'EventM_Admin_Model_Settings' );
         $events_settings = $settings->ep_get_settings( 'events' );
         $events_data['calendar_view'] = 0;
-        $events_data['display_style'] = isset( $_POST['display_style'] ) ? $_POST["display_style"] : ep_get_global_settings( 'default_cal_view' );
+        $default_cal_view = ( ! empty( ep_get_global_settings( 'default_cal_view' ) ) ? ep_get_global_settings( 'default_cal_view' ) : 'month' );
+        $events_data['display_style'] = isset( $_POST['display_style'] ) ? $_POST['display_style'] : $default_cal_view;
         if( in_array( $events_data['display_style'], array_keys( ep_get_event_calendar_views() ) ) ) {
             $events_data['calendar_view'] = 1;
         }
         if( isset( $atts['view'] ) && ! empty( $atts['view'] ) ){
-            $events_data['display_style'] = $atts['view'];
+            $events_data['display_style'] = ! empty( $_POST['display_style'] ) ? $_POST['display_style'] : $atts['view'];
         }
         
-        $events_data['limit'] = isset( $atts['limit'] ) ? ( empty( $atts["limit"] ) ? EP_PAGINATION_LIMIT : $atts["limit"]) : ( empty( $events_settings->show_no_of_events_card ) ? EP_PAGINATION_LIMIT : $events_settings->show_no_of_events_card );
+        $events_data['limit'] = isset( $atts['limit'] ) ? ( empty( $atts['limit'] ) ? EP_PAGINATION_LIMIT : $atts["limit"]) : ( empty( $events_settings->show_no_of_events_card ) ? EP_PAGINATION_LIMIT : $events_settings->show_no_of_events_card );
         // if custom event limit is existing and views are card, masonry and list
         if( ( $events_data['display_style'] == 'card' || $events_data['display_style'] == 'square_grid' || $events_data['display_style'] == 'masonry' || $events_data['display_style'] == 'staggered_grid' || $events_data['display_style'] == 'list' || $events_data['display_style'] == 'rows' ) && $events_settings->show_no_of_events_card == 'custom' ){
             $events_data['limit'] = $events_settings->card_view_custom_value;
         }
         if( ( $events_data['display_style'] == 'card' || $events_data['display_style'] == 'square_grid' || $events_data['display_style'] == 'masonry' || $events_data['display_style'] == 'staggered_grid' || $events_data['display_style'] == 'list'|| $events_data['display_style'] == 'rows' ) && $events_settings->show_no_of_events_card == 'all' ){
             $events_data['limit'] = -1;
+        }
+        if( ( $events_data['display_style'] == 'card' || $events_data['display_style'] == 'square_grid' || $events_data['display_style'] == 'masonry' || $events_data['display_style'] == 'staggered_grid' || $events_data['display_style'] == 'list'|| $events_data['display_style'] == 'rows' ) && $events_settings->show_no_of_events_card == 'custom' ){
+            if( ! empty( $atts['block_square_card_fetch_events'] ) ) {
+                $events_data['limit'] = $atts['block_square_card_fetch_events'];
+            }
         }
        
         if( isset( $_POST['limit'] ) && ! empty( $_POST['limit'] ) ) {
@@ -372,6 +383,7 @@ class EventM_Event_Controller_List {
         if( isset( $atts['show'] ) && ! empty( $atts['show'] ) ){
             $events_data['limit'] = $atts['show'];
         }
+        $events_data['order'] = 'ASC';
         if(isset($atts['order']) && ! empty($atts['order'])){
            $events_data['order'] = $atts['order']; 
         }
@@ -385,10 +397,11 @@ class EventM_Event_Controller_List {
             $paged = ( $_POST['paged'] ) ? $_POST['paged'] : 1;
             $paged++;
         }
+        $events_data['load_more'] = !empty( $_POST['load_more'] ) ? $_POST['load_more'] : 1;
         $events_data['paged'] = $paged;
 
         $params = array(
-            'meta_key'       => 'em_start_date',
+            'meta_key'       => 'em_start_date_time',
             'orderby'        => 'meta_value_num',
             'posts_per_page' => $events_data['limit'],
             'offset'         => (int) ( $paged-1 ) * $events_data['limit'],
@@ -396,19 +409,16 @@ class EventM_Event_Controller_List {
             'meta_query'     => array( 'relation' => 'AND' ),
             //'order'          => 'DESC'
         );
-        if(isset($events_data['order']) && !empty($events_data['order'])){
+        if( isset( $events_data['order'] ) && ! empty( $events_data['order'] ) ) {
             $params['order'] = $events_data['order'];
         }
-       // epd($params);
         // if event id is set in shortcode
         if( isset( $atts['id'] ) && ! empty( $atts['id'] ) ){
-            $params['p'] = absint($atts['id']);
+            $params['post__in'] = explode( ',', $atts['id'] );
         }
         // condition for hide upcoming events
         $hide_upcoming_events = 0;
-        /* if( ep_get_global_settings( 'shortcode_hide_upcoming_events' ) == 1 ) {
-            $hide_upcoming_events = 1;
-        } */
+        
         if( isset( $atts['upcoming'] ) && $atts['upcoming'] == 0 ) {
             $hide_upcoming_events = 1;
         }
@@ -527,8 +537,17 @@ class EventM_Event_Controller_List {
         }
         $events_data['section_id'] = rand( 1, 1000 );
 
-        $events_data['cols'] = 4;
+        $events_data['cols'] = '';
         $show_cols = esc_attr( ep_get_global_settings( 'events_no_of_columns' ) ) ;
+        if( ! empty( $atts['block_square_card_columns'] ) ) {
+            $show_cols = $atts['block_square_card_columns'];
+        }
+        if( ! empty( $_POST['event_atts'] ) ) {
+            $event_atts_obj = json_decode( stripslashes( $_POST['event_atts'] ) );
+            if( ! empty( $event_atts_obj->block_square_card_columns ) ){
+                $show_cols = $event_atts_obj->block_square_card_columns;
+            }
+        }
         if( ! empty( $show_cols ) ) {
             $events_data['cols'] = 12 / $show_cols;
         }
@@ -573,7 +592,21 @@ class EventM_Event_Controller_List {
                 $events_data['organizer'] = 0;
             } 
         }
-      
+
+        $events_data['load_more_text'] = __( 'Load more', 'eventprime-event-calendar-management' );
+        if ( ! empty( $atts['block_square_card_load_more_button'] ) )
+        {
+            $events_data['load_more_text'] = $atts['block_square_card_load_more_button'] ;
+        }
+        if( isset( $_POST['block_square_card_load_more_button'] ) && ! empty( $_POST['block_square_card_load_more_button'] ) ) {
+            $events_data['load_more_text'] = $_POST['block_square_card_load_more_button'] ;
+        }
+        if ( isset ($atts['block_square_disable_load_more_button'])){
+            $events_data['load_more'] = $atts['block_square_disable_load_more_button'] ;
+        }
+        if( isset ( $_POST['block_square_disable_load_more_button'] ) ) {
+            $events_data['load_more'] = $_POST['block_square_disable_load_more_button'] ;
+        }
         return $events_data;
     }
 
@@ -652,7 +685,6 @@ class EventM_Event_Controller_List {
         if( ! empty( $events_data['events']->posts ) ) {
             $cal_events = $this->get_front_calendar_view_event( $events_data['events']->posts );
         }
-
         wp_localize_script(
             'ep-front-events-js', 
             'em_front_event_object', 
@@ -1172,7 +1204,8 @@ class EventM_Event_Controller_List {
      * @return string Image URL.
      */
     public function get_event_image_url( $event_id ) {
-        $image_url = EP_BASE_URL . 'includes/assets/images/dummy_image.png';
+        //$image_url = EP_BASE_URL . 'includes/assets/images/dummy_image.png';
+        $image_url = '';
         if ( has_post_thumbnail( $event_id ) ) {
             $image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $event_id ), 'large' )[0];
         }
@@ -1230,12 +1263,18 @@ class EventM_Event_Controller_List {
                             $event_option = 'event_start';
                             if( ! empty( $starts->em_ticket_start_booking_days ) ) {
                                 $days = $starts->em_ticket_start_booking_days;
+                            } else{
+                                $days = $starts->days;
                             }
                             if( ! empty( $starts->em_ticket_start_booking_days_option ) ) {
                                 $start_booking_days_option = $starts->em_ticket_start_booking_days_option;
+                            } else{
+                                $start_booking_days_option = $starts->days_option;
                             }
                             if( ! empty( $starts->em_ticket_start_booking_event_option ) ) {
                                 $event_option = $starts->em_ticket_start_booking_event_option;
+                            } else{
+                                $event_option = $starts->event_option;
                             }
                             $days_string  = ' days';
                             if( $days == 1 ) {
@@ -1359,12 +1398,18 @@ class EventM_Event_Controller_List {
                             $event_option = 'event_end';
                             if( ! empty( $ends->em_ticket_end_booking_days ) ) {
                                 $days = $ends->em_ticket_end_booking_days;
+                            } else{
+                                $days = $ends->days;
                             }
                             if( ! empty( $ends->em_ticket_end_booking_days_option ) ) {
                                 $end_booking_days_option = $ends->em_ticket_end_booking_days_option;
+                            } else if( ! empty( $ends->days_option ) ) {
+                                $end_booking_days_option = $ends->days_option;
                             }
                             if( ! empty( $ends->em_ticket_end_booking_event_option ) ) {
                                 $event_option = $ends->em_ticket_end_booking_event_option;
+                            } else if( ! empty( $ends->event_option ) ) {
+                                $event_option = $ends->event_option;
                             }
                             $days_string  = ' days';
                             if( $days == 1 ) {
@@ -1398,7 +1443,7 @@ class EventM_Event_Controller_List {
                                     $max_end = $book_end_timestamp;
                                 }
                             } else{
-                                if( ! empty( $event_option ) ) {
+                                if( ! empty( $event_option ) && ! empty( $event->em_event_add_more_dates ) ) {
                                     $em_event_add_more_dates = $event->em_event_add_more_dates;
                                     if( ! empty( $em_event_add_more_dates ) && count( $em_event_add_more_dates ) > 0 ) {
                                         foreach( $em_event_add_more_dates as $more_dates ) {
@@ -1485,7 +1530,7 @@ class EventM_Event_Controller_List {
                     }
                 } else{
                     $current_time = ep_get_current_timestamp();
-                    if( empty( $min_start ) ) {
+                    if( empty( $min_start ) && empty( $start_check_off ) ) {
                         if( $max_end <  $current_time ) {
                             $booking_status = array( 'status' => 'on', 'message' => $buy_ticket_text );
                         } else{
@@ -1509,7 +1554,6 @@ class EventM_Event_Controller_List {
                 $booking_status = array( 'status' => 'off', 'message' => $sold_out );
             }
         }
-
         return $booking_status;
     }
 
@@ -1823,7 +1867,7 @@ class EventM_Event_Controller_List {
             if( $params['key'] == 'days' && $params['value'] =='next_month') {
                 $event_start_date = strtotime('first day of +1 month');
                 $event_end_date = strtotime('last day of +1 month');
-                $args['meta_query'][] =array(
+                $args['meta_query'][] = array(
                     'relation'     => 'AND',
                     array(
                         'key'      => 'em_start_date',
@@ -1898,23 +1942,23 @@ class EventM_Event_Controller_List {
                 $filter_perfomers = array('relation'     => 'OR');
                 foreach ($event_performer_ids as $performer_id){
                     $filter_perfomers[]= array(
-                            'key'     => 'em_performer',
-                            'value'   =>  serialize( strval ( $performer_id ) ),
-                            'compare' => 'LIKE'
-                        );
+                        'key'     => 'em_performer',
+                        'value'   =>  serialize( strval ( $performer_id ) ),
+                        'compare' => 'LIKE'
+                    );
                 }
                 $args['meta_query'][] = $filter_perfomers;
                     
             }
             if( $params['key'] == 'event_organizers' && !empty($params['value'])) {
                 $event_organizer_ids = $params['value'];
-                $filter_organizers = array('relation'     => 'OR');
-                foreach ($event_organizer_ids as $org_id){
+                $filter_organizers = array('relation' => 'OR');
+                foreach ( $event_organizer_ids as $org_id ){
                     $filter_organizers[]= array(
-                            'key'     => 'em_organizer',
-                            'value'   =>  serialize( strval ( $org_id ) ),
-                            'compare' => 'LIKE'
-                        );
+                        'key'     => 'em_organizer',
+                        'value'   =>  serialize( strval ( $org_id ) ),
+                        'compare' => 'LIKE'
+                    );
                 }
                 $args['meta_query'][] = $filter_organizers;
                     
@@ -1933,7 +1977,6 @@ class EventM_Event_Controller_List {
                         'type'    => 'NUMERIC'
                     )
                 );
-
             } elseif( isset( $dates_query['date_from'] ) && isset( $dates_query['date_to'] ) && isset( $dates_query['days'] ) && $dates_query['days'] != 'all' ) {
                 $dates = array();
                 if( strtolower( $dates_query['days'] ) == 'weekends' ) {
@@ -1947,11 +1990,11 @@ class EventM_Event_Controller_List {
                         $start_date = ep_datetime_to_timestamp( $dates_query['date_from'] . ' 12:00 AM' );
                         $end_date = ep_datetime_to_timestamp( $dates_query['date_to'] . ' 11:59 PM' );
                         $date_meta_query[] = array(
-                                'key'     => 'em_start_date',
-                                'value'   => array( $start_date, $end_date ),
-                                'compare' => 'BETWEEN',
-                                'type'    => 'NUMERIC'
-                            );
+                            'key'     => 'em_start_date',
+                            'value'   => array( $start_date, $end_date ),
+                            'compare' => 'BETWEEN',
+                            'type'    => 'NUMERIC'
+                        );
                     }
                     $args['meta_query'][]= $date_meta_query;
                 }
@@ -2024,7 +2067,7 @@ class EventM_Event_Controller_List {
             'post_type'   => $this->post_type,
             'numberposts' => -1,
             'offset'      => 0,
-            'meta_key'    => 'em_start_date',
+            'meta_key'    => 'em_start_date_time',
             'orderby'     => 'meta_value',
         );
         $args = wp_parse_args( $args, $default );
@@ -2186,7 +2229,6 @@ class EventM_Event_Controller_List {
             ));
         }
         if( $individual_events == 'today' ){
-
             $today_dt = new DateTime('today');
             $today_ts = strtotime( $today_dt->format('Y-m-d H:i:s') );
             array_push($meta_query,array(
@@ -2259,7 +2301,7 @@ class EventM_Event_Controller_List {
             'post_type'   => $this->post_type,
             'numberposts' => -1,
             'offset'      => 0,
-            'meta_key'    => 'em_start_date',
+            'meta_key'    => 'em_start_date_time',
             'orderby'     => 'meta_value',
         );
         $args = wp_parse_args( $args, $default );
@@ -2286,6 +2328,10 @@ class EventM_Event_Controller_List {
             $event->post_parent        = $post->post_parent;
             $event->fstart_date        = ( ! empty( $event->em_start_date ) ) ? ep_timestamp_to_date( $event->em_start_date, 'd M', 1 ) : '';
             $event->fend_date          = ( ! empty( $event->em_end_date ) ) ? ep_timestamp_to_date( $event->em_end_date, 'd M', 1 ) : '';
+            if( ! empty( $event->em_start_date ) && ! empty( ep_get_global_settings( 'enable_event_time_to_user_timezone' ) ) ){
+                $event->fstart_date = ep_convert_event_date_time_from_timezone( $event, 'd M', 0, 1 );
+                $event->fend_date   = ep_convert_event_date_time_from_timezone( $event, 'd M', 1, 1 );
+            }
             $event->start_end_diff     = ep_get_event_date_time_diff( $event );
             $event->event_url          = ep_get_custom_page_url( 'events_page', $event->id, 'event' );
 
@@ -2295,6 +2341,7 @@ class EventM_Event_Controller_List {
             $event->organizer_details  = ( ! empty( $event->em_organizer ) ) ? EventM_Factory_Service::get_organizers_by_id( $event->em_organizer ) : array();
             $event->performer_details  = ( ! empty( $event->em_performer) ) ? EventM_Factory_Service::get_performers_by_id( $event->em_performer ) : array(); */
             $event->image_url          = $this->get_event_image_url( $event->id );
+            $event->placeholder_image_url = EP_BASE_URL . 'includes/assets/images/dummy_image.png';
             //$other_events            = EventM_Factory_Service::ep_get_child_events( $post->ID );
             $event->child_events       = array();
             /* if( ! empty( $other_events ) && count( $other_events ) > 0 ) {
@@ -2343,11 +2390,11 @@ class EventM_Event_Controller_List {
             $event_data->ticket_price_range = array();
             // all offers
             $all_offers_data = array(
-                'all_offers' => array(),
-                'all_show_offers' => array(),
+                'all_offers'         => array(),
+                'all_show_offers'    => array(),
                 'show_ticket_offers' => array(),
-                'ticket_offers' => array(),
-                'applicable_offers' => array()
+                'ticket_offers'      => array(),
+                'applicable_offers'  => array()
             );
 
             $price_range = array();
@@ -2360,7 +2407,8 @@ class EventM_Event_Controller_List {
                         $prices[] = $ticket->price;
                         // event offer
                         if( ! empty( $ticket->offers ) ) {
-                            $ticket_offers = json_decode( $ticket->offers );
+                            $all_offers_data = EventM_Factory_Service::get_event_single_offer_data( $all_offers_data, $ticket, $event_data->em_id );
+                            /* $ticket_offers = json_decode( $ticket->offers );
                             if( ! empty( $ticket_offers ) ) {
                                 foreach( $ticket_offers as $to ) {
                                     $all_offers_data['all_offers'][] = $to;
@@ -2374,7 +2422,7 @@ class EventM_Event_Controller_List {
                                 if( ! empty( $offer_applied_data ) && count( $offer_applied_data ) > 0 ) {
                                     $all_offers_data['applicable_offers'][$ticket->id] = $offer_applied_data;
                                 }
-                            }
+                            } */
                         }
                     }
                     $min_price = min( $prices );
@@ -2406,7 +2454,6 @@ class EventM_Event_Controller_List {
                 }
                 $event_data->em_event_checkout_attendee_fields = $attendee_fields;
             }
-
         }
 
         $wp_query = new WP_Query( $args );
@@ -2563,17 +2610,18 @@ class EventM_Event_Controller_List {
                     }
                     //Edit View Event
                     $popup_html .= '<div class="ep_event_popup_action_btn ep-d-flex ep-justify-content-between ep-border-top ep-py-2 ep-px-4 ep-text-center">';
-                        $popup_html .= '<a href="'.esc_url( $ev['event_url'] ).'" class="ep_event_popup_btn ep-border-right ep-text-decoration-none ep-box-w-100" target="__blank">';
+                        $popup_html .= '<a href="'.esc_url( $ev['event_url'] ).'" class="ep_event_popup_btn ep-text-decoration-none ep-box-w-100" target="__blank">';
                             $popup_html .= '<div class="ep-event-action-btn ep-py-2">';
-                                $popup_html .= esc_html('View Event','eventprime-event-calendar-management');
+                                $popup_html .= esc_html( 'View Event', 'eventprime-event-calendar-management' );
                             $popup_html .= '</div>';
                         $popup_html .= '</a>';
-                        
-                        $popup_html .= '<a href="'.esc_url($ev['edit_url']).'" class="ep_event_popup_btn ep-text-decoration-none ep-box-w-100" target="__blank">';
-                            $popup_html .= '<div class="ep-event-action-btn ep-py-2">';
-                                $popup_html .= esc_html('Edit Event','eventprime-event-calendar-management');
-                            $popup_html .= '</div>';
-                        $popup_html .= '</a>';
+                        if( current_user_can('edit_em_events') ) {
+                            $popup_html .= '<a href="'.esc_url( $ev['edit_url'] ).'" class="ep_event_popup_btn ep-border-left ep-text-decoration-none ep-box-w-100" target="__blank">';
+                                $popup_html .= '<div class="ep-event-action-btn ep-py-2">';
+                                    $popup_html .= esc_html( 'Edit Event', 'eventprime-event-calendar-management' );
+                                $popup_html .= '</div>';
+                            $popup_html .= '</a>';
+                        }
                     $popup_html .= '</div>';
                     // End Edit View
                     

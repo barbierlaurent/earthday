@@ -1,8 +1,36 @@
 <?php
 $changelog = [
     [
+        'version'  => 'Version 3.6.9',
+        'released' => '2023-09-11',
+        'changes'  => [
+            [
+                'title' => __( 'Add capabilities check on AJAX actions', 'wp-user-frontend' ),
+                'type'  => 'Enhance',
+            ],
+        ],
+    ],
+    [
+        'version'  => 'Version 3.6.8',
+        'released' => '2023-08-31',
+        'changes'  => [
+            [
+                'title' => __( 'Delete upload file even after clicking cancel button', 'wp-user-frontend' ),
+                'type'  => 'Fix',
+            ],
+            [
+                'title' => __( 'Taxonomy data not showing for checkbox', 'wp-user-frontend' ),
+                'type'  => 'Fix',
+            ],
+            [
+                'title' => __( 'Some validation for AJAX actions', 'wp-user-frontend' ),
+                'type'  => 'Fix',
+            ],
+        ],
+    ],
+    [
         'version'  => 'Version 3.6.7',
-        'released' => '2023-07-25',
+        'released' => '2023-08-09',
         'changes'  => [
             [
                 'title' => __( 'conflicts with Advanced Custom Fields Pro Plugin', 'wp-user-frontend' ),

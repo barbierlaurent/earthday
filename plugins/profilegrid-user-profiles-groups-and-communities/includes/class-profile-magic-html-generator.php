@@ -65,7 +65,7 @@ class PM_HTML_Creator {
             );
 
 			if ( isset( $fields ) && !empty( $fields ) ) {
-				echo '<fieldset id="fieldset_' . esc_attr($section->id) . '">';
+				echo '<fieldset id="fieldset_' . esc_attr($section->id) . '" >';
 				echo '<legend>' . esc_html($section->section_name) . '</legend>';
 				foreach ( $fields as $field ) {
 					echo '<div class="pmrow">';
@@ -720,7 +720,9 @@ class PM_HTML_Creator {
 			case 1:
 				 $myfriends = $pmfriends->profile_magic_my_friends( $uid );
 				if ( $uid== get_current_user_id() ) {
-					$error = __( '<div class="pg-alert-warning pg-alert-info">You do not have any friends yet. You can add friends by sending friendship requests to people from their user profiles.</div> ', 'profilegrid-user-profiles-groups-and-communities' );
+                                        //$error = __('You do not have any friends yet. You can add friends by sending friendship requests to people from their user profiles.','profilegrid-user-profiles-groups-and-communities');
+                                        $error = '<span class="pg-alert-warning pg-alert-info">'.esc_html__( 'You do not have any friends yet. You can add friends by sending friendship requests to people from their user profiles.', 'profilegrid-user-profiles-groups-and-communities' ) .'</span>';
+					//$error = __( '<div class="pg-alert-warning pg-alert-info">You do not have any friends yet. You can add friends by sending friendship requests to people from their user profiles.</div> ', 'profilegrid-user-profiles-groups-and-communities' );
 				} else {
 					$display_name = $pmrequests->pm_get_display_name( $uid );
 					$error        = '<span class="pg-alert-warning pg-alert-info">'. sprintf( __( '%s does not have any friends yet.', 'profilegrid-user-profiles-groups-and-communities' ), $display_name ).'</span>';
@@ -2648,17 +2650,23 @@ class PM_HTML_Creator {
 	}
 
 
-	public function pg_get_profile_sections_tab_header( $uid ) {
+	public function pg_get_profile_sections_tab_header( $uid, $group_leader = array() ) {
         $dbhandler   = new PM_DBhandler();
 		$pm_request  = new PM_request();
 		$gids        = maybe_unserialize( $pm_request->profile_magic_get_user_field_value( $uid, 'pm_group' ) );
 		$user_groups = $pm_request->pg_filter_users_group_ids( $gids );
+
 		if ( !empty( $user_groups ) ) {
 			foreach ( $user_groups as $group ) {
 				$sections = $dbhandler->get_all_result( 'SECTION', array( 'id', 'section_name' ), array( 'gid'=>$group ), 'results', 0, false, 'ordering' );
 				if ( !empty( $sections ) ) :
                     foreach ( $sections as $section ) :
-						echo '<li class="pm-dbfl pm-border-bt pm-pad10"><a class="pm-dbfl" href="#' . sanitize_key( $section->section_name ) . esc_attr($section->id) . '">' . esc_html( $section->section_name ) . '</a></li>';
+                        $fields = $pm_request->pm_get_frontend_user_meta( $uid, $group, $group_leader, '', $section->id, '"user_avatar","user_pass","user_name","heading","paragraph","confirm_pass"' );
+
+                        if ($fields){
+                            echo '<li class="pm-dbfl pm-border-bt pm-pad10"><a class="pm-dbfl" href="#' . sanitize_key( $section->section_name ) . esc_attr($section->id) . '">' . esc_html( $section->section_name ) . '</a></li>';
+                        }
+						
                     endforeach;
                     endif;
 			}

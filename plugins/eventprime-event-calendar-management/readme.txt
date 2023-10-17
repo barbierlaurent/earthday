@@ -1,11 +1,11 @@
-=== EventPrime – Modern Events Calendar, Bookings and Tickets ===
+=== EventPrime – Events Calendar, Bookings and Tickets ===
 Contributors: metagauss
 Donate link: https://theeventprime.com/
-Tags: event calendar, events calendar, event manager, events manager, event booking, event bookings, booking manager, bookings manager, event organizer, events organizer, event planner, events planner, paid events, event list, events list, event registration, event registrations
+Tags: event calendar, organizer , event manager, tickets, event booking, event bookings, booking manager, bookings manager, event organizer, events organizer, event planner, events planner, paid events, event list, events list, event registration, event registrations
 Requires at least: 4.8
-Tested up to: 6.3
+Tested up to: 6.3.1
 Requires PHP: 5.6
-Stable tag: 3.1.8
+Stable tag: 3.2.7
 License: GPLv2 or later
 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -483,29 +483,12 @@ Import events from other plugins for easy migration to EventPrime WordPress cale
 
 [Download Events Import Export Extension for EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/events-import-export/)
 
-= EventPrime MailPoet Integration Free =
-
-Sign-up event attendees for MailPoet newsletter lists and ramp up customer engagement with event updates and other stuff.
-
-[Download EventPrime MailPoet Integration for EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/mailpoet-integration/)
 
 = EventPrime WooCommerce Integration Free =
 
 Add merchandise and other products as mandatory/ optional items for attendees while they checkout for event bookings.
 
 [Download EventPrime WooCommerce Integration for EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/woocommerce-integration/)
-
-= Invoices Free =
-
-Create customized invoicing template with your own branding, and attach automatically to booking confirmation emails.
-
-[Download EventPrime Invoices Extension for EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/invoices/)
-
-= EventPrime Zoom Integration Free =
-
-Allow users to book Zoom meetings from EventPrime booking system. Zoom meeting details are shared with attendees once their booking is confirmed.
-
-[Download EventPrime Zoom Integration For EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/zoom-integration/)
 
 = EventPrime Zapier Integration Free =
 
@@ -555,7 +538,7 @@ This extension allows you to create custom coupons which can be used during even
 
 Display list of attendees for an event on the event page. You can also use widget area of your theme to add widgets with attendees lists.
 
-[Download Coupon Codes](https://theeventprime.com/all-extensions/attendees-list/)
+[Download Attendees List](https://theeventprime.com/all-extensions/attendees-list/)
 
 = Guest Bookings =
 
@@ -573,7 +556,7 @@ Allow your users to save events in their personal wishlists. Wishlisted events w
 
 Spruce up your website by showcasing different events in widget areas of your theme. 
 
-[Download Event Wishlist](https://theeventprime.com/all-extensions/event-list-widgets/)
+[Download Event List Widgets](https://theeventprime.com/all-extensions/event-list-widgets/)
 
 = Event Comments =
 
@@ -605,7 +588,25 @@ Import events from your Google Calendar to EventPrime WordPress Calendar. Or exp
 
 Send notifications to your users when they complete a booking along with booking details. You can also set admin notifications to receive alerts on new bookings. Frontend event submission notifications are also supported.
 
-[Download Google Import Export](https://theeventprime.com/all-extensions/twilio-text-notifications/)
+[Download Twilio Text Notifications](https://theeventprime.com/all-extensions/twilio-text-notifications/)
+
+= EventPrime MailPoet Integration =
+
+Sign-up event attendees for MailPoet newsletter lists and ramp up customer engagement with event updates and other stuff.
+
+[Download EventPrime MailPoet Integration for EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/mailpoet-integration/)
+
+= EventPrime Zoom Integration =
+
+Allow users to book Zoom meetings from EventPrime booking system. Zoom meeting details are shared with attendees once their booking is confirmed.
+
+[Download EventPrime Zoom Integration For EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/zoom-integration/)
+
+= Invoices =
+
+Create customized invoicing template with your own branding, and attach automatically to booking confirmation emails.
+
+[Download EventPrime Invoices Extension for EventPrime - Modern Events Calendar](https://theeventprime.com/all-extensions/invoices/)
 
 == Installation ==
 
@@ -665,6 +666,94 @@ We are always happy to hear your particular needs and requirements. Similar to r
 
 
 == Changelog ==
+
+= 3.2.7 =
+* New Feature: Login form block.
+* New Feature: Registration form block.
+* Fixed: Issue with ordering of the recurring events.
+* Fixed: Duplicate events not displaying on the frontend.
+* Fixed: Issue with the listing of past and upcoming events.
+
+= 3.2.6 =
+* Fixed: Upcoming events sorting issue on the frontend views.
+* Fixed: Offers visibility issue in the event rows view.
+* Fixed: Ticket booking date & time issue on the event views.
+* Fixed: An issue where applied offer is not visible in the booking confirmation email and admin booking page.
+* Fixed: An issue with the checkout step during Guest bookings.
+
+= 3.2.5 =
+* Fixed an issue with blocks where extra js and css files were enqueued on the frontend.
+
+= 3.2.4 =
+* UI improvements.
+
+= 3.2.3 =
+* Added: Option to use multiple event ids with the id argument in the [em_events] short code.
+* Added: Option show/hide the 'Add Event' button in the User Profile's My Event tab.
+* Added: Option to allow users to delete their created events from frontend event submission.
+* Added: More calendar options on the event detail page.
+* Fixed: Offers related issues.
+* Fixed: 'Add to Cart' option not displaying correctly with the WooCommerce Checkout extension.
+* Fixed: Event visibility issue when creating from frontend event submission.
+* Fixed: Event date timezone issue on the event details page.
+* Fixed: Seat popover price break issue.
+* Updated: Live Seating Extension.
+* Updated: WooCommerce Checkout Extension.
+* Updated: Guest Booking Extension.
+* Updated: WooCommerce Integration Extension.
+* Updated: Elementor Integration Extension.
+* Updated: Mailchimp Integration Extension.
+
+= 3.2.2 =
+* New Extension: RSVP!
+* New Extension: WooCommerce Checkout!
+* Added: Option to set custom Admin recipient email address.
+* Added: Option to change the sender's email address.
+* Added: Option to set the booking status with Offline payments.
+* Added: Start Zoom meeting option for the event creator.
+* Added: Option to delete Zoom meetings on event deletion.
+* Fixed: Zoom meetings with the event repeat option.
+* Fixed: Live seating blocked seat issue.
+* Fixed: Attendees fields issue on the checkout page.
+* Fixed: Performer unselect issue in the event.
+* Updated: Zoom Integration Extension.
+* Updated: Live Seating Extension.
+* Updated: Offline Payments Extension.
+* Minor UI improvements.
+
+= 3.2.1 =
+* Added: Option to change the label of Offline Payments.
+* Updated: Offline Payments Extension.
+* Minor UI improvements.
+
+= 3.2.0 =
+* New Extension: MailChimp Integration!
+* New Extension: User Feedback!
+* Added: More fields option in the Booking Fields.
+* Added: Event Summary section.
+* Added: Booking summary and filter section in admin event.
+* Added: Attendee List section in admin event.
+* Added: Print Attendee List section in admin event.
+* Added: Edit booking option in event.
+* Added: Add to Attendee List option in the Checkout Fields.
+* Added: Booking section in the admin event.
+* Added: Results section in the event.
+* Added: View results section on the event detail page.
+* Added: Image visibility option for the Square Grid view.
+* Added: Option to add user as a Sponsor.
+* Added: em_sponsor role for Sponsors.
+* Added: Zoom meeting link on the booking details.
+* Added: Option to Import Events from The Event Calendar plugin.
+* Added: Checkout fields data in the Attendees List.
+* Separated: Tickets option from the Bookings option.
+* Fixed: Elementor integration widget issues.
+* Updated: Advanced Checkout Fields Extension.
+* Updated: Sponsors Extension.
+* Updated: Attendees List Extension.
+* Updated: Event Import Export Extension.
+* Updated: Zoom Integration Extension.
+* Updated: Elementor Integration Extension.
+* Minor UI improvements.
 
 = 3.1.8 =
 * Added: Image customization options for event detail page.
@@ -1715,6 +1804,94 @@ We are always happy to hear your particular needs and requirements. Similar to r
 * Initial Release
 
 == Upgrade Notice ==
+
+= 3.2.7 =
+* New Feature: Login form block.
+* New Feature: Registration form block.
+* Fixed: Issue with ordering of the recurring events.
+* Fixed: Duplicate events not displaying on the frontend.
+* Fixed: Issue with the listing of past and upcoming events.
+
+= 3.2.6 =
+* Fixed: Upcoming events sorting issue on the frontend views.
+* Fixed: Offers visibility issue in the event rows view.
+* Fixed: Ticket booking date & time issue on the event views.
+* Fixed: An issue where applied offer is not visible in the booking confirmation email and admin booking page.
+* Fixed: An issue with the checkout step during Guest bookings.
+
+= 3.2.5 =
+* Fixed an issue with blocks where extra js and css files were enqueued on the frontend.
+
+= 3.2.4 =
+* UI improvements.
+
+= 3.2.3 =
+* Added: Option to use multiple event ids with the id argument in the [em_events] short code.
+* Added: Option show/hide the 'Add Event' button in the User Profile's My Event tab.
+* Added: Option to allow users to delete their created events from frontend event submission.
+* Added: More calendar options on the event detail page.
+* Fixed: Offers related issues.
+* Fixed: 'Add to Cart' option not displaying correctly with the WooCommerce Checkout extension.
+* Fixed: Event visibility issue when creating from frontend event submission.
+* Fixed: Event date timezone issue on the event details page.
+* Fixed: Seat popover price break issue.
+* Updated: Live Seating Extension.
+* Updated: WooCommerce Checkout Extension.
+* Updated: Guest Booking Extension.
+* Updated: WooCommerce Integration Extension.
+* Updated: Elementor Integration Extension.
+* Updated: Mailchimp Integration Extension.
+
+= 3.2.2 =
+* New Extension: RSVP!
+* New Extension: WooCommerce Checkout!
+* Added: Option to set custom Admin recipient email address.
+* Added: Option to change the sender's email address.
+* Added: Option to set the booking status with Offline payments.
+* Added: Start Zoom meeting option for the event creator.
+* Added: Option to delete Zoom meetings on event deletion.
+* Fixed: Zoom meetings with the event repeat option.
+* Fixed: Live seating blocked seat issue.
+* Fixed: Attendees fields issue on the checkout page.
+* Fixed: Performer unselect issue in the event.
+* Updated: Zoom Integration Extension.
+* Updated: Live Seating Extension.
+* Updated: Offline Payments Extension.
+* Minor UI improvements.
+
+= 3.2.1 =
+* Added: Option to change the label of Offline Payments.
+* Updated: Offline Payments Extension.
+* Minor UI improvements.
+
+= 3.2.0 =
+* New Extension: MailChimp Integration!
+* New Extension: User Feedback!
+* Added: More fields option in the Booking Fields.
+* Added: Event Summary section.
+* Added: Booking summary and filter section in admin event.
+* Added: Attendee List section in admin event.
+* Added: Print Attendee List section in admin event.
+* Added: Edit booking option in event.
+* Added: Add to Attendee List option in the Checkout Fields.
+* Added: Booking section in the admin event.
+* Added: Results section in the event.
+* Added: View results section on the event detail page.
+* Added: Image visibility option for the Square Grid view.
+* Added: Option to add user as a Sponsor.
+* Added: em_sponsor role for Sponsors.
+* Added: Zoom meeting link on the booking details.
+* Added: Option to Import Events from The Event Calendar plugin.
+* Added: Checkout fields data in the Attendees List.
+* Separated: Tickets option from the Bookings option.
+* Fixed: Elementor integration widget issues.
+* Updated: Advanced Checkout Fields Extension.
+* Updated: Sponsors Extension.
+* Updated: Attendees List Extension.
+* Updated: Event Import Export Extension.
+* Updated: Zoom Integration Extension.
+* Updated: Elementor Integration Extension.
+* Minor UI improvements.
 
 = 3.1.8 =
 * Added: Image customization options for event detail page.

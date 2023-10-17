@@ -219,8 +219,10 @@ class Profile_Magic_Admin {
 	}
 
 	public function profile_magic_admin_menu() {
-		add_menu_page( __( 'ProfileGrid', 'profilegrid-user-profiles-groups-and-communities' ), __( 'ProfileGrid', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_manage_groups', array( $this, 'pm_manage_groups' ), 'dashicons-groups', 26 );
-				add_submenu_page( '', __( 'New Group', 'profilegrid-user-profiles-groups-and-communities' ), __( 'New Group', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_add_group', array( $this, 'pm_add_group' ) );
+		add_menu_page( __( 'User Profiles', 'profilegrid-user-profiles-groups-and-communities' ), __( 'User Profiles', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_manage_groups', array( $this, 'pm_manage_groups' ), 'dashicons-groups', 26 );
+		add_submenu_page( 'pm_manage_groups', __( 'Groups', 'profilegrid-user-profiles-groups-and-communities' ), __( 'Groups', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_manage_groups', array( $this, 'pm_manage_groups' ) );
+		
+                add_submenu_page( '', __( 'New Group', 'profilegrid-user-profiles-groups-and-communities' ), __( 'New Group', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_add_group', array( $this, 'pm_add_group' ) );
 		add_submenu_page( '', __( 'Profile Fields', 'profilegrid-user-profiles-groups-and-communities' ), __( 'Profile Fields', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_profile_fields', array( $this, 'pm_profile_fields' ) );
 		add_submenu_page( '', __( 'New Field', 'profilegrid-user-profiles-groups-and-communities' ), __( 'New Field', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_add_field', array( $this, 'pm_add_field' ) );
 		add_submenu_page( '', __( 'New Section', 'profilegrid-user-profiles-groups-and-communities' ), __( 'New Section', 'profilegrid-user-profiles-groups-and-communities' ), 'manage_options', 'pm_add_section', array( $this, 'pm_add_section' ) );
@@ -1301,7 +1303,7 @@ class Profile_Magic_Admin {
                                         </div>
 
                                         <div class="pg-banner-btn-wrap">
-                                            <a target="_blank" href="https://metagauss.com/customization-help/" class=""><button class="button button-primary pg-customize-banner-btn"><?php esc_html_e('Get Help Now', 'profilegrid-user-profiles-groups-and-communities'); ?></button></a>
+                                            <a target="_blank" href="https://profilegrid.co/help-support/customizations/" class=""><button class="button button-primary pg-customize-banner-btn"><?php esc_html_e('Get Help Now', 'profilegrid-user-profiles-groups-and-communities'); ?></button></a>
                                         </div>
 
 
@@ -2048,7 +2050,7 @@ class Profile_Magic_Admin {
                             <p class="authors" style="display:none"> <cite><?php esc_html_e('By', 'profilegrid-user-profiles-groups-and-communities'); ?> <a target="_blank" href="https://profilegrid.co/extensions/"><?php esc_html_e('ProfileGrid', 'profilegrid-user-profiles-groups-and-communities'); ?></a></cite></p>
                         </div>
                         <div class="pg-ext-box-button">
-                            <a class="pg-install-now-btn pg-more-info" target="_blank" href="https://metagauss.com/customization-help/"> <?php esc_html_e('Get Help Now', 'profilegrid-user-profiles-groups-and-communities'); ?></a>
+                            <a class="pg-install-now-btn pg-more-info" target="_blank" href="https://profilegrid.co/help-support/customizations/"> <?php esc_html_e('Get Help Now', 'profilegrid-user-profiles-groups-and-communities'); ?></a>
                         </div>
                     </div> 
                     <div class="pg-box-col-4 pg-d-flex pg-d-flex-v-center pg-flex-direction-col">

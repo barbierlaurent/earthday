@@ -39,6 +39,8 @@ class EventM_Admin_Model_Settings {
             'frontend_submission_sections'       => array( 'fes_event_featured_image' => 1, 'fes_event_booking' => 1, 'fes_event_link' => 1, 'fes_event_type' => 1, 'fes_event_location' => 1, 'fes_event_performer' => 1, 'fes_event_organizer' => 1, 'fes_event_more_options' => 1, 'fes_event_text_color' => 1 ),
             'frontend_submission_required'       => array( 'fes_event_description' => 0, 'fes_event_booking' => 0, 'fes_booking_price' => 0,'fes_event_link' => 0, 'fes_event_type' => 0, 'fes_event_location' => 0, 'fes_event_performer' => 0, 'fes_event_organizer' => 0 ),
             'fes_allow_media_library'            => '',
+            'fes_allow_user_to_delete_event'     => '',
+            'fes_show_add_event_in_profile'      => '',
         );
         $this->setting_options = array_merge( $this->setting_options, $fes_options );
     }
@@ -126,14 +128,12 @@ class EventM_Admin_Model_Settings {
             'event_booking_status_option'     => '',
             'open_detail_page_in_new_tab'     => 0,
             'events_no_of_columns'            => '',
-            'hide_weather_tab'                => 0,
-            'weather_unit_fahrenheit'         => 0,
-            'hide_map_tab'                    => 0,
-            'hide_other_event_tab'            => 0,
-            'hide_age_group_section'          => 0,
-            'hide_note_section'               => 0,
-            'hide_performers_section'         => 0,
-            'hide_organizers_section'         => 0,
+            'events_image_visibility_options' => 'cover',
+            'events_image_height'             => '',
+            'show_trending_event_types'       => 0,
+            'no_of_event_types_displayed'     => 5,
+            'show_events_per_event_type'      => 0,
+            'sort_by_events_or_bookings'      => '',
         );
         if( $return_options == TRUE ) {
             return $events_options;
@@ -233,6 +233,9 @@ class EventM_Admin_Model_Settings {
             'event_detail_image_align'           => '',
             'event_detail_image_auto_scroll'     => 0,
             'event_detail_image_slider_duration' => 4,
+            'event_detail_message_for_recap'     => 'This event has ended and results are now available.',
+            'event_detail_result_heading'        => 'Results',
+            'event_detail_result_button_label'   => 'View Results',
         );
         if( $return_options == TRUE ) {
             return $event_detail_options;
@@ -276,6 +279,7 @@ class EventM_Admin_Model_Settings {
         $this->setting_options    = array_merge( $this->setting_options, $payment_options );
     }
     public function get_email_setting_options(){
+        $admin_email = get_option('admin_email');
         $email_options = array(
             'disable_admin_email'                   => '',
             'disable_frontend_email'                => '',
@@ -310,7 +314,9 @@ class EventM_Admin_Model_Settings {
             'admin_booking_confirmed_email_subject' => esc_html__( 'New event booking', 'eventprime-event-calendar-management' ),
             'admin_booking_confirmed_email'         => '',
             'admin_booking_confirmed_email_cc'      => '',
-            'admin_booking_confirm_email_attendees' => ''
+            'admin_booking_confirm_email_attendees' => '',
+            'ep_admin_email_to'                     => $admin_email,
+            'ep_admin_email_from'                   => $admin_email,
         );
         $email_options = apply_filters('ep_add_emailer_options',$email_options);
         $this->setting_options = array_merge( $this->setting_options, $email_options );
@@ -334,6 +340,7 @@ class EventM_Admin_Model_Settings {
             'timezone_related_message'            => 'All event times are displayed based on {{$timezone}} timezone.',
             'ep_frontend_font_size'               => 14,
             'hide_wishlist_icon'                  => 0,
+            'enable_dark_mode'                    => 0,
             
             //SEO
             'enable_seo_urls'                     => 0,
@@ -461,14 +468,15 @@ class EventM_Admin_Model_Settings {
     */
     public function get_license_setting_options() {
         $license_options = array(
-            'ep_premium_license_item_id' => 19088,
-            'ep_premium_license_item_name' => 'EventPrime Premium',
-            'ep_premium_license_key' => '',
-            'ep_premium_license_status' => '',
-            'ep_premium_license_response' => '',
+            'ep_premium_license_item_id'    => 19088,
+            'ep_premium_license_item_name'  => 'EventPrime Premium',
+            'ep_premium_license_key'        => '',
+            'ep_premium_license_status'     => '',
+            'ep_premium_license_response'   => '',
+            'ep_premium_plus_license_item_id'   => 21789,
+            'ep_premium_plus_license_item_name' => 'EventPrime Premium+',
         );
         
         $this->setting_options = array_merge( $this->setting_options, $license_options );
     }
-    
 }

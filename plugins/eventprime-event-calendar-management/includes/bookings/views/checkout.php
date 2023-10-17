@@ -59,10 +59,12 @@ if( ep_get_global_settings('checkout_reg_google_recaptcha') == 1 && !empty(ep_ge
                 </div>
             </div>
         
-            <div class="ep-box-row ep-mt-5 ep-mb-3">
-                <div class="ep-box-col-2 ep-pr-2 ep-border-right ep-border-warning ep-border-3 ep-lh-0 ep-box-col-sm-2 ep-box-col-xsm-2">
-                    <img class="ep-checkout-img-icon ep-rounded-1" src="<?php echo esc_url( $args->event->image_url );?>" alt="<?php echo esc_html( $args->event->name );?>" style="max-width:100%;">
-                </div>
+            <div class="ep-box-row ep-mt-5 ep-mb-3"><?php
+                if( ! empty( $args->event->image_url ) ) {?>
+                    <div class="ep-box-col-2 ep-pr-2 ep-border-right ep-border-warning ep-border-3 ep-lh-0 ep-box-col-sm-2 ep-box-col-xsm-2">
+                        <img class="ep-checkout-img-icon ep-rounded-1" src="<?php echo esc_url( $args->event->image_url );?>" alt="<?php echo esc_html( $args->event->name );?>" style="max-width:100%;">
+                    </div><?php
+                }?>
                 <div class="ep-box-col-10 ep-text-start ep-lh-1 ep-box-col-sm-10 ep-box-col-xsm-10">
                     <div class="ep-fs-3 ep-fw-bold ep-mb-2"><?php echo esc_html( $args->event->name );?></div>
                     <div class="ep-fs-6">
@@ -184,6 +186,7 @@ if( ep_get_global_settings('checkout_reg_google_recaptcha') == 1 && !empty(ep_ge
                             <?php do_action( 'ep_event_booking_after_ticket_info_box', $args ); ?>
 
                             <div class="ep-my-3">
+                                <?php do_action( 'ep_event_booking_before_checkout_button', $args ); ?>
                                 <?php wp_nonce_field( 'ep_save_event_booking', 'ep_save_event_booking_nonce' );?>
                                 <button type="button" class="ep-btn ep-btn-warning ep-box-w-100 ep-mb-2 step1" id="ep_event_booking_checkout_btn" data-active_step="1">
                                     <?php echo esc_html( $checkout_text ); ?>
@@ -249,8 +252,8 @@ if( ep_get_global_settings('checkout_reg_google_recaptcha') == 1 && !empty(ep_ge
                                                         </div>
                                                         <div class="ep-box-col-9 ep-p-3">
                                                             <?php if( ! empty( $em_event_checkout_attendee_fields ) ) {
-                                                                // checkout fields for name
-                                                                if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name'] ) ) {
+                                                                if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name'] ) && ( isset( $em_event_checkout_attendee_fields['em_event_checkout_name_first_name'] ) || isset( $em_event_checkout_attendee_fields['em_event_checkout_name_middle_name'] ) || isset( $em_event_checkout_attendee_fields['em_event_checkout_name_last_name'] ) ) ) {
+                                                                    // checkout fields for name
                                                                     if( ! empty( $em_event_checkout_attendee_fields['em_event_checkout_name_first_name'] ) ) {?>
                                                                         <div class="ep-mb-3">
                                                                             <label for="name" class="form-label ep-text-small">
@@ -383,43 +386,78 @@ if( ep_get_global_settings('checkout_reg_google_recaptcha') == 1 && !empty(ep_ge
                                             $term_content = $em_event_checkout_fixed_fields['em_event_checkout_fixed_terms_content'];?>
                                             <div class="ep-event-booking-attendee-section ep-box-row ep-border ep-rounded ep-mb-4">
                                                 <div class="ep-box-col-9 ep-p-3">
-                                                    <div class="ep-mb-3">
-                                                        <input name="ep_booking_attendee_fixed_term_field" type="checkbox" id="ep_booking_attendee_fixed_term_field" required="required" value="">
-                                                        <label for="ep_booking_attendee_fixed_term_field" class="form-label ep-text-small">
-                                                            <?php echo esc_html( $em_event_checkout_fixed_fields['em_event_checkout_fixed_terms_label'] );?>
-                                                        </label>
-                                                        <span>
-                                                            <?php if( $term_option == 'content' ) {?>
-                                                                <a href="javascript:void(0);" ep-modal-open="ep_checkout_attendee_terms_modal">
-                                                                    <?php esc_html_e( 'Terms & Condition', 'eventprime-event-calendar-management' );?>
-                                                                </a>
-                                                                <div class="ep-modal ep-modal-view" id="ep-booking-attendee-terms-modal" ep-modal="ep_checkout_attendee_terms_modal" style="display: none;">
-                                                                    <div class="ep-modal-overlay" ep-modal-close="ep_checkout_attendee_terms_modal"></div>
-                                                                    <div class="ep-modal-wrap ep-modal-xl">
-                                                                        <div class="ep-modal-content">
-                                                                            <div class="ep-modal-body"> 
-                                                                                <div class="ep-box-row">
-                                                                                    <div class="ep-box-col-12 ep-py-3">
-                                                                                        <?php echo wp_kses_post( $term_content );?>
-                                                                                    </div>
+                                                    <input name="ep_booking_attendee_fixed_term_field" type="checkbox" id="ep_booking_attendee_fixed_term_field" required="required" value="">
+                                                    <label for="ep_booking_attendee_fixed_term_field" class="form-label ep-text-small">
+                                                        <?php echo esc_html( $em_event_checkout_fixed_fields['em_event_checkout_fixed_terms_label'] );?>
+                                                    </label>
+                                                    <span>
+                                                        <?php if( $term_option == 'content' ) {?>
+                                                            <a href="javascript:void(0);" ep-modal-open="ep_checkout_attendee_terms_modal">
+                                                                <?php esc_html_e( 'Terms & Condition', 'eventprime-event-calendar-management' );?>
+                                                            </a>
+                                                            <div class="ep-modal ep-modal-view" id="ep-booking-attendee-terms-modal" ep-modal="ep_checkout_attendee_terms_modal" style="display: none;">
+                                                                <div class="ep-modal-overlay" ep-modal-close="ep_checkout_attendee_terms_modal"></div>
+                                                                <div class="ep-modal-wrap ep-modal-xl">
+                                                                    <div class="ep-modal-content">
+                                                                        <div class="ep-modal-body"> 
+                                                                            <div class="ep-box-row">
+                                                                                <div class="ep-box-col-12 ep-py-3">
+                                                                                    <?php echo wp_kses_post( $term_content );?>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div><?php
-                                                            } else{
-                                                                $term_page_url = ( $term_option == 'page' ) ? get_permalink( $term_content ) : $term_content ;?>
-                                                                <a href="<?php echo esc_url( $term_page_url );?>" target="_blank">
-                                                                    <?php esc_html_e( 'Terms & Condition', 'eventprime-event-calendar-management' );?>
-                                                                </a><?php
-                                                            }?>
-                                                        </span>
-                                                        <div class="ep-error-message" id="ep_booking_attendee_fixed_term_field_error"></div>
-                                                    </div>
+                                                                </div>
+                                                            </div><?php
+                                                        } else{
+                                                            $term_page_url = ( $term_option == 'page' ) ? get_permalink( $term_content ) : $term_content ;?>
+                                                            <a href="<?php echo esc_url( $term_page_url );?>" target="_blank">
+                                                                <?php esc_html_e( 'Terms & Condition', 'eventprime-event-calendar-management' );?>
+                                                            </a><?php
+                                                        }?>
+                                                    </span>
+                                                    <div class="ep-error-message" id="ep_booking_attendee_fixed_term_field_error"></div>
                                                 </div>
                                             </div><?php
                                         }
-                                    }?>
+                                    }
+                                    // checkout booking fields container
+                                    $em_event_checkout_booking_fields = ( ! empty( $args->event->em_event_checkout_booking_fields ) ? $args->event->em_event_checkout_booking_fields : array() );
+                                    if( ! empty( $em_event_checkout_booking_fields['em_event_booking_fields_data'] ) ) {
+                                        $booking_require_fields = array();
+                                        $core_field_types = array_keys( ep_get_core_checkout_fields() );
+                                        if( isset( $em_event_checkout_booking_fields['em_event_booking_fields_data_required'] ) && ! empty( $em_event_checkout_booking_fields['em_event_booking_fields_data_required'] ) ) {
+                                            $booking_require_fields = $em_event_checkout_booking_fields['em_event_booking_fields_data_required'];
+                                        }
+                                        foreach( $em_event_checkout_booking_fields['em_event_booking_fields_data'] as $fields ) {?>
+                                            <div class="ep-event-booking-booking-section ep-box-row ep-border ep-rounded ep-mb-4"><?php
+                                                if( in_array( $fields->type, $core_field_types ) ) {
+                                                    $input_name = ep_get_slug_from_string( $fields->label );?>
+                                                    <div class="ep-p-3">
+                                                        <label for="name" class="form-label ep-text-small">
+                                                            <?php echo esc_html( $fields->label );
+                                                            if( in_array( $fields->id, $booking_require_fields ) ) {?>
+                                                                <span class="ep-checkout-fields-required"><?php echo esc_html( '*' ); ?></span><?php
+                                                            }?>
+                                                        </label>
+                                                        <input name="ep_booking_booking_fields[<?php echo esc_attr( $fields->id );?>][label]" type="hidden" value="<?php echo esc_attr( $fields->label );?>">
+                                                        <input name="ep_booking_booking_fields[<?php echo esc_attr( $fields->id );?>][<?php echo esc_attr( $input_name );?>]" 
+                                                            type="<?php echo esc_attr( $fields->type );?>" 
+                                                            class="ep-form-control" 
+                                                            id="ep_booking_booking_fields_<?php echo esc_attr( $fields->id );?>_<?php echo esc_attr( $input_name );?>" 
+                                                            placeholder="<?php echo esc_attr( $fields->label );?>"
+                                                            <?php if( in_array( $fields->id, $booking_require_fields ) ) { echo 'required="required"'; } ?>
+                                                        >
+                                                        <div class="ep-error-message" id="ep_booking_booking_fields_<?php echo esc_attr( $fields->id );?>_<?php echo esc_attr( $input_name );?>_error"></div>
+                                                    </div><?php
+                                                } else{
+                                                    $checkout_field_data = array( 'fields' => $fields, 'tickets' => '', 'checkout_require_fields' => $booking_require_fields, 'num' => '', 'section' => 'booking' );
+                                                    do_action( 'ep_event_advanced_checkout_fields_section', $checkout_field_data );
+                                                }?>
+                                            </div><?php
+                                        }
+                                    }
+                                    ?>
                                 </div><?php
                             }?>
                             <!-- Attendees info section End -->
@@ -438,7 +476,7 @@ if( ep_get_global_settings('checkout_reg_google_recaptcha') == 1 && !empty(ep_ge
                                             <span class="ep-fw-bold">
                                                 <?php esc_html_e( 'Already have an account?', 'eventprime-event-calendar-management' );?>
                                             </span>
-                                            <span class="ep-border-bottom ep-border-1 ep-border-success ep-text-success" id="ep_checkout_login_modal_id" ep-modal-open="ep_checkout_login_modal">
+                                            <span class="ep-text-success ep-cursor" id="ep_checkout_login_modal_id" ep-modal-open="ep_checkout_login_modal">
                                                 <?php esc_html_e( 'Click here to login', 'eventprime-event-calendar-management' );?>
                                             </span>
                                         </div>
@@ -567,14 +605,12 @@ if( ep_get_global_settings('checkout_reg_google_recaptcha') == 1 && !empty(ep_ge
 
 <div class="ep-modal ep-modal-view" id="ep-event-booking-login-modal" ep-modal="ep_checkout_login_modal" style="display: none;">
     <div class="ep-modal-overlay" ep-modal-close="ep_checkout_login_modal"></div>
-    <div class="ep-modal-wrap ep-modal-xl">
+    <div class="ep-modal-wrap ep-modal-lg">
         <div class="ep-modal-content">
             <div class="ep-modal-body"> 
-                <div class="ep-box-row">
-                    <div class="ep-box-col-12 ep-py-3">
-                        <?php echo do_shortcode( '[em_login show_login_form=1]' );?>
-                    </div>
-                </div>
+
+             <?php echo do_shortcode( '[em_login show_login_form=1]' );?>
+
             </div>
         </div>
     </div>

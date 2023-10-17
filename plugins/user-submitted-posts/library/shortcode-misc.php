@@ -148,11 +148,8 @@ add_shortcode('usp_display_posts', 'usp_display_posts');
 /* 
 	Shortcode: [usp_gallery]
 	Displays a gallery of submitted images for the current post
-	Syntax: [usp_gallery size="" before="" after="" number="" id=""]
-	Notes: 
-		Use curly brackets to output angle brackets
-		Use single quotes in before/after attributes
-		See usp_get_images() for inline notes and more infos
+	Syntax: [usp_gallery size="" format="" target="" class="" number="" id=""]
+	Notes: See usp_get_images() for inline notes and more infos
 */
 if (!function_exists('usp_gallery')) :
 
@@ -160,15 +157,16 @@ function usp_gallery($attr, $content = null) {
 	
 	extract(shortcode_atts(array(
 		
-		'size'   => 'thumbnail',
-		'before' => '{a href="%%url%%"}{img src="',
-		'after'  => '" /}{/a}',
-		'number' => false,
-		'id'     => false,
+		'size'    => 'thumbnail',
+		'format'  => 'image',
+		'target'  => 'blank',
+		'class'   => '',
+		'number'  => 100,
+		'id'      => false,
 		
 	), $attr));
 	
-	$images = usp_get_images($size, $before, $after, $number, $id);
+	$images = usp_get_images($size, $format, $target, $class, $number, $id);
 	
 	$gallery = '';
 	

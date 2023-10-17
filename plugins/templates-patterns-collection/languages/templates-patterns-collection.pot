@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Templates Patterns Collection 1.1.39\n"
+"Project-Id-Version: Templates Patterns Collection 1.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/templates-patterns-collection\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-19T06:58:58+00:00\n"
+"POT-Creation-Date: 2023-10-09T12:18:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: templates-patterns-collection\n"
@@ -30,201 +30,218 @@ msgstr ""
 msgid "https://themeisle.com"
 msgstr ""
 
-#: includes/Admin.php:333
-#: includes/Admin.php:334
+#: includes/Admin.php:406
+#: includes/Admin.php:407
 #: assets/src/Components/Header.js:25
 msgid "Starter Sites"
 msgstr ""
 
-#: includes/Admin.php:344
-#: includes/Admin.php:345
+#: includes/Admin.php:417
+#: includes/Admin.php:418
 #: includes/Elementor.php:90
 #: includes/TI_Beaver.php:402
 #: assets/src/Components/Header.js:30
 msgid "My Library"
 msgstr ""
 
+#: includes/Admin.php:437
+#: includes/Admin.php:438
+msgid "Onboarding"
+msgstr ""
+
 #. translators: %s - Theme name
-#: includes/Admin.php:455
+#: includes/Admin.php:622
 msgid "Choose from multiple unique demos, specially designed for you, that can be installed with a single click. You just need to choose your favorite, and we will take care of everything else."
 msgstr ""
 
-#: includes/Admin.php:592
+#: includes/Admin.php:952
 msgid "Great news!  Now you can export your own custom designs to the cloud and then reuse them on other sites."
 msgstr ""
 
 #. translators: %s: Templates Cloud
-#: includes/Admin.php:595
+#: includes/Admin.php:955
 msgid "Open %s"
 msgstr ""
 
-#: includes/Admin.php:703
+#: includes/Admin.php:1063
 msgid "Hi! We've noticed you were using a child theme of Zelle before. To make your transition easier, we can help you keep the same homepage settings you had before but in original Zelle's style, by converting it into an Elementor template."
 msgstr ""
 
-#: includes/Admin.php:733
+#: includes/Admin.php:1093
 #: includes/TI_Beaver.php:412
 #: assets/src/Components/StarterSiteCard.js:61
 msgid "Preview"
 msgstr ""
 
-#: includes/Admin.php:734
+#: includes/Admin.php:1094
 #: includes/TI_Beaver.php:413
 #: assets/src/Components/PreviewFrame.js:95
 #: assets/src/Components/StarterSiteCard.js:69
 msgid "Import"
 msgstr ""
 
-#: includes/Admin.php:735
+#: includes/Admin.php:1095
 msgid "Get the PRO version!"
 msgstr ""
 
-#: includes/Admin.php:736
+#: includes/Admin.php:1096
 msgid "Importing"
 msgstr ""
 
-#: includes/Admin.php:737
+#: includes/Admin.php:1097
 #: includes/Elementor.php:100
 #: includes/TI_Beaver.php:391
 #: assets/src/Components/Migration.js:165
 msgid "Cancel"
 msgstr ""
 
-#: includes/Admin.php:738
+#: includes/Admin.php:1098
 msgid "Loading"
 msgstr ""
 
-#: includes/Admin.php:739
-#: assets/src/Components/ImportModal.js:737
+#: includes/Admin.php:1099
+#: assets/src/Components/ImportModal.js:738
 #: assets/src/Components/Migration.js:198
 msgid "View Website"
 msgstr ""
 
-#: includes/Admin.php:740
-#: assets/src/Components/ImportModal.js:741
+#: includes/Admin.php:1100
+#: assets/src/Components/ImportModal.js:742
 msgid "Add your own content"
 msgstr ""
 
-#: includes/Admin.php:741
+#: includes/Admin.php:1101
 msgid "Back to Sites Library"
 msgstr ""
 
-#: includes/Admin.php:742
+#: includes/Admin.php:1102
 msgid "Note"
 msgstr ""
 
-#: includes/Admin.php:743
+#: includes/Admin.php:1103
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/Admin.php:744
-#: assets/src/Components/ImportModal.js:361
+#: includes/Admin.php:1104
+#: assets/src/Components/ImportModal.js:362
 msgid "Plugins"
 msgstr ""
 
-#: includes/Admin.php:745
+#: includes/Admin.php:1105
 msgid "General"
 msgstr ""
 
-#: includes/Admin.php:746
+#: includes/Admin.php:1106
 msgid "Keep current layout"
 msgstr ""
 
-#: includes/Admin.php:747
+#: includes/Admin.php:1107
 #: includes/Elementor.php:115
 #: includes/TI_Beaver.php:425
 msgid "Search"
 msgstr ""
 
-#: includes/Admin.php:748
-#: assets/src/Components/ImportModal.js:205
+#: includes/Admin.php:1108
+#: assets/src/Components/ImportModal.js:206
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:57
 msgid "Content"
 msgstr ""
 
-#: includes/Admin.php:749
-#: assets/src/Components/ImportModal.js:213
+#: includes/Admin.php:1109
+#: assets/src/Components/ImportModal.js:214
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:65
 msgid "Customizer"
 msgstr ""
 
-#: includes/Admin.php:750
-#: assets/src/Components/ImportModal.js:217
+#: includes/Admin.php:1110
+#: assets/src/Components/ImportModal.js:218
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:69
 msgid "Widgets"
 msgstr ""
 
-#: includes/Admin.php:751
-#: assets/src/Components/ImportModal.js:207
+#: includes/Admin.php:1111
+#: assets/src/Components/ImportModal.js:208
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:59
 msgid "We recommend you backup your website content before attempting a full site import."
 msgstr ""
 
-#: includes/Admin.php:752
+#: includes/Admin.php:1112
 msgid "Due to copyright issues, some of the demo images will not be imported and will be replaced by placeholder images."
 msgstr ""
 
-#: includes/Admin.php:753
+#: includes/Admin.php:1113
 msgid "Some of the demo images will not be imported and will be replaced by placeholder images."
 msgstr ""
 
-#: includes/Admin.php:754
+#: includes/Admin.php:1114
 msgid "Here is our own collection of related images you can use for your site."
 msgstr ""
 
-#: includes/Admin.php:755
+#: includes/Admin.php:1115
 #: assets/src/Components/Migration.js:131
 msgid "Content was successfully imported. Enjoy your new site!"
 msgstr ""
 
-#: includes/Admin.php:756
+#: includes/Admin.php:1116
 msgid "Available in the PRO version"
 msgstr ""
 
-#: includes/Admin.php:757
+#: includes/Admin.php:1117
 msgid "Copy error code"
 msgstr ""
 
-#: includes/Admin.php:758
+#: includes/Admin.php:1118
 msgid "Download error log"
 msgstr ""
 
-#: includes/Admin.php:759
+#: includes/Admin.php:1119
 msgid "To import this demo you have to install the following plugins:"
 msgstr ""
 
 #. translators: 1 - 'here'.
-#: includes/Admin.php:762
+#: includes/Admin.php:1122
 msgid "It seems that Rest API is not working properly on your website. Read about how you can fix it %1$s."
 msgstr ""
 
-#: includes/Admin.php:763
+#: includes/Admin.php:1123
 msgid "here"
 msgstr ""
 
 #. translators: 1 - 'get in touch'.
-#: includes/Admin.php:767
+#: includes/Admin.php:1127
 msgid "Hi! It seems there is a configuration issue with your server that's causing the import to fail. Please %1$s with us with the error code below, so we can help you fix this."
 msgstr ""
 
-#: includes/Admin.php:768
-#: includes/Admin.php:778
+#: includes/Admin.php:1128
+#: includes/Admin.php:1138
 msgid "get in touch"
 msgstr ""
 
 #. translators: 1 - 'troubleshooting guide'.
-#: includes/Admin.php:772
+#: includes/Admin.php:1132
 msgid "Hi! It seems there is a configuration issue with your server that's causing the import to fail. Take a look at our %1$s to see if any of the proposed solutions work."
 msgstr ""
 
-#: includes/Admin.php:773
+#: includes/Admin.php:1133
 msgid "troubleshooting guide"
 msgstr ""
 
 #. translators: 1 - 'get in touch'.
-#: includes/Admin.php:777
+#: includes/Admin.php:1137
 msgid "If none of the solutions in the guide work, please %1$s with us with the error code below, so we can help you fix this."
 msgstr ""
 
 #. translators: %s - 'WP_Filesystem'.
-#: includes/Admin.php:782
+#: includes/Admin.php:1142
 msgid "It seems that %s is not available. You can contact your site administrator or hosting provider to help you enable it."
+msgstr ""
+
+#: includes/Admin.php:1185
+msgid "Nonce verification failed"
+msgstr ""
+
+#: includes/Admin.php:1195
+msgid "No logs found"
 msgstr ""
 
 #. translators: %s: Templates Cloud
@@ -582,6 +599,8 @@ msgstr ""
 #: assets/src/Components/EditorTabs.js:43
 #: assets/src/Components/Search.js:110
 #: assets/src/Components/Search.js:169
+#: onboarding/src/Components/EditorSelector.js:53
+#: onboarding/src/Components/EditorSelector.js:87
 msgid "Builder Logo"
 msgstr ""
 
@@ -599,126 +618,156 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:99
-#: assets/src/Components/ImportModal.js:140
+#: assets/src/Components/ImportModal.js:100
+#: assets/src/Components/ImportModal.js:141
+#: onboarding/src/Components/Steps/CustomizeSite.js:44
+#: onboarding/src/Components/Steps/CustomizeSite.js:86
 msgid "Something went wrong while loading the site data. Please refresh the page and try again."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:162
+#: assets/src/Components/ImportModal.js:163
 msgid "Import the entire site including customizer options, pages, content and plugins."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:176
+#: assets/src/Components/ImportModal.js:177
 msgid "Neve"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:177
+#: assets/src/Components/ImportModal.js:178
 msgid "In order to import the starter site, Neve theme has to be installed and activated."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:188
+#: assets/src/Components/ImportModal.js:189
 msgid "Install required theme"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:219
+#: assets/src/Components/ImportModal.js:220
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:71
 msgid "Widgets will be moved to the Inactive Widgets sidebar and can be retrieved from there."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:225
+#: assets/src/Components/ImportModal.js:226
 msgid "Enable performance features for my site"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:268
+#: assets/src/Components/ImportModal.js:269
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:122
 msgid "Cleanup previous import"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:272
+#: assets/src/Components/ImportModal.js:273
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:126
 msgid "This will remove any plugins, images, customizer options, widgets posts and pages added by the previous demo import"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:290
+#: assets/src/Components/ImportModal.js:291
 msgid "Import settings"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:404
+#: assets/src/Components/ImportModal.js:405
 msgid "Additional plugins are required for this Starter Site in order to work properly. "
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:445
+#: assets/src/Components/ImportModal.js:446
 #: assets/src/Components/InstallModal.js:52
+#: onboarding/src/Components/Steps/Import.js:91
 msgid "Could not install theme."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:466
+#: assets/src/Components/ImportModal.js:467
 #: assets/src/Components/InstallModal.js:67
+#: onboarding/src/Components/Steps/Import.js:112
 msgid "Could not activate theme."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:649
+#: assets/src/Components/ImportModal.js:650
+#: onboarding/src/Components/Steps/Import.js:261
 msgid "Something went wrong while cleaning the previous import."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:653
+#: assets/src/Components/ImportModal.js:654
 #: assets/src/Components/Migration.js:47
+#: onboarding/src/Components/Steps/Import.js:265
 msgid "Something went wrong while installing the necessary plugins."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:657
+#: assets/src/Components/ImportModal.js:658
 #: assets/src/Components/Migration.js:63
+#: onboarding/src/Components/Steps/Import.js:269
 msgid "Something went wrong while importing the website content."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:661
+#: assets/src/Components/ImportModal.js:662
+#: onboarding/src/Components/Steps/Import.js:273
 msgid "Something went wrong while updating the customizer settings."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:665
+#: assets/src/Components/ImportModal.js:666
+#: onboarding/src/Components/Steps/Import.js:277
 msgid "Something went wrong while importing the widgets."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:669
+#: assets/src/Components/ImportModal.js:670
+#: onboarding/src/Components/Steps/Import.js:281
 msgid "Something went wrong while installing the performance addon."
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:728
+#: assets/src/Components/ImportModal.js:729
 msgid "View Website & Subscribe"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:732
+#: assets/src/Components/ImportModal.js:733
 msgid "Skip and add your own content"
 msgstr ""
 
 #. translators: name of starter site
-#: assets/src/Components/ImportModal.js:803
+#: assets/src/Components/ImportModal.js:804
 msgid "Import %s as a complete site"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:810
+#: assets/src/Components/ImportModal.js:811
 msgid "Content was successfully imported"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:867
+#: assets/src/Components/ImportModal.js:835
+msgid "Learn more about this starter site"
+msgstr ""
+
+#: assets/src/Components/ImportModal.js:879
 msgid "Stay up-to-date on news, tips and product updates"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:870
+#: assets/src/Components/ImportModal.js:882
+#: onboarding/src/Components/ImportForm.js:132
 msgid "Enter your email"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:894
+#: assets/src/Components/ImportModal.js:906
 msgid "I want to import just the templates"
 msgstr ""
 
-#: assets/src/Components/ImportModal.js:912
+#: assets/src/Components/ImportModal.js:924
 msgid "Import entire site"
 msgstr ""
 
-#: assets/src/Components/ImportModalError.js:26
+#: assets/src/Components/ImportModalError.js:49
+#: onboarding/src/Components/ImportError.js:50
 msgid "Error code"
 msgstr ""
 
-#: assets/src/Components/ImportModalError.js:31
+#: assets/src/Components/ImportModalError.js:54
+#: onboarding/src/Components/ImportError.js:55
 msgid "Error log"
+msgstr ""
+
+#: assets/src/Components/ImportModalError.js:56
+#: onboarding/src/Components/ImportError.js:57
+msgid "Download Logs File"
+msgstr ""
+
+#: assets/src/Components/ImportModalError.js:60
+#: onboarding/src/Components/ImportError.js:61
+msgid "See logs"
 msgstr ""
 
 #: assets/src/Components/ImportModalNote.js:13
@@ -726,30 +775,37 @@ msgid "To import this demo you have to install the following plugins"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:9
+#: onboarding/src/Components/ImportProgress.js:6
 msgid "Cleanup previous Import"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:17
+#: onboarding/src/Components/ImportProgress.js:10
 msgid "Installing and Activating the Theme"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:25
+#: onboarding/src/Components/ImportProgress.js:14
 msgid "Installing Plugins"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:30
+#: onboarding/src/Components/ImportProgress.js:15
 msgid "Importing Content"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:35
+#: onboarding/src/Components/ImportProgress.js:16
 msgid "Importing Customizer Settings"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:43
+#: onboarding/src/Components/ImportProgress.js:20
 msgid "Importing Widgets"
 msgstr ""
 
 #: assets/src/Components/ImportStepper.js:48
+#: onboarding/src/Components/ImportProgress.js:21
 msgid "Installing Performance Features"
 msgstr ""
 
@@ -825,6 +881,7 @@ msgid "Starter sites could not be loaded. Please refresh and try again."
 msgstr ""
 
 #: assets/src/Components/OnboardingContent.js:171
+#: onboarding/src/Components/Sites.js:92
 msgid "No results found."
 msgstr ""
 
@@ -862,6 +919,7 @@ msgstr ""
 
 #: assets/src/utils/common.js:29
 #: assets/src/utils/common.js:38
+#: onboarding/src/utils/common.js:7
 msgid "Business"
 msgstr ""
 
@@ -874,6 +932,7 @@ msgid "Fashion"
 msgstr ""
 
 #: assets/src/utils/common.js:32
+#: onboarding/src/utils/common.js:9
 msgid "Blogging"
 msgstr ""
 
@@ -890,6 +949,7 @@ msgid "Free"
 msgstr ""
 
 #: assets/src/utils/common.js:39
+#: onboarding/src/utils/common.js:10
 msgid "Portfolio"
 msgstr ""
 
@@ -902,6 +962,7 @@ msgid "Blog"
 msgstr ""
 
 #: assets/src/utils/common.js:42
+#: onboarding/src/utils/common.js:8
 msgid "Personal"
 msgstr ""
 
@@ -953,4 +1014,229 @@ msgstr ""
 #: editor/src/extension.js:500
 #: elementor/src/components/export.js:311
 msgid "Refresh"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:77
+msgid "Performance features"
+msgstr ""
+
+#. translators: %s is Optimole plugin name.
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:85
+msgid "Optimize and speed up your site with our trusted addon, <a><span>%s</span><icon/></a>. It’s free."
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/ImportOptionsControl.js:166
+msgid "Advanced Settings"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/LogoControl.js:26
+msgid "Upload a logo"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/LogoControl.js:47
+msgid "Select or upload image"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/LogoControl.js:58
+msgid "Uploaded image"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/LogoControl.js:75
+msgid "Remove"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/LogoControl.js:81
+msgid "Change"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/PaletteControl.js:41
+msgid "Color Palette"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/SiteNameControl.js:23
+msgid "Bussiness Name"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/TypographyControl.js:29
+msgid "Typography"
+msgstr ""
+
+#: onboarding/src/Components/CustomizeControls/TypographyControl.js:45
+msgid "Default"
+msgstr ""
+
+#: onboarding/src/Components/Filters.js:8
+msgid "All"
+msgstr ""
+
+#: onboarding/src/Components/Header.js:54
+msgid "Import Templates"
+msgstr ""
+
+#: onboarding/src/Components/Header.js:62
+msgid "Exit to dashboard"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:18
+msgid "I am a…"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:22
+msgid "Beginner"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:26
+msgid "Intermediate"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:30
+msgid "Expert"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:37
+msgid "I build this site for…"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:44
+msgid "Myself"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:48
+msgid "My Company"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:52
+msgid "My Client"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:118
+msgid "You're all set. Tell us a bit about yourself."
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:163
+msgid "Submit and view site"
+msgstr ""
+
+#: onboarding/src/Components/ImportForm.js:176
+msgid "Skip and view site"
+msgstr ""
+
+#: onboarding/src/Components/Sites.js:97
+msgid "You can try a different search or use another category."
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:37
+msgid "Customise design"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:38
+msgid "Site details"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:40
+msgid "Optionally add your business name and logo. You can change these later."
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:45
+msgid "Customise the design of your site, such as color and typography."
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:51
+msgid "This is a Premium Starter Site!"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:55
+msgid "Upgrade to Neve Pro to enjoy unlimited access to all templates in the library."
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:62
+msgid "If you are an existing Neve Pro customer, please install the premium version of the plugin from your Themeisle <a></a>."
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:73
+msgid "account dashboard"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:82
+msgid "If you have any questions, feel free to <a></a>."
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:93
+msgid "contact us"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:164
+msgid "Go back"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:212
+msgid "Unlock Access"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:229
+msgid "Continue"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:256
+msgid "Import Website"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:269
+msgid "Skip and import website"
+msgstr ""
+
+#: onboarding/src/Components/SiteSettings.js:278
+msgid "Already a customer"
+msgstr ""
+
+#: onboarding/src/Components/StarterSiteCard.js:43
+msgid "PRO"
+msgstr ""
+
+#: onboarding/src/Components/StarterSiteCard.js:54
+msgid "Select"
+msgstr ""
+
+#: onboarding/src/Components/Steps/Import.js:317
+msgid "We are importing your new site…"
+msgstr ""
+
+#: onboarding/src/Components/Steps/Import.js:323
+msgid "Sit tight as we import a website based on your references."
+msgstr ""
+
+#: onboarding/src/Components/Steps/Import.js:345
+msgid "Import complete."
+msgstr ""
+
+#: onboarding/src/Components/Steps/Import.js:350
+msgid "Enjoy your site!"
+msgstr ""
+
+#: onboarding/src/Components/Steps/SiteList.js:13
+msgid "Unlock Access to all premium templates with Neve PRO. <a></a>."
+msgstr ""
+
+#: onboarding/src/Components/Steps/SiteList.js:24
+msgid "Get Started"
+msgstr ""
+
+#: onboarding/src/Components/Steps/SiteList.js:50
+msgid "Choose a design"
+msgstr ""
+
+#: onboarding/src/Components/Steps/Welcome.js:45
+msgid "What type of website are you creating?"
+msgstr ""
+
+#: onboarding/src/Components/Steps/Welcome.js:51
+msgid "Pick a category and we will provide you with relevant suggestions so you can find the starter site that works best for you."
+msgstr ""
+
+#: onboarding/src/Components/Steps/Welcome.js:62
+msgid "Or search for a site"
+msgstr ""
+
+#: onboarding/src/utils/common.js:11
+msgid "E-Shop"
 msgstr ""

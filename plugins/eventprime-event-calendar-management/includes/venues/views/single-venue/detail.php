@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
                     <?php echo esc_html( $args->venue->name ); ?>
                 </h3>
                 <ul class="ep-single-box-details-meta ep-mx-0 ep-my-2 ep-p-0">
-                    <?php if ( $args->venue->em_established ) { ?>
+                    <?php if ( ! empty( $args->venue->em_established ) ) { ?>
                         <li class="ep-d-inline-flex ep-box-w-100"> 
                             <div class="em_color ep-fw-bold">
                                 <?php esc_html_e('Established', 'eventprime-event-calendar-management'); ?> :  
@@ -25,15 +25,15 @@ defined( 'ABSPATH' ) || exit;
                                 <?php echo date_i18n( get_option('date_format'), $args->venue->em_established ); ?>
                             </div>
                         </li><?php 
-                    }?>
-
-                    <li class="ep-d-inline-flex ep-box-w-100 ">
-                        <div class="ep-event-type ep-fw-bold">
-                            <?php echo esc_html__( 'Type', 'eventprime-event-calendar-management' ). ' : '. esc_html__( ep_get_venue_type_label( $args->venue->em_type ), 'eventprime-event-calendar-management' ); ?>
-                        </div>
-                    </li>
-
-                    <?php if ( ! empty( $args->venue->em_seating_organizer ) ) { ?>
+                    }
+                    if( ! empty( $args->venue->em_type ) ) {?>
+                        <li class="ep-d-inline-flex ep-box-w-100 ">
+                            <div class="ep-event-type ep-fw-bold">
+                                <?php echo esc_html__( 'Type', 'eventprime-event-calendar-management' ). ' : '. esc_html__( ep_get_venue_type_label( $args->venue->em_type ), 'eventprime-event-calendar-management' ); ?>
+                            </div>
+                        </li><?php 
+                    }
+                    if ( ! empty( $args->venue->em_seating_organizer ) ) { ?>
                         <li class="ep-d-inline-flex ep-box-w-100">
                             <div class="em_color ep-fw-bold">
                                 <?php esc_html_e( 'Coordinator', 'eventprime-event-calendar-management' ); ?> :  
@@ -88,7 +88,7 @@ defined( 'ABSPATH' ) || exit;
                 }?>
             </div>
             <!-- single venue gallery images -->
-            <?php if ( is_array( $args->venue->em_gallery_images ) && count( $args->venue->em_gallery_images ) > 1 ) { ?>
+            <?php if ( ! empty( $args->venue->em_gallery_images ) && is_array( $args->venue->em_gallery_images ) && count( $args->venue->em_gallery_images ) > 1 ) { ?>
                 <div class="em_photo_gallery em-single-venue-photo-gallery" >
                     <div class="ep-row-heading">
                         <span class="ep-row-title ep-fw-bold ep-mb-3 ep-fs-6">
@@ -102,7 +102,7 @@ defined( 'ABSPATH' ) || exit;
                             </a><?php 
                         } ?>
                     </div><?php
-                    if( ! empty( $args->venue->em_gallery_images ) && count( $args->venue->em_gallery_images ) > 0 ) {?>
+                    if( count( $args->venue->em_gallery_images ) > 0 ) {?>
                         <div class="ep_venue_gallery_modal_container ep-modal ep-modal-view" id="ep-venue-gallery-modal"  ep-modal="ep-venue-gal-modal" style="display: none;" >
                             <div class="ep-modal-overlay" ep-modal-close="ep-venue-gal-modal"></div>
                             <div class="ep-modal-wrap ep-modal-lg">

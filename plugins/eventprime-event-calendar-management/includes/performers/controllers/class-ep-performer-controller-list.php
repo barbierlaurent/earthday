@@ -107,14 +107,15 @@ class EventM_Performer_Controller_List {
         if( empty( $post ) ) {
             $post = get_post( $post_id );
         }
-        
-        $performer->id            = $post->ID;
-        $performer->name          = $post->post_title;
-        $performer->slug          = $post->post_name;
-        $performer->description   = $post->post_content;
-        //$performer->performer_url = ep_get_custom_page_url( 'performers_page', $performer->id, 'performer' );
-        $performer->performer_url = $this->get_performer_single_url($performer->id);
-        $performer->image_url     = $this->get_performer_image_url( $performer->id );
+        if( ! empty( $post ) ) {
+            $performer->id            = $post->ID;
+            $performer->name          = $post->post_title;
+            $performer->slug          = $post->post_name;
+            $performer->description   = $post->post_content;
+            //$performer->performer_url = ep_get_custom_page_url( 'performers_page', $performer->id, 'performer' );
+            $performer->performer_url = $this->get_performer_single_url($performer->id);
+            $performer->image_url     = $this->get_performer_image_url( $performer->id );
+        }
         
         return $performer;
     }
@@ -322,32 +323,31 @@ class EventM_Performer_Controller_List {
      * @return object Post.
      */
     public function get_upcoming_events_for_performer( $performer_id, $args = array() ) {
+        $hide_past_events = ep_get_global_settings( 'single_performer_hide_past_events' );
+        $past_events_meta_qry = '';
+        if( ! empty( $hide_past_events ) ) {
+            $past_events_meta_qry = array(
+                'relation' => 'OR',
+                array(
+                    'key'     => 'em_start_date_time',
+                    'value'   => current_time( 'timestamp' ),
+                    'compare' => '>=',
+                ),
+            );
+        }
         $filter = array(
-            'meta_key'    => 'em_start_date',
-            'orderby'     => 'em_start_date',
+            'meta_key'    => 'em_start_date_time',
+            'orderby'     => 'meta_value',
             'numberposts' => -1,
             'order'       => 'ASC',
             'meta_query'  => array( 'relation' => 'AND',
                 array(
                     array(
                         'key'     => 'em_performer',
-                        //'value'   => sprintf( ';i:%d;', $performer_id ),
                         'value'   =>  serialize( strval ( $performer_id ) ),
                         'compare' => 'LIKE'
                     ),
-                    array(
-                        'relation' => 'OR',
-                        array(
-                            'key'     => 'em_start_date',
-                            'value'   => current_time( 'timestamp' ),
-                            'compare' => '>=',
-                        ),
-                        /*array(
-                            'key'     => 'em_end_date',
-                            'value'   => current_time( 'timestamp' ),
-                            'compare' => '<=',
-                        )*/
-                    ),
+                    $past_events_meta_qry,
                     array(
                         'relation' => 'OR',
                         array(
@@ -366,11 +366,8 @@ class EventM_Performer_Controller_List {
         );
         $filter = apply_filters( 'ep_performers_render_argument', $filter, $args );
         $args = wp_parse_args($args, $filter);
-        
-        add_filter(' posts_orderby', 'em_posts_order_by' );
         $wp_query = new WP_Query( $args );
         $wp_query->performer_id = $performer_id;
-        remove_filter( 'posts_orderby', 'em_posts_order_by' ); 
         return $wp_query;
     }
 

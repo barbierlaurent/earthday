@@ -1109,12 +1109,41 @@ if ( !empty( $available_extensions ) ) :
         <span><a href="admin.php?page=pm_extensions" target="_blank"><?php esc_html_e( 'Interested? Checkout more information', 'profilegrid-user-profiles-groups-and-communities' ); ?></a></span>
         </div>
     </div>
+          
+           <!--ProfileGrid Customized TeraWallet Integration-->
+
+    <div class="pg-extension-wrap" id="pg-terawallet-integration" style="display: none">
+    <div class="pg-extension-modal-icon"> <img src="<?php echo esc_url( $path . 'images/pg-wallet-icon.png' ); ?>" class="options" alt="options"></div>
+       
+        <div class="pg-extension-modal-title"> <?php esc_html_e( 'Customized TeraWallet Integration', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+        <div class="pg-extension-modal-subhead"><?php esc_html_e( 'Turn Customized TeraWallet Integration on/off.', 'profilegrid-user-profiles-groups-and-communities' ); ?><span class="pg-ext-label"><?php esc_html_e( 'Customized', 'profilegrid-user-profiles-groups-and-communities' ); ?> </span></div>
+       
+        <div class="pg-extension-modal-des">
+            <?php esc_html_e( 'Offers powerful Group based credit control to admins and Group leaders. It integrates with WooCommerce and TeraWallet plugins to provide a workflow enabling Group based credit limit spendable on WooCommerce.', 'profilegrid-user-profiles-groups-and-communities' ); ?>
+        <span><a href="admin.php?page=pm_extensions" target="_blank"><?php esc_html_e( 'Interested? Checkout more information', 'profilegrid-user-profiles-groups-and-communities' ); ?></a></span>
+        </div>
+    </div>
     
     <!--MailPoet Integration End-->
     
     
         
     <!--Activated Extensions Popup-->
+    
+     <!--ProfileGrid Customized TeraWallet Integration  Active-->
+                
+    <div class="pg-extension-wrap pg-extension-active" id="pg-terawallet-integration-ext-active" style="display: none">
+    <div class="pg-extension-modal-icon"> <img src="<?php echo esc_url( $path . 'images/pg-wallet-icon.png' ); ?>" class="options" alt="options"></div>
+       
+        <div class="pg-extension-modal-title"> <?php esc_html_e( 'Customized TeraWallet Integration', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+        <div class="pg-extension-modal-subhead"><?php esc_html_e( 'Offers powerful Group based credit control to admins and Group leaders. It integrates with WooCommerce and TeraWallet plugins to provide a workflow enabling Group based credit limit spendable on WooCommerce.', 'profilegrid-user-profiles-groups-and-communities' ); ?></div>
+        <div class="pg-extension-modal-active-extension"><?php echo wp_kses_post( __( '<strong>Congratulations</strong>, you have successfully installed and activated this extension!', 'profilegrid-user-profiles-groups-and-communities' ) ); ?></div>
+        <div class="pg-extension-modal-des">
+            <?php echo wp_kses_post( __( 'Offers powerful Group based credit control to admins and Group leaders. It integrates with WooCommerce and TeraWallet plugins to provide a workflow enabling Group based credit limit spendable on WooCommerce.', 'profilegrid-user-profiles-groups-and-communities' ) ); ?>
+        </div>
+    </div>
+    
+    <!--ProfileGrid WooCommerce Customized Product Restrictions End--> 
     
     <!--ProfileGrid WooCommerce Customized Product Restrictions  Active-->
                 

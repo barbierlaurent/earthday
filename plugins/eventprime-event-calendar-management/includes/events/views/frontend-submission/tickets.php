@@ -9,13 +9,12 @@
 ?>
 <?php if( isset( $args->fes_event_booking ) && ! empty( $args->fes_event_booking ) ){?>
     <div class="ep-fes-section ep-mb-4 ep-border ep-p-4 ep-shadow-sm ep-rounded-1">
-        
         <div class="ep-box-wrap">
-        <div class="ep-box-row">
-            <div class="ep-box-col-12">
-            <div class="ep-fes-section-title ep-fs-5 ep-fw-bold ep-mb-3"><?php esc_html_e('Event Tickets', 'eventprime-event-calendar-management');?></div>
+            <div class="ep-box-row">
+                <div class="ep-box-col-12">
+                <div class="ep-fes-section-title ep-fs-5 ep-fw-bold ep-mb-3"><?php esc_html_e('Event Tickets', 'eventprime-event-calendar-management');?></div>
+                </div>
             </div>
-        </div>
             <div class="ep-box-row ep-border ep-bg-light ep-rounded ep-p-3">
                 <div class="ep-box-col-12 ep-mb-3" id="ep-how-to-book">
                     <strong><?php esc_html_e('How do you wish to handle ticket bookings for this event?', 'eventprime-event-calendar-management'); ?></strong>
@@ -202,205 +201,202 @@
         <div class="ep-modal-content">
             <div class="ep-modal-body">    
                 <div class="ep-modal-titlebar ep-d-flex ep-items-center">
-                    <h3 class="ep-modal-title ep-px-3"><?php esc_html_e( 'Add New Ticket Tier', 'eventprime-event-calendar-management' );?></h3>
+                    <h3 class="ep-modal-title ep-px-3"><?php esc_html_e( 'Add New Ticket Type', 'eventprime-event-calendar-management' );?></h3>
                     <a href="#" class="ep-modal-close close-popup" ep-modal-close="ep_fes_event_ticket_modal" data-id="ep-fes-event-ticket-modal">&times;</a>
                 </div>
-                     <div class="ep-modal-content-wrap ep-box-wrap">
-                      
-                                <div class="ep-box-row ep-p-3 ep-box-w-75">
-                                    <div class="ep-box-col-12">
-                                        <label class="ep-form-label">
-                                            <?php esc_html_e( 'Name', 'eventprime-event-calendar-management' );?>
-                                        </label>
-                                        <input type="text" class="ep-form-control" name="name" id="ep_event_ticke_name">
-                                        <div class="ep-text-muted ep-text-small">
-                                            <?php esc_html_e('Ticket names are visible to the user on the frontend.', 'eventprime-event-calendar-management'); ?>
-                                        </div>
-                                        <div class="ep-error-message" id="ep_event_ticket_name_error"></div>
-                                    </div> 
+                <div class="ep-modal-content-wrap ep-box-wrap">
+                    <div class="ep-box-row ep-p-3 ep-box-w-75">
+                        <div class="ep-box-col-12">
+                            <label class="ep-form-label">
+                                <?php esc_html_e( 'Name', 'eventprime-event-calendar-management' );?>
+                            </label>
+                            <input type="text" class="ep-form-control" name="name" id="ep_event_ticke_name">
+                            <div class="ep-text-muted ep-text-small">
+                                <?php esc_html_e('Ticket names are visible to the user on the frontend.', 'eventprime-event-calendar-management'); ?>
+                            </div>
+                            <div class="ep-error-message" id="ep_event_ticket_name_error"></div>
+                        </div> 
 
-                                    <div class="ep-box-col-12 ep-mt-3">
-                                        <label class="ep-form-label">
-                                            <?php esc_html_e( 'Description', 'eventprime-event-calendar-management' );?>
-                                        </label>
-                                        <textarea class="ep-form-control" name="description" id="ep_event_ticke_description"></textarea>
-                                        <div class="ep-text-muted ep-text-small">
-                                            <?php esc_html_e('Ticket description are visible to the user on the frontend during ticket selection.', 'eventprime-event-calendar-management'); ?>
-                                        </div>
-                                    </div>               
+                        <div class="ep-box-col-12 ep-mt-3">
+                            <label class="ep-form-label">
+                                <?php esc_html_e( 'Description', 'eventprime-event-calendar-management' );?>
+                            </label>
+                            <textarea class="ep-form-control" name="description" id="ep_event_ticke_description"></textarea>
+                            <div class="ep-text-muted ep-text-small">
+                                <?php esc_html_e('Ticket description are visible to the user on the frontend during ticket selection.', 'eventprime-event-calendar-management'); ?>
+                            </div>
+                        </div>               
 
-                                    <div class="ep-box-col-6 ep-mt-3">
-                                        <label class="ep-form-label">
-                                            <?php esc_html_e( 'Quantity/ Inventory', 'eventprime-event-calendar-management' );?>
-                                        </label>
-                                        <input type="number" class="ep-form-control" min="0" name="capacity" id="ep_event_ticket_qty">
-                                        <div class="ep-error-message" id="ep_event_ticket_qty_error"></div>
-                                        <span id="ep_ticket_remaining_capacity" data-max_ticket_label="<?php esc_html_e( 'Remaining Seats', 'eventprime-event-calendar-management' );?>"></span>
-                                    </div>                
+                        <div class="ep-box-col-6 ep-mt-3">
+                            <label class="ep-form-label">
+                                <?php esc_html_e( 'Quantity/ Inventory', 'eventprime-event-calendar-management' );?>
+                            </label>
+                            <input type="number" class="ep-form-control" min="0" name="capacity" id="ep_event_ticket_qty">
+                            <div class="ep-error-message" id="ep_event_ticket_qty_error"></div>
+                            <span id="ep_ticket_remaining_capacity" data-max_ticket_label="<?php esc_html_e( 'Remaining Seats', 'eventprime-event-calendar-management' );?>"></span>
+                        </div>                
 
-                                    <div class="ep-box-col-6 ep-mt-3">
-                                        <label class="ep-form-label">
-                                            <?php esc_html_e( 'Price ( per ticket )', 'eventprime-event-calendar-management' );?>
-                                        </label>
-                                        <input type="number" class="ep-form-control" name="price" id="ep_event_ticket_price" min="0.00" step="0.01">
-                                    </div>                
+                        <div class="ep-box-col-6 ep-mt-3">
+                            <label class="ep-form-label">
+                                <?php esc_html_e( 'Price ( per ticket )', 'eventprime-event-calendar-management' );?>
+                            </label>
+                            <input type="number" class="ep-form-control" name="price" id="ep_event_ticket_price" min="0.00" step="0.01">
+                        </div>                
 
-                                    <div class="ep-box-col-12 ep-mt-3">
-                                        <button type="button" class="ep-btn ep-btn-dark ep-button-large" id="add_more_additional_ticket_fee"><?php esc_html_e( 'Add Additional Fee', 'eventprime-event-calendar-management' );?></button>
-                                    </div>
+                        <div class="ep-box-col-12 ep-mt-3">
+                            <button type="button" class="ep-btn ep-btn-dark ep-button-large" id="add_more_additional_ticket_fee"><?php esc_html_e( 'Add Additional Fee', 'eventprime-event-calendar-management' );?></button>
+                        </div>
 
-                                    <div class="ep-additional-ticket-fee-wrapper ep-box-w-100" id="ep_additional_ticket_fee_wrapper"></div>
+                        <div class="ep-additional-ticket-fee-wrapper ep-box-w-100" id="ep_additional_ticket_fee_wrapper"></div>
 
-                                    <div class="ep-box-col-12 ep-mt-2">
-                                        <div class="ep-form-check">
-                                            <input class="ep-form-check-input" type="checkbox" name="show_remaining_tickets" value="1" id="ep_show_remaining_tickets">
-                                            <label class="ep-form-check-label" for="ep_show_remaining_tickets">
-                                                <?php esc_html_e( 'Show tickets remaining to the users', 'eventprime-event-calendar-management' );?>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="ep-box-col-6 ep-mt-3">
-                                        <div class="ep-box-row">
-                                            <div class="ep-box-col-12">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Tickets Available From', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <select class="ep-form-control ep_ticket_start_booking_type" id="ep_ticket_start_booking_type" name="em_ticket_start_booking_type">
-                                                    <option value="custom_date"><?php esc_html_e( 'Custom Date', 'eventprime-event-calendar-management' );?></option>
-                                                    <option value="event_date"><?php esc_html_e( 'Event Date', 'eventprime-event-calendar-management' );?></option>
-                                                    <option value="relative_date"><?php esc_html_e( 'Relative Date', 'eventprime-event-calendar-management' );?></option>
-                                                </select>
-                                            </div>
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_custom_date">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Choose Date', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <input type="text" class="ep-form-control ep_metabox_custom_date_picker" name="em_ticket_start_booking_date" id="ep_ticket_start_booking_date" data-start="today" data-end="event_end">
-                                            </div>
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_custom_date">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Choose Time', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <input type="text" class="ep-form-control epTimePicker" name="em_ticket_start_booking_time" id="ep_ticket_start_booking_time">
-                                            </div> 
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_relative_date" style="display:none;">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Enter Days', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <input type="number" class="ep-form-control" name="em_ticket_start_booking_days" id="ep_ticket_start_booking_days" min="0">
-                                            </div>
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_relative_date" style="display:none;">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Days Option', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <select class="ep-form-control" name="em_ticket_start_booking_days_option" id="ep_ticket_start_booking_days_option">
-                                                    <option value="before"><?php esc_html_e( 'Days Before', 'eventprime-event-calendar-management');?></option>
-                                                    <option value="after"><?php esc_html_e( 'Days After', 'eventprime-event-calendar-management');?></option>
-                                                </select>
-                                            </div>
-                                            <div class="ep-box-col-12 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_event_date ep_ticket_start_booking_relative_date" style="display:none;">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Event Option', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <select class="ep-form-control" name="em_ticket_start_booking_event_option" id="ep_ticket_start_booking_event_option">
-                                                    <option value="event_start">
-                                                        <?php esc_html_e( 'Event Start', 'eventprime-event-calendar-management' );?>
-                                                    </option>
-                                                    <option value="event_ends">
-                                                        <?php esc_html_e( 'Event Ends', 'eventprime-event-calendar-management' );?>
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ep-box-col-6 ep-mt-3">
-                                        <div class="ep-box-row">
-                                            <div class="ep-box-col-12">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Tickets Available Till', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <select class="ep-form-control ep_ticket_ends_booking_type" id="ep_ticket_ends_booking_type" name="em_ticket_ends_booking_type">
-                                                    <option value="custom_date"><?php esc_html_e( 'Custom Date', 'eventprime-event-calendar-management' );?></option>
-                                                    <option value="event_date"><?php esc_html_e( 'Event Date', 'eventprime-event-calendar-management' );?></option>
-                                                    <option value="relative_date"><?php esc_html_e( 'Relative Date', 'eventprime-event-calendar-management' );?></option>
-                                                </select>
-                                            </div>
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_custom_date">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Choose Date', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <input type="text" class="ep-form-control ep_metabox_custom_date_picker" name="em_ticket_ends_booking_date" id="ep_ticket_ends_booking_date" data-start="today" data-end="event_end">
-                                            </div>
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_custom_date">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Choose Time', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <input type="text" class="ep-form-control epTimePicker" name="em_ticket_ends_booking_time" id="ep_ticket_ends_booking_time">
-                                            </div> 
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_relative_date" style="display:none;">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Enter Days', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <input type="number" class="ep-form-control" name="em_ticket_ends_booking_days" id="ep_ticket_ends_booking_days" min="0">
-                                            </div>
-                                            <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_relative_date" style="display:none;">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Days Option', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <select class="ep-form-control" name="em_ticket_ends_booking_days_option" id="ep_ticket_ends_booking_days_option">
-                                                    <option value="before"><?php esc_html_e( 'Days Before', 'eventprime-event-calendar-management');?></option>
-                                                    <option value="after"><?php esc_html_e( 'Days After', 'eventprime-event-calendar-management');?></option>
-                                                </select>
-                                            </div>
-                                            <div class="ep-box-col-12 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_event_date ep_ticket_ends_booking_relative_date" style="display:none;">
-                                                <label class="ep-form-label">
-                                                    <?php esc_html_e( 'Event Option', 'eventprime-event-calendar-management' );?>
-                                                </label>
-                                                <select class="ep-form-control" name="em_ticket_ends_booking_event_option" id="ep_ticket_ends_booking_event_option">
-                                                    <option value="event_start">
-                                                        <?php esc_html_e( 'Event Start', 'eventprime-event-calendar-management' );?>
-                                                    </option>
-                                                    <option value="event_ends">
-                                                        <?php esc_html_e( 'Event Ends', 'eventprime-event-calendar-management' );?>
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="ep-box-col-12 ep-mt-3">
-                                        <div class="ep-form-check">
-                                            <input class="ep-form-check-input" type="checkbox" name="show_ticket_booking_dates" value="1" id="ep_show_ticket_booking_dates">
-                                            <label class="ep-form-check-label" for="ep_show_ticket_booking_dates">
-                                                <?php esc_html_e( 'Show tickets availability dates on the frontend', 'eventprime-event-calendar-management');?>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="ep-box-col-6 ep-mt-3">
-                                        <label class="ep-form-check-label" for="ep_min_ticket_no">
-                                            <?php esc_html_e( 'Minimum Tickets Per Order', 'eventprime-event-calendar-management');?>
-                                        </label>
-                                        <input type="number" id="ep_min_ticket_no" class="ep-form-control" min="0" name="min_ticket_no">
-                                    </div> 
-
-                                    <div class="ep-box-col-6 ep-mt-3">
-                                        <label class="ep-form-check-label" for="ep_max_ticket_no">
-                                            <?php esc_html_e( 'Maximum Tickets Per Order', 'eventprime-event-calendar-management');?>
-                                        </label>
-                                        <input type="number" id="ep_max_ticket_no" class="ep-form-control" min="0" name="max_ticket_no">
-                                        <div class="ep-error-message" id="ep_event_ticket_max_ticket_error"></div>
-                                    </div>
-                                </div>
-                           
-                            <!-- Modal Wrap  End --> 
-                            <div class="ep-modal-footer ep-mt-3 ep-d-flex ep-items-end ep-content-right">
-                                <button type="button" class="ep-btn ep-btn-dark ep-mr-3 ep-modal-close close-popup" ep-modal-close="ep_fes_event_ticket_modal" data-id="ep_event_ticket_tier_modal"><?php esc_html_e( 'Close', 'eventprime-event-calendar-management');?></button>
-                                <button type="button" class="ep-btn ep-btn-dark ep-button-large" id="ep_save_ticket_tier"><?php esc_html_e( 'Save changes', 'eventprime-event-calendar-management');?></button>
+                        <div class="ep-box-col-12 ep-mt-2">
+                            <div class="ep-form-check">
+                                <input class="ep-form-check-input" type="checkbox" name="show_remaining_tickets" value="1" id="ep_show_remaining_tickets">
+                                <label class="ep-form-check-label" for="ep_show_remaining_tickets">
+                                    <?php esc_html_e( 'Show tickets remaining to the users', 'eventprime-event-calendar-management' );?>
+                                </label>
                             </div>
                         </div>
 
+                        <div class="ep-box-col-6 ep-mt-3">
+                            <div class="ep-box-row">
+                                <div class="ep-box-col-12">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Tickets Available From', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <select class="ep-form-control ep_ticket_start_booking_type" id="ep_ticket_start_booking_type" name="em_ticket_start_booking_type">
+                                        <option value="custom_date"><?php esc_html_e( 'Custom Date', 'eventprime-event-calendar-management' );?></option>
+                                        <option value="event_date"><?php esc_html_e( 'Event Date', 'eventprime-event-calendar-management' );?></option>
+                                        <option value="relative_date"><?php esc_html_e( 'Relative Date', 'eventprime-event-calendar-management' );?></option>
+                                    </select>
+                                </div>
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_custom_date">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Choose Date', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <input type="text" class="ep-form-control ep_metabox_custom_date_picker" name="em_ticket_start_booking_date" id="ep_ticket_start_booking_date" data-start="today" data-end="event_end">
+                                </div>
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_custom_date">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Choose Time', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <input type="text" class="ep-form-control epTimePicker" name="em_ticket_start_booking_time" id="ep_ticket_start_booking_time">
+                                </div> 
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_relative_date" style="display:none;">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Enter Days', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <input type="number" class="ep-form-control" name="em_ticket_start_booking_days" id="ep_ticket_start_booking_days" min="0">
+                                </div>
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_relative_date" style="display:none;">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Days Option', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <select class="ep-form-control" name="em_ticket_start_booking_days_option" id="ep_ticket_start_booking_days_option">
+                                        <option value="before"><?php esc_html_e( 'Days Before', 'eventprime-event-calendar-management');?></option>
+                                        <option value="after"><?php esc_html_e( 'Days After', 'eventprime-event-calendar-management');?></option>
+                                    </select>
+                                </div>
+                                <div class="ep-box-col-12 ep-mt-3 ep_ticket_start_booking_options ep_ticket_start_booking_event_date ep_ticket_start_booking_relative_date" style="display:none;">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Event Option', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <select class="ep-form-control" name="em_ticket_start_booking_event_option" id="ep_ticket_start_booking_event_option">
+                                        <option value="event_start">
+                                            <?php esc_html_e( 'Event Start', 'eventprime-event-calendar-management' );?>
+                                        </option>
+                                        <option value="event_ends">
+                                            <?php esc_html_e( 'Event Ends', 'eventprime-event-calendar-management' );?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ep-box-col-6 ep-mt-3">
+                            <div class="ep-box-row">
+                                <div class="ep-box-col-12">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Tickets Available Till', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <select class="ep-form-control ep_ticket_ends_booking_type" id="ep_ticket_ends_booking_type" name="em_ticket_ends_booking_type">
+                                        <option value="custom_date"><?php esc_html_e( 'Custom Date', 'eventprime-event-calendar-management' );?></option>
+                                        <option value="event_date"><?php esc_html_e( 'Event Date', 'eventprime-event-calendar-management' );?></option>
+                                        <option value="relative_date"><?php esc_html_e( 'Relative Date', 'eventprime-event-calendar-management' );?></option>
+                                    </select>
+                                </div>
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_custom_date">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Choose Date', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <input type="text" class="ep-form-control ep_metabox_custom_date_picker" name="em_ticket_ends_booking_date" id="ep_ticket_ends_booking_date" data-start="today" data-end="event_end">
+                                </div>
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_custom_date">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Choose Time', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <input type="text" class="ep-form-control epTimePicker" name="em_ticket_ends_booking_time" id="ep_ticket_ends_booking_time">
+                                </div> 
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_relative_date" style="display:none;">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Enter Days', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <input type="number" class="ep-form-control" name="em_ticket_ends_booking_days" id="ep_ticket_ends_booking_days" min="0">
+                                </div>
+                                <div class="ep-box-col-6 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_relative_date" style="display:none;">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Days Option', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <select class="ep-form-control" name="em_ticket_ends_booking_days_option" id="ep_ticket_ends_booking_days_option">
+                                        <option value="before"><?php esc_html_e( 'Days Before', 'eventprime-event-calendar-management');?></option>
+                                        <option value="after"><?php esc_html_e( 'Days After', 'eventprime-event-calendar-management');?></option>
+                                    </select>
+                                </div>
+                                <div class="ep-box-col-12 ep-mt-3 ep_ticket_ends_booking_options ep_ticket_ends_booking_event_date ep_ticket_ends_booking_relative_date" style="display:none;">
+                                    <label class="ep-form-label">
+                                        <?php esc_html_e( 'Event Option', 'eventprime-event-calendar-management' );?>
+                                    </label>
+                                    <select class="ep-form-control" name="em_ticket_ends_booking_event_option" id="ep_ticket_ends_booking_event_option">
+                                        <option value="event_start">
+                                            <?php esc_html_e( 'Event Start', 'eventprime-event-calendar-management' );?>
+                                        </option>
+                                        <option value="event_ends">
+                                            <?php esc_html_e( 'Event Ends', 'eventprime-event-calendar-management' );?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ep-box-col-12 ep-mt-3">
+                            <div class="ep-form-check">
+                                <input class="ep-form-check-input" type="checkbox" name="show_ticket_booking_dates" value="1" id="ep_show_ticket_booking_dates">
+                                <label class="ep-form-check-label" for="ep_show_ticket_booking_dates">
+                                    <?php esc_html_e( 'Show tickets availability dates on the frontend', 'eventprime-event-calendar-management');?>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="ep-box-col-6 ep-mt-3">
+                            <label class="ep-form-check-label" for="ep_min_ticket_no">
+                                <?php esc_html_e( 'Minimum Tickets Per Order', 'eventprime-event-calendar-management');?>
+                            </label>
+                            <input type="number" id="ep_min_ticket_no" class="ep-form-control" min="0" name="min_ticket_no">
+                        </div> 
+
+                        <div class="ep-box-col-6 ep-mt-3">
+                            <label class="ep-form-check-label" for="ep_max_ticket_no">
+                                <?php esc_html_e( 'Maximum Tickets Per Order', 'eventprime-event-calendar-management');?>
+                            </label>
+                            <input type="number" id="ep_max_ticket_no" class="ep-form-control" min="0" name="max_ticket_no">
+                            <div class="ep-error-message" id="ep_event_ticket_max_ticket_error"></div>
+                        </div>
+                    </div>
+                    <!-- Modal Wrap  End --> 
+                    <div class="ep-modal-footer ep-mt-3 ep-d-flex ep-items-end ep-content-right">
+                        <button type="button" class="ep-btn ep-btn-dark ep-mr-3 ep-modal-close close-popup" ep-modal-close="ep_fes_event_ticket_modal" data-id="ep_event_ticket_tier_modal"><?php esc_html_e( 'Close', 'eventprime-event-calendar-management');?></button>
+                        <button type="button" class="ep-btn ep-btn-dark ep-button-large" id="ep_save_ticket_tier"><?php esc_html_e( 'Save changes', 'eventprime-event-calendar-management');?></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
