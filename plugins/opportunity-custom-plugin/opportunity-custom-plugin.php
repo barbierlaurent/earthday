@@ -51,22 +51,30 @@ function enqueue_custom_scripts() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
+function get_registered_food_bank_users($registered_users) {
+	$food_bank = array();
+    
+	foreach ($registered_users as $user) {
+		$user_info = get_userdata($user->user_id);
+		$user_roles = get_user_roles($user->user_id);
+
+		if (in_array('food_bank', $user_roles)) {
+			array_push($food_bank, $user->user_id);
+		} 
+	}
+	return $food_bank;
+}
+
 function new_registration_callback() {
 	global $wpdb;
 
     $opportunity_id = intval($_POST['opportunity_id']); // Get the opportunity ID from the AJAX request.
 	$user_id = get_current_user_id();
 
-	$registered_users = get_registered_users($opportunity_id, 0); // will return registered normal users not in waiting list (waitinglist = 0)
-
 	if (!is_user_already_registered($user_id, $opportunity_id)) {  // waitinglist = 0
 		
 		$table_name = $wpdb->prefix . 'opportunity_registrations';
 		$waitinglist = 0;
-		
-		if (count($registered_users) >= get_max_participants($opportunity_id)) {
-			$waitinglist = 1;
-		} 
 		
 		if(!is_user_already_registered_in_waiting_list($user_id, $opportunity_id)) {
 
@@ -84,6 +92,8 @@ function new_registration_callback() {
 				'success' => true,
 				'message' => 'Registration successful.'
 			);
+
+			update_registration($opportunity_id);
 
 		} else {
 			$response = array(
@@ -129,7 +139,6 @@ function remove_registration_callback() {
 		);
 
 		update_registration($opportunity_id);
-
 	
 	} else {
 		$response = array(
@@ -148,12 +157,35 @@ function update_registration($opportunity_id) {
 	$table_name = $wpdb->prefix . 'opportunity_registrations';
 	$query = $wpdb->prepare("SELECT * FROM $table_name WHERE opportunity_id = %d order by registration_date asc", $opportunity_id);
 	$all_users_before_change = $wpdb->get_results($query);
-	
-	$query = $wpdb->prepare("UPDATE $table_name set waitinglist=1 WHERE opportunity_id = %d", $opportunity_id);
+
+	$query = $wpdb->prepare("UPDATE $table_name set waitinglist = 1 WHERE opportunity_id = %d", $opportunity_id);
 	$wpdb->query($query); 
 
-	$query = $wpdb->prepare("UPDATE $table_name set waitinglist=0 WHERE opportunity_id = %d order by registration_date asc limit %d", $opportunity_id, $max_participants);
-	$wpdb->query($query);
+	$max_participant_counter = 1;
+	foreach($all_users_before_change as $index=>$value) {
+		if($max_participant_counter <= $max_participants) {
+			$user_id = $all_users_before_change[$index]->user_id;	
+			$user_roles = get_user_roles($user_id);
+			if (!in_array('food_bank', $user_roles)) {
+				$query = $wpdb->prepare("UPDATE $table_name set waitinglist = 0 WHERE opportunity_id = %d and user_id = %d", $opportunity_id, $user_id);
+				$wpdb->query($query);
+				$max_participant_counter = $max_participant_counter + 1;
+			}
+	    }
+	}
+
+	$max_foodbank_participant_counter = 1;
+	foreach($all_users_before_change as $index=>$value) {
+		if($max_foodbank_participant_counter <= $max_participants) {
+			$user_id = $all_users_before_change[$index]->user_id;	
+			$user_roles = get_user_roles($user_id);
+			if (in_array('food_bank', $user_roles)) {
+				$query = $wpdb->prepare("UPDATE $table_name set waitinglist = 0 WHERE opportunity_id = %d and user_id = %d", $opportunity_id, $user_id);
+				$wpdb->query($query);
+				break;
+			}  
+	    }
+	}
 
 	$query = $wpdb->prepare("SELECT * FROM $table_name WHERE opportunity_id = %d order by registration_date asc", $opportunity_id);
 	$all_users_after_change = $wpdb->get_results($query);
@@ -163,20 +195,20 @@ function update_registration($opportunity_id) {
 
 	$html = '<h3>';
 
-	/* foreach($all_users_before_change as $index=>$value) {
+	foreach($all_users_before_change as $index=>$value) {
 		$user_id = $all_users_before_change[$index]->user_id;	
 		if ($all_users_before_change[$index]->waitinglist != $all_users_after_change[$index]->waitinglist) {
 			if ($all_users_after_change[$index]->waitinglist == '1') {
-				$message = ' You have been added to the waiting list of participants for the farm: '. $farm_name. ', event: '.$event_name;
+				$message = ' You have been added to the waiting list for the farm: '. $farm_name. ', event: '.$event_name;
 				$html = $html. ' sending email to ' .$email. '-'.$message;
 				sendEmail($user_id, 'Farm Gleaning Notification', $message);
 			} else {
-				$message = ' You have been added to the main list of participants for the farm: '. $farm_name. ', event: '.$event_name;
+				$message = ' You have been added to the main list for the farm: '. $farm_name. ', event: '.$event_name;
 				$html = $html. ' sending email to '. $email. '-'.$message;
 				sendEmail($user_id, 'Farm Gleaning Notification', $message);
 			}
 		}	
-	} */
+	}
 	
 	return $html.'</h3>';
 }
@@ -187,9 +219,9 @@ function sendEmail($user_id, $subject, $message) {
 	$headers = array('Content-Type: text/html; charset=UTF-8');
 	$sent = wp_mail($email, $subject, $message, $headers);
 	if ($sent) {
-		echo 'Email sent successfully';
+		return 'Email sent successfully';
 	} else {
-		echo 'Email not sent </br>'.$subject.'</br>'.$message.'</br>';
+		return 'Email not sent </br>'.$subject.'</br>'.$message.'</br>';
 	}
 }
 
@@ -229,21 +261,37 @@ function show_registration_list_shortcode() {
 		
     $html_content = ''; 
 
+	$foodbank_participant_counter = 0;
+	foreach($registered_users as $index=>$value) {
+		$user_id = $registered_users[$index]->user_id;	
+		$user_roles = get_user_roles($user_id);
+		if (in_array('food_bank', $user_roles)) {
+			$foodbank_participant_counter = $foodbank_participant_counter + 1;
+		}  
+	}
+
     // Display registered users.
     if (!empty($registered_users)) {
 
 		$cnt = count($registered_users);
 		$max_participants = get_max_participants($opportunity_id);
 
-		$html_content = '<ul><h3>List of volunteers ('. $cnt.'/'.$max_participants.'):</h3></ul>';
+		$html_content = '<ul><h3>List of volunteers ('. ($cnt - $foodbank_participant_counter).'/'.$max_participants.'):</h3></ul>';
 		 
         foreach ($registered_users as $user) {
             $user_info = get_userdata($user->user_id);
+			$user_roles = get_user_roles($user->user_id);
 			$registration_date = date_i18n(
 				get_option('date_format') . ' ' . get_option('time_format'),
 				strtotime($user->registration_date ?? '')
 			);
-			$html_content = $html_content. '<li>' . $user_info->display_name . ' - ' . $registration_date;
+			$user_roles_string = implode(",", $user_roles);
+			if (in_array('food_bank', $user_roles)) {
+				$html_content = $html_content. '<li>' . $user_info->display_name . ' - ' . $registration_date. ' - <b>'. $user_roles_string . '</b>';
+			} else {
+				$html_content = $html_content. '<li>' . $user_info->display_name . ' - ' . $registration_date. ' - '. $user_roles_string;
+			}
+			
         }
         $html_content = $html_content. '</ul></br>';
     } else {
@@ -255,11 +303,18 @@ function show_registration_list_shortcode() {
 		$html_content = $html_content. '</br><h5>waiting list:</h5>';
         foreach ($registered_users_waiting_list as $user) {
             $user_info = get_userdata($user->user_id);
+			$user_roles = get_user_roles($user->user_id);
 			$registration_date = date_i18n(
 				get_option('date_format') . ' ' . get_option('time_format'),
 				strtotime($user->registration_date ?? '')
 			);
-			$html_content = $html_content. '<li>' . $user_info->display_name . ' - ' . $registration_date . '</li>';
+			$user_roles_string = implode(",", $user_roles);
+			if (in_array('food_bank', $user_roles)) {
+				$html_content = $html_content. '<li>' . $user_info->display_name . ' - ' . $registration_date. ' - <b>'. $user_roles_string. '</b></li>';
+			} else {
+				$html_content = $html_content. '<li>' . $user_info->display_name . ' - ' . $registration_date. ' - '. $user_roles_string.'</li>';
+			}
+			
         }
         $html_content = $html_content. '</ul>';
     } else {
@@ -277,8 +332,8 @@ function display_registration_button_shortcode($atts, $content = null) {
         $opportunity_id = get_entry_ID();
 	
 		$roles = get_user_roles($user_id);
-		if (in_array('farmer', $roles) || in_array('food_bank', $roles)) {
-			// return '';
+		if (in_array('farmer', $roles)) {
+			return '';
 		} 
 	
 		$registered_users = get_registered_users($opportunity_id, 0);
@@ -291,7 +346,17 @@ function display_registration_button_shortcode($atts, $content = null) {
         } else if ($is_waitinglist_registered) {
 			return '<h3 id=registered-label>You are in the waiting list for this event. </h3><button id=gleanerRegistrationButton class="unregister-button">Unregister</button>';
 		} else {
-			if (count($registered_users) >= get_max_participants($opportunity_id)) {
+
+			$users_not_food_bank_in_main_list = 0;
+			foreach($registered_users as $index=>$value) {
+				$user_id = $registered_users[$index]->user_id;	
+				$user_roles = get_user_roles($user_id);
+				if (!in_array('food_bank', $user_roles)) {
+					$users_not_food_bank_in_main_list = $users_not_food_bank_in_main_list + 1;
+				}
+			}
+
+			if ($users_not_food_bank_in_main_list >= get_max_participants($opportunity_id)) {
 				return '<button id=gleanerRegistrationButton class="add-waiting-list-button">Please Add me to waiting list</button>';
 			} else {
 				return '<button id=gleanerRegistrationButton class="register-button">Register</button>';
