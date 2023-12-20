@@ -1,5 +1,79 @@
 # Changelog
 
+## 12.1.0 - 2023-08-31
+* [#1560](https://github.com/stripe/stripe-php/pull/1560) Update generated code
+  * Add support for new resource `AccountSession`
+  * Add support for `create` method on resource `AccountSession`
+  * Add support for new values `obligation_inbound`, `obligation_outbound`, `obligation_payout_failure`, `obligation_payout`, `obligation_reversal_inbound`, and `obligation_reversal_outbound` on enum `BalanceTransaction.type`
+  * Change type of `Event.type` from `string` to `enum`
+  * Add support for `application` on `PaymentLink`
+* [#1562](https://github.com/stripe/stripe-php/pull/1562) Nicer ApiErrorException::__toString()
+* [#1558](https://github.com/stripe/stripe-php/pull/1558) Update generated code
+  * Add support for `payment_method_details` on `Dispute`
+  * Add support for `prefetch` on `FinancialConnections.Session`
+
+## 12.0.0 - 2023-08-18
+**⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
+
+### Version pinning
+
+In this release, Stripe API Version `2023-08-16` (the latest at time of release) will be sent by default on all requests. This is a significant change with wide ramifications. The API version affects the properties you see on responses, the parameters you are allowed to send on requests, and so on. The previous default was to use your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version).
+
+To successfully upgrade to stripe-php v12, you must either
+
+1. **(Recommended) Upgrade your integration to be compatible with API Version `2023-08-16`.**
+
+   Please read the API Changelog carefully for each API Version from `2023-08-16` back to your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version). Determine if you are using any of the APIs that have changed in a breaking way, and adjust your integration accordingly. Carefully test your changes with Stripe [Test Mode](https://stripe.com/docs/keys#test-live-modes) before deploying them to production.
+
+   You can read the [v12 migration guide](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v12) for more detailed instructions.
+2. **(Alternative option) Specify a version other than `2023-08-16` when initializing `stripe-php`.**
+
+     If you were previously initializing stripe-php without an explicit API Version, you can postpone modifying your integration by specifying a version equal to your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version). For example:
+
+     ```diff
+       // if using StripeClient
+     - $stripe = new \Stripe\StripeClient('sk_test_xyz');
+     + $stripe = new \Stripe\StripeClient([
+     +   'api_key' => 'sk_test_xyz',
+         'stripe_version' => '2020-08-27',
+     + ]);
+
+       // if using the global client
+       Stripe.apiKey = "sk_test_xyz";
+     + Stripe::setApiVersion('2020-08-27');
+     ```
+
+     If you were already initializing stripe-php with an explicit API Version, upgrading to v12 will not affect your integration.
+
+     Read the [v12 migration guide](https://github.com/stripe/stripe-php/wiki/Migration-guide-for-v12) for more details.
+
+    Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
+
+    That is, instead of upgrading stripe-php and separately upgrading your Stripe API Version through the Stripe Dashboard, whenever you upgrade major versions of stripe-php, you should also upgrade your integration to be compatible with the latest Stripe API version.
+
+### Other changes
+" ⚠️" symbol highlights breaking changes.
+* [#1553](https://github.com/stripe/stripe-php/pull/1553)⚠️ Remove deprecated enum value `Invoice.STATUS_DELETE`
+
+* [#1550](https://github.com/stripe/stripe-php/pull/1550) PHPDoc changes
+  * Remove support for `alternate_statement_descriptors`, `destination`, and `dispute` on `Charge`
+  * Remove support for value `charge_refunded` from enum `Dispute.status`
+  * Remove support for `rendering` on `Invoice`
+  * Remove support for `attributes`, `caption`, and `deactivate_on` on `Product`
+
+## 11.0.0 - 2023-08-16
+Please do not use stripe-php v11. It did not correctly apply the [pinning behavior](https://github.com/stripe/stripe-php/blob/master/CHANGELOG.md#version-pinning) and was removed from packagist
+
+## 10.21.0 - 2023-08-10
+* [#1546](https://github.com/stripe/stripe-php/pull/1546) Update generated code
+  * Add support for new value `payment_reversal` on enum `BalanceTransaction.type`
+  * Add support for new value `adjusted_for_overdraft` on enum `CustomerBalanceTransaction.type`
+
+## 10.20.0 - 2023-08-03
+* [#1539](https://github.com/stripe/stripe-php/pull/1539) Update generated code
+  * Add support for `subscription_details` on `Invoice`
+  * Add support for new values `sepa_debit_fingerprint` and `us_bank_account_fingerprint` on enum `Radar.ValueList.item_type`
+
 ## 10.19.0 - 2023-07-27
 * [#1534](https://github.com/stripe/stripe-php/pull/1534) Update generated code
   * Improve PHPDoc type for `ApplicationFee.refunds`

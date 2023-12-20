@@ -1,29 +1,31 @@
-[14/Jul/2023:19:26:20] (I): WordPress Instance Info:
-[14/Jul/2023:19:26:20] (I): Home URL : https://www.earthday.usineb.com
-[14/Jul/2023:19:26:20] (I): Site URL : https://www.earthday.usineb.com
-[14/Jul/2023:19:26:20] (I): WordPress Version : 6.2.2
-[14/Jul/2023:19:26:20] (I): Onboarding Version : 1.1.39
-[14/Jul/2023:19:26:20] (I): Multisite : No
-[14/Jul/2023:19:26:20] (I): Server Info : Apache
-[14/Jul/2023:19:26:20] (I): PHP Version : 8.1.17
-[14/Jul/2023:19:26:20] (I): HTTPS : Yes
-[14/Jul/2023:19:26:20] (I): PHP Max Execution Time : 120
-[14/Jul/2023:19:26:20] (I): PHP Max Input Vars : 1000
-[14/Jul/2023:19:26:20] (I): Max Upload Size : 536870912
-[14/Jul/2023:19:26:20] (I): Plugins:
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Advanced Custom Fields : v6.1.7 (WP Engine)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Contact Form 7 : v5.7.7 (Takayuki Miyoshi)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Custom Post Type UI : v1.13.7 (WebDevStudios)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] DreamHost Panel Login : v1.0.0 (DreamHost, danielbachhuber)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Elementor : v3.14.1 (Elementor.com)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Master Addons for Elementor : v2.0.3 (Jewel Theme)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Members : v3.2.5 (MemberPress)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Image optimization service by Optimole : v3.8.2 (Optimole)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Otter – Page Builder Blocks &amp; Extensions for Gutenberg : v2.3.1 (ThemeIsle)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Templates Patterns Collection : v1.1.39 (ThemeIsle)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] UpdraftPlus - Backup/Restore : v1.23.7 (UpdraftPlus.Com, DavidAnderson)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] User Menus : v1.3.1 (Code Atlantic)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] User Registration : v3.0.2.1 (WPEverest)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] WP User Frontend : v3.6.5 (weDevs)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Xpro Elementor Addons : v1.3.7 (Xpro)
-[14/Jul/2023:19:26:20] (I): [PLUGIN] Xpro Elementor Theme Builder : v1.2.3 (Xpro)
+[01/Sep/2023:20:24:32] (I): WordPress Instance Info:
+[01/Sep/2023:20:24:32] (I): Home URL : http://localhost/html/earthday
+[01/Sep/2023:20:24:32] (I): Site URL : http://localhost/html/earthday
+[01/Sep/2023:20:24:32] (I): WordPress Version : 6.3.1
+[01/Sep/2023:20:24:32] (I): Onboarding Version : 1.1.39
+[01/Sep/2023:20:24:32] (I): Multisite : No
+[01/Sep/2023:20:24:32] (I): Server Info : Apache/2.4.57 (Unix) PHP/8.2.8
+[01/Sep/2023:20:24:32] (I): PHP Version : 8.2.8
+[01/Sep/2023:20:24:32] (I): HTTPS : No
+[01/Sep/2023:20:24:32] (I): PHP Max Execution Time : 30
+[01/Sep/2023:20:24:32] (I): PHP Max Input Vars : 1000
+[01/Sep/2023:20:24:32] (I): Max Upload Size : 2097152
+[01/Sep/2023:20:24:32] (I): Plugins:
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Advanced Custom Fields : v6.2.0 (WP Engine)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Contact Form 7 : v5.8 (Takayuki Miyoshi)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Custom Post Type UI : v1.14.0 (WebDevStudios)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] DreamHost Panel Login : v1.0.0 (DreamHost, danielbachhuber)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Elementor : v3.15.3 (Elementor.com)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Formidable Forms : v6.4.2 (Strategy11 Form Builder Team)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Master Addons for Elementor : v2.0.3 (Jewel Theme)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Members : v3.2.7 (MemberPress)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Opportunity Custom Plugin : v1.0 (Gravel)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Image optimization service by Optimole : v3.9.2 (Optimole)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Otter – Page Builder Blocks &amp; Extensions for Gutenberg : v2.3.4 (ThemeIsle)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Templates Patterns Collection : v1.1.39 (ThemeIsle)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] UpdraftPlus - Backup/Restore : v1.23.9 (UpdraftPlus.Com, DavidAnderson)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] User Menus : v1.3.2 (Code Atlantic)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] User Registration : v3.0.3 (WPEverest)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] WP User Frontend : v3.6.8 (weDevs)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Xpro Elementor Addons : v1.3.8 (Xpro)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Xpro Elementor Theme Builder : v1.2.4 (Xpro)

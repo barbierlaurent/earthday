@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
+class ComposerStaticInit5864b1543201859060f980ecd9cfbdcc
 {
     public static $files = array (
         '16e4325dd9bdbbd2ce8c9530b088e50b' => __DIR__ . '/..' . '/codeinwp/themeisle-sdk/load.php',
@@ -108,6 +108,7 @@ class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
         'Sabberworm\\CSS\\Value\\ValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/ValueList.php',
         'Stripe\\Account' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Account.php',
         'Stripe\\AccountLink' => __DIR__ . '/..' . '/stripe/stripe-php/lib/AccountLink.php',
+        'Stripe\\AccountSession' => __DIR__ . '/..' . '/stripe/stripe-php/lib/AccountSession.php',
         'Stripe\\ApiOperations\\All' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApiOperations/All.php',
         'Stripe\\ApiOperations\\Create' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApiOperations/Create.php',
         'Stripe\\ApiOperations\\Delete' => __DIR__ . '/..' . '/stripe/stripe-php/lib/ApiOperations/Delete.php',
@@ -223,6 +224,7 @@ class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
         'Stripe\\Service\\AbstractServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/AbstractServiceFactory.php',
         'Stripe\\Service\\AccountLinkService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/AccountLinkService.php',
         'Stripe\\Service\\AccountService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/AccountService.php',
+        'Stripe\\Service\\AccountSessionService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/AccountSessionService.php',
         'Stripe\\Service\\ApplePayDomainService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/ApplePayDomainService.php',
         'Stripe\\Service\\ApplicationFeeService' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/ApplicationFeeService.php',
         'Stripe\\Service\\Apps\\AppsServiceFactory' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Service/Apps/AppsServiceFactory.php',
@@ -424,7 +426,7 @@ class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
         'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Data_Request' => __DIR__ . '/../..' . '/inc/integrations/api/form-request-data.php',
         'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Data_Response' => __DIR__ . '/../..' . '/inc/integrations/api/form-response-data.php',
         'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Email' => __DIR__ . '/../..' . '/inc/integrations/class-form-email.php',
-        'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Field_Option_Data' => __DIR__ . '/../..' . '/inc/integrations/class-form-field-option-data.php',
+        'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Field_WP_Option_Data' => __DIR__ . '/../..' . '/inc/integrations/class-form-field-wp-option-data.php',
         'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Providers' => __DIR__ . '/../..' . '/inc/integrations/class-form-providers.php',
         'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Settings_Data' => __DIR__ . '/../..' . '/inc/integrations/class-form-settings-data.php',
         'ThemeIsle\\GutenbergBlocks\\Integration\\Form_Utils' => __DIR__ . '/../..' . '/inc/integrations/class-form-utils.php',
@@ -456,6 +458,7 @@ class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
         'ThemeIsle\\GutenbergBlocks\\Server\\Dashboard_Server' => __DIR__ . '/../..' . '/inc/server/class-dashboard-server.php',
         'ThemeIsle\\GutenbergBlocks\\Server\\Dynamic_Content_Server' => __DIR__ . '/../..' . '/inc/server/class-dynamic-content-server.php',
         'ThemeIsle\\GutenbergBlocks\\Server\\Form_Server' => __DIR__ . '/../..' . '/inc/server/class-form-server.php',
+        'ThemeIsle\\GutenbergBlocks\\Server\\Prompt_Server' => __DIR__ . '/../..' . '/inc/server/class-prompt-server.php',
         'ThemeIsle\\GutenbergBlocks\\Server\\Stripe_Server' => __DIR__ . '/../..' . '/inc/server/class-stripe-server.php',
         'tubalmartin\\CssMin\\Colors' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Colors.php',
         'tubalmartin\\CssMin\\Command' => __DIR__ . '/..' . '/tubalmartin/cssmin/src/Command.php',
@@ -466,9 +469,9 @@ class ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7b03e7cb037a2379b8bca3db4a382212::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5864b1543201859060f980ecd9cfbdcc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5864b1543201859060f980ecd9cfbdcc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5864b1543201859060f980ecd9cfbdcc::$classMap;
 
         }, null, ClassLoader::class);
     }
