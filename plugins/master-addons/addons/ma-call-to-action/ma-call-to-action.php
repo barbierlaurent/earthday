@@ -426,7 +426,7 @@ class JLTMA_Call_to_Action extends Widget_Base
 		$this->start_controls_tab('ma_el_call_to_action_button_hover', [
 			'label' => esc_html__(
 				'Hover',
-				'master-addons' 
+				'master-addons'
 			)
 		]);
 
@@ -627,6 +627,21 @@ class JLTMA_Call_to_Action extends Widget_Base
 
 		$migrated  = isset($settings['__fa4_migrated']['ma_el_call_to_action_icon']);
 		$is_new    = empty($settings['icon']) && Icons_Manager::is_migration_allowed();
+
+
+		$this->add_render_attribute('jltma_cta_link', [
+			'class' => 'jltma-call-action-btn',
+			'href'  => esc_url_raw($settings['ma_el_call_to_action_button_link']['url']),
+		]);
+
+		if ($settings['ma_el_call_to_action_button_link']['is_external']) {
+			$this->add_render_attribute('jltma_cta_link', 'target', '_blank');
+		}
+
+		if ($settings['ma_el_call_to_action_button_link']['nofollow']) {
+			$this->add_render_attribute('jltma_cta_link', 'rel', 'nofollow');
+		}
+
 ?>
 
 		<section <?php echo $this->get_render_attribute_string('ma_el_call_to_action_wrapper'); ?>>
@@ -669,7 +684,7 @@ class JLTMA_Call_to_Action extends Widget_Base
 							<?php } ?>
 						</div>
 						<div class="jltma-col-3 text-right">
-							<a href="<?php echo esc_url($settings['ma_el_call_to_action_button_link']['url']); ?>" class="jltma-call-action-btn">
+							<a <?php echo $this->get_render_attribute_string('jltma_cta_link'); ?>>
 								<?php echo $this->parse_text_editor($settings['ma_el_call_to_action_button_text']); ?>
 							</a>
 						</div>

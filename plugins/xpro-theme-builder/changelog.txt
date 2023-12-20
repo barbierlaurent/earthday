@@ -1,3 +1,9 @@
+= V 1.2.6 - 17 November 2023 =
+
+- Tweak: Woocommerce Compatibility
+- Tweak: Update In Woo Product Image Widget
+
+
 = V 1.2.4 - 25 July 2023 =
 
 - New: Hero Slider Widget Added [Free]

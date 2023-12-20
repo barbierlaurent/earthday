@@ -2,8 +2,8 @@
 /**
 Plugin Name: WP-Optimize - Clean, Compress, Cache
 Plugin URI: https://getwpo.com
-Description: WP-Optimize makes your site fast and efficient. It cleans the database, compresses images and caches pages. Fast sites attract moretraffic and users.
-Version: 3.2.19
+Description: WP-Optimize makes your site fast and efficient. It cleans the database, compresses images and caches pages. Fast sites attract more traffic and users.
+Version: 3.2.22
 Update URI: https://wordpress.org/plugins/wp-optimize/
 Author: David Anderson, Ruhani Rabin, Team Updraft
 Author URI: https://updraftplus.com
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 // Check to make sure if WP_Optimize is already call and returns.
 if (!class_exists('WP_Optimize')) :
-define('WPO_VERSION', '3.2.19');
+define('WPO_VERSION', '3.2.22');
 define('WPO_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('WPO_PLUGIN_MAIN_PATH', plugin_dir_path(__FILE__));
 define('WPO_PLUGIN_SLUG', plugin_basename(__FILE__));
@@ -31,6 +31,8 @@ class WP_Optimize {
 	private $template_directories;
 
 	protected static $_instance = null;
+
+	protected $_cache_init_status = null;
 
 	/**
 	 * Class constructor
@@ -419,12 +421,12 @@ class WP_Optimize {
 
 		Updraft_Tasks_Activation::check_updates();
 
-		include_once(WPO_PLUGIN_MAIN_PATH . '/vendor/team-updraft/common-libs/src/updraft-tasks/class-updraft-task-meta.php');
-		include_once(WPO_PLUGIN_MAIN_PATH . '/vendor/team-updraft/common-libs/src/updraft-tasks/class-updraft-task-options.php');
-		include_once(WPO_PLUGIN_MAIN_PATH . '/vendor/team-updraft/common-libs/src/updraft-tasks/class-updraft-task.php');
+		include_once(WPO_PLUGIN_MAIN_PATH . 'vendor/team-updraft/common-libs/src/updraft-tasks/class-updraft-task-meta.php');
+		include_once(WPO_PLUGIN_MAIN_PATH . 'vendor/team-updraft/common-libs/src/updraft-tasks/class-updraft-task-options.php');
+		include_once(WPO_PLUGIN_MAIN_PATH . 'vendor/team-updraft/common-libs/src/updraft-tasks/class-updraft-task.php');
 				
-		include_once(WPO_PLUGIN_MAIN_PATH . '/includes/class-updraft-smush-task.php');
-		include_once(WPO_PLUGIN_MAIN_PATH . '/includes/class-updraft-smush-manager.php');
+		include_once(WPO_PLUGIN_MAIN_PATH . 'includes/class-updraft-smush-task.php');
+		include_once(WPO_PLUGIN_MAIN_PATH . 'includes/class-updraft-smush-manager.php');
 
 		return Updraft_Smush_Manager();
 	}
@@ -561,6 +563,22 @@ class WP_Optimize {
 		if (WP_Optimize_WebP::is_shell_functions_available() && WPO_USE_WEBP_CONVERSION) {
 			$this->get_webp_instance();
 		}
+
+		// add_filter('updraftcentral_host_plugins', array($this, 'attach_updraftcentral_host'));
+		// if (file_exists(WPO_PLUGIN_MAIN_PATH.'central/factory.php')) include_once(WPO_PLUGIN_MAIN_PATH.'central/factory.php');
+	}
+
+	/**
+	 * Attach this wp-optimize plugin as host of the UpdraftCentral libraries
+	 * (e.g. "central" folder)
+	 *
+	 * @param array $hosts List of plugins having the "central" library integrated into them
+	 *
+	 * @return array
+	 */
+	public function attach_updraftcentral_host($hosts) {
+		$hosts[] = 'wp-optimize';
+		return $hosts;
 	}
 
 	/**
@@ -679,8 +697,8 @@ class WP_Optimize {
 
 			$dismissed_until = $options->get_option('dismiss_dash_notice_until', 0);
 
-			if (file_exists(WPO_PLUGIN_MAIN_PATH . '/index.html')) {
-				$installed = filemtime(WPO_PLUGIN_MAIN_PATH . '/index.html');
+			if (file_exists(WPO_PLUGIN_MAIN_PATH . 'index.html')) {
+				$installed = filemtime(WPO_PLUGIN_MAIN_PATH . 'index.html');
 				$installed_for = (time() - $installed);
 			}
 
@@ -901,9 +919,18 @@ class WP_Optimize {
 	public function init_page_cache() {
 		if ($this->get_page_cache()->config->get_option('enable_page_caching', false)) {
 			if ((!(defined('WP_CLI') && WP_CLI)) && (!defined('DOING_AJAX') || !DOING_AJAX)) {
-				$this->get_page_cache()->enable();
+				$this->_cache_init_status = $this->get_page_cache()->enable();
 			}
 		}
+	}
+
+	/**
+	 * Get init_page_cache() status.
+	 *
+	 * @return bool
+	 */
+	public function get_init_page_cache_status() {
+		return $this->_cache_init_status;
 	}
 
 	/**
@@ -1048,7 +1075,7 @@ class WP_Optimize {
 	}
 
 	public function get_templates_url() {
-		return apply_filters('wp_optimize_templates_url', WPO_PLUGIN_URL.'/templates');
+		return apply_filters('wp_optimize_templates_url', WPO_PLUGIN_URL.'templates');
 	}
 
 	/**

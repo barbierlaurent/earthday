@@ -33,16 +33,16 @@ use MasterAddons\Inc\Helper\Master_Addons_Helper;
 
 								<div class="jltma-filter-right">
 									<button class="jltma-addons-enable-all">
-										<?php echo esc_html__('Enable All', 'master-addons' ); ?>
+										<?php echo esc_html__('Enable All', 'master-addons'); ?>
 									</button>
 									<button class="jltma-addons-disable-all">
-										<?php echo esc_html__('Disable All', 'master-addons' ); ?>
+										<?php echo esc_html__('Disable All', 'master-addons'); ?>
 									</button>
 
 									<div class="jltma-tab-dashboard-header-wrapper inline-block">
 										<div class="jltma-tab-dashboard-header-right">
 											<button type="submit" class="jltma-button jltma-tab-element-save-setting">
-												<?php _e('Save Settings', 'master-addons' ); ?>
+												<?php _e('Save Settings', 'master-addons'); ?>
 											</button>
 										</div>
 									</div>
@@ -50,7 +50,7 @@ use MasterAddons\Inc\Helper\Master_Addons_Helper;
 							</div><!-- /.jltma_master_addons-dashboard-filter -->
 
 							<!-- Master Addons Extensions -->
-							<h3 class="mt-0"><?php echo esc_html__('Extensions', 'master-addons' ); ?></h3>
+							<h3 class="mt-0"><?php echo esc_html__('Extensions', 'master-addons'); ?></h3>
 
 							<div class="jltma-master-addons-features-container mt-0 is-flex">
 								<?php foreach (JLTMA_Addon_Extensions::$jltma_extensions['jltma-extensions']['extension'] as $key => $extension) : ?>
@@ -79,11 +79,10 @@ use MasterAddons\Inc\Helper\Master_Addons_Helper;
 
 
 											<div class="jltma-master-addons_feature-switchbox">
-												<label for="<?php echo esc_attr($extension['key']); ?>" class="switch switch-text switch-primary switch-pill
-													<?php
-													if (!ma_el_fs()->can_use_premium_code() && isset($extension['is_pro']) && $extension['is_pro']) {
-														echo "ma-el-pro";
-													} ?>">
+												<label for="<?php echo esc_attr($extension['key']); ?>" class="switch switch-text switch-primary switch-pill <?php
+																																								if (!ma_el_fs()->can_use_premium_code() && isset($extension['is_pro']) && $extension['is_pro']) {
+																																									echo "ma-el-pro disabled";
+																																								} ?>">
 
 													<?php if (ma_el_fs()->can_use_premium_code()) { ?>
 

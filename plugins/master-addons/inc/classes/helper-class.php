@@ -9,6 +9,216 @@ use Elementor\Core\Responsive\Responsive;
 class Master_Addons_Helper
 {
 
+
+
+	/**
+	 * Remove spaces from Plugin Slug
+	 */
+	public static function jltma_slug_cleanup()
+	{
+		return str_replace('-', '_', strtolower(JLTMA_SLUG));
+	}
+
+	/**
+	 * Function current_datetime() compability for wp version < 5.3
+	 *
+	 * @return DateTimeImmutable
+	 */
+	public static function jltma_current_datetime()
+	{
+		if (function_exists('current_datetime')) {
+			return current_datetime();
+		}
+
+		return new \DateTimeImmutable('now', self::jltma_wp_timezone());
+	}
+
+
+	/**
+	 * Function jltma_wp_timezone() compability for wp version < 5.3
+	 *
+	 * @return DateTimeZone
+	 */
+	public static function jltma_wp_timezone()
+	{
+		if (function_exists('wp_timezone')) {
+			return wp_timezone();
+		}
+
+		return new \DateTimeZone(self::jltma_wp_timezone_string());
+	}
+
+	/**
+	 * API Endpoint
+	 *
+	 * @return string
+	 */
+	public static function api_endpoint()
+	{
+		$api_endpoint_url = 'https://bo.jeweltheme.com';
+		$api_endpoint     = apply_filters('jltma_endpoint', $api_endpoint_url);
+
+		return trailingslashit($api_endpoint);
+	}
+
+	/**
+	 * CRM Endpoint
+	 *
+	 * @return string
+	 */
+	public static function crm_endpoint()
+	{
+		$crm_endpoint_url = 'https://bo.jeweltheme.com/wp-json/jlt-api/v1/subscribe'; // Endpoint .
+		$crm_endpoint     = apply_filters('jltma_crm_crm_endpoint', $crm_endpoint_url);
+
+		return trailingslashit($crm_endpoint);
+	}
+
+	/**
+	 * CRM Endpoint
+	 *
+	 * @return string
+	 */
+	public static function crm_survey_endpoint()
+	{
+		$crm_feedback_endpoint_url = 'https://bo.jeweltheme.com/wp-json/jlt-api/v1/survey'; // Endpoint .
+		$crm_feedback_endpoint     = apply_filters('jltma_crm_crm_endpoint', $crm_feedback_endpoint_url);
+
+		return trailingslashit($crm_feedback_endpoint);
+	}
+
+	/**
+	 * Function jltma_wp_timezone_string() compability for wp version < 5.3
+	 *
+	 * @return string
+	 */
+	public static function jltma_wp_timezone_string()
+	{
+		$timezone_string = get_option('timezone_string');
+
+		if ($timezone_string) {
+			return $timezone_string;
+		}
+
+		$offset  = (float) get_option('gmt_offset');
+		$hours   = (int) $offset;
+		$minutes = ($offset - $hours);
+
+		$sign      = ($offset < 0) ? '-' : '+';
+		$abs_hour  = abs($hours);
+		$abs_mins  = abs($minutes * 60);
+		$tz_offset = sprintf('%s%02d:%02d', $sign, $abs_hour, $abs_mins);
+
+		return $tz_offset;
+	}
+
+	/**
+	 * Get Merged Data
+	 *
+	 * @param [type] $data .
+	 * @param string $start_date .
+	 * @param string $end_data .
+	 *
+	 * @author Jewel Theme <support@jeweltheme.com>
+	 */
+	public static function get_merged_data($data, $start_date = '', $end_data = '')
+	{
+		$_data = shortcode_atts(
+			array(
+				'image_url'        => JLTMA_IMAGE_DIR . 'promo-image.png',
+				'start_date'       => $start_date,
+				'end_date'         => $end_data,
+				'counter_time'     => '',
+				'is_campaign'      => 'false',
+				'button_text'      => 'Get Premium',
+				'button_url'       => 'https://jeweltheme.com',
+				'btn_color'        => '#CC22FF',
+				'notice'           => '',
+				'notice_timestamp' => '',
+			),
+			$data
+		);
+
+		if (empty($_data['image_url'])) {
+			$_data['image_url'] = JLTMA_IMAGE_DIR . 'promo-image.png';
+		}
+
+		return $_data;
+	}
+
+
+	/**
+	 * wp_kses attributes map
+	 *
+	 * @param array $attrs .
+	 *
+	 * @author Jewel Theme <support@jeweltheme.com>
+	 */
+	public static function wp_kses_atts_map(array $attrs)
+	{
+		return array_fill_keys(array_values($attrs), true);
+	}
+
+	/**
+	 * Custom method
+	 *
+	 * @param [type] $content .
+	 *
+	 * @author Jewel Theme <support@jeweltheme.com>
+	 */
+	public static function wp_kses_custom($content)
+	{
+		$allowed_tags = wp_kses_allowed_html('post');
+
+		$custom_tags = array(
+			'select'         => self::wp_kses_atts_map(array('class', 'id', 'style', 'width', 'height', 'title', 'data', 'name', 'autofocus', 'disabled', 'multiple', 'required', 'size')),
+			'input'          => self::wp_kses_atts_map(array('class', 'id', 'style', 'width', 'height', 'title', 'data', 'name', 'autofocus', 'disabled', 'required', 'size', 'type', 'checked', 'readonly', 'placeholder', 'value', 'maxlength', 'min', 'max', 'multiple', 'pattern', 'step', 'autocomplete')),
+			'textarea'       => self::wp_kses_atts_map(array('class', 'id', 'style', 'width', 'height', 'title', 'data', 'name', 'autofocus', 'disabled', 'required', 'rows', 'cols', 'wrap', 'maxlength')),
+			'option'         => self::wp_kses_atts_map(array('class', 'id', 'label', 'disabled', 'label', 'selected', 'value')),
+			'optgroup'       => self::wp_kses_atts_map(array('disabled', 'label', 'class', 'id')),
+			'form'           => self::wp_kses_atts_map(array('class', 'id', 'data', 'style', 'width', 'height', 'accept-charset', 'action', 'autocomplete', 'enctype', 'method', 'name', 'novalidate', 'rel', 'target')),
+			'svg'            => self::wp_kses_atts_map(array('class', 'xmlns', 'viewbox', 'width', 'height', 'fill', 'aria-hidden', 'aria-labelledby', 'role')),
+			'rect'           => self::wp_kses_atts_map(array('rx', 'width', 'height', 'fill')),
+			'path'           => self::wp_kses_atts_map(array('d', 'fill')),
+			'g'              => self::wp_kses_atts_map(array('fill')),
+			'defs'           => self::wp_kses_atts_map(array('fill')),
+			'linearGradient' => self::wp_kses_atts_map(array('id', 'x1', 'x2', 'y1', 'y2', 'gradientUnits')),
+			'stop'           => self::wp_kses_atts_map(array('stop-color', 'offset', 'stop-opacity')),
+			'style'          => self::wp_kses_atts_map(array('type')),
+			'div'            => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'ul'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'li'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'label'          => self::wp_kses_atts_map(array('class', 'for')),
+			'span'           => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'h1'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'h2'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'h3'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'h4'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'h5'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'h6'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'a'              => self::wp_kses_atts_map(array('class', 'href', 'target', 'rel')),
+			'p'              => self::wp_kses_atts_map(array('class', 'id', 'style', 'data')),
+			'table'          => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'thead'          => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'tbody'          => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'tr'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'th'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'td'             => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'i'              => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'button'         => self::wp_kses_atts_map(array('class', 'id')),
+			'nav'            => self::wp_kses_atts_map(array('class', 'id', 'style')),
+			'time'           => self::wp_kses_atts_map(array('datetime')),
+			'br'             => array(),
+			'strong'         => array(),
+			'style'          => array(),
+			'img'            => self::wp_kses_atts_map(array('class', 'src', 'alt', 'height', 'width', 'srcset', 'id', 'loading')),
+		);
+
+		$allowed_tags = array_merge_recursive($allowed_tags, $custom_tags);
+
+		return wp_kses(stripslashes_deep($content), $allowed_tags);
+	}
+
 	public static function jltma_elementor()
 	{
 		return \Elementor\Plugin::$instance;
@@ -219,13 +429,13 @@ class Master_Addons_Helper
 				'showposts' => 999,
 			));
 			$options = array();
-			$options[0] = esc_html__('Select a Form', 'master-addons' );
+			$options[0] = esc_html__('Select a Form', 'master-addons');
 			if (!empty($wpcf7_form_list) && !is_wp_error($wpcf7_form_list)) {
 				foreach ($wpcf7_form_list as $post) {
 					$options[$post->ID] = $post->post_title;
 				}
 			} else {
-				$options[0] = esc_html__('Create a Form First', 'master-addons' );
+				$options[0] = esc_html__('Create a Form First', 'master-addons');
 			}
 			return $options;
 		}
@@ -236,14 +446,14 @@ class Master_Addons_Helper
 
 		$page_templates = self::ma_get_page_templates($type);
 
-		$options[-1]   = __('Select', 'master-addons' );
+		$options[-1]   = __('Select', 'master-addons');
 
 		if (count($page_templates)) {
 			foreach ($page_templates as $id => $name) {
 				$options[$id] = $name;
 			}
 		} else {
-			$options['no_template'] = __('No saved templates found!', 'master-addons' );
+			$options['no_template'] = __('No saved templates found!', 'master-addons');
 		}
 
 		return $options;
@@ -294,7 +504,7 @@ class Master_Addons_Helper
 
 				foreach ($contact_forms as $form) {
 					if ($i == 0) {
-						$options[0] = esc_html__('Select a Contact form', 'master-addons' );
+						$options[0] = esc_html__('Select a Contact form', 'master-addons');
 					}
 					$options[$form->get_id()] = $form->get_setting('title');
 					$i++;
@@ -327,7 +537,7 @@ class Master_Addons_Helper
 
 				foreach ($contact_forms as $post) {
 					if ($i == 0) {
-						$options[0] = esc_html__('Select a Contact form', 'master-addons' );
+						$options[0] = esc_html__('Select a Contact form', 'master-addons');
 					}
 					$options[$post->ID] = $post->post_title;
 					$i++;
@@ -352,12 +562,12 @@ class Master_Addons_Helper
 		$options = array();
 
 		if (!empty($wpuf_form_list) && !is_wp_error($wpuf_form_list)) {
-			$options[0] = esc_html__('Select weForm', 'master-addons' );
+			$options[0] = esc_html__('Select weForm', 'master-addons');
 			foreach ($wpuf_form_list as $post) {
 				$options[$post->ID] = $post->post_title;
 			}
 		} else {
-			$options[0] = esc_html__('Create a Form First', 'master-addons' );
+			$options[0] = esc_html__('Create a Form First', 'master-addons');
 		}
 
 		return $options;
@@ -377,7 +587,7 @@ class Master_Addons_Helper
 
 				foreach ($contact_forms as $form) {
 					if ($i == 0) {
-						$options[0] = esc_html__('Select a Contact form', 'master-addons' );
+						$options[0] = esc_html__('Select a Contact form', 'master-addons');
 					}
 					$options[$form['ID']] = $form['name'];
 					$i++;
@@ -405,7 +615,7 @@ class Master_Addons_Helper
 
 				foreach ($contact_forms as $form) {
 					if ($i == 0) {
-						$options[0] = esc_html__('Select a Contact form', 'master-addons' );
+						$options[0] = esc_html__('Select a Contact form', 'master-addons');
 					}
 					$options[$form->id] = $form->title;
 					$i++;
@@ -436,15 +646,15 @@ class Master_Addons_Helper
 	{
 		$content_alignment = [
 			'left'      => [
-				'title' => __('Left', 'master-addons' ),
+				'title' => __('Left', 'master-addons'),
 				'icon' => 'eicon-text-align-left',
 			],
 			'center'    => [
-				'title' => __('Center', 'master-addons' ),
+				'title' => __('Center', 'master-addons'),
 				'icon' => 'eicon-text-align-center',
 			],
 			'right'     => [
-				'title' => __('Right', 'master-addons' ),
+				'title' => __('Right', 'master-addons'),
 				'icon' => 'eicon-text-align-right',
 			],
 		];
@@ -456,19 +666,19 @@ class Master_Addons_Helper
 	{
 		$content_alignment = [
 			'left'      => [
-				'title' => __('Left', 'master-addons' ),
+				'title' => __('Left', 'master-addons'),
 				'icon' => 'eicon-text-align-left',
 			],
 			'center'    => [
-				'title' => __('Center', 'master-addons' ),
+				'title' => __('Center', 'master-addons'),
 				'icon' => 'eicon-text-align-center',
 			],
 			'right'     => [
-				'title' => __('Right', 'master-addons' ),
+				'title' => __('Right', 'master-addons'),
 				'icon' => 'eicon-text-align-right',
 			],
 			'justify' => [
-				'title' => __('Justify', 'master-addons' ),
+				'title' => __('Justify', 'master-addons'),
 				'icon'  => 'eicon-text-align-justify',
 			],
 		];
@@ -480,19 +690,19 @@ class Master_Addons_Helper
 	{
 		$content_alignment = [
 			'flex-start'      => [
-				'title' => __('Left', 'master-addons' ),
+				'title' => __('Left', 'master-addons'),
 				'icon' => 'eicon-text-align-left',
 			],
 			'center'    => [
-				'title' => __('Center', 'master-addons' ),
+				'title' => __('Center', 'master-addons'),
 				'icon' => 'eicon-text-align-center',
 			],
 			'flex-end'     => [
-				'title' => __('Right', 'master-addons' ),
+				'title' => __('Right', 'master-addons'),
 				'icon' => 'eicon-text-align-right',
 			],
 			'space-between' => [
-				'title' => __('Justify', 'master-addons' ),
+				'title' => __('Justify', 'master-addons'),
 				'icon'  => 'eicon-text-align-justify',
 			],
 		];
@@ -504,27 +714,27 @@ class Master_Addons_Helper
 	{
 		$heading_tags = [
 			'h1'  => [
-				'title' => __('H1', 'master-addons' ),
+				'title' => __('H1', 'master-addons'),
 				'icon'  => 'eicon-editor-h1'
 			],
 			'h2'  => [
-				'title' => __('H2', 'master-addons' ),
+				'title' => __('H2', 'master-addons'),
 				'icon'  => 'eicon-editor-h2'
 			],
 			'h3'  => [
-				'title' => __('H3', 'master-addons' ),
+				'title' => __('H3', 'master-addons'),
 				'icon'  => 'eicon-editor-h3'
 			],
 			'h4'  => [
-				'title' => __('H4', 'master-addons' ),
+				'title' => __('H4', 'master-addons'),
 				'icon'  => 'eicon-editor-h4'
 			],
 			'h5'  => [
-				'title' => __('H5', 'master-addons' ),
+				'title' => __('H5', 'master-addons'),
 				'icon'  => 'eicon-editor-h5'
 			],
 			'h6'  => [
-				'title' => __('H6', 'master-addons' ),
+				'title' => __('H6', 'master-addons'),
 				'icon'  => 'eicon-editor-h6'
 			]
 		];
@@ -536,17 +746,17 @@ class Master_Addons_Helper
 	public static function jltma_title_tags()
 	{
 		$title_tags = [
-			'h1'     => esc_html__('H1', 'master-addons' ),
-			'h2'     => esc_html__('H2', 'master-addons' ),
-			'h3'     => esc_html__('H3', 'master-addons' ),
-			'h4'     => esc_html__('H4', 'master-addons' ),
-			'h5'     => esc_html__('H5', 'master-addons' ),
-			'h6'     => esc_html__('H6', 'master-addons' ),
-			'div'    => esc_html__('div', 'master-addons' ),
-			'span'   => esc_html__('span', 'master-addons' ),
-			'p'      => esc_html__('p', 'master-addons' ),
-			'button' => esc_html__('button', 'master-addons' ),
-			'a'      => esc_html__('a', 'master-addons' ),
+			'h1'     => esc_html__('H1', 'master-addons'),
+			'h2'     => esc_html__('H2', 'master-addons'),
+			'h3'     => esc_html__('H3', 'master-addons'),
+			'h4'     => esc_html__('H4', 'master-addons'),
+			'h5'     => esc_html__('H5', 'master-addons'),
+			'h6'     => esc_html__('H6', 'master-addons'),
+			'div'    => esc_html__('div', 'master-addons'),
+			'span'   => esc_html__('span', 'master-addons'),
+			'p'      => esc_html__('p', 'master-addons'),
+			'button' => esc_html__('button', 'master-addons'),
+			'a'      => esc_html__('a', 'master-addons'),
 		];
 
 		return $title_tags;
@@ -557,16 +767,16 @@ class Master_Addons_Helper
 	public static function ma_el_content_positions()
 	{
 		$position_options = [
-			''              => esc_html__('Default', 'master-addons' ),
-			'top-left'      => esc_html__('Top Left', 'master-addons' ),
-			'top-center'    => esc_html__('Top Center', 'master-addons' ),
-			'top-right'     => esc_html__('Top Right', 'master-addons' ),
-			'center'        => esc_html__('Center', 'master-addons' ),
-			'center-left'   => esc_html__('Center Left', 'master-addons' ),
-			'center-right'  => esc_html__('Center Right', 'master-addons' ),
-			'bottom-left'   => esc_html__('Bottom Left', 'master-addons' ),
-			'bottom-center' => esc_html__('Bottom Center', 'master-addons' ),
-			'bottom-right'  => esc_html__('Bottom Right', 'master-addons' ),
+			''              => esc_html__('Default', 'master-addons'),
+			'top-left'      => esc_html__('Top Left', 'master-addons'),
+			'top-center'    => esc_html__('Top Center', 'master-addons'),
+			'top-right'     => esc_html__('Top Right', 'master-addons'),
+			'center'        => esc_html__('Center', 'master-addons'),
+			'center-left'   => esc_html__('Center Left', 'master-addons'),
+			'center-right'  => esc_html__('Center Right', 'master-addons'),
+			'bottom-left'   => esc_html__('Bottom Left', 'master-addons'),
+			'bottom-center' => esc_html__('Bottom Center', 'master-addons'),
+			'bottom-right'  => esc_html__('Bottom Right', 'master-addons'),
 		];
 
 		return $position_options;
@@ -578,22 +788,22 @@ class Master_Addons_Helper
 	public static function ma_el_transition_options()
 	{
 		$transition_options = [
-			''                    => __('None', 'master-addons' ),
-			'fade'                => __('Fade', 'master-addons' ),
-			'scale-up'            => __('Scale Up', 'master-addons' ),
-			'scale-down'          => __('Scale Down', 'master-addons' ),
-			'slide-top'           => __('Slide Top', 'master-addons' ),
-			'slide-bottom'        => __('Slide Bottom', 'master-addons' ),
-			'slide-left'          => __('Slide Left', 'master-addons' ),
-			'slide-right'         => __('Slide Right', 'master-addons' ),
-			'slide-top-small'     => __('Slide Top Small', 'master-addons' ),
-			'slide-bottom-small'  => __('Slide Bottom Small', 'master-addons' ),
-			'slide-left-small'    => __('Slide Left Small', 'master-addons' ),
-			'slide-right-small'   => __('Slide Right Small', 'master-addons' ),
-			'slide-top-medium'    => __('Slide Top Medium', 'master-addons' ),
-			'slide-bottom-medium' => __('Slide Bottom Medium', 'master-addons' ),
-			'slide-left-medium'   => __('Slide Left Medium', 'master-addons' ),
-			'slide-right-medium'  => __('Slide Right Medium', 'master-addons' ),
+			''                    => __('None', 'master-addons'),
+			'fade'                => __('Fade', 'master-addons'),
+			'scale-up'            => __('Scale Up', 'master-addons'),
+			'scale-down'          => __('Scale Down', 'master-addons'),
+			'slide-top'           => __('Slide Top', 'master-addons'),
+			'slide-bottom'        => __('Slide Bottom', 'master-addons'),
+			'slide-left'          => __('Slide Left', 'master-addons'),
+			'slide-right'         => __('Slide Right', 'master-addons'),
+			'slide-top-small'     => __('Slide Top Small', 'master-addons'),
+			'slide-bottom-small'  => __('Slide Bottom Small', 'master-addons'),
+			'slide-left-small'    => __('Slide Left Small', 'master-addons'),
+			'slide-right-small'   => __('Slide Right Small', 'master-addons'),
+			'slide-top-medium'    => __('Slide Top Medium', 'master-addons'),
+			'slide-bottom-medium' => __('Slide Bottom Medium', 'master-addons'),
+			'slide-left-medium'   => __('Slide Left Medium', 'master-addons'),
+			'slide-right-medium'  => __('Slide Right Medium', 'master-addons'),
 		];
 
 		return $transition_options;
@@ -604,90 +814,90 @@ class Master_Addons_Helper
 	public static function jltma_animation_options()
 	{
 		$transition_options = [
-			''                             =>  esc_html__('None', 'master-addons' ),
-			'jltma-fade-in'                =>  esc_html__('Fade In', 'master-addons' ),
-			'jltma-fade-in-down'           =>  esc_html__('Fade In Down', 'master-addons' ),
-			'jltma-fade-in-down-1'         =>  esc_html__('Fade In Down 1', 'master-addons' ),
-			'jltma-fade-in-down-2'         =>  esc_html__('Fade In Down 2', 'master-addons' ),
-			'jltma-fade-in-up'             =>  esc_html__('Fade In Up', 'master-addons' ),
-			'jltma-fade-in-up-1'           =>  esc_html__('Fade In Up 1', 'master-addons' ),
-			'jltma-fade-in-up-2'           =>  esc_html__('Fade In Up 2', 'master-addons' ),
-			'jltma-fade-in-left'           =>  esc_html__('Fade In Left', 'master-addons' ),
-			'jltma-fade-in-left-1'         =>  esc_html__('Fade In Left 1', 'master-addons' ),
-			'jltma-fade-in-left-2'         =>  esc_html__('Fade In Left 2', 'master-addons' ),
-			'jltma-fade-in-right'          =>  esc_html__('Fade In Right', 'master-addons' ),
-			'jltma-fade-in-right-1'        =>  esc_html__('Fade In Right 1', 'master-addons' ),
-			'jltma-fade-in-right-2'        =>  esc_html__('Fade In Right 2', 'master-addons' ),
+			''                             =>  esc_html__('None', 'master-addons'),
+			'jltma-fade-in'                =>  esc_html__('Fade In', 'master-addons'),
+			'jltma-fade-in-down'           =>  esc_html__('Fade In Down', 'master-addons'),
+			'jltma-fade-in-down-1'         =>  esc_html__('Fade In Down 1', 'master-addons'),
+			'jltma-fade-in-down-2'         =>  esc_html__('Fade In Down 2', 'master-addons'),
+			'jltma-fade-in-up'             =>  esc_html__('Fade In Up', 'master-addons'),
+			'jltma-fade-in-up-1'           =>  esc_html__('Fade In Up 1', 'master-addons'),
+			'jltma-fade-in-up-2'           =>  esc_html__('Fade In Up 2', 'master-addons'),
+			'jltma-fade-in-left'           =>  esc_html__('Fade In Left', 'master-addons'),
+			'jltma-fade-in-left-1'         =>  esc_html__('Fade In Left 1', 'master-addons'),
+			'jltma-fade-in-left-2'         =>  esc_html__('Fade In Left 2', 'master-addons'),
+			'jltma-fade-in-right'          =>  esc_html__('Fade In Right', 'master-addons'),
+			'jltma-fade-in-right-1'        =>  esc_html__('Fade In Right 1', 'master-addons'),
+			'jltma-fade-in-right-2'        =>  esc_html__('Fade In Right 2', 'master-addons'),
 
 			// Slide Animation
-			'jltma-slide-from-right'       =>  esc_html__('Slide From Right', 'master-addons' ),
-			'jltma-slide-from-left'        =>  esc_html__('Slide From Left', 'master-addons' ),
-			'jltma-slide-from-top'         =>  esc_html__('Slide From Top', 'master-addons' ),
-			'jltma-slide-from-bot'         =>  esc_html__('Slide From Bottom', 'master-addons' ),
+			'jltma-slide-from-right'       =>  esc_html__('Slide From Right', 'master-addons'),
+			'jltma-slide-from-left'        =>  esc_html__('Slide From Left', 'master-addons'),
+			'jltma-slide-from-top'         =>  esc_html__('Slide From Top', 'master-addons'),
+			'jltma-slide-from-bot'         =>  esc_html__('Slide From Bottom', 'master-addons'),
 
 			// Mask Animation
-			'jltma-mask-from-top'          =>  esc_html__('Mask From Top', 'master-addons' ),
-			'jltma-mask-from-bot'          =>  esc_html__('Mask From Bottom', 'master-addons' ),
-			'jltma-mask-from-left'         =>  esc_html__('Mask From Left', 'master-addons' ),
-			'jltma-mask-from-right'        =>  esc_html__('Mask From Right', 'master-addons' ),
+			'jltma-mask-from-top'          =>  esc_html__('Mask From Top', 'master-addons'),
+			'jltma-mask-from-bot'          =>  esc_html__('Mask From Bottom', 'master-addons'),
+			'jltma-mask-from-left'         =>  esc_html__('Mask From Left', 'master-addons'),
+			'jltma-mask-from-right'        =>  esc_html__('Mask From Right', 'master-addons'),
 
-			'jltma-rotate-in'              =>  esc_html__('Rotate In', 'master-addons' ),
-			'jltma-rotate-in-down-left'    =>  esc_html__('Rotate In Down Left', 'master-addons' ),
-			'jltma-rotate-in-down-left-1'  =>  esc_html__('Rotate In Down Left 1', 'master-addons' ),
-			'jltma-rotate-in-down-left-2'  =>  esc_html__('Rotate In Down Left 2', 'master-addons' ),
-			'jltma-rotate-in-down-right'   =>  esc_html__('Rotate In Down Right', 'master-addons' ),
-			'jltma-rotate-in-down-right-1' =>  esc_html__('Rotate In Down Right 1', 'master-addons' ),
-			'jltma-rotate-in-down-right-2' =>  esc_html__('Rotate In Down Right 2', 'master-addons' ),
-			'jltma-rotate-in-up-left'      =>  esc_html__('Rotate In Up Left', 'master-addons' ),
-			'jltma-rotate-in-up-left-1'    =>  esc_html__('Rotate In Up Left 1', 'master-addons' ),
-			'jltma-rotate-in-up-left-2'    =>  esc_html__('Rotate In Up Left 2', 'master-addons' ),
-			'jltma-rotate-in-up-right'     =>  esc_html__('Rotate In Up Right', 'master-addons' ),
-			'jltma-rotate-in-up-right-1'   =>  esc_html__('Rotate In Up Right 1', 'master-addons' ),
-			'jltma-rotate-in-up-right-2'   =>  esc_html__('Rotate In Up Right 2', 'master-addons' ),
+			'jltma-rotate-in'              =>  esc_html__('Rotate In', 'master-addons'),
+			'jltma-rotate-in-down-left'    =>  esc_html__('Rotate In Down Left', 'master-addons'),
+			'jltma-rotate-in-down-left-1'  =>  esc_html__('Rotate In Down Left 1', 'master-addons'),
+			'jltma-rotate-in-down-left-2'  =>  esc_html__('Rotate In Down Left 2', 'master-addons'),
+			'jltma-rotate-in-down-right'   =>  esc_html__('Rotate In Down Right', 'master-addons'),
+			'jltma-rotate-in-down-right-1' =>  esc_html__('Rotate In Down Right 1', 'master-addons'),
+			'jltma-rotate-in-down-right-2' =>  esc_html__('Rotate In Down Right 2', 'master-addons'),
+			'jltma-rotate-in-up-left'      =>  esc_html__('Rotate In Up Left', 'master-addons'),
+			'jltma-rotate-in-up-left-1'    =>  esc_html__('Rotate In Up Left 1', 'master-addons'),
+			'jltma-rotate-in-up-left-2'    =>  esc_html__('Rotate In Up Left 2', 'master-addons'),
+			'jltma-rotate-in-up-right'     =>  esc_html__('Rotate In Up Right', 'master-addons'),
+			'jltma-rotate-in-up-right-1'   =>  esc_html__('Rotate In Up Right 1', 'master-addons'),
+			'jltma-rotate-in-up-right-2'   =>  esc_html__('Rotate In Up Right 2', 'master-addons'),
 
-			'jltma-zoom-in'                =>  esc_html__('Zoom In', 'master-addons' ),
-			'jltma-zoom-in-1'              =>  esc_html__('Zoom In 1', 'master-addons' ),
-			'jltma-zoom-in-2'              =>  esc_html__('Zoom In 2', 'master-addons' ),
-			'jltma-zoom-in-3'              =>  esc_html__('Zoom In 3', 'master-addons' ),
+			'jltma-zoom-in'                =>  esc_html__('Zoom In', 'master-addons'),
+			'jltma-zoom-in-1'              =>  esc_html__('Zoom In 1', 'master-addons'),
+			'jltma-zoom-in-2'              =>  esc_html__('Zoom In 2', 'master-addons'),
+			'jltma-zoom-in-3'              =>  esc_html__('Zoom In 3', 'master-addons'),
 
-			'jltma-scale-up'               =>  esc_html__('Scale Up', 'master-addons' ),
-			'jltma-scale-up-1'             =>  esc_html__('Scale Up 1', 'master-addons' ),
-			'jltma-scale-up-2'             =>  esc_html__('Scale Up 2', 'master-addons' ),
+			'jltma-scale-up'               =>  esc_html__('Scale Up', 'master-addons'),
+			'jltma-scale-up-1'             =>  esc_html__('Scale Up 1', 'master-addons'),
+			'jltma-scale-up-2'             =>  esc_html__('Scale Up 2', 'master-addons'),
 
-			'jltma-scale-down'             =>  esc_html__('Scale Down', 'master-addons' ),
-			'jltma-scale-down-1'           =>  esc_html__('Scale Down 1', 'master-addons' ),
-			'jltma-scale-down-2'           =>  esc_html__('Scale Down 2', 'master-addons' ),
+			'jltma-scale-down'             =>  esc_html__('Scale Down', 'master-addons'),
+			'jltma-scale-down-1'           =>  esc_html__('Scale Down 1', 'master-addons'),
+			'jltma-scale-down-2'           =>  esc_html__('Scale Down 2', 'master-addons'),
 
-			'jltma-flip-in-down'           =>  esc_html__('Flip In Down', 'master-addons' ),
-			'jltma-flip-in-down-1'         =>  esc_html__('Flip In Down 1', 'master-addons' ),
-			'jltma-flip-in-down-2'         =>  esc_html__('Flip In Down 2', 'master-addons' ),
-			'jltma-flip-in-up'             =>  esc_html__('Flip In Up', 'master-addons' ),
-			'jltma-flip-in-up-1'           =>  esc_html__('Flip In Up 1', 'master-addons' ),
-			'jltma-flip-in-up-2'           =>  esc_html__('Flip In Up 2', 'master-addons' ),
-			'jltma-flip-in-left'           =>  esc_html__('Flip In Left', 'master-addons' ),
-			'jltma-flip-in-left-1'         =>  esc_html__('Flip In Left 1', 'master-addons' ),
-			'jltma-flip-in-left-2'         =>  esc_html__('Flip In Left 2', 'master-addons' ),
-			'jltma-flip-in-left-3'         =>  esc_html__('Flip In Left 3', 'master-addons' ),
-			'jltma-flip-in-right'          =>  esc_html__('Flip In Right', 'master-addons' ),
-			'jltma-flip-in-right-1'        =>  esc_html__('Flip In Right 1', 'master-addons' ),
-			'jltma-flip-in-right-2'        =>  esc_html__('Flip In Right 2', 'master-addons' ),
-			'jltma-flip-in-right-3'        =>  esc_html__('Flip In Right 3', 'master-addons' ),
+			'jltma-flip-in-down'           =>  esc_html__('Flip In Down', 'master-addons'),
+			'jltma-flip-in-down-1'         =>  esc_html__('Flip In Down 1', 'master-addons'),
+			'jltma-flip-in-down-2'         =>  esc_html__('Flip In Down 2', 'master-addons'),
+			'jltma-flip-in-up'             =>  esc_html__('Flip In Up', 'master-addons'),
+			'jltma-flip-in-up-1'           =>  esc_html__('Flip In Up 1', 'master-addons'),
+			'jltma-flip-in-up-2'           =>  esc_html__('Flip In Up 2', 'master-addons'),
+			'jltma-flip-in-left'           =>  esc_html__('Flip In Left', 'master-addons'),
+			'jltma-flip-in-left-1'         =>  esc_html__('Flip In Left 1', 'master-addons'),
+			'jltma-flip-in-left-2'         =>  esc_html__('Flip In Left 2', 'master-addons'),
+			'jltma-flip-in-left-3'         =>  esc_html__('Flip In Left 3', 'master-addons'),
+			'jltma-flip-in-right'          =>  esc_html__('Flip In Right', 'master-addons'),
+			'jltma-flip-in-right-1'        =>  esc_html__('Flip In Right 1', 'master-addons'),
+			'jltma-flip-in-right-2'        =>  esc_html__('Flip In Right 2', 'master-addons'),
+			'jltma-flip-in-right-3'        =>  esc_html__('Flip In Right 3', 'master-addons'),
 
-			'jltma-pulse'                  =>  esc_html__('Pulse In 1', 'master-addons' ),
-			'jltma-pulse1'                 =>  esc_html__('Pulse In 2', 'master-addons' ),
-			'jltma-pulse2'                 =>  esc_html__('Pulse In 3', 'master-addons' ),
-			'jltma-pulse3'                 =>  esc_html__('Pulse In 4', 'master-addons' ),
-			'jltma-pulse4'                 =>  esc_html__('Pulse In 5', 'master-addons' ),
+			'jltma-pulse'                  =>  esc_html__('Pulse In 1', 'master-addons'),
+			'jltma-pulse1'                 =>  esc_html__('Pulse In 2', 'master-addons'),
+			'jltma-pulse2'                 =>  esc_html__('Pulse In 3', 'master-addons'),
+			'jltma-pulse3'                 =>  esc_html__('Pulse In 4', 'master-addons'),
+			'jltma-pulse4'                 =>  esc_html__('Pulse In 5', 'master-addons'),
 
-			'jltma-pulse-out-1'            =>  esc_html__('Pulse Out 1', 'master-addons' ),
-			'jltma-pulse-out-2'            =>  esc_html__('Pulse Out 2', 'master-addons' ),
-			'jltma-pulse-out-3'            =>  esc_html__('Pulse Out 3', 'master-addons' ),
-			'jltma-pulse-out-4'            =>  esc_html__('Pulse Out 4', 'master-addons' ),
+			'jltma-pulse-out-1'            =>  esc_html__('Pulse Out 1', 'master-addons'),
+			'jltma-pulse-out-2'            =>  esc_html__('Pulse Out 2', 'master-addons'),
+			'jltma-pulse-out-3'            =>  esc_html__('Pulse Out 3', 'master-addons'),
+			'jltma-pulse-out-4'            =>  esc_html__('Pulse Out 4', 'master-addons'),
 
 			// Specials
-			'jltma-shake'                  =>  esc_html__('Shake', 'master-addons' ),
-			'jltma-bounce-in'              =>  esc_html__('Bounce In', 'master-addons' ),
-			'jltma-jack-in-box'            =>  esc_html__('Jack In the Box', 'master-addons' )
+			'jltma-shake'                  =>  esc_html__('Shake', 'master-addons'),
+			'jltma-bounce-in'              =>  esc_html__('Bounce In', 'master-addons'),
+			'jltma-jack-in-box'            =>  esc_html__('Jack In the Box', 'master-addons')
 		];
 
 		return $transition_options;
@@ -867,14 +1077,14 @@ class Master_Addons_Helper
 
 		if ($excerpt_icon) {
 
-            $migrated = isset($settings['__fa4_migrated'][$excerpt_icon]);
-            $is_new   = empty($settings['icon']) && \Elementor\Icons_Manager::is_migration_allowed();
+			$migrated = isset($settings['__fa4_migrated'][$excerpt_icon]);
+			$is_new   = empty($settings['icon']) && \Elementor\Icons_Manager::is_migration_allowed();
 
-            if ($is_new || $migrated){
-                $excerpt_icon = \Elementor\Icons_Manager::render_icon($settings[$excerpt_icon], ['aria-hidden' => 'true', 'class' => 'blog_excerpt_icon']);
-            } else {
-                $excerpt_icon = '<i class="' . esc_attr($settings['icon']) . '" aria-hidden="true"></i>';
-            }
+			if ($is_new || $migrated) {
+				$excerpt_icon = \Elementor\Icons_Manager::render_icon($settings[$excerpt_icon], ['aria-hidden' => 'true', 'class' => 'blog_excerpt_icon']);
+			} else {
+				$excerpt_icon = '<i class="' . esc_attr($settings['icon']) . '" aria-hidden="true"></i>';
+			}
 		}
 
 		if (count($words) > $excerpt_length) :
@@ -910,10 +1120,10 @@ class Master_Addons_Helper
 
 		<div class="elementor-alert elementor-alert-danger" role="alert">
 			<span class="elementor-alert-title">
-				<?php echo /* translators: %s: Title */ sprintf(esc_html__('%s !', 'master-addons' ), $title); ?>
+				<?php echo /* translators: %s: Title */ sprintf(esc_html__('%s !', 'master-addons'), $title); ?>
 			</span>
 			<span class="elementor-alert-description">
-				<?php echo /* translators: %s: Content */ sprintf(esc_html__('%s &nbsp;', 'master-addons' ), $content); ?>
+				<?php echo /* translators: %s: Content */ sprintf(esc_html__('%s &nbsp;', 'master-addons'), $content); ?>
 			</span>
 		</div>
 
@@ -950,7 +1160,7 @@ class Master_Addons_Helper
 	?>
 		<div class="elementor-alert elementor-alert-danger" role="alert">
 			<span class="elementor-alert-title">
-				<?php echo /* translators: %s: Plugin Name */ sprintf(esc_html__('"%s" Plugin is Not Activated!', 'master-addons' ), esc_html($args['plugin_name'])); ?>
+				<?php echo /* translators: %s: Plugin Name */ sprintf(esc_html__('"%s" Plugin is Not Activated!', 'master-addons'), esc_html($args['plugin_name'])); ?>
 			</span>
 			<span class="elementor-alert-description">
 				<?php esc_html_e(
@@ -997,7 +1207,7 @@ class Master_Addons_Helper
 		<div class="ma-el-alert elementor-alert elementor-alert-<?php echo esc_attr($type); ?>" role="alert">
 
 			<span class="elementor-alert-title">
-				<?php echo __('Sorry !!!', 'master-addons' ); ?>
+				<?php echo __('Sorry !!!', 'master-addons'); ?>
 			</span>
 
 			<span class="elementor-alert-description">
@@ -1046,7 +1256,7 @@ class Master_Addons_Helper
 				$i = 0;
 				foreach ($forms as $form) {
 					if (0 === $i) {
-						$options[0] = esc_html__('Select a Contact form', 'master-addons' );
+						$options[0] = esc_html__('Select a Contact form', 'master-addons');
 					}
 					$options[$form->id] = $form->name;
 					$i++;
@@ -1071,12 +1281,12 @@ class Master_Addons_Helper
 
 			$result = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}fluentform_forms");
 			if ($result) {
-				$options[0] = esc_html__('Select a Contact Form', 'master-addons' );
+				$options[0] = esc_html__('Select a Contact Form', 'master-addons');
 				foreach ($result as $form) {
 					$options[$form->id] = $form->title;
 				}
 			} else {
-				$options[0] = esc_html__('No forms found!', 'master-addons' );
+				$options[0] = esc_html__('No forms found!', 'master-addons');
 			}
 		}
 
@@ -1093,7 +1303,7 @@ class Master_Addons_Helper
 				<i class="<?php echo esc_attr($info_icon); ?>"></i>
 				<div class="jltma-tooltip-text">
 					<a href="<?php echo esc_url($info_url); ?>" class="jltma-tooltip-content" target="_blank">
-						<?php echo /* translators: %s: Content */ sprintf(esc_html__('%s &nbsp;', 'master-addons' ), $info_name); ?>
+						<?php echo /* translators: %s: Content */ sprintf(esc_html__('%s &nbsp;', 'master-addons'), $info_name); ?>
 					</a>
 				</div>
 			</div>
@@ -1117,7 +1327,7 @@ class Master_Addons_Helper
 		), 'objects');
 
 		if (empty($taxonomies)) {
-			$options[''] = __('No taxonomies found', 'master-addons' );
+			$options[''] = __('No taxonomies found', 'master-addons');
 			return $options;
 		}
 
@@ -1129,7 +1339,8 @@ class Master_Addons_Helper
 	}
 
 
-	public static function get_page_by_title( $page_title, $post_type = 'page' ) {
+	public static function get_page_by_title($page_title, $post_type = 'page')
+	{
 		$query = new \WP_Query(
 			array(
 				'post_type' => $post_type,
@@ -1150,11 +1361,11 @@ class Master_Addons_Helper
 	{
 
 		$post_types = [
-			'category' => esc_html__('Post', 'master-addons' )
+			'category' => esc_html__('Post', 'master-addons')
 		];
 
 		if (class_exists('WooCommerce')) {
-			$post_types['product_cat'] = esc_html__('Product', 'master-addons' );
+			$post_types['product_cat'] = esc_html__('Product', 'master-addons');
 		}
 
 		//other post types taxonomies here
@@ -1226,79 +1437,79 @@ class Master_Addons_Helper
 			}
 		} elseif (is_search()) {
 			/* translators: %s: Search term. */
-			$title = sprintf(__('Search Results for: %s', 'master-addons' ), get_search_query());
+			$title = sprintf(__('Search Results for: %s', 'master-addons'), get_search_query());
 
 			if (get_query_var('paged')) {
 				/* translators: %s is the page number. */
-				$title .= sprintf(__('&nbsp;&ndash; Page %s', 'master-addons' ), get_query_var('paged'));
+				$title .= sprintf(__('&nbsp;&ndash; Page %s', 'master-addons'), get_query_var('paged'));
 			}
 		} elseif (is_category()) {
 			$title = single_cat_title('', false);
 
 			if ($include_context) {
 				/* translators: Category archive title. 1: Category name */
-				$title = sprintf(__('Category: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Category: %s', 'master-addons'), $title);
 			}
 		} elseif (is_tag()) {
 			$title = single_tag_title('', false);
 			if ($include_context) {
 				/* translators: Tag archive title. 1: Tag name */
-				$title = sprintf(__('Tag: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Tag: %s', 'master-addons'), $title);
 			}
 		} elseif (is_author()) {
 			$title = '<span class="vcard">' . get_the_author() . '</span>';
 
 			if ($include_context) {
 				/* translators: Author archive title. 1: Author name */
-				$title = sprintf(__('Author: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Author: %s', 'master-addons'), $title);
 			}
 		} elseif (is_year()) {
-			$title = get_the_date(_x('Y', 'yearly archives date format', 'master-addons' ));
+			$title = get_the_date(_x('Y', 'yearly archives date format', 'master-addons'));
 
 			if ($include_context) {
 				/* translators: Yearly archive title. 1: Year */
-				$title = sprintf(__('Year: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Year: %s', 'master-addons'), $title);
 			}
 		} elseif (is_month()) {
-			$title = get_the_date(_x('F Y', 'monthly archives date format', 'master-addons' ));
+			$title = get_the_date(_x('F Y', 'monthly archives date format', 'master-addons'));
 
 			if ($include_context) {
 				/* translators: Monthly archive title. 1: Month name and year */
-				$title = sprintf(__('Month: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Month: %s', 'master-addons'), $title);
 			}
 		} elseif (is_day()) {
-			$title = get_the_date(_x('F j, Y', 'daily archives date format', 'master-addons' ));
+			$title = get_the_date(_x('F j, Y', 'daily archives date format', 'master-addons'));
 
 			if ($include_context) {
 				/* translators: Daily archive title. 1: Date */
-				$title = sprintf(__('Day: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Day: %s', 'master-addons'), $title);
 			}
 		} elseif (is_tax('post_format')) {
 			if (is_tax('post_format', 'post-format-aside')) {
-				$title = _x('Asides', 'post format archive title', 'master-addons' );
+				$title = _x('Asides', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-gallery')) {
-				$title = _x('Galleries', 'post format archive title', 'master-addons' );
+				$title = _x('Galleries', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-image')) {
-				$title = _x('Images', 'post format archive title', 'master-addons' );
+				$title = _x('Images', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-video')) {
-				$title = _x('Videos', 'post format archive title', 'master-addons' );
+				$title = _x('Videos', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-quote')) {
-				$title = _x('Quotes', 'post format archive title', 'master-addons' );
+				$title = _x('Quotes', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-link')) {
-				$title = _x('Links', 'post format archive title', 'master-addons' );
+				$title = _x('Links', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-status')) {
-				$title = _x('Statuses', 'post format archive title', 'master-addons' );
+				$title = _x('Statuses', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-audio')) {
-				$title = _x('Audio', 'post format archive title', 'master-addons' );
+				$title = _x('Audio', 'post format archive title', 'master-addons');
 			} elseif (is_tax('post_format', 'post-format-chat')) {
-				$title = _x('Chats', 'post format archive title', 'master-addons' );
+				$title = _x('Chats', 'post format archive title', 'master-addons');
 			}
 		} elseif (is_post_type_archive()) {
 			$title = post_type_archive_title('', false);
 
 			if ($include_context) {
 				/* translators: Post type archive title. 1: Post type name */
-				$title = sprintf(__('Archives: %s', 'master-addons' ), $title);
+				$title = sprintf(__('Archives: %s', 'master-addons'), $title);
 			}
 		} elseif (is_tax()) {
 			$title = single_term_title('', false);
@@ -1306,10 +1517,10 @@ class Master_Addons_Helper
 			if ($include_context) {
 				$tax = get_taxonomy(get_queried_object()->taxonomy);
 				/* translators: Taxonomy term archive title. 1: Taxonomy singular name, 2: Current taxonomy term */
-				$title = sprintf(__('%1$s: %2$s', 'master-addons' ), $tax->labels->singular_name, $title);
+				$title = sprintf(__('%1$s: %2$s', 'master-addons'), $tax->labels->singular_name, $title);
 			}
 		} elseif (is_404()) {
-			$title = __('Page Not Found', 'master-addons' );
+			$title = __('Page Not Found', 'master-addons');
 		} // End if().
 
 		$title = apply_filters('jltma/core_elements/get_the_archive_title', $title);
@@ -1344,13 +1555,13 @@ class Master_Addons_Helper
 	public static function jltma_carousel_navigation_position()
 	{
 		$position_options = [
-			'top-left'      => esc_html__('Top Left', 'master-addons' ),
-			'top-center'    => esc_html__('Top Center', 'master-addons' ),
-			'top-right'     => esc_html__('Top Right', 'master-addons' ),
-			'center'        => esc_html__('Center', 'master-addons' ),
-			'bottom-left'   => esc_html__('Bottom Left', 'master-addons' ),
-			'bottom-center' => esc_html__('Bottom Center', 'master-addons' ),
-			'bottom-right'  => esc_html__('Bottom Right', 'master-addons' ),
+			'top-left'      => esc_html__('Top Left', 'master-addons'),
+			'top-center'    => esc_html__('Top Center', 'master-addons'),
+			'top-right'     => esc_html__('Top Right', 'master-addons'),
+			'center'        => esc_html__('Center', 'master-addons'),
+			'bottom-left'   => esc_html__('Bottom Left', 'master-addons'),
+			'bottom-center' => esc_html__('Bottom Center', 'master-addons'),
+			'bottom-right'  => esc_html__('Bottom Right', 'master-addons'),
 		];
 
 		return $position_options;
@@ -1360,12 +1571,12 @@ class Master_Addons_Helper
 	public static function jltma_carousel_pagination_position()
 	{
 		$position_options = [
-			'top-left'      => esc_html__('Top Left', 'master-addons' ),
-			'top-center'    => esc_html__('Top Center', 'master-addons' ),
-			'top-right'     => esc_html__('Top Right', 'master-addons' ),
-			'bottom-left'   => esc_html__('Bottom Left', 'master-addons' ),
-			'bottom-center' => esc_html__('Bottom Center', 'master-addons' ),
-			'bottom-right'  => esc_html__('Bottom Right', 'master-addons' ),
+			'top-left'      => esc_html__('Top Left', 'master-addons'),
+			'top-center'    => esc_html__('Top Center', 'master-addons'),
+			'top-right'     => esc_html__('Top Right', 'master-addons'),
+			'bottom-left'   => esc_html__('Bottom Left', 'master-addons'),
+			'bottom-center' => esc_html__('Bottom Center', 'master-addons'),
+			'bottom-right'  => esc_html__('Bottom Right', 'master-addons'),
 		];
 
 		return $position_options;
@@ -1374,12 +1585,12 @@ class Master_Addons_Helper
 	public static function jltma_get_preloadable_previews()
 	{
 		$position_options = [
-			'no'                   => esc_html__('Blank', 'master-addons' ),
-			'yes'                  => esc_html__('Blurred placeholder image', 'master-addons' ),
-			'progress-box'         => esc_html__('In-progress box animation', 'master-addons' ),
-			'simple-spinner'       => esc_html__('Loading spinner (blue)', 'master-addons' ),
-			'simple-spinner-light' => esc_html__('Loading spinner (light)', 'master-addons' ),
-			'simple-spinner-dark'  => esc_html__('Loading spinner (dark)', 'master-addons' )
+			'no'                   => esc_html__('Blank', 'master-addons'),
+			'yes'                  => esc_html__('Blurred placeholder image', 'master-addons'),
+			'progress-box'         => esc_html__('In-progress box animation', 'master-addons'),
+			'simple-spinner'       => esc_html__('Loading spinner (blue)', 'master-addons'),
+			'simple-spinner-light' => esc_html__('Loading spinner (light)', 'master-addons'),
+			'simple-spinner-dark'  => esc_html__('Loading spinner (dark)', 'master-addons')
 		];
 		return $position_options;
 	}
@@ -1419,13 +1630,13 @@ class Master_Addons_Helper
 		return '<div class="elementor-nerd-box">
 			<i class="elementor-nerd-box-icon eicon-hypster"></i>
 			<div class="elementor-nerd-box-title">' .
-			__('Oups, hang on!', 'master-addons' ) .
+			__('Oups, hang on!', 'master-addons') .
 			'</div>
 			<div class="elementor-nerd-box-message">' .
-			__('This feature is only available if you have Master Addons Pro.', 'master-addons' ) .
+			__('This feature is only available if you have Master Addons Pro.', 'master-addons') .
 			'</div>
 			<a class="elementor-nerd-box-link elementor-button elementor-button-default elementor-go-pro" href="https://master-addons.com/pricing" target="_blank">' .
-			__('Go Pro', 'master-addons' ) .
+			__('Go Pro', 'master-addons') .
 			'</a>
 		</div>';
 	}
@@ -1434,39 +1645,39 @@ class Master_Addons_Helper
 	public static function jltma_tooltip_options()
 	{
 		return [
-			'' => esc_html__('Top (Default)', 'master-addons' ),
+			'' => esc_html__('Top (Default)', 'master-addons'),
 
-			'top-start' => esc_html__('Top Start', 'master-addons' ),
-			'top-end'   => esc_html__('Top End', 'master-addons' ),
+			'top-start' => esc_html__('Top Start', 'master-addons'),
+			'top-end'   => esc_html__('Top End', 'master-addons'),
 
-			'right'       => esc_html__('Right', 'master-addons' ),
-			'right-start' => esc_html__('Right Start', 'master-addons' ),
-			'right-end'   => esc_html__('Right End', 'master-addons' ),
+			'right'       => esc_html__('Right', 'master-addons'),
+			'right-start' => esc_html__('Right Start', 'master-addons'),
+			'right-end'   => esc_html__('Right End', 'master-addons'),
 
-			'bottom'       => esc_html__('Bottom', 'master-addons' ),
-			'bottom-start' => esc_html__('Bottom Start', 'master-addons' ),
-			'bottom-end'   => esc_html__('Bottom End', 'master-addons' ),
+			'bottom'       => esc_html__('Bottom', 'master-addons'),
+			'bottom-start' => esc_html__('Bottom Start', 'master-addons'),
+			'bottom-end'   => esc_html__('Bottom End', 'master-addons'),
 
-			'left'       => esc_html__('Left', 'master-addons' ),
-			'left-start' => esc_html__('Left Start', 'master-addons' ),
-			'left-end'   => esc_html__('Left End', 'master-addons' ),
+			'left'       => esc_html__('Left', 'master-addons'),
+			'left-start' => esc_html__('Left Start', 'master-addons'),
+			'left-end'   => esc_html__('Left End', 'master-addons'),
 
-			'auto'       => esc_html__('Auto', 'master-addons' ),
-			'auto-start' => esc_html__('Auto Start', 'master-addons' ),
-			'auto-end'   => esc_html__('Auto End', 'master-addons' ),
+			'auto'       => esc_html__('Auto', 'master-addons'),
+			'auto-start' => esc_html__('Auto Start', 'master-addons'),
+			'auto-end'   => esc_html__('Auto End', 'master-addons'),
 		];
 	}
 
 	public static function jltma_tooltip_animations()
 	{
 		return [
-			'none'         => esc_html__('None', 'master-addons' ),
-			''             => esc_html__('Fade', 'master-addons' ),
-			'shift-away'   => esc_html__('Shift-Away', 'master-addons' ),
-			'shift-toward' => esc_html__('Shift-Toward', 'master-addons' ),
-			'scale'        => esc_html__('Scale', 'master-addons' ),
-			'perspective'  => esc_html__('Perspective', 'master-addons' ),
-			'fill'         => esc_html__('Fill Effect', 'master-addons' ),
+			'none'         => esc_html__('None', 'master-addons'),
+			''             => esc_html__('Fade', 'master-addons'),
+			'shift-away'   => esc_html__('Shift-Away', 'master-addons'),
+			'shift-toward' => esc_html__('Shift-Toward', 'master-addons'),
+			'scale'        => esc_html__('Scale', 'master-addons'),
+			'perspective'  => esc_html__('Perspective', 'master-addons'),
+			'fill'         => esc_html__('Fill Effect', 'master-addons'),
 		];
 	}
 
@@ -1821,7 +2032,7 @@ class Master_Addons_Helper
 			$categories = get_the_category();
 			if ($categories) {
 				foreach ($categories as $category) {
-					$output .= '<a href="' . get_category_link($category->term_id) . '" title="' . esc_attr( /* translators: %s: Categories */ sprintf(__("View all posts in %s", "master-addons" ), $category->name)) . '" ' . $css_link . '>' . esc_html($category->cat_name) . '</a>' . esc_html($separator);
+					$output .= '<a href="' . get_category_link($category->term_id) . '" title="' . esc_attr( /* translators: %s: Categories */sprintf(__("View all posts in %s", "master-addons"), $category->name)) . '" ' . $css_link . '>' . esc_html($category->cat_name) . '</a>' . esc_html($separator);
 					if ($count == $limit) {
 						break;
 					}
@@ -1834,7 +2045,7 @@ class Master_Addons_Helper
 			$term_list = wp_get_post_terms($post->ID, $taxonomy_names);
 			if ($term_list) {
 				foreach ($term_list as $tax_term) {
-					$output .= '<a href="' . esc_attr(get_term_link($tax_term, $posts_type)) . '" title="' . esc_attr(sprintf(__("View all posts in %s", "master-addons" ), $tax_term->name)) . '" ' . $css_link . '>' . esc_html($tax_term->name) . '</a>' . esc_html($separator);
+					$output .= '<a href="' . esc_attr(get_term_link($tax_term, $posts_type)) . '" title="' . esc_attr(sprintf(__("View all posts in %s", "master-addons"), $tax_term->name)) . '" ' . $css_link . '>' . esc_html($tax_term->name) . '</a>' . esc_html($separator);
 				}
 			}
 		}

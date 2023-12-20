@@ -2,9 +2,9 @@
 Contributors: jwthemeltd, litonice13, masteraddons
 Tags: elementor, elementor addon, elementor widget, clickable column, essential widget, custom css elements, after before image comparison, image hover effects, header & footer builder, template import, elementor addons, elementor extensions,  elementor modules, elementor templates, comment form builder, mega menu, header footer builder, elements, page builder addons,addons, jewletheme, masteraddons
 Requires at least: 4.0
-Tested up to: 6.2.2
+Tested up to: 6.4.1
 Requires PHP: 5.3
-Stable tag: 2.0.3
+Stable tag: 2.0.5.3
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -601,6 +601,37 @@ Paste on your Local Computer
 
 
 == Changelog ==
+= 2.0.5.3 (23-11-2023) =
+* Updated: Performance issue fixed
+* Updated: Admin Settings not working issue fixed
+* Updated: Popup notice not closing issue fixed
+
+= 2.0.5.2 (12-11-2023) =
+* Updated: File name typo issue fixed
+
+= 2.0.5.1 (12-11-2023) =
+* Updated: Admin Scripts updated
+
+= 2.0.5 (12-11-2023) =
+* Updated: Security Update issue fixed
+* Updated: Freemius SDK Updated
+* Updated: Notice not working issue fixed
+* Updated: Latest WordPress Compatibility
+* Updated: Latest Elementor Compatibility
+* Updated: Latest Elementor Pro Compatibility
+* Updated: Dashboard Welcome Widgets issue fixed
+
+= 2.0.4 (11-10-2023) =
+* Updated: Security Update issue fixed
+* Updated: Call to Action button "New Window" not working issue fixed
+* Removed: Tag 'p' removed from Advanced Accordion Title
+* Updated: Advanced Tabs updated with Tabular Content Alignment issue
+* Added: Bubble Line Position added on Progressbar
+* Updated: Stats Title Color and Typography not working issue fixed on Progressbars
+* Updated: Business Hours update with "Short Details" style preset background image not working issue
+* Updated: Business Hours Sub Title Show/Hide option not working issue fixed
+
+
 = 2.0.3 (06-07-2023) =
 * Updated: Updated Freemius SDK to the latest version
 * Updated: Latest Elementor & Elementor Pro checked

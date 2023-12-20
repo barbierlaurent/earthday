@@ -20,6 +20,7 @@ if(version_compare(phpversion(), '8.0', '>=')){
 	require_once(plugin_dir_path(__FILE__) . 'class.dom-element.php');
 }
 
+#[\AllowDynamicProperties]
 class DOMDocument extends \DOMDocument
 {
 	private $src_file;
@@ -38,13 +39,29 @@ class DOMDocument extends \DOMDocument
 	
 	public static function convertUTF8ToHTMLEntities($html)
 	{
-		if(function_exists('mb_convert_encoding'))
-			return mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
-		else
-		{
-			trigger_error('Using fallback UTF to HTML entity conversion', E_USER_NOTICE);
-			return htmlspecialchars_decode(utf8_decode(htmlentities($html, ENT_COMPAT, 'utf-8', false)));
+
+		try{
+			if(version_compare(phpversion(), '8.2', '>=')){
+				/* Deprecations in PHP require us to rework the way we do conversions */
+				$converted = htmlspecialchars_decode(mb_encode_numericentity(htmlentities($html, ENT_QUOTES, 'UTF-8'), [0x80, 0x10FFFF, 0, ~0], 'UTF-8'));
+				return $converted;
+			} else {
+				if(function_exists('mb_convert_encoding')){
+					return mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+				} else{
+					trigger_error('Using fallback UTF to HTML entity conversion', E_USER_NOTICE);
+					return htmlspecialchars_decode(utf8_decode(htmlentities($html, ENT_COMPAT, 'utf-8', false)));
+				}
+			}
+		} catch (\Exception $ex){
+			if(function_exists('mb_convert_encoding')){
+				return mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+			} else{
+				trigger_error('Using fallback UTF to HTML entity conversion', E_USER_NOTICE);
+				return htmlspecialchars_decode(utf8_decode(htmlentities($html, ENT_COMPAT, 'utf-8', false)));
+			}
 		}
+		
 	}
 	
 	/**
@@ -72,6 +89,7 @@ class DOMDocument extends \DOMDocument
 	 * @param int $options See http://php.net/manual/en/domdocument.load.php
 	 * @return boolean TRUE on success, FALSE otherwise
 	 */
+	#[\ReturnTypeWillChange]
 	public function load($src, $options=null)
 	{
 		if(!is_string($src))

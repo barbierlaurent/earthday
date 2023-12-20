@@ -1055,11 +1055,11 @@ class JLTMA_Tabs extends Widget_Base
 			<?php if (isset($settings['ma_el_tabs_preset']) && $settings['ma_el_tabs_preset'] == "five") { ?>
 				<div class="jltma-col-<?php echo esc_attr($ma_el_tabs_left_cols[0]); ?> <?php
 																						if ($column_order == "float-left") {
-																							echo "order-1";
+																							echo "jltma-order-1";
 																						} elseif ($settings['ma_el_tabs_left_cols'] == "12-12") {
 																							# code...
 																						} else {
-																							echo "order-2";
+																							echo "jltma-order-2";
 																						} ?>">
 				<?php } ?>
 
@@ -1092,9 +1092,9 @@ class JLTMA_Tabs extends Widget_Base
 				</div>
 
 				<div class="jltma-col-<?php echo esc_attr($ma_el_tabs_left_cols[1]); ?> <?php if ($column_order == "float-left") {
-																							echo "order-2";
+																							echo "jltma-order-2";
 																						} else {
-																							echo "order-1";
+																							echo "jltma-order-1";
 																						} ?>">
 				<?php } ?>
 

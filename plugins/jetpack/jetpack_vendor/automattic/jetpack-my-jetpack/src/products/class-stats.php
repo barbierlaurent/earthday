@@ -140,10 +140,10 @@ class Stats extends Module_Product {
 		}
 		if ( is_array( $purchases_data ) && ! empty( $purchases_data ) ) {
 			foreach ( $purchases_data as $purchase ) {
-				if ( 0 === strpos( $purchase->product_slug, 'jetpack_stats' ) ) {
+				if ( str_starts_with( $purchase->product_slug, 'jetpack_stats' ) ) {
 					return true;
 				}
-				if ( 0 === strpos( $purchase->product_slug, 'jetpack_complete' ) ) {
+				if ( str_starts_with( $purchase->product_slug, 'jetpack_complete' ) ) {
 					return true;
 				}
 			}
@@ -167,10 +167,10 @@ class Stats extends Module_Product {
 				if (
 					(
 						// Purchase is Jetpack Stats...
-						0 === strpos( $purchase->product_slug, 'jetpack_stats' ) &&
+						str_starts_with( $purchase->product_slug, 'jetpack_stats' ) &&
 						// but not Jetpack Stats Free...
-						false === strpos( $purchase->product_slug, 'free' )
-					) || 0 === strpos( $purchase->product_slug, 'jetpack_complete' )
+						! str_contains( $purchase->product_slug, 'free' )
+					) || str_starts_with( $purchase->product_slug, 'jetpack_complete' )
 				) {
 					// Only Jetpack Stats paid plans should be eligible for this conditional.
 					// Sample product slugs: jetpack_stats_monthly
@@ -179,6 +179,29 @@ class Stats extends Module_Product {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Returns a redirect parameter for an upgrade URL if current purchase license is a free license
+	 * or an empty string otherwise.
+	 *
+	 * @return string
+	 */
+	public static function get_url_redirect_string() {
+		$purchases_data = Wpcom_Products::get_site_current_purchases();
+		if ( is_wp_error( $purchases_data ) ) {
+			return '';
+		}
+		if ( is_array( $purchases_data ) && ! empty( $purchases_data ) ) {
+			foreach ( $purchases_data as $purchase ) {
+				if (
+					str_starts_with( $purchase->product_slug, static::get_wpcom_free_product_slug() )
+				) {
+					return '&productType=personal';
+				}
+			}
+		}
+		return '';
 	}
 
 	/**
@@ -197,9 +220,14 @@ class Stats extends Module_Product {
 	 * @return ?string
 	 */
 	public static function get_purchase_url() {
-		$blog_id = Jetpack_Options::get_option( 'id' );
 		// The returning URL could be customized by changing the `redirect_uri` param with relative path.
-		return sprintf( 'https://wordpress.com/stats/purchase/%d?from=jetpack-my-jetpack&redirect_uri=%s', $blog_id, rawurldecode( 'admin.php?page=stats' ) );
+		return sprintf(
+			'%s#!/stats/purchase/%d?from=jetpack-my-jetpack%s&redirect_uri=%s',
+			admin_url( 'admin.php?page=stats' ),
+			Jetpack_Options::get_option( 'id' ),
+			static::get_url_redirect_string(),
+			rawurlencode( 'admin.php?page=stats' )
+		);
 	}
 
 	/**

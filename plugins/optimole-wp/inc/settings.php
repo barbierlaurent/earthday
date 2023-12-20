@@ -54,8 +54,6 @@ class Optml_Settings {
 		'cache_buster_assets'  => '',
 		'cache_buster_images'  => '',
 		'cdn'                  => 'disabled',
-		'max_height'           => 1500,
-		'max_width'            => 2000,
 		'admin_bar_item'       => 'enabled',
 		'lazyload'             => 'disabled',
 		'scale'                => 'disabled',
@@ -64,7 +62,7 @@ class Optml_Settings {
 		'bg_replacer'          => 'enabled',
 		'video_lazyload'       => 'enabled',
 		'retina_images'        => 'disabled',
-		'limit_dimensions'     => 'disabled',
+		'limit_dimensions'     => 'enabled',
 		'limit_height'         => 1080,
 		'limit_width'          => 1920,
 		'resize_smart'         => 'disabled',
@@ -88,7 +86,7 @@ class Optml_Settings {
 		'autoquality'          => 'enabled',
 		'native_lazyload'      => 'disabled',
 		'offload_media'        => 'disabled',
-		'cloud_images'         => 'disabled',
+		'cloud_images'         => 'enabled',
 		'strip_metadata'       => 'enabled',
 		'skip_lazyload_images' => 3,
 		'defined_image_sizes'          => [ ],
@@ -96,7 +94,10 @@ class Optml_Settings {
 		'offloading_status'    => 'disabled',
 		'rollback_status'      => 'disabled',
 		'best_format'          => 'enabled',
+		'offload_limit_reached' => 'disabled',
+		'offload_limit'         => 50000,
 		'placeholder_color'    => '',
+		'show_offload_finish_notice'   => '',
 	];
 	/**
 	 * Option key.
@@ -115,6 +116,7 @@ class Optml_Settings {
 	 * Optml_Settings constructor.
 	 */
 	public function __construct() {
+		$this->default_schema['cloud_sites'] = $this->get_cloud_sites_whitelist_default();
 
 		$this->namespace      = OPTML_NAMESPACE . '_settings';
 		$this->default_schema = apply_filters( 'optml_default_settings', $this->default_schema );
@@ -260,10 +262,12 @@ class Optml_Settings {
 				case 'offloading_status':
 				case 'rollback_status':
 				case 'best_format':
+				case 'offload_limit_reached':
 					$sanitized_value = $this->to_map_values( $value, [ 'enabled', 'disabled' ], 'enabled' );
 					break;
-				case 'max_width':
-				case 'max_height':
+				case 'offload_limit':
+					$sanitized_value = absint( $value );
+					break;
 				case 'limit_height':
 				case 'limit_width':
 					$sanitized_value = $this->to_bound_integer( $value, 100, 5000 );
@@ -273,6 +277,9 @@ class Optml_Settings {
 					break;
 				case 'wm_id':
 					$sanitized_value = intval( $value );
+					break;
+				case 'show_offload_finish_notice':
+					$sanitized_value = $this->to_map_values( $value, [ 'offload', 'rollback' ], '' );
 					break;
 				case 'cache_buster_assets':
 				case 'cache_buster_images':
@@ -494,8 +501,6 @@ class Optml_Settings {
 			'no_script'            => $this->get( 'no_script' ),
 			'image_replacer'       => $this->get( 'image_replacer' ),
 			'cdn'                  => $this->get( 'cdn' ),
-			'max_width'            => $this->get( 'max_width' ),
-			'max_height'           => $this->get( 'max_height' ),
 			'filters'              => $this->get_filters(),
 			'cloud_sites'          => $this->get( 'cloud_sites' ),
 			'defined_image_sizes'  => $this->get( 'defined_image_sizes' ),
@@ -517,7 +522,9 @@ class Optml_Settings {
 			'offloading_status'    => $this->get( 'offloading_status' ),
 			'rollback_status'      => $this->get( 'rollback_status' ),
 			'best_format'         => $this->get( 'best_format' ),
+			'offload_limit_reached'         => $this->get( 'offload_limit_reached' ),
 			'placeholder_color'   => $this->get( 'placeholder_color' ),
+			'show_offload_finish_notice' => $this->get( 'show_offload_finish_notice' ),
 		];
 	}
 
@@ -589,6 +596,15 @@ class Optml_Settings {
 	 */
 	public function is_best_format() {
 		return $this->get( 'best_format' ) === 'enabled';
+	}
+
+	/**
+	 * Check if offload limit was reached.
+	 *
+	 * @return bool
+	 */
+	public function is_offload_limit_reached() {
+		return $this->get( 'offload_limit_reached' ) === 'enabled';
 	}
 
 	/**
@@ -757,5 +773,31 @@ class Optml_Settings {
 		}
 
 		return $data['token'];
+	}
+
+	/**
+	 * Utility to check if offload is enabled.
+	 *
+	 * @return bool
+	 */
+	public function is_offload_enabled() {
+		return $this->get( 'offload_media' ) === 'enabled' || $this->get( 'rollback_status' ) !== 'disabled';
+	}
+
+	/**
+	 * Get cloud sites whitelist for current domain only.
+	 *
+	 * @return array
+	 */
+	public function get_cloud_sites_whitelist_default() {
+		$site_url = get_site_url();
+
+		$site_url = preg_replace( '/^https?:\/\//', '', $site_url );
+		$site_url = trim( $site_url, '/' );
+
+		return [
+			'all'     => 'false',
+			$site_url => 'true',
+		];
 	}
 }

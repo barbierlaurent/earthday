@@ -43,6 +43,7 @@ class Xpro_Ajax_Handler {
 		add_action( 'wp_ajax_xpro_save_menuitem_settings', array( $this, 'save_menu_item_settings' ) );
 		add_action( 'wp_ajax_xpro_get_menuitem_settings', array( $this, 'get_menu_item_settings' ) );
 		add_action( 'wp_ajax_xpro_get_content_editor', array( $this, 'get_menu_content_editor' ) );
+		add_action( 'wp_ajax_save_megamenu_settings', array( $this, 'save_megamenu_settings' ) );
 
 		add_action( 'wp_ajax_xpro_elementor_live_search_data_fetch', array( $this, 'xpro_elementor_live_search_data_fetch' ) );
 		add_action( 'wp_ajax_nopriv_xpro_elementor_live_search_data_fetch', array( $this, 'xpro_elementor_live_search_data_fetch' ) );
@@ -80,6 +81,23 @@ class Xpro_Ajax_Handler {
 		wp_die();
 	}
 
+	public static function save_megamenu_settings() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		$menu_id = $_REQUEST['menu_id'];
+		$is_enabled = $_REQUEST['mega_menu'];
+		
+		$data = xpro_megamenu_option( Xpro_Elementor_Mega_Menu::$megamenu_settings_key, array() );
+		$data[ 'menu_location_' . $menu_id ] = array(
+			'is_enabled' => $is_enabled,
+		);
+
+		xpro_megamenu_save_option( Xpro_Elementor_Mega_Menu::$megamenu_settings_key, $data );
+		var_dump($data);
+		wp_die();
+	}
+	
 	/**
 	 * Mega Menu get item settings
 	 */

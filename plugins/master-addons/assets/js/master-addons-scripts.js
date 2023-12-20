@@ -1,39 +1,48 @@
 /*
 * Frontend Script for Elementor
 */
-; (function ($) {
+; (function ($)
+{
     "use strict";
 
     var editMode = false;
     var isRellax = false;
     var currentDevice = '';
 
-    var getElementSettings = function ($element, setting) {
+    var getElementSettings = function ($element, setting)
+    {
 
         var elementSettings = {},
             modelCID = $element.data('model-cid');
 
-        if (elementorFrontend.isEditMode() && modelCID) {
+        if (elementorFrontend.isEditMode() && modelCID)
+        {
             var settings = elementorFrontend.config.elements.data[modelCID],
                 type = settings.attributes.widgetType || settings.attributes.elType,
                 settingsKeys = elementorFrontend.config.elements.keys[type];
 
-            if (!settingsKeys) {
+            if (!settingsKeys)
+            {
                 settingsKeys = elementorFrontend.config.elements.keys[type] = [];
 
-                jQuery.each(settings.controls, function (name, control) {
-                    if (control.frontend_available) {
+                jQuery.each(settings.controls, function (name, control)
+                {
+                    if (control.frontend_available)
+                    {
                         settingsKeys.push(name);
                     }
                 });
             }
 
-            jQuery.each(settings.getActiveControls(), function (controlKey) {
-                if (-1 !== settingsKeys.indexOf(controlKey)) {
+            jQuery.each(settings.getActiveControls(), function (controlKey)
+            {
+                if (-1 !== settingsKeys.indexOf(controlKey))
+                {
                     elementSettings[controlKey] = settings.attributes[controlKey];
                 }
             });
-        } else {
+        } else
+        {
             elementSettings = $element.data('settings') || {};
         }
 
@@ -41,16 +50,20 @@
 
     };
 
-    var getItems = function (items, itemKey) {
-        if (itemKey) {
+    var getItems = function (items, itemKey)
+    {
+        if (itemKey)
+        {
             var keyStack = itemKey.split('.'),
                 currentKey = keyStack.splice(0, 1);
 
-            if (!keyStack.length) {
+            if (!keyStack.length)
+            {
                 return items[currentKey];
             }
 
-            if (!items[currentKey]) {
+            if (!items[currentKey])
+            {
                 return;
             }
 
@@ -60,8 +73,10 @@
         return items;
     };
 
-    var getUniqueLoopScopeId = function($scope){
-        if ( $scope.data('jltma-template-widget-id') ) {
+    var getUniqueLoopScopeId = function ($scope)
+    {
+        if ($scope.data('jltma-template-widget-id'))
+        {
             return $scope.data('jltma-template-widget-id');
         }
         return $scope.data('id');
@@ -71,9 +86,11 @@
 
     var Master_Addons = {
 
-        animatedProgressbar: function (id, type, value, strokeColor, trailColor, strokeWidth, strokeTrailWidth) {
+        animatedProgressbar: function (id, type, value, strokeColor, trailColor, strokeWidth, strokeTrailWidth)
+        {
             var triggerClass = '.jltma-progress-bar-' + id;
-            if ("line" == type) {
+            if ("line" == type)
+            {
                 new ldBar(triggerClass, {
                     "type": 'stroke',
                     "path": 'M0 10L100 10',
@@ -84,7 +101,8 @@
                     "stroke-trail-width": strokeTrailWidth
                 }).set(value);
             }
-            if ("line-bubble" == type) {
+            if ("line-bubble" == type)
+            {
                 new ldBar(triggerClass, {
                     "type": 'stroke',
                     "path": 'M0 10L100 10',
@@ -98,7 +116,8 @@
                     left: value + '%'
                 }, 1000, 'swing');
             }
-            if ("circle" == type) {
+            if ("circle" == type)
+            {
                 new ldBar(triggerClass, {
                     "type": 'stroke',
                     "path": 'M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10',
@@ -109,7 +128,8 @@
                     "stroke-trail-width": strokeTrailWidth,
                 }).set(value);
             }
-            if ("fan" == type) {
+            if ("fan" == type)
+            {
                 new ldBar(triggerClass, {
                     "type": 'stroke',
                     "path": 'M10 90A40 40 0 0 1 90 90',
@@ -124,15 +144,18 @@
 
         // Master Addons: Headlines
 
-        MA_Animated_Headlines: function ($scope, $) {
-            try {
-                (function ($) {
+        MA_Animated_Headlines: function ($scope, $)
+        {
+            try
+            {
+                (function ($)
+                {
 
-                    Master_Addons.MA_Animated_Headlines.elementSettings    = getElementSettings( $scope );
+                    Master_Addons.MA_Animated_Headlines.elementSettings = getElementSettings($scope);
 
                     /*----------- Animated Headlines --------------*/
                     //set animation timing
-                    var $animatedHeaderContainer     = $scope.find('.jltma-animated-headline').eq(0),
+                    var $animatedHeaderContainer = $scope.find('.jltma-animated-headline').eq(0),
 
                         animationDelay = Master_Addons.MA_Animated_Headlines.elementSettings.anim_delay ? Master_Addons.MA_Animated_Headlines.elementSettings.anim_delay : 2500,
 
@@ -153,15 +176,18 @@
                         revealAnimationDelay = Master_Addons.MA_Animated_Headlines.elementSettings.clip_anim_duration ? Master_Addons.MA_Animated_Headlines.elementSettings.clip_anim_duration : 1500;
 
 
-                    Master_Addons.MA_Animated_Headlines.singleLetters = function($words) {
-                        $words.each(function(){
+                    Master_Addons.MA_Animated_Headlines.singleLetters = function ($words)
+                    {
+                        $words.each(function ()
+                        {
                             var word = $(this),
                                 letters = word.text().trim().split(''),
                                 selected = word.hasClass('is-visible');
 
-                            for( var i=0; i<letters.length; i++){
-                                if(word.parents('.rotate-2').length > 0){ letters[i] = '<em>' + letters[i] + '</em>'; }
-                                letters[i] = (selected) ? '<i class="in">' + letters[i] + '</i>': '<i>' + letters[i] + '</i>';
+                            for (var i = 0; i < letters.length; i++)
+                            {
+                                if (word.parents('.rotate-2').length > 0) { letters[i] = '<em>' + letters[i] + '</em>'; }
+                                letters[i] = (selected) ? '<i class="in">' + letters[i] + '</i>' : '<i>' + letters[i] + '</i>';
                             }
                             var newLetters = letters.join('');
                             word.html(newLetters).css('opacity', 1);
@@ -169,26 +195,32 @@
                     }
 
                     // function animateHeadline($headlines) {
-                    Master_Addons.MA_Animated_Headlines.animateHeadline = function($headlines) {
+                    Master_Addons.MA_Animated_Headlines.animateHeadline = function ($headlines)
+                    {
 
                         var duration = animationDelay;
 
-                        $headlines.each(function(){
+                        $headlines.each(function ()
+                        {
                             var headline = $(this);
 
-                            if(headline.hasClass('loading-bar')) {
+                            if (headline.hasClass('loading-bar'))
+                            {
                                 duration = barAnimationDelay;
-                                setTimeout(function(){ headline.find('.ma-el-words-wrapper').addClass('is-loading') }, barWaiting);
-                            } else if (headline.hasClass('clip')){
+                                setTimeout(function () { headline.find('.ma-el-words-wrapper').addClass('is-loading') }, barWaiting);
+                            } else if (headline.hasClass('clip'))
+                            {
                                 var spanWrapper = headline.find('.ma-el-words-wrapper'),
                                     newWidth = spanWrapper.width() + 10
                                 spanWrapper.css('width', newWidth);
-                            } else if (!headline.hasClass('type') ) {
+                            } else if (!headline.hasClass('type'))
+                            {
                                 //assign to .ma-el-words-wrapper the width of its longest word
                                 var words = headline.find('.ma-el-words-wrapper b'),
                                     width = 0;
 
-                                words.each(function(){
+                                words.each(function ()
+                                {
                                     var wordWidth = $(this).width();
                                     if (wordWidth > width) width = wordWidth;
                                 });
@@ -196,99 +228,122 @@
                             };
 
                             //trigger animation
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideWord( headline.find('.is-visible').eq(0) ) }, duration);
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideWord(headline.find('.is-visible').eq(0)) }, duration);
                         });
                     }
 
 
-                    Master_Addons.MA_Animated_Headlines.hideWord = function($word) {
+                    Master_Addons.MA_Animated_Headlines.hideWord = function ($word)
+                    {
 
                         var nextWord = Master_Addons.MA_Animated_Headlines.takeNext($word);
 
-                        if($word.parents('.jltma-animated-headline').hasClass('type')) {
+                        if ($word.parents('.jltma-animated-headline').hasClass('type'))
+                        {
                             var parentSpan = $word.parent('.jltma-words-wrapper');
                             parentSpan.addClass('selected').removeClass('waiting');
-                            setTimeout(function(){
+                            setTimeout(function ()
+                            {
                                 parentSpan.removeClass('selected');
                                 $word.removeClass('is-visible').addClass('is-hidden').children('i').removeClass('in').addClass('out');
                             }, selectionDuration);
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.showWord(nextWord, typeLettersDelay) }, typeAnimationDelay);
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.showWord(nextWord, typeLettersDelay) }, typeAnimationDelay);
 
-                        } else if($word.parents('.jltma-animated-headline').hasClass('letters')) {
+                        } else if ($word.parents('.jltma-animated-headline').hasClass('letters'))
+                        {
                             var bool = ($word.children('i').length >= nextWord.children('i').length) ? true : false;
                             Master_Addons.MA_Animated_Headlines.hideLetter($word.find('i').eq(0), $word, bool, lettersDelay);
                             Master_Addons.MA_Animated_Headlines.showLetter(nextWord.find('i').eq(0), nextWord, bool, lettersDelay);
 
-                        }  else if($word.parents('.jltma-animated-headline').hasClass('clip')) {
-                            $word.parents('.jltma-words-wrapper').animate({ width : '2px' }, revealDuration, function(){
+                        } else if ($word.parents('.jltma-animated-headline').hasClass('clip'))
+                        {
+                            $word.parents('.jltma-words-wrapper').animate({ width: '2px' }, revealDuration, function ()
+                            {
                                 Master_Addons.MA_Animated_Headlines.switchWord($word, nextWord);
                                 Master_Addons.MA_Animated_Headlines.showWord(nextWord);
                             });
 
-                        } else if ($word.parents('.jltma-animated-headline').hasClass('loading-bar')){
+                        } else if ($word.parents('.jltma-animated-headline').hasClass('loading-bar'))
+                        {
                             $word.parents('.jltma-words-wrapper').removeClass('is-loading');
                             Master_Addons.MA_Animated_Headlines.switchWord($word, nextWord);
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideWord(nextWord) }, barAnimationDelay);
-                            setTimeout(function(){ $word.parents('.jltma-words-wrapper').addClass('is-loading') }, barWaiting);
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideWord(nextWord) }, barAnimationDelay);
+                            setTimeout(function () { $word.parents('.jltma-words-wrapper').addClass('is-loading') }, barWaiting);
 
-                        } else {
+                        } else
+                        {
                             Master_Addons.MA_Animated_Headlines.switchWord($word, nextWord);
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideWord(nextWord) }, animationDelay);
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideWord(nextWord) }, animationDelay);
                         }
                     }
 
-                    Master_Addons.MA_Animated_Headlines.showWord = function($word, $duration) {
-                        if($word.parents('.jltma-animated-headline').hasClass('type')) {
+                    Master_Addons.MA_Animated_Headlines.showWord = function ($word, $duration)
+                    {
+                        if ($word.parents('.jltma-animated-headline').hasClass('type'))
+                        {
                             Master_Addons.MA_Animated_Headlines.showLetter($word.find('i').eq(0), $word, false, $duration);
                             $word.addClass('is-visible').removeClass('is-hidden');
 
-                        }  else if($word.parents('.jltma-animated-headline').hasClass('clip')) {
-                            $word.parents('.jltma-words-wrapper').animate({ 'width' : $word.width() + 10 }, revealDuration, function(){
-                                setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideWord($word) }, revealAnimationDelay);
+                        } else if ($word.parents('.jltma-animated-headline').hasClass('clip'))
+                        {
+                            $word.parents('.jltma-words-wrapper').animate({ 'width': $word.width() + 10 }, revealDuration, function ()
+                            {
+                                setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideWord($word) }, revealAnimationDelay);
                             });
                         }
                     }
 
-                    Master_Addons.MA_Animated_Headlines.hideLetter = function($letter, $word, $bool, $duration) {
+                    Master_Addons.MA_Animated_Headlines.hideLetter = function ($letter, $word, $bool, $duration)
+                    {
                         $letter.removeClass('in').addClass('out');
 
-                        if(!$letter.is(':last-child')) {
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideLetter($letter.next(), $word, $bool, $duration); }, $duration);
-                        } else if($bool) {
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideWord(Master_Addons.MA_Animated_Headlines.takeNext($word)) }, animationDelay);
+                        if (!$letter.is(':last-child'))
+                        {
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideLetter($letter.next(), $word, $bool, $duration); }, $duration);
+                        } else if ($bool)
+                        {
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideWord(Master_Addons.MA_Animated_Headlines.takeNext($word)) }, animationDelay);
                         }
 
-                        if($letter.is(':last-child') && $('html').hasClass('no-csstransitions')) {
+                        if ($letter.is(':last-child') && $('html').hasClass('no-csstransitions'))
+                        {
                             var nextWord = Master_Addons.MA_Animated_Headlines.takeNext($word);
                             Master_Addons.MA_Animated_Headlines.switchWord($word, nextWord);
                         }
                     }
 
-                    Master_Addons.MA_Animated_Headlines.showLetter = function($letter, $word, $bool, $duration) {
+                    Master_Addons.MA_Animated_Headlines.showLetter = function ($letter, $word, $bool, $duration)
+                    {
                         $letter.addClass('in').removeClass('out');
 
-                        if(!$letter.is(':last-child')) {
-                            setTimeout(function(){ Master_Addons.MA_Animated_Headlines.showLetter($letter.next(), $word, $bool, $duration); }, $duration);
-                        } else {
-                            if($word.parents('.jltma-animated-headline').hasClass('type')) { setTimeout(function(){ $word.parents('.jltma-words-wrapper').addClass('waiting'); }, 200);}
-                            if(!$bool) { setTimeout(function(){ Master_Addons.MA_Animated_Headlines.hideWord($word) }, animationDelay) }
+                        if (!$letter.is(':last-child'))
+                        {
+                            setTimeout(function () { Master_Addons.MA_Animated_Headlines.showLetter($letter.next(), $word, $bool, $duration); }, $duration);
+                        } else
+                        {
+                            if ($word.parents('.jltma-animated-headline').hasClass('type')) { setTimeout(function () { $word.parents('.jltma-words-wrapper').addClass('waiting'); }, 200); }
+                            if (!$bool) { setTimeout(function () { Master_Addons.MA_Animated_Headlines.hideWord($word) }, animationDelay) }
                         }
                     }
 
-                    Master_Addons.MA_Animated_Headlines.takeNext = function($word) {
+                    Master_Addons.MA_Animated_Headlines.takeNext = function ($word)
+                    {
                         return (!$word.is(':last-child')) ? $word.next() : $word.parent().children().eq(0);
                     }
 
-                    Master_Addons.MA_Animated_Headlines.takePrev = function($word) {
+                    Master_Addons.MA_Animated_Headlines.takePrev = function ($word)
+                    {
                         return (!$word.is(':first-child')) ? $word.prev() : $word.parent().children().last();
                     }
 
-                    Master_Addons.MA_Animated_Headlines.switchWord = function($oldWord, $newWord) {
+                    Master_Addons.MA_Animated_Headlines.switchWord = function ($oldWord, $newWord)
+                    {
                         $oldWord.removeClass('is-visible').addClass('is-hidden');
                         $newWord.removeClass('is-hidden').addClass('is-visible');
                     }
 
-                    Master_Addons.MA_Animated_Headlines.initHeadline = function() {
+                    Master_Addons.MA_Animated_Headlines.initHeadline = function ()
+                    {
                         //insert <i> element for each letter of a changing word
                         Master_Addons.MA_Animated_Headlines.singleLetters($('.jltma-animated-headline.letters').find('b'));
                         //initialise headline animation
@@ -298,7 +353,8 @@
                     Master_Addons.MA_Animated_Headlines.initHeadline();
 
                 })(jQuery);
-            } catch (e) {
+            } catch (e)
+            {
                 //We can also throw from try block and catch it here
                 // No Error Show
             }
@@ -306,16 +362,19 @@
         },
 
         // Master Addons: Accordion
-        MA_Accordion: function ($scope, $) {
+        MA_Accordion: function ($scope, $)
+        {
 
-            var elementSettings   = getElementSettings( $scope ),
-                $accordionHeader  = $scope.find(".jltma-accordion-header"),
-                $accordionType    = elementSettings.accordion_type,
-                $accordionSpeed   = elementSettings.toggle_speed ? elementSettings.toggle_speed : 300;
+            var elementSettings = getElementSettings($scope),
+                $accordionHeader = $scope.find(".jltma-accordion-header"),
+                $accordionType = elementSettings.accordion_type,
+                $accordionSpeed = elementSettings.toggle_speed ? elementSettings.toggle_speed : 300;
 
             // Open default actived tab
-            $accordionHeader.each(function () {
-                if ($(this).hasClass("active-default")) {
+            $accordionHeader.each(function ()
+            {
+                if ($(this).hasClass("active-default"))
+                {
                     $(this).addClass("show active");
                     $(this).next().slideDown($accordionSpeed);
                 }
@@ -324,24 +383,31 @@
             // Remove multiple click event for nested accordion
             $accordionHeader.unbind("click");
 
-            $accordionHeader.click(function (e) {
+            $accordionHeader.click(function (e)
+            {
                 e.preventDefault();
                 var $this = $(this);
-                if ($accordionType === "accordion") {
-                    if ($this.hasClass("show")) {
+                if ($accordionType === "accordion")
+                {
+                    if ($this.hasClass("show"))
+                    {
                         $this.removeClass("show active");
                         $this.next().slideUp($accordionSpeed);
-                    } else {
+                    } else
+                    {
                         $this.parent().parent().find(".jltma-accordion-header").removeClass("show active");
                         $this.parent().parent().find(".jltma-accordion-tab-content").slideUp($accordionSpeed);
                         $this.toggleClass("show active");
                         $this.next().slideDown($accordionSpeed);
                     }
-                } else {
+                } else
+                {
                     // Toggle type Accordion
-                    if ($this.hasClass("show")) {
+                    if ($this.hasClass("show"))
+                    {
                         $this.next().slideUp($accordionSpeed);
-                    } else {
+                    } else
+                    {
                         $this.addClass("show active");
                         $this.next().slideDown($accordionSpeed);
                     }
@@ -354,44 +420,57 @@
 
         // Master Addons: Tabs
 
-        MA_Tabs: function ($scope, $) {
+        MA_Tabs: function ($scope, $)
+        {
 
-            try {
-                (function ($) {
+            try
+            {
+                (function ($)
+                {
 
-                    var $tabsWrapper    = $scope.find('[data-tabs]'),
-                        $tabEffect      = $tabsWrapper.data('tab-effect');
+                    var $tabsWrapper = $scope.find('[data-tabs]'),
+                        $tabEffect = $tabsWrapper.data('tab-effect');
 
 
-                    $tabsWrapper.each( function() {
+                    $tabsWrapper.each(function ()
+                    {
                         var tab = $(this);
                         var isTabActive = false;
                         var isContentActive = false;
 
-                        tab.find('[data-tab]').each(function () {
-                            if ($(this).hasClass('active')) {
+                        tab.find('[data-tab]').each(function ()
+                        {
+                            if ($(this).hasClass('active'))
+                            {
                                 isTabActive = true;
                             }
                         });
-                        tab.find('.jltma--advance-tab-content').each(function () {
-                            if ($(this).hasClass('active')) {
+                        tab.find('.jltma--advance-tab-content').each(function ()
+                        {
+                            if ($(this).hasClass('active'))
+                            {
                                 isContentActive = true;
                             }
                         });
-                        if (!isContentActive) {
+                        if (!isContentActive)
+                        {
                             tab.find('.jltma--advance-tab-content').eq(0).addClass('active');
                         }
 
-                        if( $tabEffect == "hover"){
-                            tab.find('[data-tab]').hover(function() {
+                        if ($tabEffect == "hover")
+                        {
+                            tab.find('[data-tab]').hover(function ()
+                            {
                                 var $data_tab_id = $(this).data('tab-id');
                                 $(this).siblings().removeClass('active');
                                 $(this).addClass('active');
                                 $(this).closest('[data-tabs]').find('.jltma--advance-tab-content').removeClass('active');
                                 $('#' + $data_tab_id).addClass('active');
                             });
-                        } else{
-                            tab.find('[data-tab]').click(function() {
+                        } else
+                        {
+                            tab.find('[data-tab]').click(function ()
+                            {
                                 var $data_tab_id = $(this).data('tab-id');
                                 $(this).siblings().removeClass('active');
                                 $(this).addClass('active');
@@ -402,7 +481,8 @@
                     });
 
                 })(jQuery);
-            } catch (e) {
+            } catch (e)
+            {
                 //We can also throw from try block and catch it here
                 // No Error Show
             }
@@ -412,56 +492,63 @@
 
 
         //Master Addons: Progressbar
-        MA_ProgressBar: function ($scope, $) {
-            var id                  = $scope.data('id'),
+        MA_ProgressBar: function ($scope, $)
+        {
+            var id = $scope.data('id'),
                 $progressBarWrapper = $scope.find('.jltma-progress-bar-' + id),
-                type                = $progressBarWrapper.data('type'),
-                value               = $progressBarWrapper.data('progress-bar-value'),
-                strokeWidth         = $progressBarWrapper.data('progress-bar-stroke-width'),
-                strokeTrailWidth    = $progressBarWrapper.data('progress-bar-stroke-trail-width'),
-                color               = $progressBarWrapper.data('stroke-color'),
-                trailColor          = $progressBarWrapper.data('stroke-trail-color');
+                type = $progressBarWrapper.data('type'),
+                value = $progressBarWrapper.data('progress-bar-value'),
+                strokeWidth = $progressBarWrapper.data('progress-bar-stroke-width'),
+                strokeTrailWidth = $progressBarWrapper.data('progress-bar-stroke-trail-width'),
+                color = $progressBarWrapper.data('stroke-color'),
+                trailColor = $progressBarWrapper.data('stroke-trail-color');
             Master_Addons.animatedProgressbar(id, type, value, color, trailColor, strokeWidth, strokeTrailWidth);
         },
 
         //Master Addons: Image Hotspot
-        MA_Image_Hotspot: function ($scope, $) {
+        MA_Image_Hotspot: function ($scope, $)
+        {
 
-            var elementSettings      = getElementSettings( $scope ),
-                $ma_hotspot          = $scope.find( '.jltma-hotspots-container' );
+            var elementSettings = getElementSettings($scope),
+                $ma_hotspot = $scope.find('.jltma-hotspots-container');
 
-            if ( ! $ma_hotspot.length ) {
+            if (!$ma_hotspot.length)
+            {
                 return;
             }
 
             var $tooltip = $ma_hotspot.find('> .jltma-tooltip-item'),
                 widgetID = $scope.data('id');
 
-            $tooltip.each( function( index ) {
-                tippy( this, {
+            $tooltip.each(function (index)
+            {
+                tippy(this, {
                     allowHTML: true,
-                    theme    : 'jltma-tippy-' + widgetID
+                    theme: 'jltma-tippy-' + widgetID
                 });
             });
         },
 
 
         //Master Addons: Pricing Table
-        MA_Pricing_Table: function ($scope, $) {
+        MA_Pricing_Table: function ($scope, $)
+        {
 
-            var $jltma_pricing_table               = $scope.find( '.jltma-price-table-details ul' );
+            var $jltma_pricing_table = $scope.find('.jltma-price-table-details ul');
 
-            if ( ! $jltma_pricing_table.length ) {
+            if (!$jltma_pricing_table.length)
+            {
                 return;
             }
 
             var $tooltip = $jltma_pricing_table.find('> .jltma-tooltip-item'),
                 widgetID = $scope.data('id');
 
-            $tooltip.each( function( index ) {
-                tippy( this, {
+            $tooltip.each(function (index)
+            {
+                tippy(this, {
                     allowHTML: true,
-                    theme    : 'jltma-pricing-table-tippy-' + widgetID
+                    theme: 'jltma-pricing-table-tippy-' + widgetID
                 });
             });
         },
@@ -470,20 +557,24 @@
         
 
         // Dynamic Data Tables
-        JLTMA_Data_Table: function ($scope, $) {
+        JLTMA_Data_Table: function ($scope, $)
+        {
             console.log('jashljkfahsdljkf');
-            console.log('jltma_data_table_vars',jltma_data_table_vars);
-            console.log('a',a );
+            console.log('jltma_data_table_vars', jltma_data_table_vars);
+            console.log('a', a);
 
             var a = $scope.find(".jltma-data-table-container"),
                 n = a.data("source"),
                 r = a.data("sourcecsv");
             if (1 == a.data("buttons")) var l = "Bfrtip";
             else l = "frtip";
-            if ("custom" == n) {
+            if ("custom" == n)
+            {
                 var i = $scope.find("table thead tr th").length;
-                $scope.find("table tbody tr").each(function() {
-                    if (e(this).find("td").length < i) {
+                $scope.find("table tbody tr").each(function ()
+                {
+                    if (e(this).find("td").length < i)
+                    {
                         var t = i - e(this).find("td").length;
                         e(this).append(new Array(++t).join("<td></td>"))
                     }
@@ -520,26 +611,31 @@
                         processing: jltma_data_table_vars.processing
                     }
                 })
-            } else if ("csv" == n) {
+            } else if ("csv" == n)
+            {
                 ({
-                    init: function(t) {
+                    init: function (t)
+                    {
                         var a = (t = t || {}).csv_path || "",
                             n = $scope.element || $("#table-container"),
                             r = $scope.csv_options || {},
                             l = $scope.datatables_options || {},
                             i = $scope.custom_formatting || [],
                             s = {};
-                        $.each(i, function(e, t) {
+                        $.each(i, function (e, t)
+                        {
                             var a = t[0],
                                 n = t[1];
                             s[a] = n
                         });
                         var d = $('<table class="jltma-data-table cell-border" style="width:100%;visibility:hidden;">');
-                        n.empty().append(d), $.when($.get(a)).then(function(t) {
+                        n.empty().append(d), $.when($.get(a)).then(function (t)
+                        {
                             for (var a = e.csv.toArrays(t, r), n = $("<thead></thead>"), i = a[0], o = $("<tr></tr>"), c = 0; c < i.length; c++) o.append($("<th></th>").text(i[c]));
                             n.append(o), d.append(n);
                             for (var m = $("<tbody></tbody>"), p = 1; p < a.length; p++)
-                                for (var _ = $("<tr></tr>"), g = 0; g < a[p].length; g++) {
+                                for (var _ = $("<tr></tr>"), g = 0; g < a[p].length; g++)
+                                {
                                     var b = $("<td></td>"),
                                         f = s[g];
                                     f ? b.html(f(a[p][g])) : b.text(a[p][g]), _.append(b), m.append(_)
@@ -589,90 +685,99 @@
         },
 
         // Dropdown Button
-        JLTMA_Dropdown_Button: function ($scope, $) {
+        JLTMA_Dropdown_Button: function ($scope, $)
+        {
             console.log('sdfds');
 
             $scope.find(".jltma-dropdown").hover(
-                function () {
+                function ()
+                {
                     $scope.find(".jltma-dd-menu").addClass("jltma-dd-menu-opened");
                 },
-                function () {
+                function ()
+                {
                     $scope.find(".jltma-dd-menu").removeClass("jltma-dd-menu-opened");
                 }
             );
         },
 
-        JLTMA_WC_Add_To_Cart: function ($scope, $) {
-            $( document ).on( 'click', '.ajax_add_to_cart', function(e) {
-                $( this ).append('<i class="fa fa-spinner animated rotateIn infinite"></i>');
+        JLTMA_WC_Add_To_Cart: function ($scope, $)
+        {
+            $(document).on('click', '.ajax_add_to_cart', function (e)
+            {
+                $(this).append('<i class="fa fa-spinner animated rotateIn infinite"></i>');
             });
 
-            $(".jltma-wc-add-to-cart-btn-custom-js").each(function( index ) {
+            $(".jltma-wc-add-to-cart-btn-custom-js").each(function (index)
+            {
                 var custom_css = $(this).attr("data-jltma-wc-add-to-cart-btn-custom-css");
-                $( custom_css ).appendTo( "head" );
+                $(custom_css).appendTo("head");
             });
         },
 
         /* Offcanvas Menu */
-        MA_Offcanvas_Menu: function ($scope, $) {
+        MA_Offcanvas_Menu: function ($scope, $)
+        {
             Master_Addons.MA_Offcanvas_Menu.elementSettings = $scope.data('settings');
 
-            var widgetSelector     = 'jltma-offcanvas-menu',
-                getID              = $scope.data('id'),
+            var widgetSelector = 'jltma-offcanvas-menu',
+                getID = $scope.data('id'),
                 getElementSettings = $scope.data('settings'),
-                is_esc_close       = getElementSettings.esc_close ? getElementSettings.esc_close : '',
+                is_esc_close = getElementSettings.esc_close ? getElementSettings.esc_close : '',
                 classes = {
-                    widget                   : widgetSelector,
-                    triggerButton            : 'jltma-offcanvas__trigger',
-                    offcanvasContent         : 'jltma-offcanvas__content',
-                    offcanvasContentBody     : "".concat(widgetSelector, "__body"),
-                    offcanvasContainer       : "".concat(widgetSelector, "__container"),
+                    widget: widgetSelector,
+                    triggerButton: 'jltma-offcanvas__trigger',
+                    offcanvasContent: 'jltma-offcanvas__content',
+                    offcanvasContentBody: "".concat(widgetSelector, "__body"),
+                    offcanvasContainer: "".concat(widgetSelector, "__container"),
                     offcanvasContainerOverlay: "".concat(widgetSelector, "__container__overlay"),
-                    offcanvasWrapper         : "".concat(widgetSelector, "__wrapper"),
-                    closeButton              : "".concat(widgetSelector, "__close"),
-                    menuArrow                : "".concat(widgetSelector, "__arrow"),
-                    menuInner                : "".concat(widgetSelector, "__menu-inner"),
-                    itemHasChildrenLink      : 'menu-item-has-children > a',
-                    contentClassPart         : 'jltma-offcanvas-content',
-                    contentOpenClass         : 'jltma-offcanvas-content-open',
-                    customContainer          : "".concat(widgetSelector, "__custom-container")
+                    offcanvasWrapper: "".concat(widgetSelector, "__wrapper"),
+                    closeButton: "".concat(widgetSelector, "__close"),
+                    menuArrow: "".concat(widgetSelector, "__arrow"),
+                    menuInner: "".concat(widgetSelector, "__menu-inner"),
+                    itemHasChildrenLink: 'menu-item-has-children > a',
+                    contentClassPart: 'jltma-offcanvas-content',
+                    contentOpenClass: 'jltma-offcanvas-content-open',
+                    customContainer: "".concat(widgetSelector, "__custom-container")
                 },
                 selectors = {
-                    widget                   : ".".concat(classes.widget),
-                    triggerButton            : ".".concat(classes.triggerButton),
-                    offcanvasContent         : ".".concat(classes.offcanvasContent),
-                    offcanvasContentBody     : ".".concat(classes.offcanvasContentBody),
-                    offcanvasContainer       : ".".concat(classes.offcanvasContainer),
+                    widget: ".".concat(classes.widget),
+                    triggerButton: ".".concat(classes.triggerButton),
+                    offcanvasContent: ".".concat(classes.offcanvasContent),
+                    offcanvasContentBody: ".".concat(classes.offcanvasContentBody),
+                    offcanvasContainer: ".".concat(classes.offcanvasContainer),
                     offcanvasContainerOverlay: ".".concat(classes.offcanvasContainerOverlay),
-                    offcanvasWrapper         : ".".concat(classes.offcanvasWrapper),
-                    closeButton              : ".".concat(classes.closeButton),
-                    menuArrow                : ".".concat(classes.menuArrow),
-                    menuParent               : ".".concat(classes.menuInner, " .").concat(classes.itemHasChildrenLink),
-                    contentClassPart         : ".".concat(classes.contentClassPart),
-                    contentOpenClass         : ".".concat(classes.contentOpenClass),
-                    customContainer          : ".".concat(classes.customContainer)
+                    offcanvasWrapper: ".".concat(classes.offcanvasWrapper),
+                    closeButton: ".".concat(classes.closeButton),
+                    menuArrow: ".".concat(classes.menuArrow),
+                    menuParent: ".".concat(classes.menuInner, " .").concat(classes.itemHasChildrenLink),
+                    contentClassPart: ".".concat(classes.contentClassPart),
+                    contentOpenClass: ".".concat(classes.contentOpenClass),
+                    customContainer: ".".concat(classes.customContainer)
                 },
                 elements = {
-                    $document            : jQuery(document),
-                    $html                : jQuery(document).find('html'),
-                    $body                : jQuery(document).find('body'),
-                    $outsideContainer    : jQuery(selectors.offcanvasContainer),
-                    $containerOverlay    : jQuery(selectors.offcanvasContainerOverlay),
-                    $triggerButton       : $scope.find(selectors.triggerButton),
-                    $offcanvasContent    : $scope.find(selectors.offcanvasContent),
+                    $document: jQuery(document),
+                    $html: jQuery(document).find('html'),
+                    $body: jQuery(document).find('body'),
+                    $outsideContainer: jQuery(selectors.offcanvasContainer),
+                    $containerOverlay: jQuery(selectors.offcanvasContainerOverlay),
+                    $triggerButton: $scope.find(selectors.triggerButton),
+                    $offcanvasContent: $scope.find(selectors.offcanvasContent),
                     $offcanvasContentBody: $scope.find(selectors.offcanvasContentBody),
-                    $offcanvasContainer  : $scope.find(selectors.offcanvasContainer),
-                    $offcanvasWrapper    : $scope.find(selectors.offcanvasWrapper),
-                    $closeButton         : $scope.find(selectors.closeButton),
-                    $menuParent          : $scope.find(selectors.menuParent)
+                    $offcanvasContainer: $scope.find(selectors.offcanvasContainer),
+                    $offcanvasWrapper: $scope.find(selectors.offcanvasWrapper),
+                    $closeButton: $scope.find(selectors.closeButton),
+                    $menuParent: $scope.find(selectors.menuParent)
                 };
 
             // resetCanvas
-            Master_Addons.MA_Offcanvas_Menu.resetCanvas = function() {
+            Master_Addons.MA_Offcanvas_Menu.resetCanvas = function ()
+            {
                 var contentId = getID;
                 elements.$html.addClass("".concat(classes.offcanvasContent, "-widget"));
 
-                if (!elements.$outsideContainer.length) {
+                if (!elements.$outsideContainer.length)
+                {
                     elements.$body.append("<div class=\"".concat(classes.offcanvasContainerOverlay, "\" />"));
                     elements.$body.wrapInner("<div class=\"".concat(classes.offcanvasContainer, "\" />"));
                     elements.$offcanvasContent.insertBefore(selectors.offcanvasContainer);
@@ -680,21 +785,25 @@
 
                 var $wrapperContent = elements.$offcanvasWrapper.find(selectors.offcanvasContent);
 
-                if ($wrapperContent.length) {
+                if ($wrapperContent.length)
+                {
 
                     var $containerContent = elements.$outsideContainer.find("> .".concat(classes.contentClassPart, "-").concat(contentId));
 
-                    if ($containerContent.length) {
-                    $containerContent.remove();
+                    if ($containerContent.length)
+                    {
+                        $containerContent.remove();
                     }
 
                     var $bodyContent = elements.$body.find("> .".concat(classes.contentClassPart, "-").concat(contentId));
 
-                    if ($bodyContent.length) {
-                    $bodyContent.remove();
+                    if ($bodyContent.length)
+                    {
+                        $bodyContent.remove();
                     }
 
-                    if (elements.$html.hasClass(classes.contentOpenClass)) {
+                    if (elements.$html.hasClass(classes.contentOpenClass))
+                    {
                         $wrapperContent.addClass('active');
                     }
 
@@ -705,16 +814,19 @@
 
 
             //Master_Addons.MA_Offcanvas_Menu.offcanvasClose
-            Master_Addons.MA_Offcanvas_Menu.offcanvasClose = function(){
+            Master_Addons.MA_Offcanvas_Menu.offcanvasClose = function ()
+            {
                 var openId = elements.$html.data('open-id');
                 var regex = new RegExp("".concat(classes.contentClassPart, "-.*"));
                 var classList = elements.$html.attr('class').split(/\s+/);
 
                 jQuery("".concat(selectors.contentClassPart, "-").concat(openId)).removeClass('active');
                 elements.$triggerButton.removeClass('trigger-active');
-                classList.forEach(function (className) {
-                    if (!className.match(regex)) {
-                    return;
+                classList.forEach(function (className)
+                {
+                    if (!className.match(regex))
+                    {
+                        return;
                     }
                     elements.$html.removeClass(className);
                 });
@@ -722,23 +834,28 @@
             }
 
             // containerClick
-            Master_Addons.MA_Offcanvas_Menu.containerClick = function (event) {
+            Master_Addons.MA_Offcanvas_Menu.containerClick = function (event)
+            {
 
                 var openId = elements.$html.data('open-id');
 
-                if (getID !== openId || !getElementSettings.overlay_close) {
+                if (getID !== openId || !getElementSettings.overlay_close)
+                {
                     return;
                 }
 
-                if (!elements.$html.hasClass(classes.contentOpenClass)) {
+                if (!elements.$html.hasClass(classes.contentOpenClass))
+                {
                     return;
                 }
                 Master_Addons.MA_Offcanvas_Menu.offcanvasClose();
             }
 
-            Master_Addons.MA_Offcanvas_Menu.closeESC = function(event){
+            Master_Addons.MA_Offcanvas_Menu.closeESC = function (event)
+            {
 
-                if (27 !== event.keyCode) {
+                if (27 !== event.keyCode)
+                {
                     return;
                 }
                 Master_Addons.MA_Offcanvas_Menu.offcanvasClose();
@@ -746,19 +863,23 @@
             }
 
 
-            Master_Addons.MA_Offcanvas_Menu.addLoaderIcon = function() {
+            Master_Addons.MA_Offcanvas_Menu.addLoaderIcon = function ()
+            {
                 jQuery(document).find('.jltma-offcanvas__content').addClass('jltma-loading');
             }
-            Master_Addons.MA_Offcanvas_Menu.removeLoaderIcon = function() {
+            Master_Addons.MA_Offcanvas_Menu.removeLoaderIcon = function ()
+            {
                 jQuery(document).find('.jltma-offcanvas__content').removeClass('jltma-loading');
             }
 
             // bindEvents
-            Master_Addons.MA_Offcanvas_Menu.bindEvents = function () {
+            Master_Addons.MA_Offcanvas_Menu.bindEvents = function ()
+            {
 
                 elements.$body.on('click', selectors.offcanvasContainerOverlay, Master_Addons.MA_Offcanvas_Menu.containerClick.bind(this));
 
-                if ('yes' === is_esc_close) {
+                if ('yes' === is_esc_close)
+                {
                     elements.$document.on('keydown', Master_Addons.MA_Offcanvas_Menu.closeESC.bind(this));
                 }
 
@@ -766,19 +887,23 @@
                 elements.$closeButton.on('click', Master_Addons.MA_Offcanvas_Menu.offcanvasClose.bind(this));
                 elements.$menuParent.on('click', Master_Addons.MA_Offcanvas_Menu.onParentClick.bind(this));
 
-                $(elements.$menuParent).on('change',function(){
+                $(elements.$menuParent).on('change', function ()
+                {
                     Master_Addons.MA_Offcanvas_Menu.onParentClick.bind($(this));
                 });
 
-                $("[data-settings=animation_type]").on('click',function(){
+                $("[data-settings=animation_type]").on('click', function ()
+                {
                     Master_Addons.MA_Offcanvas_Menu.changeControl.bind($(this));
                 });
             }
 
 
             //perfectScrollInit
-            Master_Addons.MA_Offcanvas_Menu.perfectScrollInit = function() {
-                if (!Master_Addons.MA_Offcanvas_Menu.scrollPerfect) {
+            Master_Addons.MA_Offcanvas_Menu.perfectScrollInit = function ()
+            {
+                if (!Master_Addons.MA_Offcanvas_Menu.scrollPerfect)
+                {
                     Master_Addons.MA_Offcanvas_Menu.scrollPerfect = new PerfectScrollbar(elements.$offcanvasContentBody.get(0), {
                         wheelSpeed: 0.5,
                         suppressScrollX: true
@@ -790,13 +915,16 @@
             }
 
             //onEdit
-            Master_Addons.MA_Offcanvas_Menu.onEdit = function() {
+            Master_Addons.MA_Offcanvas_Menu.onEdit = function ()
+            {
                 // elementorFrontend.isEditMode()
-                if (!Master_Addons.MA_Offcanvas_Menu.isEdit) {
+                if (!Master_Addons.MA_Offcanvas_Menu.isEdit)
+                {
                     return;
                 }
 
-                if (undefined === $element.data('opened')) {
+                if (undefined === $element.data('opened'))
+                {
                     $element.data('opened', 'false');
                 }
 
@@ -805,36 +933,43 @@
 
 
             //sectionActivated
-            Master_Addons.MA_Offcanvas_Menu.sectionActivated = function(sectionName, editor) {
+            Master_Addons.MA_Offcanvas_Menu.sectionActivated = function (sectionName, editor)
+            {
                 var elementsData = elementorFrontend.config.elements.data[this.getModelCID()];
                 var editedElement = editor.getOption('editedElementView');
 
-                if (this.getModelCID() !== editor.model.cid || elementsData.get('widgetType') !== editedElement.model.get('widgetType')) {
-                return;
+                if (this.getModelCID() !== editor.model.cid || elementsData.get('widgetType') !== editedElement.model.get('widgetType'))
+                {
+                    return;
                 }
 
-                if (-1 !== this.sectionsArray.indexOf(sectionName)) {
-                if ('true' === $element.data('opened')) {
-                    var editedModel = editor.getOption('model');
-                    Master_Addons.MA_Offcanvas_Menu.offcanvasContent(null, editedModel.get('id'));
-                }
+                if (-1 !== this.sectionsArray.indexOf(sectionName))
+                {
+                    if ('true' === $element.data('opened'))
+                    {
+                        var editedModel = editor.getOption('model');
+                        Master_Addons.MA_Offcanvas_Menu.offcanvasContent(null, editedModel.get('id'));
+                    }
 
-                $element.data('opened', 'true');
+                    $element.data('opened', 'true');
 
-                } else {
+                } else
+                {
                     Master_Addons.MA_Offcanvas_Menu.offcanvasClose();
                 }
             }
 
             //offcanvasContent
-            Master_Addons.MA_Offcanvas_Menu.offcanvasContent = function(event) {
+            Master_Addons.MA_Offcanvas_Menu.offcanvasContent = function (event)
+            {
                 var widgetId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-                var boxPosition   = getElementSettings.canvas_position;
+                var boxPosition = getElementSettings.canvas_position;
                 var offcanvasType = getElementSettings.animation_type;
-                var contentId     = getID;
+                var contentId = getID;
 
-                if (null !== widgetId) {
+                if (null !== widgetId)
+                {
                     contentId = widgetId;
                 }
                 elements.$triggerButton.addClass('trigger-active');
@@ -845,20 +980,23 @@
 
 
             //onParentClick
-            Master_Addons.MA_Offcanvas_Menu.onParentClick = function(event) {
+            Master_Addons.MA_Offcanvas_Menu.onParentClick = function (event)
+            {
                 var $clickedItem = jQuery(event.target);
                 var noLinkArray = ['', '#'];
                 var $menuParent = $clickedItem.hasClass(classes.menuArrow) ? $clickedItem.parent() : $clickedItem;
 
-                if ($clickedItem.hasClass(classes.menuArrow) || -1 !== noLinkArray.indexOf($clickedItem.attr('href')) || !$menuParent.hasClass('active')) {
-                event.preventDefault();
+                if ($clickedItem.hasClass(classes.menuArrow) || -1 !== noLinkArray.indexOf($clickedItem.attr('href')) || !$menuParent.hasClass('active'))
+                {
+                    event.preventDefault();
                 }
 
                 var $menuParentNext = $menuParent.next();
                 $menuParent.removeClass('active');
                 $menuParentNext.slideUp('normal');
 
-                if ($menuParentNext.is('ul') && !$menuParentNext.is(':visible')) {
+                if ($menuParentNext.is('ul') && !$menuParentNext.is(':visible'))
+                {
                     $menuParent.addClass('active');
                     $menuParentNext.slideDown('normal');
                 }
@@ -866,12 +1004,14 @@
 
 
             //changeControl
-            Master_Addons.MA_Offcanvas_Menu.changeControl = function() {
+            Master_Addons.MA_Offcanvas_Menu.changeControl = function ()
+            {
                 Master_Addons.MA_Offcanvas_Menu.offcanvasClose();
             }
 
             // onInit
-            Master_Addons.MA_Offcanvas_Menu.onInit = function() {
+            Master_Addons.MA_Offcanvas_Menu.onInit = function ()
+            {
 
                 Master_Addons.MA_Offcanvas_Menu.resetCanvas();
 
@@ -886,43 +1026,48 @@
 
 
         //Master Addons: Image Filter Gallery
-        MA_Image_Filter_Gallery: function ($scope, $) {
+        MA_Image_Filter_Gallery: function ($scope, $)
+        {
 
-            var elementSettings     = getElementSettings( $scope ),
-                $jltma_image_filter_gallery_wrapper   = $scope.find('.jltma-image-filter-gallery-wrapper').eq(0),
-                $ma_el_image_filter_gallery_container   = $scope.find('.jltma-image-filter-gallery'),
-                $ma_el_image_filter_gallery_nav         = $scope.find('.jltma-image-filter-nav'),
-                $ma_el_image_filter_gallery_wrapper     = $scope.find('.jltma-image-filter-gallery-wrapper'),
-                $uniqueId 		    = getUniqueLoopScopeId( $scope ),
-                $maxtilt         = elementSettings.ma_el_image_gallery_max_tilt,
-                $perspective     = elementSettings.ma_el_image_gallery_perspective,
-                $speed           = elementSettings.ma_el_image_gallery_speed,
-                $axis            = elementSettings.ma_el_image_gallery_tilt_axis,
-                $glare           = elementSettings.ma_el_image_gallery_glare,
-                $overlay_speed   = elementSettings.line_location,
-                $ma_el_image_gallery_tooltip   = elementSettings.ma_el_image_gallery_tooltip,
-                $container       = $('.elementor-element-' + $uniqueId + ' .jltma-image-filter-gallery'),
-                layoutMode       = $ma_el_image_filter_gallery_wrapper.hasClass('jltma-masonry-yes') ? 'masonry' : 'fitRows';
+            var elementSettings = getElementSettings($scope),
+                $jltma_image_filter_gallery_wrapper = $scope.find('.jltma-image-filter-gallery-wrapper').eq(0),
+                $ma_el_image_filter_gallery_container = $scope.find('.jltma-image-filter-gallery'),
+                $ma_el_image_filter_gallery_nav = $scope.find('.jltma-image-filter-nav'),
+                $ma_el_image_filter_gallery_wrapper = $scope.find('.jltma-image-filter-gallery-wrapper'),
+                $uniqueId = getUniqueLoopScopeId($scope),
+                $maxtilt = elementSettings.ma_el_image_gallery_max_tilt,
+                $perspective = elementSettings.ma_el_image_gallery_perspective,
+                $speed = elementSettings.ma_el_image_gallery_speed,
+                $axis = elementSettings.ma_el_image_gallery_tilt_axis,
+                $glare = elementSettings.ma_el_image_gallery_glare,
+                $overlay_speed = elementSettings.line_location,
+                $ma_el_image_gallery_tooltip = elementSettings.ma_el_image_gallery_tooltip,
+                $container = $('.elementor-element-' + $uniqueId + ' .jltma-image-filter-gallery'),
+                layoutMode = $ma_el_image_filter_gallery_wrapper.hasClass('jltma-masonry-yes') ? 'masonry' : 'fitRows';
 
-            if (!$jltma_image_filter_gallery_wrapper.length) {
+            if (!$jltma_image_filter_gallery_wrapper.length)
+            {
                 return;
             }
 
-            if($ma_el_image_gallery_tooltip =="yes"){
+            if ($ma_el_image_gallery_tooltip == "yes")
+            {
 
                 var $img_filter_gallery = $jltma_image_filter_gallery_wrapper.find('ul.jltma-tooltip');
 
-                if ( ! $img_filter_gallery.length ) {
+                if (!$img_filter_gallery.length)
+                {
                     return;
                 }
 
                 var $tooltip = $img_filter_gallery.find('> .jltma-tooltip-item'),
                     widgetID = $scope.data('id');
 
-                $tooltip.each( function( index ) {
-                    tippy( this, {
+                $tooltip.each(function (index)
+                {
+                    tippy(this, {
                         allowHTML: true,
-                        theme    : 'jltma-image-filter-tippy-' + widgetID
+                        theme: 'jltma-image-filter-tippy-' + widgetID
                     });
                 });
             }
@@ -932,14 +1077,15 @@
             var optValues = {
                 filter: '*',
                 itemSelector: '.jltma-image-filter-item',
-                percentPosition : true,
-                animationOptions : {
-                    duration    : 750,
-                    easing      : 'linear',
-                    queue       : false
+                percentPosition: true,
+                animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false
                 }
             };
-            if(layoutMode === 'fitRows'){
+            if (layoutMode === 'fitRows')
+            {
                 optValues['layoutMode'] = 'fitRows';
             }
 
@@ -954,9 +1100,12 @@
             //     $scope.find('.jltma-image-filter-gallery').css({"min-height":"300px" ,"height" : container_outerheight});
             // });
 
-            if ($.isFunction($.fn.imagesLoaded)) {
-                $ma_el_image_filter_gallery_container.imagesLoaded(function () {
-                    if ($.isFunction($.fn.isotope)) {
+            if ($.isFunction($.fn.imagesLoaded))
+            {
+                $ma_el_image_filter_gallery_container.imagesLoaded(function ()
+                {
+                    if ($.isFunction($.fn.isotope))
+                    {
                         $ma_el_image_filter_gallery_container.isotope(optValues);
                     }
                 });
@@ -965,37 +1114,44 @@
 
 
             // Tilt Effect Start
-            if($axis === 'x'){
+            if ($axis === 'x')
+            {
                 $axis = 'y';
-            }else if($axis === 'y'){
+            } else if ($axis === 'y')
+            {
                 $axis = 'x';
-            }else{
+            } else
+            {
                 $axis = 'both';
             }
 
-            if($glare === 'yes'){
-                var $max_glare =   elementSettings.ma_el_image_gallery_max_glare;
+            if ($glare === 'yes')
+            {
+                var $max_glare = elementSettings.ma_el_image_gallery_max_glare;
             }
 
-            if($glare === 'yes'){
+            if ($glare === 'yes')
+            {
                 $glare = true;
-            } else{
+            } else
+            {
                 $glare = false;
             }
 
-            if($scope.find('.jltma-tilt-enable')){
+            if ($scope.find('.jltma-tilt-enable'))
+            {
                 var tilt_args = {
-                    maxTilt:        $maxtilt,
-                    perspective:    $perspective,   // Transform perspective, the lower the more extreme the tilt gets.
+                    maxTilt: $maxtilt,
+                    perspective: $perspective,   // Transform perspective, the lower the more extreme the tilt gets.
                     //easing:         "cubic-bezier(.03,.98,.52,.99)",   // Easing on enter/exit.
-                    easing :        "linear",
-                    scale:          1,      // 2 = 200%, 1.5 = 150%, etc..
-                    speed:          $speed,    // Speed of the enter/exit transition.
-                    disableAxis:    $axis,
-                    transition:     true,   // Set a transition on enter/exit.
-                    reset:          true,   // If the tilt effect has to be reset on exit.
-                    glare:          $glare,  // Enables glare effect
-                    maxGlare:       $max_glare       // From 0 - 1.
+                    easing: "linear",
+                    scale: 1,      // 2 = 200%, 1.5 = 150%, etc..
+                    speed: $speed,    // Speed of the enter/exit transition.
+                    disableAxis: $axis,
+                    transition: true,   // Set a transition on enter/exit.
+                    reset: true,   // If the tilt effect has to be reset on exit.
+                    glare: $glare,  // Enables glare effect
+                    maxGlare: $max_glare       // From 0 - 1.
                 }
 
                 $scope.find('.jltma-tilt').tilt(tilt_args);
@@ -1003,11 +1159,13 @@
             // Tilt Effect End
 
 
-            $ma_el_image_filter_gallery_nav.on('click', 'li', function () {
+            $ma_el_image_filter_gallery_nav.on('click', 'li', function ()
+            {
                 $ma_el_image_filter_gallery_nav.find('.active').removeClass('active');
                 $(this).addClass('active');
 
-                if ($.isFunction($.fn.isotope)) {
+                if ($.isFunction($.fn.isotope))
+                {
                     var selector = $(this).attr('data-filter');
                     $ma_el_image_filter_gallery_container.isotope({
                         filter: selector,
@@ -1016,13 +1174,13 @@
                 }
             });
 
-            $( ".jltma-fancybox" ).fancybox({
+            $(".jltma-fancybox").fancybox({
                 // protect: false,
                 animationDuration: 366,
                 transitionDuration: 366,
                 transitionEffect: "fade", // Transition effect between slides
                 animationEffect: "fade",
-                preventCaptionOverlap : true,
+                preventCaptionOverlap: true,
                 // loop: false,
                 infobar: false,
                 buttons: [
@@ -1034,11 +1192,13 @@
                     "thumbs",
                     "close"
                 ],
-                afterLoad : function(instance, current) {
+                afterLoad: function (instance, current)
+                {
                     var pixelRatio = window.devicePixelRatio || 1;
 
-                    if ( pixelRatio > 1.5 ) {
-                        current.width  = current.width  / pixelRatio;
+                    if (pixelRatio > 1.5)
+                    {
+                        current.width = current.width / pixelRatio;
                         current.height = current.height / pixelRatio;
                     }
                 }
@@ -1047,390 +1207,446 @@
         },
 
 
-		MA_Carousel : function( $swiper, settings ) {
-			var $slides = $swiper.find( '.jltma-swiper__slide' ),
+        MA_Carousel: function ($swiper, settings)
+        {
+            var $slides = $swiper.find('.jltma-swiper__slide'),
 
-				elementorBreakpoints = elementorFrontend.config.breakpoints,
+                elementorBreakpoints = elementorFrontend.config.breakpoints,
 
-				swiperInstance 	= $swiper.data( 'swiper' ),
-				swiperArgs 		= {
-					autoHeight				: settings.element.autoHeight || false,
-					direction 				: settings.element.direction || settings.default.direction,
-					effect 					: settings.element.effect || settings.default.effect,
-					slidesPerView 			: settings.default.slidesPerView,
-					slidesPerColumn 		: settings.default.slidesPerColumn,
-					slidesPerColumnFill 	: 'row',
-					slidesPerGroup			: settings.default.slidesPerGroup,
-					spaceBetween 			: settings.default.spaceBetween,
-					pagination 				: {},
-					navigation 				: {},
-					autoplay 				: settings.element.autoplay || false,
-					grabCursor 				: true,
-					watchSlidesProgress 	: true,
-					watchSlidesVisibility 	: true,
-				};
+                swiperInstance = $swiper.data('swiper'),
+                swiperArgs = {
+                    autoHeight: settings.element.autoHeight || false,
+                    direction: settings.element.direction || settings.default.direction,
+                    effect: settings.element.effect || settings.default.effect,
+                    slidesPerView: settings.default.slidesPerView,
+                    slidesPerColumn: settings.default.slidesPerColumn,
+                    slidesPerColumnFill: 'row',
+                    slidesPerGroup: settings.default.slidesPerGroup,
+                    spaceBetween: settings.default.spaceBetween,
+                    pagination: {},
+                    navigation: {},
+                    autoplay: settings.element.autoplay || false,
+                    grabCursor: true,
+                    watchSlidesProgress: true,
+                    watchSlidesVisibility: true,
+                };
 
-				if ( settings.default.breakpoints ) {
-					swiperArgs.breakpoints = {};
-					swiperArgs.breakpoints[ elementorBreakpoints.md ] = settings.default.breakpoints.tablet;
-					swiperArgs.breakpoints[ elementorBreakpoints.lg ] = settings.default.breakpoints.desktop;
-				}
+            if (settings.default.breakpoints)
+            {
+                swiperArgs.breakpoints = {};
+                swiperArgs.breakpoints[elementorBreakpoints.md] = settings.default.breakpoints.tablet;
+                swiperArgs.breakpoints[elementorBreakpoints.lg] = settings.default.breakpoints.desktop;
+            }
 
-				if ( ! elementorFrontend.isEditMode() ) {
-					// Observer messes with free mode
-					if ( ! settings.element.freeMode ) {
-						swiperArgs.observer 			= true;
-						swiperArgs.observeParents		= true;
-						swiperArgs.observeSlideChildren = true;
-					}
-				} else { // But we're safe in edit mode
-					swiperArgs.observer 			= true;
-					swiperArgs.observeParents		= true;
-					swiperArgs.observeSlideChildren = true;
-				}
+            if (!elementorFrontend.isEditMode())
+            {
+                // Observer messes with free mode
+                if (!settings.element.freeMode)
+                {
+                    swiperArgs.observer = true;
+                    swiperArgs.observeParents = true;
+                    swiperArgs.observeSlideChildren = true;
+                }
+            } else
+            { // But we're safe in edit mode
+                swiperArgs.observer = true;
+                swiperArgs.observeParents = true;
+                swiperArgs.observeSlideChildren = true;
+            }
 
-			Master_Addons.MA_Carousel.init = function() {
-				if ( swiperInstance ) {
-					Master_Addons.MA_Carousel.destroy();
-					return;
-				}
+            Master_Addons.MA_Carousel.init = function ()
+            {
+                if (swiperInstance)
+                {
+                    Master_Addons.MA_Carousel.destroy();
+                    return;
+                }
 
-				// Number of columns
-				if ( swiperArgs.breakpoints ) {
-					if ( settings.element.breakpoints.desktop.slidesPerView ) {
-						swiperArgs.breakpoints[ elementorBreakpoints.lg ].slidesPerView = Math.min( $slides.length, +settings.element.breakpoints.desktop.slidesPerView || 3 );
-					}
+                // Number of columns
+                if (swiperArgs.breakpoints)
+                {
+                    if (settings.element.breakpoints.desktop.slidesPerView)
+                    {
+                        swiperArgs.breakpoints[elementorBreakpoints.lg].slidesPerView = Math.min($slides.length, +settings.element.breakpoints.desktop.slidesPerView || 3);
+                    }
 
-					if ( settings.element.breakpoints.tablet.slidesPerView ) {
-						swiperArgs.breakpoints[ elementorBreakpoints.md ].slidesPerView = Math.min( $slides.length, +settings.element.breakpoints.tablet.slidesPerView || 2 );
-					}
-				}
+                    if (settings.element.breakpoints.tablet.slidesPerView)
+                    {
+                        swiperArgs.breakpoints[elementorBreakpoints.md].slidesPerView = Math.min($slides.length, +settings.element.breakpoints.tablet.slidesPerView || 2);
+                    }
+                }
 
-				if ( settings.element.slidesPerView ) {
-					swiperArgs.slidesPerView = Math.min( $slides.length, +settings.element.slidesPerView || 1 );
-				}
+                if (settings.element.slidesPerView)
+                {
+                    swiperArgs.slidesPerView = Math.min($slides.length, +settings.element.slidesPerView || 1);
+                }
 
-				// Number of slides to scroll
-				if ( swiperArgs.breakpoints ) {
-					if ( settings.element.breakpoints.desktop.slidesPerGroup ) {
-						swiperArgs.breakpoints[ elementorBreakpoints.lg ].slidesPerGroup = Math.min( $slides.length, +settings.element.breakpoints.desktop.slidesPerGroup || 3 );
-					}
+                // Number of slides to scroll
+                if (swiperArgs.breakpoints)
+                {
+                    if (settings.element.breakpoints.desktop.slidesPerGroup)
+                    {
+                        swiperArgs.breakpoints[elementorBreakpoints.lg].slidesPerGroup = Math.min($slides.length, +settings.element.breakpoints.desktop.slidesPerGroup || 3);
+                    }
 
-					if ( settings.element.breakpoints.tablet.slidesPerGroup ) {
-						swiperArgs.breakpoints[ elementorBreakpoints.md ].slidesPerGroup = Math.min( $slides.length, +settings.element.breakpoints.tablet.slidesPerGroup || 2 );
-					}
-				}
+                    if (settings.element.breakpoints.tablet.slidesPerGroup)
+                    {
+                        swiperArgs.breakpoints[elementorBreakpoints.md].slidesPerGroup = Math.min($slides.length, +settings.element.breakpoints.tablet.slidesPerGroup || 2);
+                    }
+                }
 
-				if ( settings.element.slidesPerGroup ) {
-					swiperArgs.slidesPerGroup = Math.min( $slides.length, +settings.element.slidesPerGroup || 1 );
-				}
+                if (settings.element.slidesPerGroup)
+                {
+                    swiperArgs.slidesPerGroup = Math.min($slides.length, +settings.element.slidesPerGroup || 1);
+                }
 
-				// Rows
-				if ( swiperArgs.breakpoints ) {
-					if ( settings.element.breakpoints.desktop.slidesPerColumn ) {
-						swiperArgs.breakpoints[ elementorBreakpoints.lg ].slidesPerColumn = settings.element.breakpoints.desktop.slidesPerColumn;
-					}
+                // Rows
+                if (swiperArgs.breakpoints)
+                {
+                    if (settings.element.breakpoints.desktop.slidesPerColumn)
+                    {
+                        swiperArgs.breakpoints[elementorBreakpoints.lg].slidesPerColumn = settings.element.breakpoints.desktop.slidesPerColumn;
+                    }
 
-					if ( settings.element.breakpoints.tablet.slidesPerColumn ) {
-						swiperArgs.breakpoints[ elementorBreakpoints.md ].slidesPerColumn = settings.element.breakpoints.tablet.slidesPerColumn;
-					}
-				}
+                    if (settings.element.breakpoints.tablet.slidesPerColumn)
+                    {
+                        swiperArgs.breakpoints[elementorBreakpoints.md].slidesPerColumn = settings.element.breakpoints.tablet.slidesPerColumn;
+                    }
+                }
 
-				if ( settings.element.slidesPerColumn ) {
-					swiperArgs.slidesPerColumn = settings.element.slidesPerColumn;
-				}
+                if (settings.element.slidesPerColumn)
+                {
+                    swiperArgs.slidesPerColumn = settings.element.slidesPerColumn;
+                }
 
-				// Column spacing
+                // Column spacing
 
-				if ( swiperArgs.breakpoints ) {
-					swiperArgs.breakpoints[ elementorBreakpoints.lg ].spaceBetween = settings.element.breakpoints.desktop.spaceBetween || 0;
-					swiperArgs.breakpoints[ elementorBreakpoints.md ].spaceBetween = settings.element.breakpoints.tablet.spaceBetween || 0;
-				}
+                if (swiperArgs.breakpoints)
+                {
+                    swiperArgs.breakpoints[elementorBreakpoints.lg].spaceBetween = settings.element.breakpoints.desktop.spaceBetween || 0;
+                    swiperArgs.breakpoints[elementorBreakpoints.md].spaceBetween = settings.element.breakpoints.tablet.spaceBetween || 0;
+                }
 
-				if ( settings.element.spaceBetween ) {
-					swiperArgs.spaceBetween = settings.element.spaceBetween || 0;
-				}
+                if (settings.element.spaceBetween)
+                {
+                    swiperArgs.spaceBetween = settings.element.spaceBetween || 0;
+                }
 
-				if ( settings.element.slidesPerColumnFill ) {
-					swiperArgs.slidesPerColumnFill = settings.element.slidesPerColumnFill;
-				}
+                if (settings.element.slidesPerColumnFill)
+                {
+                    swiperArgs.slidesPerColumnFill = settings.element.slidesPerColumnFill;
+                }
 
-				// Arrows and pagination
-				if ( settings.element.arrows ) {
-					swiperArgs.navigation.disabledClass = 'jltma-swiper__button--disabled';
+                // Arrows and pagination
+                if (settings.element.arrows)
+                {
+                    swiperArgs.navigation.disabledClass = 'jltma-swiper__button--disabled';
 
-					var $prevButton = settings.scope.find( settings.element.arrowPrev ),
-						$nextButton = settings.scope.find( settings.element.arrowNext );
+                    var $prevButton = settings.scope.find(settings.element.arrowPrev),
+                        $nextButton = settings.scope.find(settings.element.arrowNext);
 
-					if ( $prevButton.length && $nextButton.length ) {
+                    if ($prevButton.length && $nextButton.length)
+                    {
 
-						var arrowPrev = settings.element.arrowPrev + '-' + settings.id,
-							arrowNext = settings.element.arrowNext + '-' + settings.id;
+                        var arrowPrev = settings.element.arrowPrev + '-' + settings.id,
+                            arrowNext = settings.element.arrowNext + '-' + settings.id;
 
-						$prevButton.addClass( arrowPrev.replace('.','') );
-						$nextButton.addClass( arrowNext.replace('.','') );
+                        $prevButton.addClass(arrowPrev.replace('.', ''));
+                        $nextButton.addClass(arrowNext.replace('.', ''));
 
-						swiperArgs.navigation.prevEl = arrowPrev;
-						swiperArgs.navigation.nextEl = arrowNext;
-					}
-				}
+                        swiperArgs.navigation.prevEl = arrowPrev;
+                        swiperArgs.navigation.nextEl = arrowNext;
+                    }
+                }
 
-				if ( settings.element.pagination ) {
-					swiperArgs.pagination.el = '.jltma-swiper__pagination-' + settings.id;
-					swiperArgs.pagination.type = settings.element.paginationType;
+                if (settings.element.pagination)
+                {
+                    swiperArgs.pagination.el = '.jltma-swiper__pagination-' + settings.id;
+                    swiperArgs.pagination.type = settings.element.paginationType;
 
-					if ( settings.element.paginationClickable ) {
-						swiperArgs.pagination.clickable = true;
-					}
-				}
+                    if (settings.element.paginationClickable)
+                    {
+                        swiperArgs.pagination.clickable = true;
+                    }
+                }
 
-				// Loop
-				if ( settings.element.loop ) {
-					swiperArgs.loop = true;
-					// swiperArgs.loopedSlides = $slides.length;
-				}
+                // Loop
+                if (settings.element.loop)
+                {
+                    swiperArgs.loop = true;
+                    // swiperArgs.loopedSlides = $slides.length;
+                }
 
-				// Autplay
-				if ( swiperArgs.autoplay && ( settings.element.autoplaySpeed || settings.element.disableOnInteraction ) ) {
-					swiperArgs.autoplay = {};
+                // Autplay
+                if (swiperArgs.autoplay && (settings.element.autoplaySpeed || settings.element.disableOnInteraction))
+                {
+                    swiperArgs.autoplay = {};
 
-					if ( settings.element.autoplaySpeed ) {
-						swiperArgs.autoplay.delay = settings.element.autoplaySpeed;
-					}
+                    if (settings.element.autoplaySpeed)
+                    {
+                        swiperArgs.autoplay.delay = settings.element.autoplaySpeed;
+                    }
 
-					if ( settings.element.autoplaySpeed ) {
-						swiperArgs.autoplay.disableOnInteraction = settings.element.disableOnInteraction;
-					}
-				} else {
+                    if (settings.element.autoplaySpeed)
+                    {
+                        swiperArgs.autoplay.disableOnInteraction = settings.element.disableOnInteraction;
+                    }
+                } else
+                {
 
-				}
+                }
 
-				// Speed
-				if ( settings.element.speed ) {
-					swiperArgs.speed = settings.element.speed;
-				}
+                // Speed
+                if (settings.element.speed)
+                {
+                    swiperArgs.speed = settings.element.speed;
+                }
 
-				// Resistance
-				if ( settings.element.resistance ) {
-					swiperArgs.resistanceRatio = 1 - settings.element.resistance;
-				}
+                // Resistance
+                if (settings.element.resistance)
+                {
+                    swiperArgs.resistanceRatio = 1 - settings.element.resistance;
+                }
 
-				// Free Mode
-				if ( settings.element.freeMode ) {
-					swiperArgs.freeMode = true;
-					swiperArgs.freeModeSticky = settings.element.freeModeSticky;
-					swiperArgs.freeModeMomentum = settings.element.freeModeMomentum;
-					swiperArgs.freeModeMomentumBounce = settings.element.freeModeMomentumBounce;
+                // Free Mode
+                if (settings.element.freeMode)
+                {
+                    swiperArgs.freeMode = true;
+                    swiperArgs.freeModeSticky = settings.element.freeModeSticky;
+                    swiperArgs.freeModeMomentum = settings.element.freeModeMomentum;
+                    swiperArgs.freeModeMomentumBounce = settings.element.freeModeMomentumBounce;
 
-					if ( settings.element.freeModeMomentumRatio ) {
-						swiperArgs.freeModeMomentumRatio = settings.element.freeModeMomentumRatio;
-					}
+                    if (settings.element.freeModeMomentumRatio)
+                    {
+                        swiperArgs.freeModeMomentumRatio = settings.element.freeModeMomentumRatio;
+                    }
 
-					if ( settings.element.freeModeMomentumVelocityRatio ) {
-						swiperArgs.freeModeMomentumVelocityRatio = settings.element.freeModeMomentumVelocityRatio;
-					}
+                    if (settings.element.freeModeMomentumVelocityRatio)
+                    {
+                        swiperArgs.freeModeMomentumVelocityRatio = settings.element.freeModeMomentumVelocityRatio;
+                    }
 
-					if ( settings.element.freeModeMomentumBounceRatio ) {
-						swiperArgs.freeModeMomentumBounceRatio = settings.element.freeModeMomentumBounceRatio;
-					}
-				}
+                    if (settings.element.freeModeMomentumBounceRatio)
+                    {
+                        swiperArgs.freeModeMomentumBounceRatio = settings.element.freeModeMomentumBounceRatio;
+                    }
+                }
 
-				// Conditional asset loading of the Swiper library with backwards compatibility
-				// since Elementor 3.1
-				// @link https://developers.elementor.com/experiment-optimized-asset-loading/
+                // Conditional asset loading of the Swiper library with backwards compatibility
+                // since Elementor 3.1
+                // @link https://developers.elementor.com/experiment-optimized-asset-loading/
                 var swiper;
-				if ( 'undefined' === typeof Swiper ) {
-					const asyncSwiper = elementorFrontend.utils.swiper;
+                if ('undefined' === typeof Swiper)
+                {
+                    const asyncSwiper = elementorFrontend.utils.swiper;
 
-					new asyncSwiper( $swiper, swiperArgs ).then( function( newSwiperInstance ) {
-						swiper = newSwiperInstance;
-					} );
-				} else {
-					swiper = new Swiper( $swiper, swiperArgs );
-				}
+                    new asyncSwiper($swiper, swiperArgs).then(function (newSwiperInstance)
+                    {
+                        swiper = newSwiperInstance;
+                    });
+                } else
+                {
+                    swiper = new Swiper($swiper, swiperArgs);
+                }
 
-				if ( settings.element.stopOnHover ) {
-					$swiper.on( 'mouseover', function() {
-						swiper.autoplay.stop();
-					});
+                if (settings.element.stopOnHover)
+                {
+                    $swiper.on('mouseover', function ()
+                    {
+                        swiper.autoplay.stop();
+                    });
 
-					$swiper.on( 'mouseout', function() {
-						swiper.autoplay.start();
-					});
-				}
+                    $swiper.on('mouseout', function ()
+                    {
+                        swiper.autoplay.start();
+                    });
+                }
 
-				if ( settings.element.slideChangeTriggerResize ) {
-					swiper.on('slideChange', function () {
-						$( window ).trigger('resize');
-					});
-				}
+                if (settings.element.slideChangeTriggerResize)
+                {
+                    swiper.on('slideChange', function ()
+                    {
+                        $(window).trigger('resize');
+                    });
+                }
 
-				$swiper.data( 'swiper', swiper );
+                $swiper.data('swiper', swiper);
 
-				return swiper;
-			};
+                return swiper;
+            };
 
-			return Master_Addons.MA_Carousel.init();
-		},
+            return Master_Addons.MA_Carousel.init();
+        },
 
         // Gallery Slider
-        MA_Gallery_Slider: function($scope, $){
+        MA_Gallery_Slider: function ($scope, $)
+        {
 
-            var elementSettings     = getElementSettings( $scope ),
-                $swiperSlider 	    = $scope.find('.jltma-gallery-slider__slider'),
-                $swiperCarousel     = $scope.find('.jltma-gallery-slider__carousel'),
-                uniqueId 		    = getUniqueLoopScopeId( $scope ),
-                scopeId 		    = $scope.data('id'),
-                $preview            = $scope.find('.jltma-gallery-slider__preview'),
-                $thumbs             = $scope.find('.jltma-swiper__wrapper .jltma-gallery__item'),
-                $thumbnailsSlider   = $scope.find(".jltma-gallery-slider__gallery .jltma-gallery"),
-                $thumbtype          = elementSettings.jltma_gallery_slider_thumb_type,
-                $thumbposition      = elementSettings.jltma_gallery_slider_preview_position,
-                $thumbVertical      = ( $thumbposition == "top" || $thumbposition == "bottom" ) ? false : true,
+            var elementSettings = getElementSettings($scope),
+                $swiperSlider = $scope.find('.jltma-gallery-slider__slider'),
+                $swiperCarousel = $scope.find('.jltma-gallery-slider__carousel'),
+                uniqueId = getUniqueLoopScopeId($scope),
+                scopeId = $scope.data('id'),
+                $preview = $scope.find('.jltma-gallery-slider__preview'),
+                $thumbs = $scope.find('.jltma-swiper__wrapper .jltma-gallery__item'),
+                $thumbnailsSlider = $scope.find(".jltma-gallery-slider__gallery .jltma-gallery"),
+                $thumbtype = elementSettings.jltma_gallery_slider_thumb_type,
+                $thumbposition = elementSettings.jltma_gallery_slider_preview_position,
+                $thumbVertical = ($thumbposition == "top" || $thumbposition == "bottom") ? false : true,
 
-                start               = elementorFrontend.config.is_rtl ? 'right' : 'left',
-                end                 = elementorFrontend.config.is_rtl ? 'left' : 'right',
-                hasCarousel         = $swiperCarousel.length,
+                start = elementorFrontend.config.is_rtl ? 'right' : 'left',
+                end = elementorFrontend.config.is_rtl ? 'left' : 'right',
+                hasCarousel = $swiperCarousel.length,
 
-                swiperSlider        = null,
-                swiperCarousel      = null,
+                swiperSlider = null,
+                swiperCarousel = null,
 
-                sliderSettings       = {
-					key 		    : 'slider',
-                    scope 		    : $scope,
-                    id 			    : uniqueId,
-					element : {
-						autoHeight 				: 'yes' === elementSettings.jltma_gallery_slider_adaptive_height ? true : false,
-						autoplay 				: 'yes' === elementSettings.jltma_gallery_slider_autoplay ? true : false,
-						autoplaySpeed 			: 'yes' === elementSettings.jltma_gallery_slider_autoplay && elementSettings.jltma_gallery_slider_autoplay_speed ? elementSettings.jltma_gallery_slider_autoplay_speed.size : false,
-						disableOnInteraction 	: '' !== elementSettings.autoplay_disable_on_interaction,
-						stopOnHover 			: 'yes' === elementSettings.jltma_gallery_slider_pause_on_hover,
-						loop 					: 'yes' === elementSettings.jltma_gallery_slider_infinite,
-						arrows 					: '' !== elementSettings.jltma_gallery_slider_show_arrows,
-                        arrowPrev 				: '.jltma-arrow--prev',
-                        arrowNext 				: '.jltma-arrow--next',
-						effect 					: elementSettings.jltma_gallery_slider_effect,
-						speed 					: elementSettings.speed ? elementSettings.speed.size : 500,
-                        resistance 				: elementSettings.resistance ? elementSettings.resistance.size : 0.25,
+                sliderSettings = {
+                    key: 'slider',
+                    scope: $scope,
+                    id: uniqueId,
+                    element: {
+                        autoHeight: 'yes' === elementSettings.jltma_gallery_slider_adaptive_height ? true : false,
+                        autoplay: 'yes' === elementSettings.jltma_gallery_slider_autoplay ? true : false,
+                        autoplaySpeed: 'yes' === elementSettings.jltma_gallery_slider_autoplay && elementSettings.jltma_gallery_slider_autoplay_speed ? elementSettings.jltma_gallery_slider_autoplay_speed.size : false,
+                        disableOnInteraction: '' !== elementSettings.autoplay_disable_on_interaction,
+                        stopOnHover: 'yes' === elementSettings.jltma_gallery_slider_pause_on_hover,
+                        loop: 'yes' === elementSettings.jltma_gallery_slider_infinite,
+                        arrows: '' !== elementSettings.jltma_gallery_slider_show_arrows,
+                        arrowPrev: '.jltma-arrow--prev',
+                        arrowNext: '.jltma-arrow--next',
+                        effect: elementSettings.jltma_gallery_slider_effect,
+                        speed: elementSettings.speed ? elementSettings.speed.size : 500,
+                        resistance: elementSettings.resistance ? elementSettings.resistance.size : 0.25,
                         keyboard: {
-                                // enabled: "yes" === slider_data.jltma_slider_keyboard ? true : false
-                                enabled: true
+                            // enabled: "yes" === slider_data.jltma_slider_keyboard ? true : false
+                            enabled: true
                         },
-					},
-					default : {
-						effect 			: 'slide',
-						direction 		: 'horizontal',
-						slidesPerView 	: 1,
-						slidesPerGroup 	: 1,
-						slidesPerColumn : 1,
-						spaceBetween 	: 0,
+                    },
+                    default: {
+                        effect: 'slide',
+                        direction: 'horizontal',
+                        slidesPerView: 1,
+                        slidesPerGroup: 1,
+                        slidesPerColumn: 1,
+                        spaceBetween: 0,
                     }
                 };
 
-                // If Carousel
-                if ( hasCarousel ) {
-				    var carouselSettings = {
-						key 		: 'carousel',
-						scope 		: $scope,
-						id 			: uniqueId,
-						element : {
-							direction 			: elementSettings.carousel_orientation,
-							arrows 				: '' !== elementSettings.jltma_gallery_slider_thumb_show_arrows,
-							arrowPrev 			: '.jltma-arrow--prev',
-							arrowNext 			: '.jltma-arrow--next',
-                            autoHeight 			: false,
-                            loop                : 'yes' === elementSettings.jltma_gallery_slider_thumb_infinite ? true : false,
-                            autoplay 			: 'yes' === elementSettings.jltma_gallery_slider_thumb_autoplay ? true : false,
-                            autoplaySpeed 		: 'yes' === elementSettings.jltma_gallery_slider_thumb_autoplay && elementSettings.jltma_gallery_slider_thumb_autoplay_speed ? elementSettings.jltma_gallery_slider_thumb_autoplay_speed.size : false,
-                            stopOnHover 		: 'yes' === elementSettings.jltma_gallery_slider_thumb_pause_on_hover,
-							speed 				: elementSettings.jltma_gallery_slider_thumb_speed ? elementSettings.jltma_gallery_slider_thumb_speed.size : 500,
-							slidesPerView 		: elementSettings.jltma_gallery_slider_thumb_items_mobile,
-							slidesPerColumn 	: 'vertical' === elementSettings.carousel_orientation ? 1 : elementSettings.carousel_slides_per_column_mobile,
-							slidesPerGroup 		: elementSettings.carousel_slides_to_scroll_mobile,
-							resistance 			: elementSettings.carousel_resistance ? elementSettings.carousel_resistance.size : 0.15,
-							spaceBetween 		: elementSettings.carousel_spacing_mobile ? elementSettings.carousel_spacing_mobile.size : 0,
-							breakpoints 		: {
-								tablet : {
-									slidesPerView 	: elementSettings.jltma_gallery_slider_thumb_items_tablet,
-									slidesPerColumn : 'vertical' === elementSettings.carousel_orientation ? 1 : elementSettings.carousel_slides_per_column_tablet,
-									slidesPerGroup 	: elementSettings.carousel_slides_to_scroll_tablet,
-									spaceBetween 	: elementSettings.carousel_spacing_tablet ? elementSettings.carousel_spacing_tablet.size : 0,
-								},
-								desktop : {
-									slidesPerView 	: elementSettings.jltma_gallery_slider_thumb_items,
-									slidesPerColumn : 'vertical' === elementSettings.carousel_orientation ? 1 : elementSettings.carousel_slides_per_column,
-									slidesPerGroup 	: elementSettings.carousel_slides_to_scroll,
-									spaceBetween 	: elementSettings.carousel_spacing ? elementSettings.carousel_spacing.size : 0,
-								},
-							},
-						},
-						default : {
-							effect 			: 'slide',
-							slidesPerView 	: 1,
-							slidesPerGroup 	: 1,
-							slidesPerColumn : 1,
-							spaceBetween 	: 6,
-							breakpoints 	: {
-								tablet : {
-									slidesPerView 	: 2,
-									slidesPerGroup 	: 1,
-									slidesPerColumn : 2,
-									spaceBetween 	: 12,
-								},
-								desktop : {
-									slidesPerView 	: 3,
-									slidesPerGroup 	: 1,
-									slidesPerColumn : 3,
-									spaceBetween 	: 24,
-								},
-							},
-						},
-					};
+            // If Carousel
+            if (hasCarousel)
+            {
+                var carouselSettings = {
+                    key: 'carousel',
+                    scope: $scope,
+                    id: uniqueId,
+                    element: {
+                        direction: elementSettings.carousel_orientation,
+                        arrows: '' !== elementSettings.jltma_gallery_slider_thumb_show_arrows,
+                        arrowPrev: '.jltma-arrow--prev',
+                        arrowNext: '.jltma-arrow--next',
+                        autoHeight: false,
+                        loop: 'yes' === elementSettings.jltma_gallery_slider_thumb_infinite ? true : false,
+                        autoplay: 'yes' === elementSettings.jltma_gallery_slider_thumb_autoplay ? true : false,
+                        autoplaySpeed: 'yes' === elementSettings.jltma_gallery_slider_thumb_autoplay && elementSettings.jltma_gallery_slider_thumb_autoplay_speed ? elementSettings.jltma_gallery_slider_thumb_autoplay_speed.size : false,
+                        stopOnHover: 'yes' === elementSettings.jltma_gallery_slider_thumb_pause_on_hover,
+                        speed: elementSettings.jltma_gallery_slider_thumb_speed ? elementSettings.jltma_gallery_slider_thumb_speed.size : 500,
+                        slidesPerView: elementSettings.jltma_gallery_slider_thumb_items_mobile,
+                        slidesPerColumn: 'vertical' === elementSettings.carousel_orientation ? 1 : elementSettings.carousel_slides_per_column_mobile,
+                        slidesPerGroup: elementSettings.carousel_slides_to_scroll_mobile,
+                        resistance: elementSettings.carousel_resistance ? elementSettings.carousel_resistance.size : 0.15,
+                        spaceBetween: elementSettings.carousel_spacing_mobile ? elementSettings.carousel_spacing_mobile.size : 0,
+                        breakpoints: {
+                            tablet: {
+                                slidesPerView: elementSettings.jltma_gallery_slider_thumb_items_tablet,
+                                slidesPerColumn: 'vertical' === elementSettings.carousel_orientation ? 1 : elementSettings.carousel_slides_per_column_tablet,
+                                slidesPerGroup: elementSettings.carousel_slides_to_scroll_tablet,
+                                spaceBetween: elementSettings.carousel_spacing_tablet ? elementSettings.carousel_spacing_tablet.size : 0,
+                            },
+                            desktop: {
+                                slidesPerView: elementSettings.jltma_gallery_slider_thumb_items,
+                                slidesPerColumn: 'vertical' === elementSettings.carousel_orientation ? 1 : elementSettings.carousel_slides_per_column,
+                                slidesPerGroup: elementSettings.carousel_slides_to_scroll,
+                                spaceBetween: elementSettings.carousel_spacing ? elementSettings.carousel_spacing.size : 0,
+                            },
+                        },
+                    },
+                    default: {
+                        effect: 'slide',
+                        slidesPerView: 1,
+                        slidesPerGroup: 1,
+                        slidesPerColumn: 1,
+                        spaceBetween: 6,
+                        breakpoints: {
+                            tablet: {
+                                slidesPerView: 2,
+                                slidesPerGroup: 1,
+                                slidesPerColumn: 2,
+                                spaceBetween: 12,
+                            },
+                            desktop: {
+                                slidesPerView: 3,
+                                slidesPerGroup: 1,
+                                slidesPerColumn: 3,
+                                spaceBetween: 24,
+                            },
+                        },
+                    },
+                };
+            }
+
+
+            Master_Addons.MA_Gallery_Slider.init = function ()
+            {
+
+                swiperSlider = Master_Addons.MA_Carousel($swiperSlider, sliderSettings);
+
+                if (hasCarousel)
+                {
+                    swiperCarousel = Master_Addons.MA_Carousel($swiperCarousel, carouselSettings);
                 }
 
-
-            Master_Addons.MA_Gallery_Slider.init = function() {
-
-                swiperSlider = Master_Addons.MA_Carousel( $swiperSlider, sliderSettings );
-
-				if ( hasCarousel ) {
-                    swiperCarousel = Master_Addons.MA_Carousel( $swiperCarousel, carouselSettings );
-				}
-
-				Master_Addons.MA_Gallery_Slider.onSlideChange();
-				Master_Addons.MA_Gallery_Slider.events();
+                Master_Addons.MA_Gallery_Slider.onSlideChange();
+                Master_Addons.MA_Gallery_Slider.events();
 
             };
 
-            Master_Addons.MA_Gallery_Slider.events = function() {
-                swiperSlider.on('slideChange', Master_Addons.MA_Gallery_Slider.onSlideChange );
-                $thumbs.on( 'click', Master_Addons.MA_Gallery_Slider.onThumbClicked );
+            Master_Addons.MA_Gallery_Slider.events = function ()
+            {
+                swiperSlider.on('slideChange', Master_Addons.MA_Gallery_Slider.onSlideChange);
+                $thumbs.on('click', Master_Addons.MA_Gallery_Slider.onThumbClicked);
             };
 
-			Master_Addons.MA_Gallery_Slider.onSlideChange = function() {
-				var activeIndex = sliderSettings.element.loop ? swiperSlider.realIndex : swiperSlider.activeIndex;
+            Master_Addons.MA_Gallery_Slider.onSlideChange = function ()
+            {
+                var activeIndex = sliderSettings.element.loop ? swiperSlider.realIndex : swiperSlider.activeIndex;
 
-				if ( hasCarousel ) {
-					swiperCarousel.slideTo( activeIndex );
-				}
+                if (hasCarousel)
+                {
+                    swiperCarousel.slideTo(activeIndex);
+                }
 
-				$thumbs.removeClass('is--active');
-				$thumbs.eq( activeIndex ).addClass('is--active');
+                $thumbs.removeClass('is--active');
+                $thumbs.eq(activeIndex).addClass('is--active');
             };
 
-			Master_Addons.MA_Gallery_Slider.onThumbClicked = function( event ) {
+            Master_Addons.MA_Gallery_Slider.onThumbClicked = function (event)
+            {
                 var offset = sliderSettings.element.loop ? 1 : 0;
 
-				event.preventDefault();
-				swiperSlider.slideTo( $(this).index() + offset );
+                event.preventDefault();
+                swiperSlider.slideTo($(this).index() + offset);
             };
 
-			Master_Addons.onElementRemove( $scope, function() {
-				$scope.find('.swiper-container').each( function() {
-					if ( $(this).data('swiper') ) {
-						$(this).data('swiper').destroy();
-					}
-				});
+            Master_Addons.onElementRemove($scope, function ()
+            {
+                $scope.find('.swiper-container').each(function ()
+                {
+                    if ($(this).data('swiper'))
+                    {
+                        $(this).data('swiper').destroy();
+                    }
+                });
             });
 
 
@@ -1438,11 +1654,15 @@
         },
 
         // On Remove Event
-        onElementRemove: function( $element, callback ) {
-            if ( elementorFrontend.isEditMode() ) {
+        onElementRemove: function ($element, callback)
+        {
+            if (elementorFrontend.isEditMode())
+            {
                 // Make sure it is destroyed when element is removed in editor mode
-                elementor.channels.data.on( 'element:before:remove', function ( model ) {
-                    if ( $element.data('id') === model.id ) {
+                elementor.channels.data.on('element:before:remove', function (model)
+                {
+                    if ($element.data('id') === model.id)
+                    {
                         callback();
                     }
                 });
@@ -1450,38 +1670,45 @@
         },
 
         //Master Addons: Timeline
-        MA_Timeline: function ($scope, $) {
+        MA_Timeline: function ($scope, $)
+        {
 
-			var elementSettings  = getElementSettings( $scope ),
-			    $timeline        = $scope.find('.jltma-timeline'),
-			    $swiperSlider    = $scope.find('.jltma-timeline-slider'),
-			    $timeline_type   = elementSettings.ma_el_timeline_type,
-			    $timeline_layout = elementSettings.ma_el_timeline_design_type,
-			    swiperSlider     = null,
-			    timelineArgs     = {},
-			    hasCarousel      = $swiperSlider.length,
-			    $uniqueId        = getUniqueLoopScopeId( $scope );
+            var elementSettings = getElementSettings($scope),
+                $timeline = $scope.find('.jltma-timeline'),
+                $swiperSlider = $scope.find('.jltma-timeline-slider'),
+                $timeline_type = elementSettings.ma_el_timeline_type,
+                $timeline_layout = elementSettings.ma_el_timeline_design_type,
+                swiperSlider = null,
+                timelineArgs = {},
+                hasCarousel = $swiperSlider.length,
+                $uniqueId = getUniqueLoopScopeId($scope);
 
-            if($timeline_layout === 'horizontal'){
+            if ($timeline_layout === 'horizontal')
+            {
 
                 var $carousel = $scope.find('.jltma-timeline-carousel-slider');
 
-                if (!$carousel.length) {
+                if (!$carousel.length)
+                {
                     return;
                 }
 
                 var $carouselContainer = $scope.find('.swiper-container'),
-                    $settings          = $carousel.data('settings'),
+                    $settings = $carousel.data('settings'),
                     Swiper = elementorFrontend.utils.swiper;
 
                 initSwiper();
 
-                async function initSwiper() {
+                async function initSwiper()
+                {
                     var swiper = await new Swiper($carouselContainer, $settings);
-                    if ($settings.pauseOnHover) {
-                        $($carouselContainer).hover(function() {
+                    if ($settings.pauseOnHover)
+                    {
+                        $($carouselContainer).hover(function ()
+                        {
                             (this).swiper.autoplay.stop();
-                        }, function() {
+                        }, function ()
+                        {
                             (this).swiper.autoplay.start();
                         });
                     }
@@ -1489,19 +1716,23 @@
             }
 
 
-            if($timeline_layout === 'vertical' || $timeline_type === "post"){
+            if ($timeline_layout === 'vertical' || $timeline_type === "post")
+            {
                 var $timeline = $scope.find('.jltma-timeline'),
                     timelineArgs = {};
 
-                Master_Addons.MA_Timeline.init = function() {
-                    if ( elementorFrontend.isEditMode() ) {
+                Master_Addons.MA_Timeline.init = function ()
+                {
+                    if (elementorFrontend.isEditMode())
+                    {
                         timelineArgs.scope = window.elementor.$previewContents;
                     }
 
-                    if ( 'undefined' !== typeof elementSettings.line_location && elementSettings.line_location.size ) {
+                    if ('undefined' !== typeof elementSettings.line_location && elementSettings.line_location.size)
+                    {
                         timelineArgs.lineLocation = elementSettings.line_location.size;
                     }
-                    $timeline.maTimeline( timelineArgs );
+                    $timeline.maTimeline(timelineArgs);
                 };
                 Master_Addons.MA_Timeline.init();
             }
@@ -1510,11 +1741,15 @@
 
 
         //Master Addons: News Ticker
-        MA_NewsTicker: function ($scope, $) {
+        MA_NewsTicker: function ($scope, $)
+        {
 
-            try {
-                (function ($) {
-                    $(window).load(function (e) {
+            try
+            {
+                (function ($)
+                {
+                    $(window).load(function (e)
+                    {
 
                         var newsTickerWrapper = $scope.find(".jltma-news-ticker"),
                             tickerType = newsTickerWrapper.data('tickertype'),
@@ -1526,7 +1761,8 @@
                             autoplay = newsTickerWrapper.data('autoplay'),
                             timer = newsTickerWrapper.data('timer');
 
-                        if (tickerType === "content") {
+                        if (tickerType === "content")
+                        {
 
                             $("#" + tickerid + "").breakingNews({
                                 effect: "" + tickerStyleEffect + "",
@@ -1538,9 +1774,11 @@
                             });
                         }
 
-                        if (tickerType === "feed") {
+                        if (tickerType === "feed")
+                        {
 
-                            jQuery(function ($) {
+                            jQuery(function ($)
+                            {
 
                                 var feed_container = $("#" + tickerid + ' .jltma-ticker-content-inner');
 
@@ -1607,14 +1845,15 @@
                                         // valid values: 'show', 'slide', 'slideFast', 'slideSynced', 'slideFastSynced'
                                         effect: feedAnimation,
 
-                                    }, function () {
+                                    }, function ()
+                                {
 
-                                        $("#" + tickerid + "").breakingNews({
-                                            effect: "" + tickerStyleEffect + "",
-                                            autoplay: autoplay,
-                                            timer: timer
-                                        });
-                                    })
+                                    $("#" + tickerid + "").breakingNews({
+                                        effect: "" + tickerStyleEffect + "",
+                                        autoplay: autoplay,
+                                        timer: timer
+                                    });
+                                })
                             });
 
                         }
@@ -1622,7 +1861,8 @@
                     }); // End of Window load
 
                 })(jQuery);
-            } catch (e) {
+            } catch (e)
+            {
                 //We can also throw from try block and catch it here
                 // No Error Show
             }
@@ -1635,18 +1875,20 @@
          * Master Addons: MA Blog Posts
          */
 
-        MA_Blog: function ($scope, $) {
-            var elementSettings     = getElementSettings( $scope ),
-                uniqueId 		    = getUniqueLoopScopeId( $scope ),
-                scopeId 		    = $scope.data('id'),
-                $swiper 	        = $scope.find('.jltma-swiper__container'),
-                $thumbs 	        = $scope.find('.jltma-grid__item'),
-                blogElement         = $scope.find(".jltma-blog-wrapper"),
-                colsNumber          = blogElement.data("col"),
-                carousel            = blogElement.data("carousel"),
-                grid                = blogElement.data("grid");
+        MA_Blog: function ($scope, $)
+        {
+            var elementSettings = getElementSettings($scope),
+                uniqueId = getUniqueLoopScopeId($scope),
+                scopeId = $scope.data('id'),
+                $swiper = $scope.find('.jltma-swiper__container'),
+                $thumbs = $scope.find('.jltma-grid__item'),
+                blogElement = $scope.find(".jltma-blog-wrapper"),
+                colsNumber = blogElement.data("col"),
+                carousel = blogElement.data("carousel"),
+                grid = blogElement.data("grid");
 
-            $scope.find(".jltma-blog-cats-container li a").click(function (e) {
+            $scope.find(".jltma-blog-cats-container li a").click(function (e)
+            {
                 e.preventDefault();
 
                 $scope
@@ -1664,8 +1906,10 @@
 
             var masonryBlog = blogElement.hasClass("jltma-blog-masonry");
 
-            if (masonryBlog && !carousel) {
-                blogElement.imagesLoaded(function () {
+            if (masonryBlog && !carousel)
+            {
+                blogElement.imagesLoaded(function ()
+                {
                     blogElement.isotope({
                         itemSelector: ".jltma-post-outer-container",
                         percentPosition: true,
@@ -1682,88 +1926,106 @@
             // Carousel
             var $carousel = $scope.find('.jltma-blog-carousel-slider');
 
-            if (!$carousel.length) {
+            if (!$carousel.length)
+            {
                 return;
             }
 
             var $carouselContainer = $scope.find('.swiper-container'),
-                $settings          = $carousel.data('settings'),
+                $settings = $carousel.data('settings'),
                 Swiper = elementorFrontend.utils.swiper;
 
-                initSwiper();
+            initSwiper();
 
-                async function initSwiper() {
-                    var swiper = await new Swiper($carouselContainer, $settings);
-                    if ($settings.pauseOnHover) {
-                        $($carouselContainer).hover(function() {
-                            (this).swiper.autoplay.stop();
-                        }, function() {
-                            (this).swiper.autoplay.start();
-                        });
-                    }
-                };
+            async function initSwiper()
+            {
+                var swiper = await new Swiper($carouselContainer, $settings);
+                if ($settings.pauseOnHover)
+                {
+                    $($carouselContainer).hover(function ()
+                    {
+                        (this).swiper.autoplay.stop();
+                    }, function ()
+                    {
+                        (this).swiper.autoplay.start();
+                    });
+                }
+            };
 
         },
 
 
         /**** MA Image Carousel ****/
-        MA_Image_Carousel: function ($scope, $) {
+        MA_Image_Carousel: function ($scope, $)
+        {
 
             var $carousel = $scope.find('.jltma-image-carousel-slider');
 
-            if (!$carousel.length) {
+            if (!$carousel.length)
+            {
                 return;
             }
 
             var $carouselContainer = $scope.find('.swiper-container'),
-                $settings          = $carousel.data('settings'),
+                $settings = $carousel.data('settings'),
                 Swiper = elementorFrontend.utils.swiper;
 
-                initSwiper();
+            initSwiper();
 
-                async function initSwiper() {
-                    var swiper = await new Swiper($carouselContainer, $settings);
-                    if ($settings.pauseOnHover) {
-                        $($carouselContainer).hover(function() {
-                            (this).swiper.autoplay.stop();
-                        }, function() {
-                            (this).swiper.autoplay.start();
-                        });
-                    }
-                };
+            async function initSwiper()
+            {
+                var swiper = await new Swiper($carouselContainer, $settings);
+                if ($settings.pauseOnHover)
+                {
+                    $($carouselContainer).hover(function ()
+                    {
+                        (this).swiper.autoplay.stop();
+                    }, function ()
+                    {
+                        (this).swiper.autoplay.start();
+                    });
+                }
+            };
         },
 
         /**** MA Logo Slider ****/
-        MA_Logo_Slider: function ($scope, $) {
+        MA_Logo_Slider: function ($scope, $)
+        {
 
             var $carousel = $scope.find('.jltma-logo-carousel-slider');
 
-            if (!$carousel.length) {
+            if (!$carousel.length)
+            {
                 return;
             }
 
             var $carouselContainer = $scope.find('.swiper-container'),
-                $settings          = $carousel.data('settings'),
+                $settings = $carousel.data('settings'),
                 Swiper = elementorFrontend.utils.swiper;
 
-                initSwiper();
+            initSwiper();
 
-                async function initSwiper() {
-                    var swiper = await new Swiper($carouselContainer, $settings);
-                    if ($settings.pauseOnHover) {
-                        $($carouselContainer).hover(function() {
-                            (this).swiper.autoplay.stop();
-                        }, function() {
-                            (this).swiper.autoplay.start();
-                        });
-                    }
-                };
+            async function initSwiper()
+            {
+                var swiper = await new Swiper($carouselContainer, $settings);
+                if ($settings.pauseOnHover)
+                {
+                    $($carouselContainer).hover(function ()
+                    {
+                        (this).swiper.autoplay.stop();
+                    }, function ()
+                    {
+                        (this).swiper.autoplay.start();
+                    });
+                }
+            };
 
 
             /**
              * Icon click for hover
              */
-            $carousel.find('.jltma-logo-slider-figure').on('click','.item-hover-icon',function(){
+            $carousel.find('.jltma-logo-slider-figure').on('click', '.item-hover-icon', function ()
+            {
                 var $this = $(this);
                 $this.toggleClass('hide');
                 $this.siblings('.jltma-hover-click').toggleClass('show');
@@ -1773,31 +2035,38 @@
              * Tooltip jS
              */
             var $tooltipSelector = $carousel.find('.jltma-logo-slider-item');
-            $tooltipSelector.each(function(e){
+            $tooltipSelector.each(function (e)
+            {
                 var $currentTooltip = $(this).attr('id');
-                if( $currentTooltip ){
+                if ($currentTooltip)
+                {
                     var $dataId = $(this).data('id');
                     var $tooltipSettings = $(this).data('tooltip-settings');
-                    var selector = '#'+$currentTooltip;
+                    var selector = '#' + $currentTooltip;
                     var $follow_cursor = $tooltipSettings.follow_cursor;
                     var placement_cursor;
-                    if( $follow_cursor == 1 ){
+                    if ($follow_cursor == 1)
+                    {
                         placement_cursor = {
                             followCursor: true,
                         };
-                    }else{
+                    } else
+                    {
                         placement_cursor = {
                             placement: $tooltipSettings.placement,
                             followCursor: false,
                         };
                     }
 
-                    console.log($tooltipSettings.arrow,$tooltipSettings.arrow_type);
+                    console.log($tooltipSettings.arrow, $tooltipSettings.arrow_type);
                     var arrowType = false;
-                    if( $tooltipSettings.arrow == 1 ) {
-                        if($tooltipSettings.arrow_type == 'round'){
+                    if ($tooltipSettings.arrow == 1)
+                    {
+                        if ($tooltipSettings.arrow_type == 'round')
+                        {
                             arrowType = tippy.roundArrow;
-                        }else{
+                        } else
+                        {
                             arrowType = true;
                         }
                     }
@@ -1815,8 +2084,9 @@
                         offset: [$tooltipSettings.x_offset, $tooltipSettings.y_offset],
                         zIndex: 999999,
                         allowHTML: true,
-                        theme: 'jltma-tippy-' +  $dataId,
-                        onShow(instance) {
+                        theme: 'jltma-tippy-' + $dataId,
+                        onShow(instance)
+                        {
                             var tippyPopper = instance.popper;
                             $(tippyPopper).addClass($dataId);
                         }
@@ -1828,19 +2098,23 @@
 
 
         /**** MA Team Slider ****/
-        MA_TeamSlider: function ($scope, $) {
+        MA_TeamSlider: function ($scope, $)
+        {
 
-            var elementSettings     = getElementSettings( $scope ),
-                uniqueId 		    = getUniqueLoopScopeId( $scope ),
-                scopeId 		    = $scope.data('id'),
+            var elementSettings = getElementSettings($scope),
+                uniqueId = getUniqueLoopScopeId($scope),
+                scopeId = $scope.data('id'),
                 $teamCarouselWrapper = $scope.find('.jltma-team-carousel-wrapper').eq(0),
                 $team_preset = $teamCarouselWrapper.data("team-preset"),
                 $ma_el_team_circle_image_animation = $teamCarouselWrapper.data("ma_el_team_circle_image_animation");
 
-            if ($team_preset == "-content-drawer") {
+            if ($team_preset == "-content-drawer")
+            {
 
-                try {
-                    (function ($) {
+                try
+                {
+                    (function ($)
+                    {
 
                         $('.gridder').gridderExpander({
                             scroll: false,
@@ -1852,48 +2126,58 @@
                             nextText: "<span></span>", // Next button text
                             prevText: "<span></span>", // Previous button text
                             closeText: "", // Close button text
-                            onStart: function () {
+                            onStart: function ()
+                            {
                                 //Gridder Inititialized
                             },
-                            onContent: function () {
+                            onContent: function ()
+                            {
                                 //Gridder Content Loaded
                             },
-                            onClosed: function () {
+                            onClosed: function ()
+                            {
                                 //Gridder Closed
                             }
                         });
 
                     })(jQuery);
-                } catch (e) {
+                } catch (e)
+                {
                     //We can also throw from try block and catch it here
                     // No Error Show
                 }
 
 
-            } else {
+            } else
+            {
 
                 var $carousel = $scope.find('.jltma-team-carousel-slider');
 
-                if (!$carousel.length) {
+                if (!$carousel.length)
+                {
                     return;
                 }
 
                 var $carouselContainer = $scope.find('.swiper-container'),
-                    $settings          = $carousel.data('settings'),
+                    $settings = $carousel.data('settings'),
                     Swiper = elementorFrontend.utils.swiper;
 
-                    initSwiper();
+                initSwiper();
 
-                    async function initSwiper() {
-                        var swiper = await new Swiper($carouselContainer, $settings);
-                        if ($settings.pauseOnHover) {
-                            $($carouselContainer).hover(function() {
-                                (this).swiper.autoplay.stop();
-                            }, function() {
-                                (this).swiper.autoplay.start();
-                            });
-                        }
-                    };
+                async function initSwiper()
+                {
+                    var swiper = await new Swiper($carouselContainer, $settings);
+                    if ($settings.pauseOnHover)
+                    {
+                        $($carouselContainer).hover(function ()
+                        {
+                            (this).swiper.autoplay.stop();
+                        }, function ()
+                        {
+                            (this).swiper.autoplay.start();
+                        });
+                    }
+                };
             }
 
             // else if ($team_preset == "-circle-animation"){
@@ -1905,26 +2189,33 @@
         },
 
         /**** MA Advanced Image ****/
-        MA_Advanced_Image: function ($scope, $) {
+        MA_Advanced_Image: function ($scope, $)
+        {
 
-            Master_Addons.MA_Advanced_Image.elementSettings    = getElementSettings( $scope );
+            Master_Addons.MA_Advanced_Image.elementSettings = getElementSettings($scope);
 
-            $scope.find('.jltma-img-dynamic-dropshadow').each(function() {
+            $scope.find('.jltma-img-dynamic-dropshadow').each(function ()
+            {
 
                 var imgFrame, clonedImg, img;
 
-                if( this instanceof jQuery ){
-                    if( this && this[0] ){
+                if (this instanceof jQuery)
+                {
+                    if (this && this[0])
+                    {
                         img = this[0];
-                    } else {
+                    } else
+                    {
                         return;
                     }
-                } else {
+                } else
+                {
                     img = this;
                 }
 
-                if ( ! img.classList.contains('jltma-img-has-shadow')){
-                    imgFrame  = document.createElement('div');
+                if (!img.classList.contains('jltma-img-has-shadow'))
+                {
+                    imgFrame = document.createElement('div');
                     clonedImg = img.cloneNode();
 
                     clonedImg.classList.add('jltma-img-dynamic-dropshadow-cloned');
@@ -1940,7 +2231,7 @@
 
             //Tilt Effect
             $scope.find('.jltma-tilt-box').tilt({
-                maxTilt : $(this).data('max-tilt'),
+                maxTilt: $(this).data('max-tilt'),
                 easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
                 speed: $(this).data('time'),
                 perspective: 2000
@@ -1948,105 +2239,121 @@
         },
 
         /* MA Tooltip */
-        MA_Tooltip: function ($scope, $) {
+        MA_Tooltip: function ($scope, $)
+        {
 
-            var elementSettings           = getElementSettings( $scope ),
-                scopeId                   = $scope.data('id'),
-                $currentTooltip           = '#jltma-tooltip-' + scopeId,
-                $ma_el_tooltip_text       = elementSettings.ma_el_tooltip_text?elementSettings.ma_el_tooltip_text:'top',
-                $ma_el_tooltip_direction  = elementSettings.jltma_tooltip_follow_cursor?elementSettings.jltma_tooltip_follow_cursor:elementSettings.ma_el_tooltip_direction,
-                $jltma_tooltip_animation  = elementSettings.jltma_tooltip_animation?elementSettings.jltma_tooltip_animation:'',
-                $jltma_tooltip_arrow      = elementSettings.jltma_tooltip_arrow?elementSettings.jltma_tooltip_arrow: true,
-                $jltma_tooltip_duration   = elementSettings.jltma_tooltip_duration?elementSettings.jltma_tooltip_duration: 300,
-                $jltma_tooltip_delay      = elementSettings.jltma_tooltip_delay?elementSettings.jltma_tooltip_delay: 300,
-                $ma_el_tooltip_text_width = elementSettings.ma_el_tooltip_text_width?elementSettings.ma_el_tooltip_text_width: '200px',
-                $jltma_tooltip_arrow_type = elementSettings.jltma_tooltip_arrow_type?elementSettings.jltma_tooltip_arrow_type: 'sharp',
-                $jltma_tooltip_distance   = elementSettings.jltma_tooltip_distance?elementSettings.jltma_tooltip_distance: 10,
-                $jltma_tooltip_trigger    = elementSettings.jltma_tooltip_trigger?elementSettings.jltma_tooltip_trigger:'mouseenter',
-                $animateFill              = elementSettings.jltma_tooltip_animation == "fill" ? true : false;
+            var elementSettings = getElementSettings($scope),
+                scopeId = $scope.data('id'),
+                $currentTooltip = '#jltma-tooltip-' + scopeId,
+                $ma_el_tooltip_text = elementSettings.ma_el_tooltip_text ? elementSettings.ma_el_tooltip_text : 'top',
+                $ma_el_tooltip_direction = elementSettings.jltma_tooltip_follow_cursor ? elementSettings.jltma_tooltip_follow_cursor : elementSettings.ma_el_tooltip_direction,
+                $jltma_tooltip_animation = elementSettings.jltma_tooltip_animation ? elementSettings.jltma_tooltip_animation : '',
+                $jltma_tooltip_arrow = elementSettings.jltma_tooltip_arrow ? elementSettings.jltma_tooltip_arrow : true,
+                $jltma_tooltip_duration = elementSettings.jltma_tooltip_duration ? elementSettings.jltma_tooltip_duration : 300,
+                $jltma_tooltip_delay = elementSettings.jltma_tooltip_delay ? elementSettings.jltma_tooltip_delay : 300,
+                $ma_el_tooltip_text_width = elementSettings.ma_el_tooltip_text_width ? elementSettings.ma_el_tooltip_text_width : '200px',
+                $jltma_tooltip_arrow_type = elementSettings.jltma_tooltip_arrow_type ? elementSettings.jltma_tooltip_arrow_type : 'sharp',
+                $jltma_tooltip_distance = elementSettings.jltma_tooltip_distance ? elementSettings.jltma_tooltip_distance : 10,
+                $jltma_tooltip_trigger = elementSettings.jltma_tooltip_trigger ? elementSettings.jltma_tooltip_trigger : 'mouseenter',
+                $animateFill = elementSettings.jltma_tooltip_animation == "fill" ? true : false;
 
-                var $ma_tooltip = $scope.find('.jltma-tooltip');
-                if ( ! $ma_tooltip.length ) {
-                    return;
+            var $ma_tooltip = $scope.find('.jltma-tooltip');
+            if (!$ma_tooltip.length)
+            {
+                return;
+            }
+
+            tippy($currentTooltip, {
+                content: $ma_el_tooltip_text,
+                placement: $ma_el_tooltip_direction,
+                animation: $jltma_tooltip_animation,
+                arrow: $jltma_tooltip_arrow,
+                arrowType: $jltma_tooltip_arrow_type,
+                duration: $jltma_tooltip_duration,
+                distance: $jltma_tooltip_distance,
+                delay: $jltma_tooltip_delay,
+                size: $ma_el_tooltip_text_width,
+                trigger: $jltma_tooltip_trigger,
+                animateFill: $animateFill,
+                flipOnUpdate: true,
+                maxWidth: $ma_el_tooltip_text_width,
+                zIndex: 999,
+                allowHTML: true,
+                theme: 'jltma-image-filter-tippy-' + scopeId,
+                interactive: true,
+                appendTo: 'parent',
+                onShow(instance)
+                {
+                    var tippyPopper = instance.popper;
+                    jQuery(tippyPopper).attr('data-tippy-popper-id', scopeId);
                 }
-
-                tippy($currentTooltip, {
-                    content  : $ma_el_tooltip_text,
-                    placement: $ma_el_tooltip_direction,
-                    animation: $jltma_tooltip_animation,
-                    arrow    : $jltma_tooltip_arrow,
-                    arrowType: $jltma_tooltip_arrow_type,
-                    duration : $jltma_tooltip_duration,
-                    distance : $jltma_tooltip_distance,
-                    delay    : $jltma_tooltip_delay,
-                    size     : $ma_el_tooltip_text_width,
-                    trigger  : $jltma_tooltip_trigger,
-                    animateFill: $animateFill,
-                    flipOnUpdate: true,
-                    maxWidth    : $ma_el_tooltip_text_width,
-                    zIndex      : 999,
-                    allowHTML: true,
-                    theme    : 'jltma-image-filter-tippy-' + scopeId,
-                    interactive: true,
-                    appendTo: 'parent',
-                    onShow(instance) {
-                        var tippyPopper = instance.popper;
-                        jQuery(tippyPopper).attr('data-tippy-popper-id', scopeId);
-                    }
-                });
+            });
         },
 
         /**** MA Twitter Slider ****/
 
-        MA_Twitter_Slider: function ($scope, $) {
+        MA_Twitter_Slider: function ($scope, $)
+        {
 
             var $carousel = $scope.find('.jltma-twitter-carousel-slider');
 
-            if (!$carousel.length) {
+            if (!$carousel.length)
+            {
                 return;
             }
 
             var $carouselContainer = $scope.find('.swiper-container'),
-                $settings          = $carousel.data('settings'),
+                $settings = $carousel.data('settings'),
                 Swiper = elementorFrontend.utils.swiper;
 
-                initSwiper();
+            initSwiper();
 
-                async function initSwiper() {
-                    var swiper = await new Swiper($carouselContainer, $settings);
-                    if ($settings.pauseOnHover) {
-                        $($carouselContainer).hover(function() {
-                            (this).swiper.autoplay.stop();
-                        }, function() {
-                            (this).swiper.autoplay.start();
-                        });
-                    }
-                };
+            async function initSwiper()
+            {
+                var swiper = await new Swiper($carouselContainer, $settings);
+                if ($settings.pauseOnHover)
+                {
+                    $($carouselContainer).hover(function ()
+                    {
+                        (this).swiper.autoplay.stop();
+                    }, function ()
+                    {
+                        (this).swiper.autoplay.start();
+                    });
+                }
+            };
 
 
         },
 
 
-        MA_ParticlesBG: function ($scope, $) {
+        MA_ParticlesBG: function ($scope, $)
+        {
 
-            if ($scope.hasClass('jltma-particle-yes')) {
+            if ($scope.hasClass('jltma-particle-yes'))
+            {
                 let id = $scope.data('id');
                 let element_type = $scope.data('element_type');
                 let pdata = $scope.data('jltma-particle');
                 let pdata_wrapper = $scope.find('.jltma-particle-wrapper').data('ma-el-pdata');
 
-                if (typeof pdata != 'undefined' && pdata != '') {
-                    if ($scope.find('.ma-el-section-bs').length > 0) {
+                if (typeof pdata != 'undefined' && pdata != '')
+                {
+                    if ($scope.find('.ma-el-section-bs').length > 0)
+                    {
                         $scope.find('.ma-el-section-bs').after('<div class="jltma-particle-wrapper"' +
                             ' id="jltma-particle-' + id + '"></div>');
                         particlesJS('jltma-particle-' + id, pdata);
-                    } else {
+                    } else
+                    {
 
-                        if (element_type == 'column') {
+                        if (element_type == 'column')
+                        {
 
                             $scope.find('.elementor-column-wrap').prepend('<div class="jltma-particle-wrapper"' +
                                 ' id="jltma-particle-' + id + '"></div>');
-                        } else {
+                        } else
+                        {
                             $scope.prepend('<div class="jltma-particle-wrapper" id="jltma-particle-' + id + '"></div>');
                         }
 
@@ -2054,15 +2361,18 @@
                     }
 
 
-                } else if (typeof pdata_wrapper != 'undefined' && pdata_wrapper != '') {
+                } else if (typeof pdata_wrapper != 'undefined' && pdata_wrapper != '')
+                {
 
                     // $scope.prepend('<div class="jltma-particle-wrapper" id="jltma-particle-'+ id +'"></div>');
 
-                    if (element_type == 'column') {
+                    if (element_type == 'column')
+                    {
                         $scope.find('.elementor-column-wrap').prepend('<div class="jltma-particle-wrapper"' +
                             ' id="jltma-particle-' + id + '"></div>');
                     }
-                    else {
+                    else
+                    {
                         $scope.prepend('<div class="jltma-particle-wrapper" id="jltma-particle-' + id + '"></div>');
                     }
 
@@ -2079,22 +2389,28 @@
 
         },
 
-        MA_BgSlider: function ($scope, $) {
+        MA_BgSlider: function ($scope, $)
+        {
             var ma_el_slides = [], ma_el_slides_json = [], ma_el_transition, ma_el_animation, ma_el_custom_overlay, ma_el_overlay, ma_el_cover, ma_el_delay, ma_el_timer;
             var slider_wrapper = $scope.children('.ma-el-section-bs').children('.ma-el-section-bs-inner');
 
-            if (slider_wrapper && slider_wrapper.data('ma-el-bg-slider')) {
+            if (slider_wrapper && slider_wrapper.data('ma-el-bg-slider'))
+            {
 
                 var slider_images = slider_wrapper.data('ma-el-bg-slider');
                 ma_el_transition = slider_wrapper.data('ma-el-bg-slider-transition');
                 ma_el_animation = slider_wrapper.data('ma-el-bg-slider-animation');
                 ma_el_custom_overlay = slider_wrapper.data('ma-el-bg-custom-overlay');
-                if (ma_el_custom_overlay == 'yes') {
+                if (ma_el_custom_overlay == 'yes')
+                {
                     ma_el_overlay = jltma_scripts.plugin_url + 'assets/lib/vegas/overlays/' + slider_wrapper.data('ma-el-bg-slider-overlay');
-                } else {
-                    if (slider_wrapper.data('ma-el-bg-slider-overlay')) {
+                } else
+                {
+                    if (slider_wrapper.data('ma-el-bg-slider-overlay'))
+                    {
                         ma_el_overlay = jltma_scripts.plugin_url + 'assets/lib/vegas/overlays/' + slider_wrapper.data('ma-el-bg-slider-overlay');
-                    } else {
+                    } else
+                    {
                         ma_el_overlay = jltma_scripts.plugin_url + 'assets/lib/vegas/overlays/' + slider_wrapper.data('ma-el-bg-slider-overlay');
                     }
                 }
@@ -2103,10 +2419,12 @@
                 ma_el_delay = slider_wrapper.data('ma-el-bs-slider-delay');
                 ma_el_timer = slider_wrapper.data('ma-el-bs-slider-timer');
 
-                if (typeof slider_images != 'undefined') {
+                if (typeof slider_images != 'undefined')
+                {
                     ma_el_slides = slider_images.split(",");
 
-                    jQuery.each(ma_el_slides, function (key, value) {
+                    jQuery.each(ma_el_slides, function (key, value)
+                    {
                         var slide = [];
                         slide.src = value;
                         ma_el_slides_json.push(slide);
@@ -2120,8 +2438,10 @@
                         cover: ma_el_cover,
                         delay: ma_el_delay,
                         timer: ma_el_timer,
-                        init: function () {
-                            if (ma_el_custom_overlay == 'yes') {
+                        init: function ()
+                        {
+                            if (ma_el_custom_overlay == 'yes')
+                            {
                                 var ob_vegas_overlay = slider_wrapper.children('.vegas-overlay');
                                 ob_vegas_overlay.css('background-image', '');
                             }
@@ -2132,9 +2452,11 @@
             }
         },
 
-        MA_AnimatedGradient: function ($scope, $) {
+        MA_AnimatedGradient: function ($scope, $)
+        {
 
-            if ($scope.hasClass('ma-el-animated-gradient-yes')) {
+            if ($scope.hasClass('ma-el-animated-gradient-yes'))
+            {
                 let id = $scope.data('id');
                 let color = $scope.data('color');
                 let angle = $scope.data('angle');
@@ -2142,7 +2464,8 @@
                 let heading = $scope.find('.elementor-heading-title');
                 $scope.css('background-image', gradient_color);
 
-                if ($scope.hasClass('elementor-element-edit-mode')) {
+                if ($scope.hasClass('elementor-element-edit-mode'))
+                {
                     color = $scope.find('.animated-gradient').data('color');
                     angle = $scope.find('.animated-gradient').data('angle');
                     let gradient_color_editor = 'linear-gradient(' + angle + ',' + color + ')';
@@ -2158,25 +2481,28 @@
         },
 
 
-        MA_Image_Comparison: function ($scope, $) {
-            var $jltma_image_comp_wrap       = $scope.find('.jltma-image-comparison').eq(0),
-                $jltma_image_data            = $jltma_image_comp_wrap.data('image-comparison-settings');
+        MA_Image_Comparison: function ($scope, $)
+        {
+            var $jltma_image_comp_wrap = $scope.find('.jltma-image-comparison').eq(0),
+                $jltma_image_data = $jltma_image_comp_wrap.data('image-comparison-settings');
 
-                $jltma_image_comp_wrap.twentytwenty({
-                    default_offset_pct          : $jltma_image_data.visible_ratio,
-                    orientation                 : $jltma_image_data.orientation,
-                    before_label                : $jltma_image_data.before_label,
-                    after_label                 : $jltma_image_data.after_label,
-                    move_slider_on_hover        : $jltma_image_data.slider_on_hover,
-                    move_with_handle_only       : $jltma_image_data.slider_with_handle,
-                    click_to_move               : $jltma_image_data.slider_with_click,
-                    no_overlay                  : $jltma_image_data.no_overlay
-                });
+            $jltma_image_comp_wrap.twentytwenty({
+                default_offset_pct: $jltma_image_data.visible_ratio,
+                orientation: $jltma_image_data.orientation,
+                before_label: $jltma_image_data.before_label,
+                after_label: $jltma_image_data.after_label,
+                move_slider_on_hover: $jltma_image_data.slider_on_hover,
+                move_with_handle_only: $jltma_image_data.slider_with_handle,
+                click_to_move: $jltma_image_data.slider_with_click,
+                no_overlay: $jltma_image_data.no_overlay
+            });
         },
 
-        MA_PiechartsHandlerOnScroll: function ($scope, $) {
+        MA_PiechartsHandlerOnScroll: function ($scope, $)
+        {
 
-            $scope.waypoint(function (direction) {
+            $scope.waypoint(function (direction)
+            {
 
                 Master_Addons.MA_PiechartsHandler($(this.element), $);
 
@@ -2186,9 +2512,11 @@
             });
         },
 
-        MA_PiechartsHandler: function ($scope, $) {
+        MA_PiechartsHandler: function ($scope, $)
+        {
 
-            $scope.find('.ma-el-piechart .ma-el-percentage').each(function () {
+            $scope.find('.ma-el-piechart .ma-el-percentage').each(function ()
+            {
 
                 var track_color = $(this).data('track-color');
                 var bar_color = $(this).data('bar-color');
@@ -2208,15 +2536,19 @@
 
         },
 
-        StatsBarHandler: function ($scope, $) {
-            $scope.find('.jltma-stats-bar-content').each(function () {
+        StatsBarHandler: function ($scope, $)
+        {
+            $scope.find('.jltma-stats-bar-content').each(function ()
+            {
                 var dataperc = $(this).data('perc');
                 $(this).animate({ "width": dataperc + "%" }, dataperc * 20);
             });
         },
 
-        StatsBarHandlerOnScroll: function ($scope, $) {
-            $scope.MasterAddonshWaypoint(function (direction) {
+        StatsBarHandlerOnScroll: function ($scope, $)
+        {
+            $scope.MasterAddonshWaypoint(function (direction)
+            {
                 Master_Addons.StatsBarHandler($(this.element), $);
                 this.destroy(); // Done with handle on scroll
             }, {
@@ -2225,42 +2557,49 @@
         },
 
         // Toggle Content
-        MA_Toggle_Content: function( $scope, $ ) {
-            Master_Addons.getElementSettings    = getElementSettings($scope);
-			var $wrapper 			= $scope.find( '.jltma-toggle-content' ),
-				toggleElementArgs 	= {
-					active : Master_Addons.getElementSettings.jltma_toggle_content_active_index,
+        MA_Toggle_Content: function ($scope, $)
+        {
+            Master_Addons.getElementSettings = getElementSettings($scope);
+            var $wrapper = $scope.find('.jltma-toggle-content'),
+                toggleElementArgs = {
+                    active: Master_Addons.getElementSettings.jltma_toggle_content_active_index,
                 };
 
-            if ( '' !== Master_Addons.getElementSettings.jltma_toggle_content_indicator_color ) {
+            if ('' !== Master_Addons.getElementSettings.jltma_toggle_content_indicator_color)
+            {
                 toggleElementArgs.indicatorColor = Master_Addons.getElementSettings.jltma_toggle_content_indicator_color;
             }
 
-            if ( Master_Addons.getElementSettings.jltma_toggle_content_indicator_speed.size ) {
+            if (Master_Addons.getElementSettings.jltma_toggle_content_indicator_speed.size)
+            {
                 toggleElementArgs.speed = Master_Addons.getElementSettings.jltma_toggle_content_indicator_speed.size;
             }
 
-            if ( elementorFrontend.isEditMode() ) {
+            if (elementorFrontend.isEditMode())
+            {
                 toggleElementArgs.watchControls = true;
             }
 
-            $wrapper.MA_ToggleElement( toggleElementArgs );
+            $wrapper.MA_ToggleElement(toggleElementArgs);
         },
 
 
         // Comment Form reCaptcha
-        MA_Comment_Form_reCaptcha: function( $scope, $ ) {
-            Master_Addons.getElementSettings    = getElementSettings($scope);
+        MA_Comment_Form_reCaptcha: function ($scope, $)
+        {
+            Master_Addons.getElementSettings = getElementSettings($scope);
             var $commentsWrapper = $scope.find(".jltma-comments-wrap"),
                 $comments_recaptcha_data = $commentsWrapper.data("recaptcha"),
                 $recaptcha_protected = $commentsWrapper.data("jltma-comment-settings"),
                 jltma_comment_form;
 
-            if($recaptcha_protected.reCaptchaprotected == "yes"){
-                var onloadCallback = function() {
+            if ($recaptcha_protected.reCaptchaprotected == "yes")
+            {
+                var onloadCallback = function ()
+                {
                     jltma_comment_form = grecaptcha.render("jltma_comment_form", {
-                        "sitekey" : $comments_recaptcha_data.sitekey,
-                        "theme" : $comments_recaptcha_data.theme
+                        "sitekey": $comments_recaptcha_data.sitekey,
+                        "theme": $comments_recaptcha_data.theme
                     });
                     grecaptcha.reset(jltma_comment_form);
                 };
@@ -2270,10 +2609,12 @@
 
 
         // Master Addons: Counter Up
-        MA_Counter_Up: function( $scope, $ ) {
+        MA_Counter_Up: function ($scope, $)
+        {
             var $counterup = $scope.find(".jltma-counter-up-number");
 
-            if ( $.isFunction($.fn.counterUp) ) {
+            if ($.isFunction($.fn.counterUp))
+            {
                 $counterup.counterUp({
                     duration: 2000,
                     delay: 15,
@@ -2284,10 +2625,12 @@
 
 
         // Master Addons: Countdown Timer
-        MA_CountdownTimer: function ($scope, $) {
+        MA_CountdownTimer: function ($scope, $)
+        {
 
             var $countdownWidget = $scope.find(".jltma-widget-countdown");
-            $.fn.MasterCountDownTimer = function () {
+            $.fn.MasterCountDownTimer = function ()
+            {
                 var $wrapper = $(this).find(".jltma-countdown-wrapper"),
                     data = {
                         year: $wrapper.data("countdown-year"),
@@ -2306,7 +2649,8 @@
                     $min = $wrapper.find('.jltma-countdown-min'),
                     $sec = $wrapper.find('.jltma-countdown-sec');
 
-                setInterval(function () {
+                setInterval(function ()
+                {
                     var diffTime = (Date.parse(targetDate) - Date.parse(new Date())) / 1000;
 
                     if (diffTime < 0) return;
@@ -2318,7 +2662,8 @@
                     $min.text(Math.floor((diffTime / 60) % 60)); // 1 min  = 60 second
                     $sec.text(Math.floor((diffTime) % 60));
                 }, 1e3)
-            }, $countdownWidget.each(function () {
+            }, $countdownWidget.each(function ()
+            {
                 $(this).MasterCountDownTimer()
             })
 
@@ -2328,9 +2673,12 @@
         /**
          * Fancybox popup
          */
-        MA_Fancybox_Popup: function ($scope, $) {
-            (function ($) {
-                if ($.isFunction($.fn.fancybox)) {
+        MA_Fancybox_Popup: function ($scope, $)
+        {
+            (function ($)
+            {
+                if ($.isFunction($.fn.fancybox))
+                {
                     $("[data-fancybox]").fancybox({});
                 }
             })(jQuery);
@@ -2339,32 +2687,37 @@
         /*
         * REVEAL
         */
-        MA_Reveal: function ($scope, $) {
+        MA_Reveal: function ($scope, $)
+        {
 
             Master_Addons.MA_Reveal.elementSettings = getElementSettings($scope);
 
             var rev1,
                 isReveal = false;
 
-            Master_Addons.MA_Reveal.revealAction = function () {
+            Master_Addons.MA_Reveal.revealAction = function ()
+            {
                 rev1 = new RevealFx(revealistance, {
                     revealSettings: {
                         bgcolor: Master_Addons.MA_Reveal.elementSettings.reveal_bgcolor,
                         direction: Master_Addons.MA_Reveal.elementSettings.reveal_direction,
                         duration: Number(Master_Addons.MA_Reveal.elementSettings.reveal_speed.size) * 100,
                         delay: Number(Master_Addons.MA_Reveal.elementSettings.reveal_delay.size) * 100,
-                        onCover: function (contentEl, revealerEl) {
+                        onCover: function (contentEl, revealerEl)
+                        {
                             contentEl.style.opacity = 1;
                         }
                     }
                 });
             }
 
-            Master_Addons.MA_Reveal.runReveal = function () {
+            Master_Addons.MA_Reveal.runReveal = function ()
+            {
                 rev1.reveal();
             }
 
-            if (Master_Addons.MA_Reveal.elementSettings.enabled_reveal) {
+            if (Master_Addons.MA_Reveal.elementSettings.enabled_reveal)
+            {
 
                 var revealId = '#reveal-' + $scope.data('id'),
                     revealistance = document.querySelector(revealId);
@@ -2382,29 +2735,35 @@
         /*
         * MA Rellax
         */
-        MA_Rellax: function ($scope, $) {
+        MA_Rellax: function ($scope, $)
+        {
 
             var elementSettings = getElementSettings($scope);
             var rellax = null;
 
-            $(window).on('resize', function () {
+            $(window).on('resize', function ()
+            {
 
-                if (rellax) {
+                if (rellax)
+                {
                     rellax.destroy();
                     if (rellax)
                         initRellax();
                 }
             });
 
-            var initRellax = function () {
-                if (elementSettings.enabled_rellax) {
+            var initRellax = function ()
+            {
+                if (elementSettings.enabled_rellax)
+                {
 
                     currentDevice = elementorFrontend.getCurrentDeviceMode();
 
                     var setting_speed = 'speed_rellax';
                     var value_speed = 0;
 
-                    if (currentDevice != 'desktop') {
+                    if (currentDevice != 'desktop')
+                    {
                         setting_speed = 'speed_rellax_' + currentDevice;
                     }
 
@@ -2427,7 +2786,8 @@
 
         },
 
-        MA_Rellax_Final: function (panel, model, view) {
+        MA_Rellax_Final: function (panel, model, view)
+        {
             Master_Addons.getElementSettings = getElementSettings($scope);
             var $scope = view.$el;
             var scene = $scope.find('#scene');
@@ -2435,32 +2795,39 @@
 
 
         // Entrance Animations
-        MA_Entrance_Animation: function ($scope, $) {
+        MA_Entrance_Animation: function ($scope, $)
+        {
 
             $scope = $scope || $(this);
 
-            var $target      = $scope.hasClass('jltma-appear-watch-animation') ? $scope: $scope.find('.jltma-appear-watch-animation'),
+            var $target = $scope.hasClass('jltma-appear-watch-animation') ? $scope : $scope.find('.jltma-appear-watch-animation'),
                 hasAnimation = $('body').hasClass('jltma-page-animation');
 
-            if( ! $target.length ){
+            if (!$target.length)
+            {
                 return;
             }
 
-            if ( hasAnimation ) {
-                document.body.addEventListener( 'JltmaPageAnimationDone', function(event) {
+            if (hasAnimation)
+            {
+                document.body.addEventListener('JltmaPageAnimationDone', function (event)
+                {
                     $target.appearl({
                         offset: '200px',
-                        insetOffset:'0px'
-                    }).one( 'appear', function(event, data) {
+                        insetOffset: '0px'
+                    }).one('appear', function (event, data)
+                    {
                         this.classList.add('jltma-animated');
                         this.classList.add('jltma-animated-once');
                     });
                 });
-            } else {
+            } else
+            {
                 $target.appearl({
                     offset: '200px',
-                    insetOffset:'0px'
-                }).one( 'appear', function(event, data) {
+                    insetOffset: '0px'
+                }).one('appear', function (event, data)
+                {
                     this.classList.add('jltma-animated');
                     this.classList.add('jltma-animated-once');
                 });
@@ -2470,7 +2837,8 @@
 
 
         // Wrapper Link
-        MA_Wrapper_Link: function ($scope, $) {
+        MA_Wrapper_Link: function ($scope, $)
+        {
 
 
             // $('[data-jltma-wrapper-link]').each(function() {
@@ -2489,166 +2857,192 @@
         /**
          * Restrict Content
          */
-         MA_Restrict_Content_Ajax: function ($scope, $) {
+        MA_Restrict_Content_Ajax: function ($scope, $)
+        {
 
             Master_Addons.getElementSettings = getElementSettings($scope);
 
-            var $restrictwrapper    = $scope.find('.jltma-restrict-content-wrap').eq(0),
-                $scopeId            = $scope.data('id'),
-                $restrict_layout    = $restrictwrapper.data('restrict-layout-type'),
-                $restrict_type      = $restrictwrapper.data('restrict-type'),
-                $error_message      = $restrictwrapper.data('error-message'),
-                $rc_ajaxify         = $restrictwrapper.data('rc-ajaxify'),
+            var $restrictwrapper = $scope.find('.jltma-restrict-content-wrap').eq(0),
+                $scopeId = $scope.data('id'),
+                $restrict_layout = $restrictwrapper.data('restrict-layout-type'),
+                $restrict_type = $restrictwrapper.data('restrict-type'),
+                $error_message = $restrictwrapper.data('error-message'),
+                $rc_ajaxify = $restrictwrapper.data('rc-ajaxify'),
 
-                $storageID          = 'ma_el_rc_' + $scopeId,
-                $formID             = $scope.find('.jltma-restrict-form').eq(0).data('form-id'),
+                $storageID = 'ma_el_rc_' + $scopeId,
+                $formID = $scope.find('.jltma-restrict-form').eq(0).data('form-id'),
 
                 // Content
-                $content_div         = '#restrict-content-' + $scopeId,
+                $content_div = '#restrict-content-' + $scopeId,
 
                 // Popup Settings
-                $popup              = $scope.find( '.jltma-restrict-content-popup-content' ),
-                $content_pass       = $restrictwrapper.data('content-pass') ? $restrictwrapper.data('content-pass') : '',
-                $popup_type         = $popup.data('popup-type') ? $popup.data('popup-type') : '',
+                $popup = $scope.find('.jltma-restrict-content-popup-content'),
+                $content_pass = $restrictwrapper.data('content-pass') ? $restrictwrapper.data('content-pass') : '',
+                $popup_type = $popup.data('popup-type') ? $popup.data('popup-type') : '',
 
                 // Restrict Age
-                $age_wrapper        = $scope.find('.jltma-restrict-age-wrapper').eq(0),
+                $age_wrapper = $scope.find('.jltma-restrict-age-wrapper').eq(0),
 
-                $restrict_age       = {
-                    min_age             : $age_wrapper.data('min-age'),
-                    age_type            : $age_wrapper.data('age-type'),
-                    age_title           : $age_wrapper.data('age-title'),
-                    age_content         : $age_wrapper.data('age-content'),
-                    age_submit          : $( '#' + $formID ).find('button[name="submit"]').val(),
-                    checkbox_msg        : $age_wrapper.data('checkbox-msg') ? $age_wrapper.data('checkbox-msg') : "",
-                    empty_bday          : $age_wrapper.data('empty-bday') ? $age_wrapper.data('empty-bday') : "",
-                    non_exist_bday      : $age_wrapper.data('non-exist-bday') ? $age_wrapper.data('non-exist-bday') : ""
+                $restrict_age = {
+                    min_age: $age_wrapper.data('min-age'),
+                    age_type: $age_wrapper.data('age-type'),
+                    age_title: $age_wrapper.data('age-title'),
+                    age_content: $age_wrapper.data('age-content'),
+                    age_submit: $('#' + $formID).find('button[name="submit"]').val(),
+                    checkbox_msg: $age_wrapper.data('checkbox-msg') ? $age_wrapper.data('checkbox-msg') : "",
+                    empty_bday: $age_wrapper.data('empty-bday') ? $age_wrapper.data('empty-bday') : "",
+                    non_exist_bday: $age_wrapper.data('non-exist-bday') ? $age_wrapper.data('non-exist-bday') : ""
                 };
 
 
-                //Check it the user has been accpeted the agreement
-                if (localStorage.getItem($storageID)) {
+            //Check it the user has been accpeted the agreement
+            if (localStorage.getItem($storageID))
+            {
 
-                    $( '.jltma-rc-button' ).addClass('d-none');
-                    $('#' + $formID).addClass('d-none');
-                    $('#jltma-restrict-age-' + $scopeId).removeClass('card');
-                    $('#jltma-restrict-age-' + $scopeId).removeClass('text-center');
-                    $('#restrict-content-' + $scopeId).addClass('d-block');
+                $('.jltma-rc-button').addClass('d-none');
+                $('#' + $formID).addClass('d-none');
+                $('#jltma-restrict-age-' + $scopeId).removeClass('card');
+                $('#jltma-restrict-age-' + $scopeId).removeClass('text-center');
+                $('#restrict-content-' + $scopeId).addClass('d-block');
 
-                } else{
+            } else
+            {
 
-                    // Dom Selector for Onpage/Popup
-                    if ($restrict_layout == "popup") {
-                        var dom_selector = '#jltma-rc-modal-'  + $scopeId;
-                    } else {
-                        var dom_selector = '#jltma-restrict-content-' + $scopeId;
+                // Dom Selector for Onpage/Popup
+                if ($restrict_layout == "popup")
+                {
+                    var dom_selector = '#jltma-rc-modal-' + $scopeId;
+                } else
+                {
+                    var dom_selector = '#jltma-restrict-content-' + $scopeId;
+                }
+
+                $(dom_selector).on('click', '.jltma_ra_select', function ()
+                {
+                    var wrap = $(this).closest('.jltma_ra_select_wrap');
+                    if (!wrap.find('.jltma_ra_options').hasClass('jltma_ra_active'))
+                    {
+                        $('.jltma_ra_options').removeClass('jltma_ra_active');
+                        wrap.find('.jltma_ra_options').addClass('jltma_ra_active');
+                        wrap.find('.jltma_ra_options').find('li:contains("' + wrap.find('.jltma_ra_select_val').html() + '")').addClass('jltma_ra_active');
                     }
-
-                    $( dom_selector ).on( 'click', '.jltma_ra_select', function() {
-                        var wrap = $( this ).closest( '.jltma_ra_select_wrap' );
-                        if( !wrap.find( '.jltma_ra_options' ).hasClass( 'jltma_ra_active' ) ) {
-                            $( '.jltma_ra_options' ).removeClass( 'jltma_ra_active' );
-                            wrap.find( '.jltma_ra_options' ).addClass( 'jltma_ra_active' );
-                            wrap.find( '.jltma_ra_options' ).find( 'li:contains("' + wrap.find( '.jltma_ra_select_val' ).html() + '")' ).addClass( 'jltma_ra_active' );
-                        }
-                        else {
-                            wrap.find( '.jltma_ra_options' ).removeClass( 'jltma_ra_active' );
-                        }
-                    });
-
-                    $( dom_selector ).on( 'click', '.jltma_ra_options ul li', function() {
-                        var wrap = $( this ).closest( '.jltma_ra_select_wrap' );
-                        wrap.find( '.jltma_ra_select_val' ).html( $( this ).html() );
-                        wrap.find( 'select' ).val( $( this ).attr( 'data-val' ) );
-                        wrap.find( '.jltma_ra_options' ).removeClass( 'jltma_ra_active' );
-                    });
-
-                    $( dom_selector ).on( 'mouseover', '.jltma_ra_options ul li', function() {
-                        if ( $( '.jltma_ra_options ul li' ).hasClass( 'jltma_ra_active' ) ) {
-                            $( '.jltma_ra_options ul li' ).removeClass( 'jltma_ra_active' );
-                        }
-                    });
-
-                    $( document ).click( function(e) {
-                        if( $( e.target ).attr( 'class' ) != 'jltma_ra_select' && !$( '.jltma_ra_select' ).find( $( e.target ) ).length ) {
-                            if( $( '.jltma_ra_options.jltma_ra_active' ).length ) {
-                                $( '.jltma_ra_options' ).removeClass( 'jltma_ra_active' );
-                            }
-                        }
-                    });
-
-
-                    //Onload Fancybox
-                    if( $popup_type == "windowload" || $popup_type=="windowloadfullscreen"){
-                           $( "#ma-el-rc-modal-hidden" ).fancybox().trigger('click');
-                    }else{
-                        $("[data-fancybox]").fancybox({});
+                    else
+                    {
+                        wrap.find('.jltma_ra_options').removeClass('jltma_ra_active');
                     }
+                });
 
-                    $( dom_selector ).on( 'submit', '#' + $formID , function(event) {
-                        event.preventDefault();
+                $(dom_selector).on('click', '.jltma_ra_options ul li', function ()
+                {
+                    var wrap = $(this).closest('.jltma_ra_select_wrap');
+                    wrap.find('.jltma_ra_select_val').html($(this).html());
+                    wrap.find('select').val($(this).attr('data-val'));
+                    wrap.find('.jltma_ra_options').removeClass('jltma_ra_active');
+                });
 
-                        var form = $( this );
-                        form.find( '.jltma_rc_result' ).remove();
+                $(dom_selector).on('mouseover', '.jltma_ra_options ul li', function ()
+                {
+                    if ($('.jltma_ra_options ul li').hasClass('jltma_ra_active'))
+                    {
+                        $('.jltma_ra_options ul li').removeClass('jltma_ra_active');
+                    }
+                });
 
-                        $.ajax({
-                            type: "POST",
-                            url: jltma_scripts.ajaxurl,
-                            data: {
-                                action: 'jltma_restrict_content',
-                                fields: form.serialize(),
-                                restrict_type: $restrict_type,
-                                error_message: $error_message,
-                                content_pass: $content_pass,
-                                restrict_age: $restrict_age
-                            },
-                            cache: false,
-                            success: function (result) {
-
-                                try {
-                                    result = jQuery.parseJSON( result );
-
-                                    if ( result['result'] == 'success' ) {
-
-                                        $('#restrict-content-'+ $scopeId).removeClass('d-none').addClass('d-block');
-
-                                        //Custom Classes add/remove
-                                        $('#' + $formID).addClass('d-none');
-                                        $('#jltma-restrict-age-' + $scopeId).removeClass('card');
-                                        $('#jltma-restrict-age-' + $scopeId).removeClass('text-center');
+                $(document).click(function (e)
+                {
+                    if ($(e.target).attr('class') != 'jltma_ra_select' && !$('.jltma_ra_select').find($(e.target)).length)
+                    {
+                        if ($('.jltma_ra_options.jltma_ra_active').length)
+                        {
+                            $('.jltma_ra_options').removeClass('jltma_ra_active');
+                        }
+                    }
+                });
 
 
-                                        //Set a cookie to remember the state
-                                        localStorage.setItem($storageID, true);
-                                        $.fancybox.close();
+                //Onload Fancybox
+                if ($popup_type == "windowload" || $popup_type == "windowloadfullscreen")
+                {
+                    $("#ma-el-rc-modal-hidden").fancybox().trigger('click');
+                } else
+                {
+                    $("[data-fancybox]").fancybox({});
+                }
 
-                                        $('.jltma-rc-button').addClass('d-none');
+                $(dom_selector).on('submit', '#' + $formID, function (event)
+                {
+                    event.preventDefault();
 
-                                    } else if ( result['result'] == 'validate' ) {
-                                        $( '#' + $formID + ' ' + '.jltma_rc_submit' ).after( '<div class="jltma_rc_result"><span class="eicon-info-circle-o"></span> ' + result['output'] + '</div>' );
-                                    } else {
-                                        throw 0;
-                                    }
+                    var form = $(this);
+                    form.find('.jltma_rc_result').remove();
+
+                    $.ajax({
+                        type: "POST",
+                        url: jltma_scripts.ajaxurl,
+                        data: {
+                            action: 'jltma_restrict_content',
+                            fields: form.serialize(),
+                            restrict_type: $restrict_type,
+                            error_message: $error_message,
+                            content_pass: $content_pass,
+                            restrict_age: $restrict_age
+                        },
+                        cache: false,
+                        success: function (result)
+                        {
+
+                            try
+                            {
+                                result = jQuery.parseJSON(result);
+
+                                if (result['result'] == 'success')
+                                {
+
+                                    $('#restrict-content-' + $scopeId).removeClass('d-none').addClass('d-block');
+
+                                    //Custom Classes add/remove
+                                    $('#' + $formID).addClass('d-none');
+                                    $('#jltma-restrict-age-' + $scopeId).removeClass('card');
+                                    $('#jltma-restrict-age-' + $scopeId).removeClass('text-center');
+
+
+                                    //Set a cookie to remember the state
+                                    localStorage.setItem($storageID, true);
+                                    $.fancybox.close();
+
+                                    $('.jltma-rc-button').addClass('d-none');
+
+                                } else if (result['result'] == 'validate')
+                                {
+                                    $('#' + $formID + ' ' + '.jltma_rc_submit').after('<div class="jltma_rc_result"><span class="eicon-info-circle-o"></span> ' + result['output'] + '</div>');
+                                } else
+                                {
+                                    throw 0;
                                 }
-                                catch(err) {
-                                    $(  '#' + $formID + ' ' + '.jltma_rc_submit' ).after( '<div class="jltma_rc_result"><span class="eicon-loading"></span> Failed, please try again.</div>' );
-                                }
-
                             }
-                        }); // ajax part end
+                            catch (err)
+                            {
+                                $('#' + $formID + ' ' + '.jltma_rc_submit').after('<div class="jltma_rc_result"><span class="eicon-loading"></span> Failed, please try again.</div>');
+                            }
 
-                    }); // End of Submit Event
+                        }
+                    }); // ajax part end
+
+                }); // End of Submit Event
 
 
-                } // localstorage
+            } // localstorage
 
 
         },
 
-        MA_Restrict_Content: function ($scope, $) {
+        MA_Restrict_Content: function ($scope, $)
+        {
 
-            try {
-                (function ($) {
+            try
+            {
+                (function ($)
+                {
                     Master_Addons.getElementSettings = getElementSettings($scope);
 
                     var $restrictwrapper = $scope.find('.jltma-restrict-content-wrap').eq(0),
@@ -2673,23 +3067,25 @@
                     Master_Addons.MA_Restrict_Content_Ajax($scope, $);
 
                 })(jQuery);
-            } catch (e) {
+            } catch (e)
+            {
                 //We can also throw from try block and catch it here
                 // No Error Show
             }
         },
 
-        MA_Nav_Menu: function ($scope, $) {
+        MA_Nav_Menu: function ($scope, $)
+        {
             Master_Addons.getElementSettings = getElementSettings($scope);
 
-            var $menuContainer      = $scope.find(".jltma-nav-menu-element"),
-                $menuID             = $menuContainer.data("menu-id"),
-                $menu_type          = $menuContainer.data("menu-layout"),
-                $menu_trigger       = $menuContainer.data("menu-trigger"),
-                $menu_offcanvas     = $menuContainer.data("menu-offcanvas"),
-                $menu_toggletype    = $menuContainer.data("menu-toggletype"),
-                $submenu_animation  = $menuContainer.data("menu-animation"),
-                $menu_container_id  = $menuContainer.data("menu-container-id"),
+            var $menuContainer = $scope.find(".jltma-nav-menu-element"),
+                $menuID = $menuContainer.data("menu-id"),
+                $menu_type = $menuContainer.data("menu-layout"),
+                $menu_trigger = $menuContainer.data("menu-trigger"),
+                $menu_offcanvas = $menuContainer.data("menu-offcanvas"),
+                $menu_toggletype = $menuContainer.data("menu-toggletype"),
+                $submenu_animation = $menuContainer.data("menu-animation"),
+                $menu_container_id = $menuContainer.data("menu-container-id"),
                 $sticky_type = $menuContainer.data("sticky-type"),
                 navbar_height = $('#' + $menu_container_id).outerHeight(),
                 menu_container_selector = $('#' + $menu_container_id);
@@ -2699,17 +3095,21 @@
 
 
             /* One Page Menu */
-            if ($menu_type == "onepage") {
+            if ($menu_type == "onepage")
+            {
 
-                $(document).on('click', '.jltma-navbar-nav li a', function (e) {
-                    if ($(this).attr('href')) {
+                $(document).on('click', '.jltma-navbar-nav li a', function (e)
+                {
+                    if ($(this).attr('href'))
+                    {
                         var self = $(this),
                             el = self.get(0),
                             href = el.href,
                             hasHash = href.indexOf('#'),
                             enable = self.parents('.jltma-navbar-nav-default').hasClass('jltma-one-page-enabled');
 
-                        if (hasHash !== -1 && (href.length > 1) && enable && (el.pathname == window.location.pathname)) {
+                        if (hasHash !== -1 && (href.length > 1) && enable && (el.pathname == window.location.pathname))
+                        {
                             e.preventDefault();
                             self.parents('.jltma-menu-container').find('.jltma-close').trigger('click');
                         }
@@ -2717,43 +3117,55 @@
                 });
 
                 // Mobile Menu close outside clicking
-                $(document).on('click', function (e) {
+                $(document).on('click', function (e)
+                {
                     var click = $(e.target),
                         opened = $(".navbar-collapse").hasClass("show");
-                     if(opened === true){
+                    if (opened === true)
+                    {
                         $(".jltma-one-page-enabled").removeClass('show');
-                     }
+                    }
                 });
 
-            } else {
+            } else
+            {
 
 
                 // Submenu Hover Animation Effect
                 var submenu_animate_class = 'animated ' + $submenu_animation,
                     submenu_selector = $('.jltma-dropdown.jltma-sub-menu');
-                $("#" + $menuID + " .jltma-menu-has-children").hover( function () {
-                    if (submenu_selector.hasClass('fade-up')) {
+                $("#" + $menuID + " .jltma-menu-has-children").hover(function ()
+                {
+                    if (submenu_selector.hasClass('fade-up'))
+                    {
                         submenu_selector.removeClass('fade-up');
                     }
-                    if (submenu_selector.hasClass('fade-down')) {
+                    if (submenu_selector.hasClass('fade-down'))
+                    {
                         submenu_selector.removeClass('fade-down');
                     }
-                    $('.jltma-dropdown.jltma-sub-menu').addClass( $submenu_animation );
+                    $('.jltma-dropdown.jltma-sub-menu').addClass($submenu_animation);
                 });
 
 
 
                 /* On Scroll Fixed Navbar */
                 ///////////////// fixed menu on scroll for Desktop
-                if ($sticky_type == "fixed-onscroll") {
-                    if ($(window).width() > 768 ) {
-                        $(function() {
-                            $(window).scroll(function() {
+                if ($sticky_type == "fixed-onscroll")
+                {
+                    if ($(window).width() > 768)
+                    {
+                        $(function ()
+                        {
+                            $(window).scroll(function ()
+                            {
                                 var scroll = $(window).scrollTop();
-                                if (scroll >= 10) {
-                                    menu_container_selector.removeClass(''+$menu_container_id +'').addClass("jltma-on-scroll-fixed");
-                                } else {
-                                    menu_container_selector.removeClass("jltma-on-scroll-fixed").addClass(''+$menu_container_id +'');
+                                if (scroll >= 10)
+                                {
+                                    menu_container_selector.removeClass('' + $menu_container_id + '').addClass("jltma-on-scroll-fixed");
+                                } else
+                                {
+                                    menu_container_selector.removeClass("jltma-on-scroll-fixed").addClass('' + $menu_container_id + '');
                                 }
                             });
                         });
@@ -2761,15 +3173,21 @@
                 }
 
 
-                if ($sticky_type == "sticky-top") {
-                    if ($(window).width() > 768 ) {
-                        $(function() {
-                            $(window).scroll(function() {
+                if ($sticky_type == "sticky-top")
+                {
+                    if ($(window).width() > 768)
+                    {
+                        $(function ()
+                        {
+                            $(window).scroll(function ()
+                            {
                                 var scroll = $(window).scrollTop();
-                                if (scroll >= 10) {
-                                    menu_container_selector.removeClass(''+$menu_container_id +'').addClass("sticky-top");
-                                } else {
-                                    menu_container_selector.removeClass("sticky-top").addClass(''+$menu_container_id +'');
+                                if (scroll >= 10)
+                                {
+                                    menu_container_selector.removeClass('' + $menu_container_id + '').addClass("sticky-top");
+                                } else
+                                {
+                                    menu_container_selector.removeClass("sticky-top").addClass('' + $menu_container_id + '');
                                 }
                             });
                         });
@@ -2777,22 +3195,27 @@
                 }
 
 
-                if ($sticky_type == "smart-scroll") {
+                if ($sticky_type == "smart-scroll")
+                {
 
                     // add padding top to show content behind navbar
                     $('body').css('padding-top', navbar_height + 'px');
-                        menu_container_selector.addClass('jltma-smart-scroll');
+                    menu_container_selector.addClass('jltma-smart-scroll');
 
                     //////////////////////// detect scroll top or down
-                    if ($('.jltma-smart-scroll').length > 0) { // check if element exists
+                    if ($('.jltma-smart-scroll').length > 0)
+                    { // check if element exists
                         var last_scroll_top = 0;
 
-                        $(window).on('scroll', function() {
+                        $(window).on('scroll', function ()
+                        {
                             var scroll_top = $(this).scrollTop();
-                            if(scroll_top < last_scroll_top) {
+                            if (scroll_top < last_scroll_top)
+                            {
                                 $('.jltma-smart-scroll').removeClass('scrolled-down').addClass('scrolled-up');
                             }
-                            else {
+                            else
+                            {
                                 $('.jltma-smart-scroll').removeClass('scrolled-up').addClass('scrolled-down');
                             }
                             last_scroll_top = scroll_top;
@@ -2801,9 +3224,12 @@
                 }
 
 
-                if ($sticky_type == "nav-fixed-top") {
-                    if ($(window).width() > 768 ) {
-                        $(function() {
+                if ($sticky_type == "nav-fixed-top")
+                {
+                    if ($(window).width() > 768)
+                    {
+                        $(function ()
+                        {
                             // add padding top to show content behind navbar
                             // $('body').css('padding-top', $('#' + $menu_container_id ).outerHeight() + 'px');
                             $('body').css('padding-top', navbar_height + 'px');
@@ -2834,41 +3260,50 @@
                 // }
 
 
-                if ($menu_toggletype == "toggle") {
+                if ($menu_toggletype == "toggle")
+                {
 
                     // Menu Toggle
-                    $("#" + $menuID + " .navbar-nav.toggle .jltma-menu-dropdown-toggle").click(function (e) {
+                    $("#" + $menuID + " .navbar-nav.toggle .jltma-menu-dropdown-toggle").click(function (e)
+                    {
                         $(this).parents(".dropdown").toggleClass("open");
                         e.stopPropagation();
                     });
                 }
 
 
-                if ($menu_offcanvas == "toggle-bar") {
-                    $(".jltma-nav-panel .navbar-toggler").on("click", function (e) {
+                if ($menu_offcanvas == "toggle-bar")
+                {
+                    $(".jltma-nav-panel .navbar-toggler").on("click", function (e)
+                    {
                         $('.jltma-burger').toggleClass("jltma-close");
                     });
                 }
 
                 // Off Canvas Menu
-                if ($menu_offcanvas == "offcanvas" || $menu_offcanvas == "overlay") {
+                if ($menu_offcanvas == "offcanvas" || $menu_offcanvas == "overlay")
+                {
 
                     // /// offcanvas onmobile
-                    $(".jltma-nav-panel .navbar-toggler").on("click", function (e) {
+                    $(".jltma-nav-panel .navbar-toggler").on("click", function (e)
+                    {
                         e.preventDefault();
                         e.stopPropagation();
                         var offcanvas_id = $(this).attr('data-trigger');
                         $(offcanvas_id).toggleClass("show");
                         $('body').toggleClass("offcanvas-active");
                         $(".jltma-nav-panel ").toggleClass("offcanvas-nav");
-                        if ($menu_offcanvas == "overlay") {
+                        if ($menu_offcanvas == "overlay")
+                        {
                             $(".jltma-nav-panel ").toggleClass("offcanvas-overlay");
                         }
                     });
 
                     /// Close menu when pressing ESC
-                    $(document).on('keydown', function (event) {
-                        if (event.keyCode === 27) {
+                    $(document).on('keydown', function (event)
+                    {
+                        if (event.keyCode === 27)
+                        {
                             $(".mobile-offcanvas").removeClass("show");
 
                             $(".desktop-offcanvas").removeClass("show");
@@ -2877,14 +3312,16 @@
                         }
                     });
 
-                    $(".btn-close, .jltma-nav-panel .offcanvas-nav, .jltma-nav-panel.desktop .jltma-close, .jltma-close").click(function (e) {
+                    $(".btn-close, .jltma-nav-panel .offcanvas-nav, .jltma-nav-panel.desktop .jltma-close, .jltma-close").click(function (e)
+                    {
                         $(".jltma-nav-panel ").removeClass("offcanvas-nav");
                         $(".mobile-offcanvas").removeClass("show");
 
                         $(".desktop-offcanvas").removeClass("show");
 
                         $("body").removeClass("offcanvas-active");
-                        if ($menu_offcanvas == "overlay") {
+                        if ($menu_offcanvas == "overlay")
+                        {
                             $(".jltma-nav-panel ").removeClass("offcanvas-overlay");
                         }
                     });
@@ -2904,40 +3341,47 @@
         },
 
 
-        initEvents: function ($scope, $) {
+        initEvents: function ($scope, $)
+        {
 
             var mainSearchWrapper = $scope.find('.jltma-search-wrapper').eq(0),
-                $search_type      = mainSearchWrapper.data('search-type'),
+                $search_type = mainSearchWrapper.data('search-type'),
                 mainContainer = $scope.find('.jltma-search-main-wrap'),
                 openCtrl = document.getElementById('jltma-btn-search'),
                 closeCtrl = document.getElementById('jltma-btn-search-close'),
                 searchContainer = $scope.find('.jltma-search'),
                 inputSearch = searchContainer.find('.jltma-search__input');
 
-            $( openCtrl ).on('click', function(){
+            $(openCtrl).on('click', function ()
+            {
                 mainContainer.addClass('main-wrap--move');
                 searchContainer.addClass('search--open');
-                setTimeout(function () {
+                setTimeout(function ()
+                {
                     inputSearch.focus();
                 }, 600);
             });
 
-            $( closeCtrl ).on('click', function(){
+            $(closeCtrl).on('click', function ()
+            {
                 mainContainer.removeClass('main-wrap--move');
                 searchContainer.removeClass('search--open');
                 inputSearch.blur();
                 inputSearch.value = '';
             });
 
-            document.addEventListener('keyup', function (ev) {
-                if (ev.keyCode == 27) {
+            document.addEventListener('keyup', function (ev)
+            {
+                if (ev.keyCode == 27)
+                {
                     Master_Addons.closeSearch();
                 }
             });
         },
 
 
-        MA_Header_Search: function ($scope, $) {
+        MA_Header_Search: function ($scope, $)
+        {
             $('body').addClass('js');
             Master_Addons.initEvents($scope, $);
         }
@@ -2947,7 +3391,8 @@
 
 
     // Start of Wrapper Link
-    $('body').on('click.onMaWrapperLink', '[data-jltma-wrapper-link]', function () {
+    $('body').on('click.onMaWrapperLink', '[data-jltma-wrapper-link]', function ()
+    {
         var $wrapper = $(this),
             data = $wrapper.data('jltma-wrapper-link'),
             id = $wrapper.data('id'),
@@ -2962,16 +3407,19 @@
         document.body.appendChild(anchor);
         anchorReal = document.getElementById(anchor.id);
         anchorReal.click();
-        timeout = setTimeout(function () {
+        timeout = setTimeout(function ()
+        {
             document.body.removeChild(anchorReal);
             clearTimeout(timeout);
         });
     });
     // End of Wrapper Link
 
-    $(window).on('elementor/frontend/init', function () {
+    $(window).on('elementor/frontend/init', function ()
+    {
 
-        if (elementorFrontend.isEditMode()) {
+        if (elementorFrontend.isEditMode())
+        {
             editMode = true;
         }
 
@@ -3020,7 +3468,8 @@
 
         
 
-        if (elementorFrontend.isEditMode()) {
+        if (elementorFrontend.isEditMode())
+        {
             elementorFrontend.hooks.addAction('frontend/element_ready/ma-headlines.default', Master_Addons.MA_Animated_Headlines);
             elementorFrontend.hooks.addAction('frontend/element_ready/ma-piecharts.default', Master_Addons.MA_PiechartsHandler);
             elementorFrontend.hooks.addAction('frontend/element_ready/ma-progressbars.default', Master_Addons.StatsBarHandler);

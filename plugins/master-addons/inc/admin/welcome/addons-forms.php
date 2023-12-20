@@ -11,7 +11,7 @@ include_once JLTMA_PATH . '/inc/admin/jltma-elements/ma-forms.php';
 
 <div class="jltma-master-addons-features-list">
 
-	<h3><?php echo esc_html__('Form Addons', 'master-addons' ); ?></h3>
+	<h3><?php echo esc_html__('Form Addons', 'master-addons'); ?></h3>
 
 	<div class="jltma-master-addons-features-container is-flex">
 		<?php foreach (JLTMA_Addon_Forms::$jltma_forms['jltma-forms']['elements'] as $key => $widget) : ?>
@@ -45,10 +45,9 @@ include_once JLTMA_PATH . '/inc/admin/jltma-elements/ma-forms.php';
 
 					<div class="jltma-master-addons_feature-switchbox">
 						<label for="<?php echo esc_attr($widget['key']); ?>" class="switch switch-text
-						switch-primary switch-pill
-						<?php if (!ma_el_fs()->can_use_premium_code() && isset($widget['is_pro']) && $widget['is_pro']) {
-							echo "ma-el-pro";
-						} ?>">
+						switch-primary switch-pill <?php if (!ma_el_fs()->can_use_premium_code() && isset($widget['is_pro']) && $widget['is_pro']) {
+														echo "ma-el-pro disabled";
+													} ?>">
 
 
 							<?php if (ma_el_fs()->can_use_premium_code()) { ?>

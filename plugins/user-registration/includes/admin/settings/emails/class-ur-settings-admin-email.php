@@ -21,7 +21,7 @@ if ( ! class_exists( 'UR_Settings_Admin_Email', false ) ) :
 		 */
 		public function __construct() {
 			$this->id          = 'admin_email';
-			$this->title       = __( 'Admin Email', 'user-registration' );
+			$this->title       = __( 'Admin Approval Request Email', 'user-registration' );
 			$this->description = __( 'Email sent to the admin when a new user registers', 'user-registration' );
 		}
 
@@ -38,7 +38,7 @@ if ( ! class_exists( 'UR_Settings_Admin_Email', false ) ) :
 					'title'    => __( 'Emails', 'user-registration' ),
 					'sections' => array(
 						'admin_email' => array(
-							'title'        => __( 'Admin Email', 'user-registration' ),
+							'title'        => __( 'Admin Approval Request Email', 'user-registration' ),
 							'type'         => 'card',
 							'desc'         => '',
 							'back_link'    => ur_back_link( __( 'Return to emails', 'user-registration' ), admin_url( 'admin.php?page=user-registration-settings&tab=email' ) ),
@@ -94,10 +94,8 @@ if ( ! class_exists( 'UR_Settings_Admin_Email', false ) ) :
 
 		/**
 		 * Email format.
-		 *
-		 * @param bool $email_approval_enabled Email Approval Enabled.
 		 */
-		public function ur_get_admin_email( $email_approval_enabled = false ) {
+		public function ur_get_admin_email() {
 
 			$general_msg = sprintf(
 				__(
@@ -111,21 +109,7 @@ if ( ! class_exists( 'UR_Settings_Admin_Email', false ) ) :
 				)
 			);
 
-			$approval_msg = sprintf(
-				__(
-					'Hi Admin, <br/>
-
-					A new user {{username}} - {{email}} has successfully registered to your site <a href="{{home_url}}">{{blog_info}}</a>. <br/>
-
-					Click on this link to approve this user directly :  {{approval_link}} <br /><br />
-					Thank You!',
-					'user-registration'
-				)
-			);
-
-			$message = $email_approval_enabled ? $approval_msg : $general_msg;
-
-			$message = apply_filters( 'user_registration_admin_email_message', $message );
+			$message = apply_filters( 'user_registration_admin_email_message', $general_msg );
 
 			return $message;
 		}

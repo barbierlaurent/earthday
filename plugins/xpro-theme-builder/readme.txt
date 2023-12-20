@@ -1,10 +1,10 @@
 === Best Theme Builder For Elementor - FREE ===
 Plugin Name: Best Theme Builder For Elementor - FREE
-Version: 1.2.4
+Version: 1.2.6
 Contributors: Xpro
 Tags: elementor, theme builder, header footer builder, sticky header, elementor widgets, free theme builder
 Requires at least: 5.0
-Tested up to: 6.2
+Tested up to: 6.4
 Stable tag: trunk
 Requires PHP: 7.0 or higher
 License: GPLv2
@@ -288,6 +288,16 @@ Xpro theme builder for elementor is a 100% FREE plugin to use for your website. 
 
 
 == Changelog ==
+
+= V 1.2.6 - 17 November 2023 =
+
+- Tweak: Woocommerce Compatibility
+- Tweak: Update In Woo Product Image Widget
+
+= V 1.2.5 - 31 October 2023 =
+
+- Tweak: Minimize CSS & JS Files for Optimization
+- Tweak: Template Widget Update
 
 = V 1.2.4 - 25 July 2023 =
 

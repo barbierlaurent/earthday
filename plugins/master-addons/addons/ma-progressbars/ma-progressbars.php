@@ -314,7 +314,7 @@ class JLTMA_Progress_Bars extends Widget_Base
 				'label' => __('Color', 'master-addons' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .jltma-stats-bars .jltma-stats-bar .ma-el-stats-title' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .jltma-stats-bars .jltma-stats-bar .jltma-stats-title' => 'color: {{VALUE}};',
 				],
 			]
 		);
@@ -323,7 +323,7 @@ class JLTMA_Progress_Bars extends Widget_Base
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'stats_title_typography',
-				'selector' => '{{WRAPPER}} .jltma-stats-bars .jltma-stats-bar .ma-el-stats-title',
+				'selector' => '{{WRAPPER}} .jltma-stats-bars .jltma-stats-bar .jltma-stats-title',
 			]
 		);
 

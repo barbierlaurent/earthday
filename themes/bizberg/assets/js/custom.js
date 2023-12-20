@@ -167,14 +167,14 @@ function add_remove_body_sticky_class( status ){
     });
 
     // Mouse-enter dropdown
-    $('#navbar li').on("mouseenter", function() {
+    $('#navbar li').on("mouseenter focusin", function() {
         if( $(this).hasClass('bizberg_shop_browse_cat') && $(this).hasClass('show') && $('body').hasClass('page-template-home') ){
             return;
         }
         $(this).find('ul').first().stop(true, true).delay(10).slideDown(500);
     });
     // Mouse-leave dropdown
-    $('#navbar li').on("mouseleave", function() {
+    $('#navbar li').on("mouseleave focusout", function() {
         if( $(this).hasClass('bizberg_shop_browse_cat') && $(this).hasClass('show') && $('body').hasClass('page-template-home') ){
             return;
         }

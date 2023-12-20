@@ -16,6 +16,7 @@ use Automattic\Jetpack\Connection\Rest_Authentication as Connection_Rest_Authent
 use Automattic\Jetpack\Constants as Jetpack_Constants;
 use Automattic\Jetpack\JITMS\JITM;
 use Automattic\Jetpack\Licensing;
+use Automattic\Jetpack\Modules;
 use Automattic\Jetpack\Plugins_Installer;
 use Automattic\Jetpack\Status;
 use Automattic\Jetpack\Terms_Of_Service;
@@ -31,7 +32,7 @@ class Initializer {
 	 *
 	 * @var string
 	 */
-	const PACKAGE_VERSION = '3.5.0';
+	const PACKAGE_VERSION = '4.1.1';
 
 	/**
 	 * HTML container ID for the IDC screen on My Jetpack page.
@@ -74,6 +75,12 @@ class Initializer {
 
 		// Sets up JITMS.
 		JITM::configure();
+
+		// Add "Activity Log" menu item.
+		Activitylog::init();
+
+		// Add "Jetpack Manage" menu item.
+		Jetpack_Manage::init();
 
 		/**
 		 * Fires after the My Jetpack package is initialized
@@ -157,6 +164,7 @@ class Initializer {
 				'textdomain' => 'jetpack-my-jetpack',
 			)
 		);
+		$modules = new Modules();
 		wp_localize_script(
 			'my_jetpack_main_app',
 			'myJetpackInitialState',
@@ -178,6 +186,10 @@ class Initializer {
 				'adminUrl'              => esc_url( admin_url() ),
 				'IDCContainerID'        => static::get_idc_container_id(),
 				'userIsAdmin'           => current_user_can( 'manage_options' ),
+				'isStatsModuleActive'   => $modules->is_active( 'stats' ),
+				'welcomeBanner'         => array(
+					'hasBeenDismissed' => \Jetpack_Options::get_option( 'dismissed_welcome_banner', false ),
+				),
 			)
 		);
 
@@ -231,6 +243,7 @@ class Initializer {
 		new REST_Products();
 		new REST_Purchases();
 		new REST_Zendesk_Chat();
+		new REST_Product_Data();
 		new REST_AI();
 
 		register_rest_route(
@@ -239,6 +252,16 @@ class Initializer {
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => __CLASS__ . '::get_site',
+				'permission_callback' => __CLASS__ . '::permissions_callback',
+			)
+		);
+
+		register_rest_route(
+			'my-jetpack/v1',
+			'site/dismiss-welcome-banner',
+			array(
+				'methods'             => \WP_REST_Server::EDITABLE,
+				'callback'            => __CLASS__ . '::dismiss_welcome_banner',
 				'permission_callback' => __CLASS__ . '::permissions_callback',
 			)
 		);
@@ -294,6 +317,16 @@ class Initializer {
 		}
 
 		return rest_ensure_response( $body, 200 );
+	}
+
+	/**
+	 * Dismiss the welcome banner.
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public static function dismiss_welcome_banner() {
+		\Jetpack_Options::update_option( 'dismissed_welcome_banner', true );
+		return rest_ensure_response( array( 'success' => true ), 200 );
 	}
 
 	/**

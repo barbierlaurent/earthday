@@ -1,3 +1,68 @@
+#### [Version 3.12.0](https://github.com/Codeinwp/optimole-wp/compare/v3.11.3...v3.12.0) (2023-12-19)
+
+### New Features
+- **Handshake Mechanism**: Implemented a handshake mechanism to ensure that the website can use Optimole when connecting.
+- **New Cloud Library UI/UX**: Introduced a new and improved UI and experience for the Cloud Library.
+
+### Enhancements
+
+- **Improved Optimole Dashboard UX**: Enhancements to improve the user experience of the Optimole dashboard.
+- **Cohesive UI on Plugin Dashboard**: Improved the overall UI on the plugin dashboard for a more cohesive look and feel.
+- **Revamped Offloading User Experience**: Revamped the UI/UX for offloading operations, making it more intuitive and user-friendly.
+- **Cloud Library Access by Default**: Enabled Cloud Library access by default for all users, enhancing accessibility to Optimoles features.
+- **Notice for Offloaded Images Limit**: Added a notice if the count of offloaded images exceeds the limit, keeping users informed.
+
+##### [Version 3.11.3](https://github.com/Codeinwp/optimole-wp/compare/v3.11.2...v3.11.3) (2023-12-05)
+
+### Bug Fixes
+
+- **Division by zero**: Addressed an edge case where a division by zero was happening when resizing images.
+- **WPML Duplicated Attachments**: Resolved an issue where WPML duplicated attachments were not being accounted for as offloaded.
+- **Offload Batch Size**: Lowered the batch size of images processed for offloading/rollback to address timeout issues on some servers.
+
+### Improvements
+
+- **Action Scheduler Integration**: The offloading/rollback process will use Action Scheduler if available.
+
+##### [Version 3.11.2](https://github.com/Codeinwp/optimole-wp/compare/v3.11.1...v3.11.2) (2023-11-23)
+
+### Bug Fixes
+
+- **Rollback Issue**: Fixed an issue where rolling back images would not point the attachments to the correct uploads folder path.
+
+##### [Version 3.11.1](https://github.com/Codeinwp/optimole-wp/compare/v3.11.0...v3.11.1) (2023-11-20)
+
+### Bug Fixes
+
+- **Cache for Offloaded Attachments**: Fixed an issue with caching for offloaded attachments when the object cache extension isnt enabled.
+- **Error on Older WordPress Versions**: Resolved an error occurring on WordPress versions lower than 6.0.0.
+- **Performance Issue on Large Instances**: Fixed a performance issue affecting instances with a large number of images.
+- **Offload Rollback Issue**: Addressed a problem where offloading was trying to rollback Cloud Library images.
+
+#### [Version 3.11.0](https://github.com/Codeinwp/optimole-wp/compare/v3.10.0...v3.11.0) (2023-11-15)
+
+### New Features
+
+- **Image Optimization for ICO Files**: Added support for optimizing ICO files, ensuring that these can benefit from Optimoles optimization capabilities.
+- **Toast Notifications in Optimole Dashboard**: Introduced a toast notifications system within the Optimole dashboard, informing users when settings are saved.
+- **Offload Images Without Database Replacement**: Images are now offloaded without the need to perform a database replacement, improving the speed of the process and reducing complexity.
+- **Logging for Offloading Process**: Implemented logging for the image offloading process, allowing users to track progress more effectively.
+- **Faster Zip Generation Routine**: Optimized the zip files generation routine from the Optimole Dashboard, making it faster and more efficient. Additionally, split the Zip files per each source website when downloading images, providing a smoother experience.
+- **Motion.page Compatibility**: Addressed compatibility issues to ensure smooth integration with the Motion.page.
+
+### Improvements
+
+- **Remove Redundant Setting**: Removed redundant settings related to resizing large images from the original source, simplifying the user interface.
+- **Review of Settings Descriptions and Documentation**: Reviewed and refined settings descriptions and documentation to make it easier for users to understand what each setting does, and to configure Optimole to their specific needs.
+- **Beaver Builder Compatibility with Cloud Library**: Optimoles Cloud Library is now compatible with Beaver Builder,  allowing users to import and use images from their Optimole account.
+- **Progress Bar Design Consistency**: Refined the design of progress bars for a more consistent and polished user interface.
+
+### Bug Fixes
+
+- **Scheduled Crons Removal During Uninstall**: Fixed an issue where scheduled cron jobs were not being removed when uninstalling Optimole.
+- **Cloud Library in Safari**: Resolved an issue where the Cloud Library was not functioning correctly in Safari.
+- **Guidance on Third-Party Cookies for Cloud Library**: Added instructions on how to allow third-party cookies to ensure seamless functionality of the Cloud Library.
+
 #### [Version 3.10.0](https://github.com/Codeinwp/optimole-wp/compare/v3.9.2...v3.10.0) (2023-09-18)
 
 ### New Features

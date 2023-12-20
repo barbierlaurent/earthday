@@ -300,7 +300,7 @@ class Sharing_Admin {
 		?>
 	<li class="<?php echo esc_attr( $displayed_klasses ); ?>" id="<?php echo esc_attr( $service->get_id() ); ?>" tabindex="0" title="<?php echo esc_attr( $title ); ?>">
 		<span class="options-left"><?php echo esc_html( $service->get_name() ); ?></span>
-		<?php if ( 0 === strpos( $service->get_id(), 'custom-' ) || $service->has_advanced_options() ) : ?>
+		<?php if ( str_starts_with( $service->get_id(), 'custom-' ) || $service->has_advanced_options() ) : ?>
 		<span class="close"><a href="#" class="remove">&times;</a></span>
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 			<input type="hidden" name="action" value="sharing_delete_service" />
@@ -790,14 +790,5 @@ function sharing_admin_init() {
 
 	$sharing_admin = new Sharing_Admin();
 }
-
-/**
- * Set the Likes and Sharing Gutenberg extension as available
- */
-function jetpack_sharing_set_extension_availability() {
-	Jetpack_Gutenberg::set_extension_available( 'sharing' );
-}
-
-add_action( 'jetpack_register_gutenberg_extensions', 'jetpack_sharing_set_extension_availability' );
 
 add_action( 'init', 'sharing_admin_init' );

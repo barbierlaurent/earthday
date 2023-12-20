@@ -3,8 +3,8 @@ Contributors: WPEverest
 Tags: user registration, registration, user profile, registration form, login form,
 Requires at least: 5.2
 Requires PHP: 7.2
-Tested up to: 6.3.1
-Stable tag: 3.0.4.1
+Tested up to: 6.4.2
+Stable tag: 3.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,7 +24,7 @@ The best thing is that there are unlimited customization options for each field 
 
 [All features](https://wpuserregistration.com/) | [Demo](https://userregistration.demoswp.net/) | [Documentation](https://docs.wpuserregistration.com/)
 
-[Try User Registration Premium ](https://wpuserregistration.com/)
+[Try User Registration Premium ](https://userregistration.demoswp.net/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro)
 
 ### Key Features of User Registration
 * **Easy Drag and Drop Builder:** Simply drag and drop the form fields into a blank slate and create a registration form in no time. No code, no fuss.
@@ -73,7 +73,7 @@ The best thing is that there are unlimited customization options for each field 
 
 * **[Premium] [Connect Registration Forms with 1000+ Services via Zapier:](https://wpuserregistration.com/features/zapier/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro)** Zapier passes information to all the applications your registration forms are connected with. This helps you save time by automating tasks like collecting form responses, sending texts and reminders.
 
-* **[Premium] Integrations with Email Marketing Services:** Promote your business with the correct email marketing tools like [MailChimp](https://wpuserregistration.com/features/mailchimp/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro) , [MailerLite](https://wpuserregistration.com/mailerlite/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro) and [Active Campaign](https://wpuserregistration.com/features/activecampaign/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro). Integrating them with User Registration adds all your registered users to subscriber lists directly.
+* **[Premium] Integrations with Email Marketing Services:** Promote your business with the correct email marketing tools like [MailChimp](https://wpuserregistration.com/features/mailchimp/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro) , [MailerLite](https://wpuserregistration.com/features/mailerlite/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro) and [Active Campaign](https://wpuserregistration.com/features/activecampaign/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro). Integrating them with User Registration adds all your registered users to subscriber lists directly.
 
 * **[Premium] [Drag and Drop Multi File Upload:](https://wpuserregistration.com/features/file-uploads/?utm_source=wporg&utm_medium=link&utm_campaign=ur-upgrade-to-pro)** The multiple file upload feature is perfect for when you need to collect more than one document or image file. You only have to set the maximum file upload limit from the field options.
 
@@ -270,11 +270,11 @@ Here’s a brief look at the features that make User Registration one of the bes
 
 
 ### Know your way around User Registration with our tutorials
-* [How to Create a WordPress User Registration Form?](https://wpeverest.com/blog/wordpress-user-registration-form/)
-* [How to Create a Custom User Profile Page in WordPress?](https://wpeverest.com/blog/create-user-profile-page-in-wordpress/)
-* [How to Create a Multi-step Registration Form in WordPress?](https://wpeverest.com/blog/multi-step-registration-form/)
-* [How to Allow User Registration with Invitation Code?](https://wpeverest.com/blog/user-registration-invitation-code/)
-* [How to Create a Custom Registration Form for LearnDash?](https://wpeverest.com/blog/learndash-custom-registration-form/)
+* [How to Create a WordPress User Registration Form?](https://wpuserregistration.com/blog/create-user-registration-form-in-wordpress/)
+* [How to Create a Custom User Profile Page in WordPress?](https://wpuserregistration.com/blog/create-user-profile-page-in-wordpress/)
+* [How to Create a Multi-step Registration Form in WordPress?](https://wpuserregistration.com/blog/multi-step-registration-form/)
+* [How to Allow User Registration with Invitation Code?](https://wpuserregistration.com/blog/register-users-with-invitation-code/)
+* [How to Create a Custom Registration Form for LearnDash?](https://wpuserregistration.com/blog/learndash-custom-registration-form/)
 
 == Get in Touch with us  ==
 
@@ -287,7 +287,7 @@ Here’s a brief look at the features that make User Registration one of the bes
 == Explore More Products from Our Team==
 Love User Registration? If you do, then you should check out more WordPress themes and plugins from us.
 
-* [Everest Forms](https://wpeverest.com/wordpress-plugins/everest-forms/) - Best WordPress Form Plugin.
+* [Everest Forms](https://everestforms.net/) - Best WordPress Form Plugin.
 
 * [Masteriyo](https://masteriyo.com/) - A Powerful and Easy WordPress LMS Plugin. 
 
@@ -357,6 +357,63 @@ We are ready to assist you! You can contact us through the WordPress.org help fo
 16. User Account Page -  Vertical Layout
 
 == Changelog ==
+
+= 3.1.2    - 13/12/2023
+* Refactor - Timepicker library changed from timepicker to flatpickr.
+* Refactor - Size option in input field replaced bt limit by characters option.
+* Feature  - List pages where each form shortcode is used.
+* Feature  - New email added for send user approval link admin email.
+* Feature  - Limit by characters or words in Inout and Textarea Field.
+* Enhance  - Improve success message after registration.
+* Enhance  - Server side validation message shown in respective fields.
+* Enhance  - Redirection to external url through logout_redirect shortcode attribute.
+* Tweak    - Form Restriction addon details added in extension page.
+* Dev      - Compatibility for form restriction addon.
+* Dev      - Remove no priv ajax request for form save action.
+* Dev      - Added hook to handle redirect url after auto login.
+* Dev      - Introduced hook to modify parse value for form data.
+* Fix      - Critical error while exporting user.
+* Fix      - The all_fields smart tag parse to a table.
+* Fix      - My account endpoint slug translation issue.
+* Fix      - Install user registration pages button not working.
+* Fix      - Assign role conditionally not working in multisite.
+* Fix      - Translation issue with successfull email verified message.
+
+= 3.1.1    - 10/11/2023
+* Tweak    - Dashboard content made accessible through action hook.
+* Tweak    - Compatibility with newly introduced ThemeGrill Agency Plan.
+* Tweak    - Conversational Forms addon details added in extension page.
+* Tweak    - Added action hook to handle functionalites after form duplication.
+* Dev      - Properly parse and send username in ajax response of form submit.
+* Fix      - Lock on the one time draggable field not removed while removing the field.
+
+= 3.1.0    - 13/10/2023
+* Refactor - Handle user approval status properly.
+* Feature  - Test captcha from settings.
+* Feature  - Profile details updated email to user.
+* Feature  - Edit form button in form preview window.
+* Feature  - User Registration menu added in admin menu bar.
+* Enhance  - Error logging mechanism in status menu.
+* Enhance  - Remember and retrieve the collapse state of settings menu.
+* Enhance  - Accept page slug as redirect_url parameter value in login or my account shortcode.
+* Dev      - Compatibility for custom captcha field.
+* Dev      - Compatibility for custom user listing area.
+* Dev      - Compatibility for Conversational Forms addon.
+* Dev      - Introduced new hooks to modify email header.
+* Dev      - Merge two duplicate methods on form validation.
+* Dev      - jQuery validation library updated to latest version.
+* Dev      - Compatibility for the fix of Lock addon field if integration not set.
+* Dev      - Compatibility for form fields integration on woo commerce product page.
+* Tweak    - Save the user IP on the user meta.
+* Tweak    - Onboarding last page design changes.
+* Tweak    - Add filter to change profile picture upload directory.
+* Fix      - Admin email not being delivered.
+* Fix      - Wrong escaping done in redirect_url parameter.
+* Fix      - Grammatical typo for unique validation message.
+* Fix      - Send password reset not working on prevent core login.
+* Fix      - Select All button not working while adding endpoints as menu.
+* Fix      - WPML compatibilty for validation message for duplicate added.
+* Fix      - Delete profile picture file from directory when removed while updating profile.
 
 = 3.0.4.1  - 05/09/2023
 * Fix      - User field value not being saved while registering or updating the profile.

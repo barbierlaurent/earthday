@@ -379,7 +379,7 @@ class RestAPI extends Factory
 	public function onAJAXRequest()
 	{
 		$this->onRestAPIInit();
-		
+
 		// Check route is specified
 		if(empty($_REQUEST['route']))
 		{
@@ -391,6 +391,27 @@ class RestAPI extends Factory
 				)
 			), 404);
 			return;
+		}
+
+		/* In some cases, the route will include sub-pathing, and for some reason the system cannot always deal with that
+		 * this will attempt to resolve that by directly altering the request data to map that correctly 
+		*/
+		if(!empty($_REQUEST['action']) && $_REQUEST['action'] === 'wpgmza_rest_api_request'){
+			$remapExclusions = array("/features/", "/marker-listing/");
+			if(!empty($_REQUEST['route']) && !in_array($_REQUEST['route'], $remapExclusions)){
+				/* Mutate the request URI */
+				$route = $_REQUEST['route'];
+
+				if(strpos($route, '/wpgmza/v1') === FALSE){
+					$route = "/wpgmza/v1{$route}";
+				}
+
+				$_SERVER['REQUEST_URI'] = $route;
+
+				if(!empty($_POST['action']) && $_POST['action'] === 'wpgmza_rest_api_request'){
+					unset($_POST['action']);
+				}
+			}
 		}
 		
 		// Try to match the route
@@ -529,6 +550,7 @@ class RestAPI extends Factory
 	public function features($request)
 	{
 		global $wpdb;
+		global $wpgmza;
 		
 		$route		= $_SERVER['REQUEST_URI'];
 		
@@ -672,6 +694,11 @@ class RestAPI extends Factory
 				break;
 			
 			case 'POST':
+				if(!$wpgmza->isUserAllowedToEdit()){
+					/* Permission re-assertion */
+					return new \WP_Error('wpgmza_permission_denied', 'You do not have permission to access this resource');
+				}
+
 				$data		= stripslashes_deep($_POST);
 				$id			= ( isset($m[3]) ? ltrim($m[3], '/') : ( isset($m[2]) ? ltrim($m[2], '/') : -1 ) );
 				if(isset($data['id'])) {
@@ -689,6 +716,10 @@ class RestAPI extends Factory
 				break;
 				
 			case 'DELETE':
+				if(!$wpgmza->isUserAllowedToEdit()){
+					/* Permission re-assertion */
+					return new \WP_Error('wpgmza_permission_denied', 'You do not have permission to access this resource');
+				}
 				
 				$id			= ( isset($m[3]) ? ltrim($m[3], '/') : ( isset($m[2]) ? ltrim($m[2], '/') : -1) );
 				
@@ -744,13 +775,14 @@ class RestAPI extends Factory
 	public function markers($request)
 	{
 		global $wpdb;
+		global $wpgmza;
 		global $wpgmza_tblname;
 		
 		$route 		= $_SERVER['REQUEST_URI'];
 		$params		= $this->getRequestParameters();
 
 		$this->checkForDeleteSimulation();
-		
+
 		switch($_SERVER['REQUEST_METHOD'])
 		{
 			case 'GET':
@@ -862,6 +894,10 @@ class RestAPI extends Factory
 				break;
 			
 			case 'POST':
+				if(!$wpgmza->isUserAllowedToEdit()){
+					/* Permission re-assertion */
+					return new \WP_Error('wpgmza_permission_denied', 'You do not have permission to access this resource');
+				}
 			
 				if(preg_match('#/wpgmza/v1/markers/(\d+)#', $route, $m))
 					$id = $m[1];
@@ -894,6 +930,10 @@ class RestAPI extends Factory
 				break;
 			
 			case 'DELETE':
+				if(!$wpgmza->isUserAllowedToEdit()){
+					/* Permission re-assertion */
+					return new \WP_Error('wpgmza_permission_denied', 'You do not have permission to access this resource');
+				}
 				
 				// Workaround for PHP not populating $_REQUEST
 				$request = array();
@@ -961,6 +1001,11 @@ class RestAPI extends Factory
 
 			$reflection = new \ReflectionClass($class);
 		}catch(\Exception $e) {
+			return new \WP_Error('wpgmza_invalid_datatable_class', 'Invalid class specified', array('status' => 403));
+		}
+
+		$reflectionNamespace = $reflection->getNamespaceName();
+		if(empty($reflectionNamespace) || strpos($reflectionNamespace, 'WPGMZA') === FALSE){
 			return new \WP_Error('wpgmza_invalid_datatable_class', 'Invalid class specified', array('status' => 403));
 		}
 		

@@ -691,6 +691,38 @@ class Options_Settings {
 				'default'      => array(),
 			)
 		);
+
+		register_setting(
+			'themeisle_blocks_settings',
+			'themeisle_disabled_blocks',
+			array(
+				'type'              => 'array',
+				'description'       => __( 'The disabled blocks that will no longer be shown in Inserter.', 'otter-blocks' ),
+				'sanitize_callback' => function( $array ) {
+					return array_map( 'sanitize_text_field', $array );
+				},
+				'default'           => array(),
+				'show_in_rest'      => array(
+					'schema' => array(
+						'type'  => 'array',
+						'items' => array(
+							'type' => 'string',
+						),
+					),
+				),
+			)
+		);
+
+		register_setting(
+			'themeisle_blocks_settings',
+			'themeisle_blocks_settings_onboarding_wizard',
+			array(
+				'type'         => 'boolean',
+				'description'  => __( 'Enable FSE Onboarding Wizard.', 'otter-blocks' ),
+				'show_in_rest' => true,
+				'default'      => true,
+			)
+		);
 	}
 
 	/**

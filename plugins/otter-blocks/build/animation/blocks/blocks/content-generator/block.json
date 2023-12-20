@@ -20,5 +20,10 @@
       "type": "array",
       "default": []
     }
+  },
+  "supports": {
+    "align": [
+      "wide"
+    ]
   }
 }

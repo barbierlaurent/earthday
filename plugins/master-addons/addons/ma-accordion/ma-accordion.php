@@ -27,7 +27,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 
 	public function get_title()
 	{
-		return esc_html__('Advanced Accordion', 'master-addons' );
+		return esc_html__('Advanced Accordion', 'master-addons');
 	}
 
 	public function get_icon()
@@ -63,20 +63,20 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_section(
 			'section_accordion_tabs',
 			[
-				'label' => esc_html__('Content', 'master-addons' )
+				'label' => esc_html__('Content', 'master-addons')
 			]
 		);
 
 		$this->add_control(
 			'accordion_type',
 			[
-				'label'       => esc_html__('Accordion Type', 'master-addons' ),
+				'label'       => esc_html__('Accordion Type', 'master-addons'),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'accordion',
 				'label_block' => false,
 				'options'     => [
-					'accordion' => esc_html__('Accordion', 'master-addons' ),
-					'toggle'    => esc_html__('Toggle', 'master-addons' ),
+					'accordion' => esc_html__('Accordion', 'master-addons'),
+					'toggle'    => esc_html__('Toggle', 'master-addons'),
 				],
 				'frontend_available' => true,
 			]
@@ -87,7 +87,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->add_control(
 			'accordion_tab_default_active',
 			[
-				'label'                 => esc_html__('Active as Default', 'master-addons' ),
+				'label'                 => esc_html__('Active as Default', 'master-addons'),
 				'type'                  => Controls_Manager::SWITCHER,
 				'default'               => 'no',
 				'return_value'          => 'yes',
@@ -97,7 +97,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->add_control(
 			'accordion_tab_icon_show',
 			[
-				'label'                 => esc_html__('Enable Custom Icon', 'master-addons' ),
+				'label'                 => esc_html__('Enable Custom Icon', 'master-addons'),
 				'type'                  => Controls_Manager::SWITCHER,
 				'default'               => 'yes',
 				'return_value'          => 'yes',
@@ -111,7 +111,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->start_controls_tab(
 			'accordion_tab_icon_custom_expand',
 			[
-				'label'                 => __('Expand Icon', 'master-addons' ),
+				'label'                 => __('Expand Icon', 'master-addons'),
 				'condition' => [
 					'accordion_tab_icon_show' => 'yes'
 				],
@@ -121,8 +121,8 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->add_control(
 			'accordion_tab_title_icon',
 			[
-				'label'         	=> esc_html__('Icon', 'master-addons' ),
-				'description' 		=> esc_html__('Please choose an icon from the list.', 'master-addons' ),
+				'label'         	=> esc_html__('Icon', 'master-addons'),
+				'description' 		=> esc_html__('Please choose an icon from the list.', 'master-addons'),
 				'type'          	=> Controls_Manager::ICONS,
 				'fa4compatibility' 	=> 'icon_title',
 				'default'       	=> [
@@ -141,7 +141,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->start_controls_tab(
 			'accordion_tab_icon_custom_collapse',
 			[
-				'label'                 => __('Collapse Icon', 'master-addons' ),
+				'label'                 => __('Collapse Icon', 'master-addons'),
 				'condition' => [
 					'accordion_tab_icon_show' => 'yes'
 				],
@@ -151,8 +151,8 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->add_control(
 			'accordion_tab_title_icon_collapse',
 			[
-				'label'         	=> esc_html__('Icon', 'master-addons' ),
-				'description' 		=> esc_html__('Please choose an icon from the list.', 'master-addons' ),
+				'label'         	=> esc_html__('Icon', 'master-addons'),
+				'description' 		=> esc_html__('Please choose an icon from the list.', 'master-addons'),
 				'type'          	=> Controls_Manager::ICONS,
 				'fa4compatibility' 	=> 'icon_collapse',
 				'default'       	=> [
@@ -181,7 +181,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_tab_title_bg_color_show',
 				[
-					'label'                 => esc_html__('Enable Background Color', 'master-addons' ),
+					'label'                 => esc_html__('Enable Background Color', 'master-addons'),
 					'type'                  => Controls_Manager::SWITCHER,
 					'default'               => 'no',
 					'return_value'          => 'yes',
@@ -191,7 +191,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_title_text_color',
 				[
-					'label'                 => esc_html__('Title Color', 'master-addons' ),
+					'label'                 => esc_html__('Title Color', 'master-addons'),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#333333',
 					'condition'             => [
@@ -203,7 +203,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_tab_title_bg_color',
 				[
-					'label'                 => esc_html__('Title Background Color', 'master-addons' ),
+					'label'                 => esc_html__('Title Background Color', 'master-addons'),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#fff',
 					'condition'             => [
@@ -215,7 +215,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_title_content_color',
 				[
-					'label'                 => esc_html__('Content Color', 'master-addons' ),
+					'label'                 => esc_html__('Content Color', 'master-addons'),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#333333',
 					'condition'             => [
@@ -230,7 +230,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_tab_content_bg_color',
 				[
-					'label'                 => esc_html__('Content Background Color', 'master-addons' ),
+					'label'                 => esc_html__('Content Background Color', 'master-addons'),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#fff',
 					'condition'             => [
@@ -250,11 +250,11 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_tab_title_bg_color_show_pro',
 				[
-					'label'             => esc_html__('Enable Background Color', 'master-addons' ),
+					'label'             => esc_html__('Enable Background Color', 'master-addons'),
 					'type' 				=> Controls_Manager::CHOOSE,
 					'options' 			=> [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -266,11 +266,11 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_title_text_color_pro',
 				[
-					'label'             => esc_html__('Title Color', 'master-addons' ),
+					'label'             => esc_html__('Title Color', 'master-addons'),
 					'type' 				=> Controls_Manager::CHOOSE,
 					'options' 			=> [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -282,11 +282,11 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_tab_title_bg_color_pro',
 				[
-					'label'             => esc_html__('Title Background Color', 'master-addons' ),
+					'label'             => esc_html__('Title Background Color', 'master-addons'),
 					'type' 				=> Controls_Manager::CHOOSE,
 					'options' 			=> [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -301,11 +301,11 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_title_content_color_pro',
 				[
-					'label'                 => esc_html__('Content Color', 'master-addons' ),
+					'label'                 => esc_html__('Content Color', 'master-addons'),
 					'type' 				=> Controls_Manager::CHOOSE,
 					'options' 			=> [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -317,11 +317,11 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'single_tab_content_bg_color_pro',
 				[
-					'label'                 => esc_html__('Content Background Color', 'master-addons' ),
+					'label'                 => esc_html__('Content Background Color', 'master-addons'),
 					'type'                  => Controls_Manager::COLOR,
 					'options' 			=> [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -342,9 +342,9 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$repeater->add_control(
 			'tab_title',
 			[
-				'label'                 => __('Title', 'master-addons' ),
+				'label'                 => __('Title', 'master-addons'),
 				'type'                  => Controls_Manager::TEXT,
-				'default'               => __('Accordion Title', 'master-addons' ),
+				'default'               => __('Accordion Title', 'master-addons'),
 				'dynamic'               => [
 					'active'   => true,
 				],
@@ -358,16 +358,16 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'content_type',
 				[
-					'label'                 => esc_html__('Content Type', 'master-addons' ),
+					'label'                 => esc_html__('Content Type', 'master-addons'),
 					'type'                  => Controls_Manager::SELECT,
 					'label_block'           => false,
 					'options'               => [
-						'content'   => __('Content', 'master-addons' ),
+						'content'   => __('Content', 'master-addons'),
 						//						'image'     => __( 'Image', 'master-addons' ),
 						//						'video' 	=> __( 'Video', 'master-addons' ),
-						'section'   => __('Saved Section', 'master-addons' ),
-						'widget'    => __('Saved Widget', 'master-addons' ),
-						'template'  => __('Saved Page Template', 'master-addons' ),
+						'section'   => __('Saved Section', 'master-addons'),
+						'widget'    => __('Saved Widget', 'master-addons'),
+						'template'  => __('Saved Page Template', 'master-addons'),
 					],
 					'default'               => 'content',
 				]
@@ -376,9 +376,9 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'accordion_content',
 				[
-					'label'                 => esc_html__('Content', 'master-addons' ),
+					'label'                 => esc_html__('Content', 'master-addons'),
 					'type'                  => Controls_Manager::WYSIWYG,
-					'default'               => esc_html__('Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'master-addons' ),
+					'default'               => esc_html__('Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'master-addons'),
 					'dynamic'               => ['active' => true],
 					'condition'             => [
 						'content_type'	=> 'content',
@@ -389,7 +389,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'image',
 				[
-					'label'                 => __('Image', 'master-addons' ),
+					'label'                 => __('Image', 'master-addons'),
 					'type'                  => Controls_Manager::MEDIA,
 					'dynamic'               => [
 						'active'   => true,
@@ -412,7 +412,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'saved_widget',
 				[
-					'label'                 => __('Choose Widget', 'master-addons' ),
+					'label'                 => __('Choose Widget', 'master-addons'),
 					'type'                  => Controls_Manager::SELECT,
 					'options'               => $this->get_page_template_options('widget'),
 					'default'               => '-1',
@@ -434,7 +434,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'saved_section',
 				[
-					'label'                 => __('Choose Section', 'master-addons' ),
+					'label'                 => __('Choose Section', 'master-addons'),
 					'type'                  => Controls_Manager::SELECT,
 					'options'               => $this->get_page_template_options('section'),
 					'default'               => '-1',
@@ -453,7 +453,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'templates',
 				[
-					'label'                 => __('Choose Template', 'master-addons' ),
+					'label'                 => __('Choose Template', 'master-addons'),
 					'type'                  => Controls_Manager::SELECT,
 					'options'               => $this->get_page_template_options('page'),
 					'default'               => '-1',
@@ -472,14 +472,14 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'content_type',
 				[
-					'label'                 => esc_html__('Content Type', 'master-addons' ),
+					'label'                 => esc_html__('Content Type', 'master-addons'),
 					'type'                  => Controls_Manager::SELECT,
 					'label_block'           => false,
 					'options'               => [
-						'content'   => __('Content', 'master-addons' ),
-						'section'   => __('Saved Section (Pro)', 'master-addons' ),
-						'widget'    => __('Saved Widget (Pro)', 'master-addons' ),
-						'template'  => __('Saved Page Template (Pro)', 'master-addons' ),
+						'content'   => __('Content', 'master-addons'),
+						'section'   => __('Saved Section (Pro)', 'master-addons'),
+						'widget'    => __('Saved Widget (Pro)', 'master-addons'),
+						'template'  => __('Saved Page Template (Pro)', 'master-addons'),
 					],
 					'default'               => 'content',
 				]
@@ -488,9 +488,9 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$repeater->add_control(
 				'accordion_content',
 				[
-					'label'                 => esc_html__('Content', 'master-addons' ),
+					'label'                 => esc_html__('Content', 'master-addons'),
 					'type'                  => Controls_Manager::WYSIWYG,
-					'default'               => esc_html__('Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'master-addons' ),
+					'default'               => esc_html__('Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.', 'master-addons'),
 					'dynamic'               => ['active' => true],
 					'condition'             => [
 						'content_type'	=> 'content',
@@ -505,9 +505,9 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			[
 				'type'                  => Controls_Manager::REPEATER,
 				'default'               => [
-					['tab_title' => esc_html__('Accordion Tab Title 1', 'master-addons' )],
-					['tab_title' => esc_html__('Accordion Tab Title 2', 'master-addons' )],
-					['tab_title' => esc_html__('Accordion Tab Title 3', 'master-addons' )],
+					['tab_title' => esc_html__('Accordion Tab Title 1', 'master-addons')],
+					['tab_title' => esc_html__('Accordion Tab Title 2', 'master-addons')],
+					['tab_title' => esc_html__('Accordion Tab Title 3', 'master-addons')],
 				],
 				'fields' 				=> $repeater->get_controls(),
 				'title_field'           => '{{tab_title}}',
@@ -518,12 +518,12 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'toggle_icon_show',
 			[
-				'label'                 => esc_html__('Show Active/Inactive Icon?', 'master-addons' ),
+				'label'                 => esc_html__('Show Active/Inactive Icon?', 'master-addons'),
 				'type'                  => Controls_Manager::SWITCHER,
 				'default'               => 'yes',
 				'separator'             => 'before',
-				'label_on'              => __('Show', 'master-addons' ),
-				'label_off'             => __('Hide', 'master-addons' ),
+				'label_on'              => __('Show', 'master-addons'),
+				'label_off'             => __('Hide', 'master-addons'),
 				'return_value'          => 'yes',
 			]
 		);
@@ -532,7 +532,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'toggle_speed',
 			[
-				'label'                 => esc_html__('Toggle Speed (ms)', 'master-addons' ),
+				'label'                 => esc_html__('Toggle Speed (ms)', 'master-addons'),
 				'type'                  => Controls_Manager::NUMBER,
 				'label_block'           => false,
 				'default'               => 300,
@@ -547,9 +547,19 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'title_html_tag',
 			[
-				'label'   => __('Title HTML Tag', 'master-addons' ),
+				'label'   => __('Title HTML Tag', 'master-addons'),
 				'type'    => Controls_Manager::SELECT,
-				'options' => Master_Addons_Helper::jltma_title_tags(),
+				'options' => [
+					'h1'     => esc_html__('H1', 'master-addons'),
+					'h2'     => esc_html__('H2', 'master-addons'),
+					'h3'     => esc_html__('H3', 'master-addons'),
+					'h4'     => esc_html__('H4', 'master-addons'),
+					'h5'     => esc_html__('H5', 'master-addons'),
+					'h6'     => esc_html__('H6', 'master-addons'),
+					'div'    => esc_html__('div', 'master-addons'),
+					'span'   => esc_html__('span', 'master-addons'),
+					'a'      => esc_html__('a', 'master-addons'),
+				],
 				'default' => 'div',
 			]
 		);
@@ -566,7 +576,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_section(
 			'section_accordion_items_style',
 			[
-				'label'                 => esc_html__('Items', 'master-addons' ),
+				'label'                 => esc_html__('Items', 'master-addons'),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -574,7 +584,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'accordion_items_spacing',
 			[
-				'label'                 => __('Spacing', 'master-addons' ),
+				'label'                 => __('Spacing', 'master-addons'),
 				'type'                  => Controls_Manager::SLIDER,
 				'range'                 => [
 					'px' 	=> [
@@ -595,7 +605,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'accordion_items_border',
-				'label'                 => esc_html__('Border', 'master-addons' ),
+				'label'                 => esc_html__('Border', 'master-addons'),
 				'selector'              => '{{WRAPPER}} .jltma-accordion-item',
 			]
 		);
@@ -603,7 +613,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'accordion_items_border_radius',
 			[
-				'label'                 => esc_html__('Border Radius', 'master-addons' ),
+				'label'                 => esc_html__('Border Radius', 'master-addons'),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => ['px', 'em', '%'],
 				'selectors'             => [
@@ -628,7 +638,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_section(
 			'section_title_style',
 			[
-				'label'                 => esc_html__('Title', 'master-addons' ),
+				'label'                 => esc_html__('Title', 'master-addons'),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -638,7 +648,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'accordion_tab_normal',
 			[
-				'label'                 => __('Normal', 'master-addons' ),
+				'label'                 => __('Normal', 'master-addons'),
 			]
 		);
 
@@ -647,7 +657,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'tab_title_bg_color',
-				'label'     => esc_html__('Background Color', 'master-addons' ),
+				'label'     => esc_html__('Background Color', 'master-addons'),
 				'types'     => ['classic', 'gradient'],
 				'exclude'   => ['image'],
 				'selector'  => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title'
@@ -657,7 +667,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_title_text_color',
 			[
-				'label'                 => esc_html__('Text Color', 'master-addons' ),
+				'label'                 => esc_html__('Text Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '#333333',
 				'selectors'             => [
@@ -678,7 +688,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'tab_title_border',
-				'label'                 => esc_html__('Border', 'master-addons' ),
+				'label'                 => esc_html__('Border', 'master-addons'),
 				'selector'              => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title',
 			]
 		);
@@ -686,7 +696,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'jltma_accordion_border_radius',
 			array(
-				'label'      => esc_html__('Border Radius', 'master-addons' ),
+				'label'      => esc_html__('Border Radius', 'master-addons'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array('px', '%'),
 				'selectors'  => array(
@@ -700,7 +710,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'accordion_tab_hover',
 			[
-				'label'                 => __('Hover', 'master-addons' ),
+				'label'                 => __('Hover', 'master-addons'),
 			]
 		);
 
@@ -708,7 +718,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'tab_title_bg_color_hover',
-				'label'     => esc_html__('Background Color', 'master-addons' ),
+				'label'     => esc_html__('Background Color', 'master-addons'),
 				'types'     => ['classic', 'gradient'],
 				'exclude'   => ['image'],
 				'selector'  => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title:hover'
@@ -719,7 +729,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_title_text_color_hover',
 			[
-				'label'                 => esc_html__('Text Color', 'master-addons' ),
+				'label'                 => esc_html__('Text Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title:hover,
@@ -731,7 +741,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_title_border_color_hover',
 			[
-				'label'                 => esc_html__('Border Color', 'master-addons' ),
+				'label'                 => esc_html__('Border Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title:hover' => 'border-color: {{VALUE}};',
@@ -743,7 +753,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'tab_title_border_hover',
-				'label'                 => esc_html__('Border', 'master-addons' ),
+				'label'                 => esc_html__('Border', 'master-addons'),
 				'selector'              => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title:hover',
 			]
 		);
@@ -751,7 +761,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'jltma_accordion_border_radius_hover',
 			array(
-				'label'      => esc_html__('Border Radius', 'master-addons' ),
+				'label'      => esc_html__('Border Radius', 'master-addons'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array('px', '%'),
 				'selectors'  => array(
@@ -766,7 +776,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'accordion_tab_active',
 			[
-				'label'                 => __('Active', 'master-addons' ),
+				'label'                 => __('Active', 'master-addons'),
 			]
 		);
 
@@ -774,7 +784,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'tab_title_bg_color_active',
-				'label'     => esc_html__('Background Color', 'master-addons' ),
+				'label'     => esc_html__('Background Color', 'master-addons'),
 				'types'     => ['classic', 'gradient'],
 				'exclude'   => ['image'],
 				'selector'  => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-item .jltma-accordion-tab-title.active'
@@ -784,7 +794,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_title_text_color_active',
 			[
-				'label'                 => esc_html__('Text Color', 'master-addons' ),
+				'label'                 => esc_html__('Text Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title.active' => 'color: {{VALUE}};',
@@ -795,7 +805,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_title_border_color_active',
 			[
-				'label'                 => esc_html__('Border Color', 'master-addons' ),
+				'label'                 => esc_html__('Border Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title.active' => 'border-color: {{VALUE}};',
@@ -808,7 +818,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'tab_title_border_active',
-				'label'                 => esc_html__('Border', 'master-addons' ),
+				'label'                 => esc_html__('Border', 'master-addons'),
 				'selector'              => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title.active',
 			]
 		);
@@ -816,7 +826,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'jltma_accordion_border_radius_active',
 			array(
-				'label'      => esc_html__('Border Radius', 'master-addons' ),
+				'label'      => esc_html__('Border Radius', 'master-addons'),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => array('px', '%'),
 				'selectors'  => array(
@@ -842,7 +852,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'jltma_accordion_box_padding',
 			[
-				'label'                 => esc_html__('Padding', 'master-addons' ),
+				'label'                 => esc_html__('Padding', 'master-addons'),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => ['px', 'em', '%'],
 				'selectors'             => [
@@ -859,7 +869,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_section(
 			'section_content_style',
 			[
-				'label'                 => esc_html__('Content', 'master-addons' ),
+				'label'                 => esc_html__('Content', 'master-addons'),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -867,7 +877,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_content_bg_color',
 			[
-				'label'                 => esc_html__('Background Color', 'master-addons' ),
+				'label'                 => esc_html__('Background Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'	=> [
@@ -879,7 +889,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'tab_content_text_color',
 			[
-				'label'                 => esc_html__('Text Color', 'master-addons' ),
+				'label'                 => esc_html__('Text Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '#333',
 				'selectors'             => [
@@ -900,7 +910,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'tab_content_padding',
 			[
-				'label'                 => esc_html__('Padding', 'master-addons' ),
+				'label'                 => esc_html__('Padding', 'master-addons'),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => ['px', 'em', '%'],
 				'selectors'             => [
@@ -913,7 +923,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name' => 'tab_content_padding_text_shadow',
-				'label' => __('Text Shadow', 'master-addons' ),
+				'label' => __('Text Shadow', 'master-addons'),
 				'selector' => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-item .jltma-accordion-tab-content',
 			)
 		);
@@ -926,7 +936,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_section(
 			'section_toggle_icon_style',
 			[
-				'label'                 => esc_html__('Toggle icon', 'master-addons' ),
+				'label'                 => esc_html__('Toggle icon', 'master-addons'),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 				'condition'				=> [
 					'toggle_icon_show' => 'yes'
@@ -937,20 +947,20 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_position',
 			array(
-				'label'       => __('Alignment', 'master-addons' ),
-				'description' => __('Show Toggle Icon Position.', 'master-addons' ),
+				'label'       => __('Alignment', 'master-addons'),
+				'description' => __('Show Toggle Icon Position.', 'master-addons'),
 				'type'        => Controls_Manager::CHOOSE,
 				'options'     => array(
 					'left' => array(
-						'title' => __('Left', 'master-addons' ),
+						'title' => __('Left', 'master-addons'),
 						'icon' => 'eicon-h-align-left',
 					),
 					'none' => array(
-						'title' => __('None', 'master-addons' ),
+						'title' => __('None', 'master-addons'),
 						'icon' => 'eicon-ban',
 					),
 					'right' => array(
-						'title' => __('Right', 'master-addons' ),
+						'title' => __('Right', 'master-addons'),
 						'icon' => 'eicon-h-align-right',
 					)
 				),
@@ -970,14 +980,14 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'toggle_icons_tab_expand',
 			[
-				'label'                 => __('Expand Icon', 'master-addons' ),
+				'label'                 => __('Expand Icon', 'master-addons'),
 			]
 		);
 
 		$this->add_control(
 			'active_icon',
 			[
-				'label'         	=> esc_html__('Expand Icon', 'master-addons' ),
+				'label'         	=> esc_html__('Expand Icon', 'master-addons'),
 				'show_label'  		=> false,
 				'type'          	=> Controls_Manager::ICONS,
 				'fa4compatibility' 	=> 'icon',
@@ -1016,14 +1026,14 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'toggle_icons_tab_collapse',
 			[
-				'label'                 => __('Collapse Icon', 'master-addons' ),
+				'label'                 => __('Collapse Icon', 'master-addons'),
 			]
 		);
 
 		$this->add_control(
 			'toggle_icon',
 			[
-				'label'         	=> esc_html__('Collapse Icon', 'master-addons' ),
+				'label'         	=> esc_html__('Collapse Icon', 'master-addons'),
 				'type'          	=> Controls_Manager::ICONS,
 				'show_label'  		=> false,
 				'fa4compatibility' 	=> 'icon',
@@ -1067,7 +1077,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'toggle_icons_color_heading',
 			[
-				'label'                 => __('Icon Settings', 'master-addons' ),
+				'label'                 => __('Icon Settings', 'master-addons'),
 				'type'                  => Controls_Manager::HEADING,
 				'separator'             => 'before',
 			]
@@ -1077,7 +1087,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'toggle_icons_color_normal',
 			[
-				'label'                 => __('Normal', 'master-addons' ),
+				'label'                 => __('Normal', 'master-addons'),
 			]
 		);
 
@@ -1085,7 +1095,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'toggle_icon_bg',
-				'label'     => esc_html__('Background Color', 'master-addons' ),
+				'label'     => esc_html__('Background Color', 'master-addons'),
 				'types'     => ['classic', 'gradient'],
 				'exclude'   => ['image'],
 				'condition'             => [
@@ -1098,7 +1108,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'toggle_icon_color',
 			[
-				'label'                 => esc_html__('Icon Color', 'master-addons' ),
+				'label'                 => esc_html__('Icon Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '#444',
 				'selectors'	=> [
@@ -1113,7 +1123,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_size',
 			[
-				'label'                 => __('Icon Size', 'master-addons' ),
+				'label'                 => __('Icon Size', 'master-addons'),
 				'type'                  => Controls_Manager::SLIDER,
 				'default'               => [
 					'size'	=> 16,
@@ -1139,7 +1149,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'tab_icon_spacing',
 			[
-				'label'                 => __('Icon Spacing', 'master-addons' ),
+				'label'                 => __('Icon Spacing', 'master-addons'),
 				'type'                  => Controls_Manager::SLIDER,
 				'size_units'            => ['px'],
 				'range'                 => [
@@ -1160,7 +1170,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_padding',
 			[
-				'label'                 => esc_html__('Padding', 'master-addons' ),
+				'label'                 => esc_html__('Padding', 'master-addons'),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => ['px', 'em', '%'],
 				'selectors'             => [
@@ -1174,7 +1184,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'toggle_icons_color_hover',
 			[
-				'label'                 => __('Hover', 'master-addons' ),
+				'label'                 => __('Hover', 'master-addons'),
 			]
 		);
 
@@ -1182,7 +1192,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'toggle_icon_bg_color_hover',
-				'label'     => esc_html__('Background Color', 'master-addons' ),
+				'label'     => esc_html__('Background Color', 'master-addons'),
 				'types'     => ['classic', 'gradient'],
 				'exclude'   => ['image'],
 				'selector'  => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-item:hover .jltma-accordion-tab-title .jltma-accordion-toggle-icon'
@@ -1192,7 +1202,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'toggle_icon_color_hover',
 			[
-				'label'                 => esc_html__('Icon Color', 'master-addons' ),
+				'label'                 => esc_html__('Icon Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'	=> [
 					'{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-item:hover .jltma-accordion-tab-title .jltma-accordion-toggle-icon' => 'color: {{VALUE}};',
@@ -1206,7 +1216,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_size_hover',
 			[
-				'label'                 => __('Icon Size', 'master-addons' ),
+				'label'                 => __('Icon Size', 'master-addons'),
 				'type'                  => Controls_Manager::SLIDER,
 				'default'               => [
 					'size'	=> 16,
@@ -1232,7 +1242,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_padding_hover',
 			[
-				'label'                 => esc_html__('Padding', 'master-addons' ),
+				'label'                 => esc_html__('Padding', 'master-addons'),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => ['px', 'em', '%'],
 				'selectors'             => [
@@ -1246,7 +1256,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_tab(
 			'toggle_icons_color_active',
 			[
-				'label'                 => __('Active', 'master-addons' ),
+				'label'                 => __('Active', 'master-addons'),
 			]
 		);
 
@@ -1254,7 +1264,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'toggle_icon_bg_color_active',
-				'label'     => esc_html__('Background Color', 'master-addons' ),
+				'label'     => esc_html__('Background Color', 'master-addons'),
 				'types'     => ['classic', 'gradient'],
 				'exclude'   => ['image'],
 				'selector'  => '{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title.active .jltma-accordion-toggle-icon'
@@ -1264,7 +1274,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_control(
 			'toggle_icon_color_active',
 			[
-				'label'                 => esc_html__('Icon Color', 'master-addons' ),
+				'label'                 => esc_html__('Icon Color', 'master-addons'),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'	=> [
 					'{{WRAPPER}} .jltma-advanced-accordion .jltma-accordion-tab-title.active .jltma-accordion-toggle-icon' => 'color: {{VALUE}};'
@@ -1278,7 +1288,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_size_active',
 			[
-				'label'                 => __('Icon Size', 'master-addons' ),
+				'label'                 => __('Icon Size', 'master-addons'),
 				'type'                  => Controls_Manager::SLIDER,
 				'default'               => [
 					'size'	=> 16,
@@ -1304,7 +1314,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->add_responsive_control(
 			'toggle_icon_padding_active',
 			[
-				'label'                 => esc_html__('Padding', 'master-addons' ),
+				'label'                 => esc_html__('Padding', 'master-addons'),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => ['px', 'em', '%'],
 				'selectors'             => [
@@ -1330,7 +1340,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 		$this->start_controls_section(
 			'jltma_section_help_docs',
 			[
-				'label' => esc_html__('Help Docs', 'master-addons' ),
+				'label' => esc_html__('Help Docs', 'master-addons'),
 			]
 		);
 
@@ -1339,7 +1349,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			'help_doc_1',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf(esc_html__('%1$s Live Demo %2$s', 'master-addons' ), '<a href="https://master-addons.com/demos/advanced-accordion/" target="_blank" rel="noopener">', '</a>'),
+				'raw'             => sprintf(esc_html__('%1$s Live Demo %2$s', 'master-addons'), '<a href="https://master-addons.com/demos/advanced-accordion/" target="_blank" rel="noopener">', '</a>'),
 				'content_classes' => 'jltma-editor-doc-links',
 			]
 		);
@@ -1348,7 +1358,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			'help_doc_2',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf(esc_html__('%1$s Documentation %2$s', 'master-addons' ), '<a href="https://master-addons.com/docs/addons/elementor-accordion-widget/?utm_source=widget&utm_medium=panel&utm_campaign=dashboard" target="_blank" rel="noopener">', '</a>'),
+				'raw'             => sprintf(esc_html__('%1$s Documentation %2$s', 'master-addons'), '<a href="https://master-addons.com/docs/addons/elementor-accordion-widget/?utm_source=widget&utm_medium=panel&utm_campaign=dashboard" target="_blank" rel="noopener">', '</a>'),
 				'content_classes' => 'jltma-editor-doc-links',
 			]
 		);
@@ -1357,7 +1367,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			'help_doc_3',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf(esc_html__('%1$s Watch Video Tutorial %2$s', 'master-addons' ), '<a href="https://www.youtube.com/watch?v=rdrqWa-tf6Q" target="_blank" rel="noopener">', '</a>'),
+				'raw'             => sprintf(esc_html__('%1$s Watch Video Tutorial %2$s', 'master-addons'), '<a href="https://www.youtube.com/watch?v=rdrqWa-tf6Q" target="_blank" rel="noopener">', '</a>'),
 				'content_classes' => 'jltma-editor-doc-links',
 			]
 		);
@@ -1371,18 +1381,18 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$this->start_controls_section(
 				'jltma_section_upgrade_pro',
 				[
-					'label' => esc_html__('Upgrade to Pro for More Features', 'master-addons' )
+					'label' => esc_html__('Upgrade to Pro for More Features', 'master-addons')
 				]
 			);
 
 			$this->add_control(
 				'maad_el_control_get_pro',
 				[
-					'label' => esc_html__('Unlock more possibilities', 'master-addons' ),
+					'label' => esc_html__('Unlock more possibilities', 'master-addons'),
 					'type' => Controls_Manager::CHOOSE,
 					'options' => [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -1399,18 +1409,18 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 			$this->start_controls_section(
 				'ma_el_section_pro_style_section',
 				[
-					'label' => esc_html__('Upgrade to Pro for More Features', 'master-addons' ),
+					'label' => esc_html__('Upgrade to Pro for More Features', 'master-addons'),
 					'tab' => Controls_Manager::TAB_STYLE
 				]
 			);
 			$this->add_control(
 				'ma_el_control_get_pro_style_tab',
 				[
-					'label' => esc_html__('Unlock more possibilities', 'master-addons' ),
+					'label' => esc_html__('Unlock more possibilities', 'master-addons'),
 					'type' => Controls_Manager::CHOOSE,
 					'options' => [
 						'1' => [
-							'title' => esc_html__('', 'master-addons' ),
+							'title' => esc_html__('', 'master-addons'),
 							'icon' => 'fa fa-unlock-alt',
 						],
 					],
@@ -1506,48 +1516,48 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 									if ($tab['accordion_tab_icon_show'] === 'yes') { ?>
 										<span class="jltma-accordion-toggle-icon jltma-accordion-tab-icon">
 											<?php
-                                            $migrated = isset($settings['__fa4_migrated']['accordion_tab_title_icon_collapse']);
-                                            $is_new   = empty($settings['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                            if ($is_new || $migrated){
-                                                \Elementor\Icons_Manager::render_icon($settings['accordion_tab_title_icon_collapse'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-closed']);
-                                            } else { ?>
-                                                <i class="jltma-el-accordion-icon-closed <?php echo esc_attr($settings['icon_collapse']); ?>" aria-hidden="true"></i>
-                                            <?php }
+											$migrated = isset($settings['__fa4_migrated']['accordion_tab_title_icon_collapse']);
+											$is_new   = empty($settings['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
+											if ($is_new || $migrated) {
+												\Elementor\Icons_Manager::render_icon($settings['accordion_tab_title_icon_collapse'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-closed']);
+											} else { ?>
+												<i class="jltma-el-accordion-icon-closed <?php echo esc_attr($settings['icon_collapse']); ?>" aria-hidden="true"></i>
+											<?php }
 
 
-                                            // $active_migrated = isset($settings['__fa4_migrated']['accordion_tab_title_icon']);
-                                            // $active_is_new   = empty($settings['icon_active']) && \Elementor\Icons_Manager::is_migration_allowed();
+											// $active_migrated = isset($settings['__fa4_migrated']['accordion_tab_title_icon']);
+											// $active_is_new   = empty($settings['icon_active']) && \Elementor\Icons_Manager::is_migration_allowed();
 
-                                            $title_migrated = isset($settings['__fa4_migrated']['accordion_tab_title_icon']);
-                                            $title_is_new   = empty($settings['icon_title']) && \Elementor\Icons_Manager::is_migration_allowed();
+											$title_migrated = isset($settings['__fa4_migrated']['accordion_tab_title_icon']);
+											$title_is_new   = empty($settings['icon_title']) && \Elementor\Icons_Manager::is_migration_allowed();
 
-                                            if ($title_is_new || $title_migrated){
-                                                \Elementor\Icons_Manager::render_icon($settings['accordion_tab_title_icon'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-opened']);
-                                            } else { ?>
-                                                <i class="jltma-el-accordion-icon-opened <?php echo esc_attr($settings['icon_title']); ?>" aria-hidden="true"></i>
-                                            <?php } ?>
+											if ($title_is_new || $title_migrated) {
+												\Elementor\Icons_Manager::render_icon($settings['accordion_tab_title_icon'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-opened']);
+											} else { ?>
+												<i class="jltma-el-accordion-icon-opened <?php echo esc_attr($settings['icon_title']); ?>" aria-hidden="true"></i>
+											<?php } ?>
 
 										</span>
 									<?php } else { ?>
 										<span class="jltma-accordion-toggle-icon">
 											<?php
 
-                                            $migrated = isset($settings['__fa4_migrated']['toggle_icon']);
-                                            $is_new   = empty($settings['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                            if ($is_new || $migrated){
-                                                \Elementor\Icons_Manager::render_icon($settings['toggle_icon'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-closed']);
-                                            } else { ?>
-                                                <i class="jltma-el-accordion-icon-closed <?php echo esc_attr($settings['icon_collapse']); ?>" aria-hidden="true"></i>
-                                            <?php }
+											$migrated = isset($settings['__fa4_migrated']['toggle_icon']);
+											$is_new   = empty($settings['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
+											if ($is_new || $migrated) {
+												\Elementor\Icons_Manager::render_icon($settings['toggle_icon'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-closed']);
+											} else { ?>
+												<i class="jltma-el-accordion-icon-closed <?php echo esc_attr($settings['icon_collapse']); ?>" aria-hidden="true"></i>
+											<?php }
 
 
-                                            $active_migrated = isset($settings['__fa4_migrated']['active_icon']);
-                                            $active_is_new   = empty($settings['icon']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                            if ($active_is_new || $active_migrated){
-                                                \Elementor\Icons_Manager::render_icon($settings['active_icon'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-opened']);
-                                            } else { ?>
-                                                <i class="jltma-el-accordion-icon-opened <?php echo esc_attr($settings['icon_title']); ?>" aria-hidden="true"></i>
-                                            <?php } ?>
+											$active_migrated = isset($settings['__fa4_migrated']['active_icon']);
+											$active_is_new   = empty($settings['icon']) && \Elementor\Icons_Manager::is_migration_allowed();
+											if ($active_is_new || $active_migrated) {
+												\Elementor\Icons_Manager::render_icon($settings['active_icon'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-opened']);
+											} else { ?>
+												<i class="jltma-el-accordion-icon-opened <?php echo esc_attr($settings['icon_title']); ?>" aria-hidden="true"></i>
+											<?php } ?>
 
 										</span>
 								<?php }
@@ -1562,42 +1572,42 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 								if ($tab['accordion_tab_icon_show'] === 'yes') { ?>
 									<span class="jltma-accordion-toggle-icon jltma-accordion-tab-icon">
 										<?php
-                                        $migrated = isset($tab['__fa4_migrated']['accordion_tab_title_icon_collapse']);
-                                        $is_new   = empty($tab['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                        if ($is_new || $migrated){
-                                            \Elementor\Icons_Manager::render_icon($tab['accordion_tab_title_icon_collapse'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-closed']);
-                                        } else { ?>
-                                            <i class="jltma-el-accordion-icon-closed <?php echo esc_attr($tab['icon_collapse']); ?>" aria-hidden="true"></i>
-                                        <?php }
+										$migrated = isset($tab['__fa4_migrated']['accordion_tab_title_icon_collapse']);
+										$is_new   = empty($tab['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
+										if ($is_new || $migrated) {
+											\Elementor\Icons_Manager::render_icon($tab['accordion_tab_title_icon_collapse'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-closed']);
+										} else { ?>
+											<i class="jltma-el-accordion-icon-closed <?php echo esc_attr($tab['icon_collapse']); ?>" aria-hidden="true"></i>
+										<?php }
 
 
-                                        $active_migrated = isset($tab['__fa4_migrated']['accordion_tab_title_icon']);
-                                        $active_is_new   = empty($tab['icon_title']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                        if ($active_is_new || $active_migrated){
-                                            \Elementor\Icons_Manager::render_icon($tab['accordion_tab_title_icon'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-opened']);
-                                        } else { ?>
-                                            <i class="jltma-el-accordion-icon-opened <?php echo esc_attr($tab['icon_title']); ?>" aria-hidden="true"></i>
-                                        <?php } ?>
+										$active_migrated = isset($tab['__fa4_migrated']['accordion_tab_title_icon']);
+										$active_is_new   = empty($tab['icon_title']) && \Elementor\Icons_Manager::is_migration_allowed();
+										if ($active_is_new || $active_migrated) {
+											\Elementor\Icons_Manager::render_icon($tab['accordion_tab_title_icon'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-opened']);
+										} else { ?>
+											<i class="jltma-el-accordion-icon-opened <?php echo esc_attr($tab['icon_title']); ?>" aria-hidden="true"></i>
+										<?php } ?>
 									</span>
 								<?php } else { ?>
 									<span class="jltma-accordion-toggle-icon">
 										<?php
-                                        $migrated = isset($settings['__fa4_migrated']['toggle_icon']);
-                                        $is_new   = empty($settings['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                        if ($is_new || $migrated){
-                                            \Elementor\Icons_Manager::render_icon($settings['toggle_icon'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-closed']);
-                                        } else { ?>
-                                            <i class="jltma-el-accordion-icon-closed <?php echo esc_attr($settings['icon_collapse']); ?>" aria-hidden="true"></i>
-                                        <?php }
+										$migrated = isset($settings['__fa4_migrated']['toggle_icon']);
+										$is_new   = empty($settings['icon_collapse']) && \Elementor\Icons_Manager::is_migration_allowed();
+										if ($is_new || $migrated) {
+											\Elementor\Icons_Manager::render_icon($settings['toggle_icon'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-closed']);
+										} else { ?>
+											<i class="jltma-el-accordion-icon-closed <?php echo esc_attr($settings['icon_collapse']); ?>" aria-hidden="true"></i>
+										<?php }
 
 
-                                        $active_migrated = isset($settings['__fa4_migrated']['active_icon']);
-                                        $active_is_new   = empty($settings['icon']) && \Elementor\Icons_Manager::is_migration_allowed();
-                                        if ($active_is_new || $active_migrated){
-                                            \Elementor\Icons_Manager::render_icon($settings['active_icon'], ['aria-hidden' => 'true', 'class'=> 'jltma-el-accordion-icon-opened']);
-                                        } else { ?>
-                                            <i class="jltma-el-accordion-icon-opened <?php echo esc_attr($settings['icon_title']); ?>" aria-hidden="true"></i>
-                                        <?php } ?>
+										$active_migrated = isset($settings['__fa4_migrated']['active_icon']);
+										$active_is_new   = empty($settings['icon']) && \Elementor\Icons_Manager::is_migration_allowed();
+										if ($active_is_new || $active_migrated) {
+											\Elementor\Icons_Manager::render_icon($settings['active_icon'], ['aria-hidden' => 'true', 'class' => 'jltma-el-accordion-icon-opened']);
+										} else { ?>
+											<i class="jltma-el-accordion-icon-opened <?php echo esc_attr($settings['icon_title']); ?>" aria-hidden="true"></i>
+										<?php } ?>
 									</span>
 							<?php }
 							} ?>
@@ -1614,7 +1624,7 @@ class JLTMA_Advanced_Accordion extends Widget_Base
                                                 color:<?php echo esc_attr($tab['single_title_content_color']); ?>" <?php } // Premium Version Codes
 
 																											} */
-																													?>>
+								?>>
 							<?php
 
 							if (ma_el_fs()->can_use_premium_code()) {
@@ -1652,14 +1662,14 @@ class JLTMA_Advanced_Accordion extends Widget_Base
 
 		$page_templates = Master_Addons_Helper::ma_get_page_templates($type);
 
-		$options[-1]   = __('Select', 'master-addons' );
+		$options[-1]   = __('Select', 'master-addons');
 
 		if (count($page_templates)) {
 			foreach ($page_templates as $id => $name) {
 				$options[$id] = $name;
 			}
 		} else {
-			$options['no_template'] = __('No saved templates found!', 'master-addons' );
+			$options['no_template'] = __('No saved templates found!', 'master-addons');
 		}
 
 		return $options;

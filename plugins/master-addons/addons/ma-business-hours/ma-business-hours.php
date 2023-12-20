@@ -146,9 +146,9 @@ class JLTMA_Business_Hours extends Widget_Base
 				'label_off'         => __('Yes', 'master-addons' ),
 				'label_on'          => __('No', 'master-addons' ),
 				'return_value'      => 'yes',
-				'condition'         => [
-					'ma_el_business_hours_style'    =>  ['content-bg-image', 'content-corner-btn', 'table-reservation']
-				]
+				// 'condition'         => [
+				// 	'ma_el_business_hours_style'    =>  ['content-bg-image', 'content-corner-btn', 'table-reservation']
+				// ]
 			]
 		);
 
@@ -1370,11 +1370,9 @@ class JLTMA_Business_Hours extends Widget_Base
 
 
 				<?php if ($settings['ma_el_bh_show_subtitle'] == 'yes') { ?>
-					<?php if ($settings['ma_el_business_hours_style'] == 'table-reservation') { ?>
 						<h2 class="jltma-business-hour-title">
 							<?php echo $this->parse_text_editor($settings['ma_el_bh_table_subtitle']); ?>
 						</h2>
-					<?php } ?>
 				<?php } ?>
 
 
@@ -1628,8 +1626,16 @@ class JLTMA_Business_Hours extends Widget_Base
 					if (!empty($ma_el_business_bg_image)) {
 						$ma_el_business_bg_image_url_src = Group_Control_Image_Size::get_attachment_image_src(
 							$ma_el_business_bg_image['id'],
-							'ma_el_business_bg_img',
-							$settings
+							'ma_el_business_bg_img', $settings);
+					}
+
+					if ($settings['ma_el_business_hours_style'] == 'content-bg-image') {
+						$this->add_render_attribute(
+							'jltma_business_hours_image',
+							[
+								'class' => 'jltma-business-hour-content',
+								'style' => 'background: url("' . $ma_el_business_bg_image_url_src . '") no-repeat center; background-size: cover;',
+							]
 						);
 					}
 
@@ -1667,9 +1673,7 @@ class JLTMA_Business_Hours extends Widget_Base
 									<div class="<?php echo ($settings['ma_el_business_hours_style'] == 'table-reservation') ? "jltma-col-4" : "jltma-col-6"; ?>">
 									<?php } ?>
 
-									<div class="jltma-business-hour-content" <?php if ($settings['ma_el_business_hours_style'] == 'content-bg-image') {
-																					echo 'style="background: url(' . ($ma_el_business_bg_image_url_src) ? esc_attr($ma_el_business_bg_image_url_src) : '' . ') no-repeat center; background-size: cover;';
-																				} ?>>
+									<div <?php echo $this->get_render_attribute_string('jltma_business_hours_image'); ?>>
 										<div class="jltma-business-hour-content-details">
 											<ul class="jltma-business-hour-list">
 												<?php

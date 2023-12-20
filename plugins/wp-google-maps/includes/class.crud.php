@@ -571,7 +571,7 @@ class Crud extends Factory implements \IteratorAggregate, \JsonSerializable
 					$value = wp_kses_post($value);
 				}
 
-				if($key === 'link'){
+				if($key === 'link' || $key === 'title'){
 					$value = html_entity_decode($value);
 				}
 
@@ -686,7 +686,8 @@ class Crud extends Factory implements \IteratorAggregate, \JsonSerializable
 			throw new \Exception('Property is read only');
 		
 		if(is_string($value)){
-			$value = htmlspecialchars_decode(wp_kses_post($value));
+			// $value = htmlspecialchars_decode(wp_kses_post($value));
+			$value = wp_kses_post($value);
 		}
 		
 		$this->fields[$name] = $value;

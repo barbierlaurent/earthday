@@ -254,6 +254,9 @@
 .ur-icon-hidden-field::before {
   content: ""; }
 
+.ur-icon-captcha-field::before {
+  content: ""; }
+
 .user-registration button,
 .user-registration .button,
 .ur-form-container button,
@@ -654,6 +657,12 @@
 .user-registration-page .select2-dropdown,
 .user-registration-swal2-container {
   z-index: 9999; }
+
+.ur-timepicker-range {
+  display: flex; }
+
+.timepicker-start {
+  margin-left: 1rem; }
 
 /**
 * Main User Registration styles

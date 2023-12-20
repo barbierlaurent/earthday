@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Handle frontend forms.
  *
@@ -22,7 +21,7 @@ class UR_Form_Handler {
 	 * Hook in methods.
 	 */
 	public static function init() {
-		 add_action( 'template_redirect', array( __CLASS__, 'redirect_reset_password_link' ) );
+		add_action( 'template_redirect', array( __CLASS__, 'redirect_reset_password_link' ) );
 
 		if ( ! ur_option_checked( 'user_registration_ajax_form_submission_on_edit_profile', false ) ) {
 			add_action( 'template_redirect', array( __CLASS__, 'save_profile_details' ) );
@@ -33,13 +32,14 @@ class UR_Form_Handler {
 		add_action( 'wp_loaded', array( __CLASS__, 'process_lost_password' ), 20 );
 		add_action( 'wp_loaded', array( __CLASS__, 'process_reset_password' ), 20 );
 		add_action( 'user_registration_before_customer_login_form', array( __CLASS__, 'export_confirmation_request' ) );
+		add_action( 'user_registration_save_profile_details', array( __CLASS__, 'ur_update_user_ip_after_profile_update' ), 10, 2 );
 	}
 
 	/**
 	 * Remove key and login from querystring, set cookie, and redirect to account page to show the form.
 	 */
 	public static function redirect_reset_password_link() {
-		$page_id     = ur_get_page_id( 'myaccount' );
+		$page_id                     = ur_get_page_id( 'myaccount' );
 		$is_ur_login_or_account_page = ur_find_my_account_in_page( $page_id );
 
 		if ( $is_ur_login_or_account_page && ! empty( $_GET['key'] ) && ! empty( $_GET['login'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
@@ -79,9 +79,10 @@ class UR_Form_Handler {
 			$form_id = $form_id_array[0];
 		}
 
-		$profile = user_registration_form_data( $user_id, $form_id );
+		$profile   = user_registration_form_data( $user_id, $form_id );
+		$form_data = self::get_form_data_from_post( $form_id );
 
-		do_action( 'user_registration_validate_profile_update_post', $profile, $form_id );
+		do_action( 'user_registration_validate_profile_update', $profile, $form_data, $form_id );
 
 		do_action( 'user_registration_after_save_profile_validation', $user_id, $profile );
 
@@ -157,6 +158,87 @@ class UR_Form_Handler {
 	}
 
 	/**
+	 * This format returns form field data in object format.
+	 *
+	 * In Non-ajax method of update profile, form data is received in key => value format
+	 * which is different from the data received while using ajax submission.
+	 *
+	 * So, to maintain consistency of form data object while passing to different functions,
+	 * data is formatted properly.
+	 *
+	 * @param [int] $form_id Form Id.
+	 * @return array
+	 */
+	public static function get_form_data_from_post( $form_id ) {
+
+		$form_field_data = ur_get_form_field_data( $form_id );
+
+		$fields = array();
+
+		foreach ( $form_field_data as $field ) {
+			$field_name = $field->general_setting->field_name;
+			$key        = 'user_registration_' . $field_name;
+
+			$field_obj             = new StdClass();
+			$field_obj->field_name = $field_name;
+
+			$value = '';
+
+			switch ( $field->field_key ) {
+				case 'checkbox':
+					if ( isset( $_POST[ $key ] ) && is_array( $_POST[ $key ] ) ) { // phpcs:ignore
+						$value = wp_unslash( $_POST[ $key ] ); // phpcs:ignore
+					} else {
+						$value = (int) isset( $_POST[ $key ] ); // phpcs:ignore
+					}
+					break;
+
+				case 'wysiwyg':
+					if ( isset( $_POST[ $key ] ) ) { // phpcs:ignore
+						$value = sanitize_text_field( htmlentities( wp_unslash( $_POST[ $key ] ) ) ); // phpcs:ignore
+					} else {
+						$value = '';
+					}
+					break;
+
+				case 'email':
+					if ( isset( $_POST[ $key ] ) ) { // phpcs:ignore
+						$value = sanitize_email( wp_unslash( $_POST[ $key ] ) ); // phpcs:ignore
+					} else {
+						$user_id   = get_current_user_id();
+						$user_data = get_userdata( $user_id );
+						$value     = $user_data->data->user_email;
+					}
+					break;
+				case 'profile_picture':
+					if ( isset( $_POST['profile_pic_url'] ) ) { // phpcs:ignore
+						$value = sanitize_text_field( wp_unslash( $_POST['profile_pic_url'] ) ); // phpcs:ignore
+					} else {
+						$value = '';
+					}
+					break;
+
+				default:
+					$value = isset( $_POST[ $key ] ) ? $_POST[ $key ] : ''; // phpcs:ignore
+					break;
+			}
+
+			$field_obj->value = ur_clean( $value );
+
+			if ( isset( $field->field_key ) ) {
+				$field_obj->field_type = $field->field_key;
+			}
+
+			if ( isset( $field->general_setting->label ) ) {
+				$field_obj->label = $field->general_setting->label;
+			}
+
+			$fields[ $field_name ] = $field_obj;
+		}
+		return $fields;
+	}
+
+	/**
 	 * Send confirmation email.
 	 *
 	 * @param object $user User.
@@ -192,8 +274,8 @@ class UR_Form_Handler {
 			get_bloginfo( 'name' )
 		);
 		$message  = apply_filters( 'user_registration_email_change_email_content', $message );
-		$headers  = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
-		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$headers  = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . ">\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\n";
 
 		wp_mail( $to, $subject, $message, $headers );
 
@@ -324,7 +406,7 @@ class UR_Form_Handler {
 	public static function process_lost_password() {
 		if ( isset( $_POST['ur_reset_password'] ) && isset( $_POST['user_login'] ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'lost_password' ) ) {
 
-			$recaptcha_value     = isset( $_POST['g-recaptcha-response'] ) ? ur_clean( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+			$recaptcha_value     = isset( $_POST['g-recaptcha-response'] ) ? ur_clean( sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) ) : '';
 			$recaptcha_enabled   = ur_string_to_bool( apply_filters( 'user_registration_lost_password_options_enable_recaptcha', false ) );
 			$recaptcha_type      = get_option( 'user_registration_captcha_setting_recaptcha_version', 'v2' );
 			$invisible_recaptcha = ur_option_checked( 'user_registration_captcha_setting_invisible_recaptcha_v2', false );
@@ -339,11 +421,11 @@ class UR_Form_Handler {
 				$site_key   = get_option( 'user_registration_captcha_setting_recaptcha_site_key_v3' );
 				$secret_key = get_option( 'user_registration_captcha_setting_recaptcha_site_secret_v3' );
 			} elseif ( 'hCaptcha' === $recaptcha_type ) {
-				$recaptcha_value = isset( $_POST['h-captcha-response'] ) ? ur_clean( wp_unslash( $_POST['h-captcha-response'] ) ) : '';
+				$recaptcha_value = isset( $_POST['h-captcha-response'] ) ? ur_clean( sanitize_text_field( wp_unslash( $_POST['h-captcha-response'] ) ) ) : '';
 				$site_key        = get_option( 'user_registration_captcha_setting_recaptcha_site_key_hcaptcha' );
 				$secret_key      = get_option( 'user_registration_captcha_setting_recaptcha_site_secret_hcaptcha' );
 			} elseif ( 'cloudflare' === $recaptcha_type ) {
-				$recaptcha_value = isset( $_POST['cf-turnstile-response'] ) ? ur_clean( wp_unslash( $_POST['cf-turnstile-response'] ) ) : '';
+				$recaptcha_value = isset( $_POST['cf-turnstile-response'] ) ? ur_clean( sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ) ) ) : '';
 				$site_key        = get_option( 'user_registration_captcha_setting_recaptcha_site_key_cloudflare' );
 				$secret_key      = get_option( 'user_registration_captcha_setting_recaptcha_site_secret_cloudflare' );
 			}
@@ -359,16 +441,16 @@ class UR_Form_Handler {
 							return false;
 						}
 					} elseif ( 'cloudflare' === $recaptcha_type ) {
-						$url          = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-						$params       = array(
+						$url    = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+						$params = array(
 							'method' => 'POST',
 							'body'   => array(
 								'secret'   => $secret_key,
 								'response' => $recaptcha_value,
 							),
 						);
-						$data = wp_safe_remote_post( $url, $params );
-						$data = json_decode( wp_remote_retrieve_body( $data ) );
+						$data   = wp_safe_remote_post( $url, $params );
+						$data   = json_decode( wp_remote_retrieve_body( $data ) );
 
 						if ( empty( $data->success ) ) {
 							ur_add_notice( __( 'Error on Cloudflare Turnstile. Contact your site administrator.', 'user-registration' ), 'error' );
@@ -523,8 +605,8 @@ class UR_Form_Handler {
 	 * @since 1.7.2
 	 */
 	public function get_form( $id = '', $args = array() ) {
-		 $forms = array();
-		$args   = apply_filters( 'user_registration_get_form_args', $args );
+		$forms = array();
+		$args  = apply_filters( 'user_registration_get_form_args', $args );
 
 		if ( is_numeric( $id ) ) {
 			$the_post = get_post( absint( $id ) );
@@ -710,6 +792,19 @@ class UR_Form_Handler {
 		do_action( 'user_registration_create_form', $form_id, $form_data, $data );
 
 		return $form_id;
+	}
+
+	/**
+	 * Update the user's IP address in form data if not already present.
+	 *
+	 * @since  3.0.4.1
+	 *
+	 * @param int $user_id The ID of the User.
+	 * @param int $form_id   The ID of the form.
+	 */
+	public static function ur_update_user_ip_after_profile_update( $user_id, $form_id ) {
+		$user_ip = ur_get_ip_address();
+		update_user_meta( $user_id, 'ur_user_ip', $user_ip );
 	}
 }
 

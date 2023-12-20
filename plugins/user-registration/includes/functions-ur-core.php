@@ -335,7 +335,7 @@ function ur_post_content_has_shortcode( $tag = '' ) {
 			foreach ( $blocks as $block ) {
 
 				if ( ( 'core/shortcode' === $block['blockName'] || 'core/paragraph' === $block['blockName'] ) && isset( $block['innerHTML'] ) ) {
-					$new_shortcode = $block['innerHTML'];
+					$new_shortcode =  ( 'core/shortcode' === $block['blockName'] ) ? $block['innerHTML'] : wp_strip_all_tags( $block['innerHTML'] );
 				} elseif ( 'user-registration/form-selector' === $block['blockName'] && isset( $block['attrs']['shortcode'] ) ) {
 					$new_shortcode = '[' . $block['attrs']['shortcode'] . ']';
 				}
@@ -395,7 +395,7 @@ function ur_setcookie( $name, $value, $expire = 0, $secure = false ) {
  */
 function ur_enable_ur_plugin_headers( $headers ) {
 	if ( ! class_exists( 'UR_Plugin_Updates', false ) ) {
-		include_once dirname( __FILE__ ) . '/admin/updater/class-ur-plugin-updates.php';
+		include_once __DIR__ . '/admin/updater/class-ur-plugin-updates.php';
 	}
 
 	$headers['URRequires'] = UR_Plugin_Updates::VERSION_REQUIRED_HEADER;
@@ -599,7 +599,6 @@ function ur_get_user_profile_field_only() {
 function ur_get_fields_without_prefix() {
 	$fields = ur_get_user_field_only();
 	return apply_filters( 'user_registration_fields_without_prefix', $fields );
-
 }
 
 /**
@@ -1052,15 +1051,16 @@ function ur_admin_form_settings_fields( $form_id ) {
 			),
 			array(
 				'type'              => 'select',
-				'label'             => __( 'Success message position', 'user-registration' ),
+				'label'             => __( 'Success message display', 'user-registration' ),
 				'description'       => '',
 				'required'          => false,
 				'id'                => 'user_registration_form_setting_success_message_position',
 				'class'             => array( 'ur-enhanced-select' ),
 				'input_class'       => array(),
 				'options'           => array(
-					'0' => __( 'Top', 'user-registration' ),
-					'1' => __( 'Bottom', 'user-registration' ),
+					'0' => esc_html__( 'Top', 'user-registration' ),
+					'1' => esc_html__( 'Bottom', 'user-registration' ),
+					'2' => esc_html__( 'Hide Form After Successful Submission', 'user-registration' ),
 				),
 				'custom_attributes' => array(),
 				'default'           => ur_get_single_post_meta( $form_id, 'user_registration_form_setting_success_message_position', '1' ),
@@ -1289,9 +1289,7 @@ function ur_get_user_approval_status( $user_id ) {
 
 	$user_status = 1;
 
-	$form_id = ur_get_form_id_by_userid( $user_id );
-
-	$login_option = ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) );
+	$login_option = ur_get_user_login_option( $user_id );
 
 	if ( 'admin_approval' === $login_option ) {
 
@@ -1329,15 +1327,12 @@ function ur_get_form_data_by_key( $form_data, $key = null ) {
 						} else {
 							$form_data_array[] = $field_data;
 						}
-					} else {
+					} elseif ( $field_key === $key ) {
 
-						if ( $field_key === $key ) {
-
-							if ( ! empty( $field_name ) ) {
-								$form_data_array[ $field_name ] = $field_data;
-							} else {
-								$form_data_array[] = $field_data;
-							}
+						if ( ! empty( $field_name ) ) {
+							$form_data_array[ $field_name ] = $field_data;
+						} else {
+							$form_data_array[] = $field_data;
 						}
 					}
 				}
@@ -1471,7 +1466,7 @@ function check_username( $username ) {
 		if ( isset( $matches[0][0] ) ) {
 			$last_char       = $matches[0][0];
 			$strip_last_char = substr( $username, 0, -( strlen( (string) $last_char ) ) );
-			$last_char++;
+			++$last_char;
 			$username = $strip_last_char . $last_char;
 			$username = check_username( $username );
 
@@ -1510,25 +1505,6 @@ function ur_get_all_user_registration_form( $post_count = -1 ) {
 }
 
 /**
- * Checks user login option, if not email confirmation force not disable emails.
- */
-function ur_get_user_login_option() {
-
-	if ( 'email_confirmation' !== get_option( 'user_registration_general_setting_login_options' ) ) {
-		return array(
-			'title'    => __( 'Disable emails', 'user-registration' ),
-			'desc'     => __( 'Disable all emails sent after registration.', 'user-registration' ),
-			'id'       => 'user_registration_email_setting_disable_email',
-			'default'  => 'no',
-			'type'     => 'toggle',
-			'autoload' => false,
-		);
-	} else {
-		update_option( 'user_registration_email_setting_disable_email', false );
-	}
-}
-
-/**
  * Get the node to display google reCaptcha
  *
  * @param string $context Recaptcha context.
@@ -1558,9 +1534,9 @@ function ur_get_recaptcha_node( $context, $recaptcha_enabled = false ) {
 		$recaptcha_site_secret = get_option( 'user_registration_captcha_setting_recaptcha_site_secret_hcaptcha' );
 		$enqueue_script        = 'ur-recaptcha-hcaptcha';
 	} elseif ( 'cloudflare' === $recaptcha_type ) {
-		$recaptcha_site_key    = get_option( 'user_registration_captcha_setting_recaptcha_site_key_cloudflare' );
-		$theme_mod             = get_option( 'user_registration_captcha_setting_recaptcha_cloudflare_theme' );
-		$enqueue_script        = 'ur-recaptcha-cloudflare';
+		$recaptcha_site_key = get_option( 'user_registration_captcha_setting_recaptcha_site_key_cloudflare' );
+		$theme_mod          = get_option( 'user_registration_captcha_setting_recaptcha_cloudflare_theme' );
+		$enqueue_script     = 'ur-recaptcha-cloudflare';
 	}
 	static $rc_counter = 0;
 
@@ -1587,7 +1563,7 @@ function ur_get_recaptcha_node( $context, $recaptcha_enabled = false ) {
 			} else {
 				wp_localize_script( $enqueue_script, 'ur_recaptcha_code', $ur_google_recaptcha_code );
 			}
-			$rc_counter++;
+			++$rc_counter;
 		}
 
 		if ( 'v3' === $recaptcha_type ) {
@@ -1624,29 +1600,25 @@ function ur_get_recaptcha_node( $context, $recaptcha_enabled = false ) {
 			} else {
 				$recaptcha_node = '';
 			}
-		} else {
-			if ( 'v2' === $recaptcha_type && $invisible_recaptcha ) {
-				if ( 'login' === $context ) {
-					$recaptcha_node = '<div id="node_recaptcha_login" class="g-recaptcha" data-size="invisible"></div>';
-				} elseif ( 'register' === $context ) {
-					$recaptcha_node = '<div id="node_recaptcha_register" class="g-recaptcha" data-size="invisible"></div>';
-				} elseif ( 'lost_password' === $context ) {
-					$recaptcha_node = '<div id="node_recaptcha_lost_password" class="g-recaptcha" data-size="invisible"></div>';
-				} else {
-					$recaptcha_node = '';
-				}
+		} elseif ( 'v2' === $recaptcha_type && $invisible_recaptcha ) {
+			if ( 'login' === $context ) {
+				$recaptcha_node = '<div id="node_recaptcha_login" class="g-recaptcha" data-size="invisible"></div>';
+			} elseif ( 'register' === $context ) {
+				$recaptcha_node = '<div id="node_recaptcha_register" class="g-recaptcha" data-size="invisible"></div>';
+			} elseif ( 'lost_password' === $context ) {
+				$recaptcha_node = '<div id="node_recaptcha_lost_password" class="g-recaptcha" data-size="invisible"></div>';
 			} else {
-				if ( 'login' === $context ) {
-					$recaptcha_node = '<div id="node_recaptcha_login" class="g-recaptcha"></div>';
-
-				} elseif ( 'register' === $context ) {
-					$recaptcha_node = '<div id="node_recaptcha_register" class="g-recaptcha"></div>';
-				} elseif ( 'lost_password' === $context ) {
-					$recaptcha_node = '<div id="node_recaptcha_lost_password" class="g-recaptcha"></div>';
-				} else {
-					$recaptcha_node = '';
-				}
+				$recaptcha_node = '';
 			}
+		} elseif ( 'login' === $context ) {
+				$recaptcha_node = '<div id="node_recaptcha_login" class="g-recaptcha"></div>';
+
+		} elseif ( 'register' === $context ) {
+			$recaptcha_node = '<div id="node_recaptcha_register" class="g-recaptcha"></div>';
+		} elseif ( 'lost_password' === $context ) {
+			$recaptcha_node = '<div id="node_recaptcha_lost_password" class="g-recaptcha"></div>';
+		} else {
+			$recaptcha_node = '';
 		}
 	} else {
 		$recaptcha_node = '';
@@ -1724,12 +1696,10 @@ function ur_get_user_status( $user_status, $user_email_status ) {
 		array_push( $status, 'Pending' );
 	} elseif ( '-1' === $user_status || '-1' === $user_email_status ) {
 		array_push( $status, 'Denied' );
-	} else {
-		if ( $user_email_status ) {
+	} elseif ( $user_email_status ) {
 			array_push( $status, 'Verified' );
-		} else {
-			array_push( $status, 'Approved' );
-		}
+	} else {
+		array_push( $status, 'Approved' );
 	}
 	return $status;
 }
@@ -1779,7 +1749,7 @@ function ur_is_json( $str ) {
  * @since  1.5.3
  * @return boolean
  */
-function ur_has_date_field( $form_id ) {
+function ur_has_flatpickr_field( $form_id ) {
 
 	$post_content_array = ( $form_id ) ? UR()->form->get_form( $form_id, array( 'content_only' => true ) ) : array();
 
@@ -1787,7 +1757,7 @@ function ur_has_date_field( $form_id ) {
 		foreach ( $post_content_array as $post_content_row ) {
 			foreach ( $post_content_row as $post_content_grid ) {
 				foreach ( $post_content_grid as $field ) {
-					if ( isset( $field->field_key ) && 'date' === $field->field_key ) {
+					if ( isset( $field->field_key ) && ( 'date' === $field->field_key || 'timepicker' === $field->field_key ) ) {
 						return true;
 					}
 				}
@@ -1905,19 +1875,31 @@ function ur_enqueue_js( $code ) {
 function ur_delete_expired_transients() {
 	global $wpdb;
 
-	$sql  = "DELETE a, b FROM $wpdb->options a, $wpdb->options b
-		WHERE a.option_name LIKE %s
-		AND a.option_name NOT LIKE %s
-		AND b.option_name = CONCAT( '_transient_timeout_', SUBSTRING( a.option_name, 12 ) )
-		AND b.option_value < %d";
-	$rows = $wpdb->query( $wpdb->prepare( $sql, $wpdb->esc_like( '_transient_' ) . '%', $wpdb->esc_like( '_transient_timeout_' ) . '%', time() ) ); // WPCS: unprepared SQL ok.
+	$rows = $wpdb->query(
+		$wpdb->prepare(
+			"DELETE a, b FROM $wpdb->options a, $wpdb->options b
+			WHERE a.option_name LIKE %s
+			AND a.option_name NOT LIKE %s
+			AND b.option_name = CONCAT( '_transient_timeout_', SUBSTRING( a.option_name, 12 ) )
+			AND b.option_value < %d",
+			$wpdb->esc_like( '_transient_' ) . '%',
+			$wpdb->esc_like( '_transient_timeout_' ) . '%',
+			time()
+		)
+	);
 
-	$sql   = "DELETE a, b FROM $wpdb->options a, $wpdb->options b
-		WHERE a.option_name LIKE %s
-		AND a.option_name NOT LIKE %s
-		AND b.option_name = CONCAT( '_site_transient_timeout_', SUBSTRING( a.option_name, 17 ) )
-		AND b.option_value < %d";
-	$rows2 = $wpdb->query( $wpdb->prepare( $sql, $wpdb->esc_like( '_site_transient_' ) . '%', $wpdb->esc_like( '_site_transient_timeout_' ) . '%', time() ) ); // WPCS: unprepared SQL ok.
+	$rows2 = $wpdb->query(
+		$wpdb->prepare(
+			"DELETE a, b FROM $wpdb->options a, $wpdb->options b
+			WHERE a.option_name LIKE %s
+			AND a.option_name NOT LIKE %s
+			AND b.option_name = CONCAT( '_site_transient_timeout_', SUBSTRING( a.option_name, 17 ) )
+			AND b.option_value < %d",
+			$wpdb->esc_like( '_site_transient_' ) . '%',
+			$wpdb->esc_like( '_site_transient_timeout_' ) . '%',
+			time()
+		)
+	);
 
 	return absint( $rows + $rows2 );
 }
@@ -2141,11 +2123,9 @@ function ur_get_valid_form_data_format( $new_string, $post_key, $profile, $value
 						}
 					}
 					$value = ! empty( $attachment_ids ) ? $attachment_ids : $value;
-				} else {
+				} elseif ( wp_http_validate_url( $value ) ) {
 
-					if ( wp_http_validate_url( $value ) ) {
 						$value = attachment_url_to_postid( $value );
-					}
 				}
 				break;
 		}
@@ -2221,6 +2201,7 @@ function ur_parse_name_values_for_smart_tags( $user_id, $form_id, $valid_form_da
 			$countries        = $country_class::get_instance()->get_country();
 			$form_data->value = isset( $countries[ $form_data->value ] ) ? $countries[ $form_data->value ] : $form_data->value;
 		}
+		$form_data = apply_filters( 'user_registration_parse_values_for_smart_tags', $form_data );
 
 		$label      = isset( $form_data->extra_params['label'] ) ? $form_data->extra_params['label'] : '';
 		$field_name = isset( $form_data->field_name ) ? $form_data->field_name : '';
@@ -2678,6 +2659,54 @@ if ( ! function_exists( 'ur_profile_picture_migration_script' ) ) {
 	}
 }
 
+add_action( 'user_registration_init', 'ur_size_to_limit_length_migration_script' );
+
+if ( ! function_exists( 'ur_size_to_limit_length_migration_script' ) ) {
+
+	/**
+	 * Update text field advance settings from size to limit length.
+	 *
+	 * @since 3.1.2.
+	 */
+	function ur_size_to_limit_length_migration_script() {
+
+		if ( ! get_option( 'ur_size_to_limit_length_migrated', false ) ) {
+
+			$all_forms = ur_get_all_user_registration_form();
+
+			foreach ( $all_forms as $key => $value ) {
+
+				$form_id            = $key;
+				$post               = ( $form_id ) ? get_post( $form_id ) : '';
+				$post_content       = isset( $post->post_content ) ? $post->post_content : '';
+				$post_content_array = json_decode( $post_content );
+
+				foreach ( $post_content_array as $post_content_row ) {
+					foreach ( $post_content_row as $post_content_grid ) {
+						foreach ( $post_content_grid as $field ) {
+
+							if ( isset( $field->field_key ) && 'text' === $field->field_key ) {
+								if ( isset( $field->advance_setting ) ) {
+									if ( isset( $field->advance_setting->size ) && ! empty( $field->advance_setting->size ) ) {
+										$field->advance_setting->limit_length             = true;
+										$field->advance_setting->limit_length_limit_count = $field->advance_setting->size;
+										$field->advance_setting->limit_length_limit_mode  = 'characters';
+									}
+								}
+							}
+						}
+					}
+					$post_content       = json_encode( $post_content_array );
+					$post->post_content = $post_content;
+				}
+				wp_update_post( $post );
+			}
+
+			update_option( 'ur_size_to_limit_length_migrated', true );
+		}
+	}
+}
+
 add_action( 'delete_user', 'ur_delete_user_files_on_user_delete', 10, 3 );
 
 if ( ! function_exists( 'ur_delete_user_files_on_user_delete' ) ) {
@@ -2708,7 +2737,11 @@ if ( ! function_exists( 'ur_delete_user_files_on_user_delete' ) ) {
 
 				$meta_key = isset( $field['key'] ) ? $field['key'] : '';
 
-				$attachment_ids = explode( ',', get_user_meta( $user->ID, 'user_registration_' . $meta_key, true ) );
+				$attachment_ids = get_user_meta( $user->ID, 'user_registration_' . $meta_key, true );
+
+				if ( is_string( $attachment_ids ) ) {
+					$attachment_ids = explode( ',', $attachment_ids );
+				}
 
 				foreach ( $attachment_ids as $attachment_id ) {
 					$file_path = get_attached_file( $attachment_id );
@@ -2836,7 +2869,7 @@ if ( ! function_exists( 'user_registration_install_pages_notice' ) ) {
 		}
 
 		if ( ! empty( $myaccount_page ) ) {
-			$matched    = ur_find_my_account_in_page( $myaccount_page->ID );
+			$matched = ur_find_my_account_in_page( $myaccount_page->ID );
 		}
 
 		if ( 0 === $matched ) {
@@ -2865,7 +2898,7 @@ if ( ! function_exists( 'ur_find_my_account_in_page' ) ) {
 	 */
 	function ur_find_my_account_in_page( $login_page_id ) {
 		global $wpdb;
-		$post_table = $wpdb->prefix . 'posts';
+		$post_table      = $wpdb->prefix . 'posts';
 		$post_meta_table = $wpdb->prefix . 'postmeta';
 
 		$matched = $wpdb->get_var(
@@ -2886,7 +2919,7 @@ if ( ! function_exists( 'ur_get_license_plan' ) ) {
 	/**
 	 * Get a license plan.
 	 *
-	 * @return bool|string Plan on success, false on failure.
+	 * @return bool|object Plan on success, false on failure.
 	 * @since  2.2.4
 	 */
 	function ur_get_license_plan() {
@@ -3127,7 +3160,7 @@ if ( ! function_exists( 'ur_upload_profile_pic' ) ) {
 	 */
 	function ur_upload_profile_pic( $valid_form_data, $user_id ) {
 		$attachment_id = array();
-		$upload_path   = UR_UPLOAD_PATH . 'profile-pictures'; /*Get path of upload dir of User Registration for profile pictures*/
+		$upload_path   = apply_filters( 'user_registration_profile_pic_upload_url', UR_UPLOAD_PATH . 'profile-pictures' ); /*Get path of upload dir of WordPress*/
 
 		// Checks if the upload directory exists and create one if not.
 		if ( ! file_exists( $upload_path ) ) {
@@ -3286,7 +3319,6 @@ if ( ! function_exists( 'ur_check_captch_keys' ) ) {
 		}
 
 		return false;
-
 	}
 }
 
@@ -3304,25 +3336,25 @@ if ( ! function_exists( 'ur_premium_settings_tab' ) ) {
 			'woocommerce'                            => array(
 				'label'  => esc_html__( 'WooCommerce', 'user-registration' ),
 				'plugin' => 'user-registration-woocommerce',
-				'plan'   => array( 'personal', 'plus', 'professional' ),
+				'plan'   => array( 'personal', 'plus', 'professional', 'themegrill agency' ),
 				'name'   => esc_html__( 'User Registration - WooCommerce', 'user-registration' ),
 			),
 			'content_restriction'                    => array(
 				'label'  => esc_html__( 'Content Restriction', 'user-registration' ),
 				'plugin' => 'user-registration-content-restriction',
-				'plan'   => array( 'personal', 'plus', 'professional' ),
+				'plan'   => array( 'personal', 'plus', 'professional', 'themegrill agency' ),
 				'name'   => esc_html__( 'User Registration - Content Restriction', 'user-registration' ),
 			),
 			'file_upload'                            => array(
 				'label'  => esc_html__( 'File Uploads', 'user-registration' ),
 				'plugin' => 'user-registration-file-upload',
-				'plan'   => array( 'personal', 'plus', 'professional' ),
+				'plan'   => array( 'personal', 'plus', 'professional', 'themegrill agency' ),
 				'name'   => esc_html__( 'User Registration - File Upload', 'user-registration' ),
 			),
 			'user-registration-customize-my-account' => array(
 				'label'  => esc_html__( 'Customize My Account', 'user-registration' ),
 				'plugin' => 'user-registration-customize-my-account',
-				'plan'   => array( 'plus', 'professional' ),
+				'plan'   => array( 'plus', 'professional', 'themegrill agency' ),
 				'name'   => esc_html__( 'User Registration customize my account', 'user-registration' ),
 			),
 		);
@@ -3481,7 +3513,7 @@ if ( ! function_exists( 'ur_process_login' ) ) {
 			}
 
 			if ( ur_is_ajax_login_enabled() ) {
-				$recaptcha_value  = $captcha_response;
+				$recaptcha_value = $captcha_response;
 			}
 
 			if ( $recaptcha_enabled && ! empty( $site_key ) && ! empty( $secret_key ) ) {
@@ -3494,16 +3526,16 @@ if ( ! function_exists( 'ur_process_login' ) ) {
 							throw new Exception( '<strong>' . esc_html__( 'ERROR:', 'user-registration' ) . '</strong>' . esc_html__( 'Error on hCaptcha. Contact your site administrator.', 'user-registration' ) );
 						}
 					} elseif ( 'cloudflare' === $recaptcha_type ) {
-						$url          = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-						$params       = array(
+						$url    = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+						$params = array(
 							'method' => 'POST',
 							'body'   => array(
 								'secret'   => $secret_key,
 								'response' => $recaptcha_value,
 							),
 						);
-						$data = wp_safe_remote_post( $url, $params );
-						$data = json_decode( wp_remote_retrieve_body( $data ) );
+						$data   = wp_safe_remote_post( $url, $params );
+						$data   = json_decode( wp_remote_retrieve_body( $data ) );
 
 						if ( empty( $data->success ) ) {
 							throw new Exception( '<strong>' . esc_html__( 'ERROR:', 'user-registration' ) . '</strong>' . esc_html__( 'Error on Cloudflare. Contact your site administrator.', 'user-registration' ) );
@@ -3596,14 +3628,12 @@ if ( ! function_exists( 'ur_process_login' ) ) {
 			} else {
 				if ( in_array( 'administrator', $user->roles, true ) && ur_option_checked( 'user_registration_login_options_prevent_core_login', true ) ) {
 					$redirect = admin_url();
-				} else {
-					if ( ! empty( $post['redirect'] ) ) {
+				} elseif ( ! empty( $post['redirect'] ) ) {
 						$redirect = esc_url_raw( wp_unslash( $post['redirect'] ) );
-					} elseif ( wp_get_raw_referer() ) {
-						$redirect = wp_get_raw_referer();
-					} else {
-						$redirect = get_home_url();
-					}
+				} elseif ( wp_get_raw_referer() ) {
+					$redirect = wp_get_raw_referer();
+				} else {
+					$redirect = get_home_url();
 				}
 
 				$redirect = apply_filters( 'user_registration_login_redirect', $redirect, $user );
@@ -3924,3 +3954,192 @@ if ( ! function_exists( 'user_registration_conditional_user_meta_filter' ) ) {
 
 add_filter( 'user_registration_before_user_meta_update', 'user_registration_conditional_user_meta_filter', 10, 3 );
 add_filter( 'user_registration_before_save_profile_details', 'user_registration_conditional_user_meta_filter', 10, 3 );
+
+if ( ! function_exists( 'ur_get_ip_address' ) ) {
+	/**
+	 * Get current user IP Address.
+	 *
+	 * @return string
+	 */
+	function ur_get_ip_address() {
+		if ( isset( $_SERVER['HTTP_X_REAL_IP'] ) ) { // WPCS: input var ok, CSRF ok.
+			return sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_REAL_IP'] ) );  // WPCS: input var ok, CSRF ok.
+		} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) { // WPCS: input var ok, CSRF ok.
+			// Proxy servers can send through this header like this: X-Forwarded-For: client1, proxy1, proxy2
+			// Make sure we always only send through the first IP in the list which should always be the client IP.
+			return (string) rest_is_ip_address( trim( current( preg_split( '/[,:]/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) ) ) ) ); // WPCS: input var ok, CSRF ok.
+		} elseif ( isset( $_SERVER['REMOTE_ADDR'] ) ) { // @codingStandardsIgnoreLine
+			return sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ); // @codingStandardsIgnoreLine
+		}
+		return '';
+	}
+}
+
+if ( ! function_exists( 'ur_get_all_page_slugs' ) ) {
+	/**
+	 * Get all the page slugs.
+	 */
+	function ur_get_all_page_slugs() {
+		$args = array(
+			'post_type'      => 'page',
+			'posts_per_page' => -1,
+		);
+
+		$pages = get_pages( $args );
+
+		$slugs = array();
+
+		foreach ( $pages as $page ) {
+			$slugs[] = $page->post_name;
+		}
+
+		return $slugs;
+	}
+}
+
+if ( ! function_exists( 'ur_add_links_to_top_nav' ) ) {
+	/**
+	 * Add plugin specific links to the admin bar menu.
+	 *
+	 * @param [WP_Admin_Bar] $wp_admin_bar Admin Bar.
+	 * @return void
+	 */
+	function ur_add_links_to_top_nav( $wp_admin_bar ) {
+		if ( ! is_admin_bar_showing() || ! current_user_can( 'manage_user_registration' ) ) {
+			return;
+		}
+
+		/**
+		 * Add User Registration links in the admin top nav bar.
+		 */
+
+		$wp_admin_bar->add_menu(
+			array(
+				'id'     => 'user-registration-menu',
+				'parent' => null,
+				'group'  => null,
+				'title'  => __( 'User Registration', 'user-registration' ), // you can use img tag with image link. it will show the image icon Instead of the title.
+				'href'   => admin_url( 'admin.php?page=user-registration' ),
+			)
+		);
+
+		/**
+		 * Add Edit Form link in Form Preview Page.
+		 */
+
+		$form_id = 0;
+
+		if ( isset( $_GET['ur_preview'] ) && isset( $_GET['form_id'] ) ) {
+			$form_id = sanitize_text_field( wp_unslash( $_GET['form_id'] ) );
+		} elseif ( is_page() || is_single() ) {
+			$post_content = get_the_content();
+
+			if ( has_shortcode( $post_content, 'user_registration_form' ) ) {
+				if ( preg_match( '/\[user_registration_form id="(\d+)"\]/', $post_content, $matches ) ) {
+					$form_id = $matches[1];
+				}
+			}
+		}
+
+		if ( ! empty( $form_id ) ) {
+			$wp_admin_bar->add_menu(
+				array(
+					'parent' => 'user-registration-menu',
+					'id'     => 'ur-edit-form',
+					'title'  => __( 'Edit Form', 'user-registration' ),
+					'href'   => add_query_arg(
+						'edit-registration',
+						$form_id,
+						admin_url( 'admin.php?page=add-new-registration' )
+					),
+					'meta'   => array(
+						'target' => '_blank',
+					),
+				)
+			);
+		}
+
+		$wp_admin_bar->add_menu(
+			array(
+				'parent' => 'user-registration-menu',
+				'id'     => 'user-registration-all-forms',
+				'title'  => __( 'All Forms', 'user-registration' ),
+				'href'   => admin_url( 'admin.php?page=user-registration' ),
+			)
+		);
+
+		$wp_admin_bar->add_menu(
+			array(
+				'parent' => 'user-registration-menu',
+				'id'     => 'user-registration-add-new',
+				'title'  => __( 'Add New', 'user-registration' ),
+				'href'   => admin_url( 'admin.php?page=add-new-registration' ),
+			)
+		);
+
+		$wp_admin_bar->add_menu(
+			array(
+				'parent' => 'user-registration-menu',
+				'id'     => 'user-registration-settings',
+				'title'  => __( 'Settings', 'user-registration' ),
+				'href'   => admin_url( 'admin.php?page=user-registration-settings' ),
+			)
+		);
+
+		$href = add_query_arg(
+			array(
+				'utm_medium'  => 'admin-bar',
+				'utm_source'  => 'WordPress',
+				'utm_content' => 'Documentation',
+			),
+			esc_url_raw( 'https://docs.wpuserregistration.com/' )
+		);
+
+		$wp_admin_bar->add_menu(
+			array(
+				'parent' => 'user-registration-menu',
+				'id'     => 'user-registration-docs',
+				'title'  => __( 'Documentation', 'user-registration' ),
+				'href'   => $href,
+				'meta'   => array(
+					'target' => '_blank',
+					'rel'    => 'noopener noreferrer',
+				),
+			)
+		);
+
+		do_action( 'user_registration_top_admin_bar_menu', $wp_admin_bar );
+	}
+
+	add_action( 'admin_bar_menu', 'ur_add_links_to_top_nav', 999, 1 );
+}
+
+if ( ! function_exists( 'ur_array_clone' ) ) {
+	/**
+	 * Clone Array or Object
+	 *
+	 * @since 3.0.5
+	 *
+	 * @param  [mixed] $array Array to clone.
+	 */
+	function ur_array_clone( $array ) {
+		if ( is_object( $array ) ) {
+			return clone $array;
+		}
+		if ( ! is_array( $array ) ) {
+			return $array;
+		}
+		return array_map(
+			function ( $element ) {
+				return ( ( is_array( $element ) )
+				? array_clone( $element )
+				: ( ( is_object( $element ) )
+					? clone $element
+					: $element
+				)
+				);
+			},
+			$array
+		);
+	}
+}

@@ -1,3 +1,19 @@
+##### [Version 1.2.5](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.4...v1.2.5) (2023-10-26)
+
+### Improvements
+- **Enhance code quality**: Elevated the code quality for the recently introduced onboarding feature
+- **Fine-tune development processes and rectify minor issues**: Integrated the PHPStan tool to fine-tune the development workflow, proactively preventing potential code errors
+
+##### [Version 1.2.4](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.3...v1.2.4) (2023-10-17)
+
+### Bug Fixes
+- **Dashboard notification**: Ensure proper syntax is utilized to access the static variable in the logger.
+
+##### [Version 1.2.3](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.2...v1.2.3) (2023-10-09)
+
+### Bug Fixes
+- **Security Patch**: Addressed an issue where log files had a predictable name, enhancing the privacy of WordPress details.
+
 ##### [Version 1.2.2](https://github.com/Codeinwp/templates-patterns-collection/compare/v1.2.1...v1.2.2) (2023-10-05)
 
 ### Improvements

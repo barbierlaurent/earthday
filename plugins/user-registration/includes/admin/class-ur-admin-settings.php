@@ -45,7 +45,13 @@ class UR_Admin_Settings {
 		if ( empty( self::$settings ) ) {
 			$settings = array();
 
-			include_once dirname( __FILE__ ) . '/settings/class-ur-settings-page.php';
+			include_once __DIR__ . '/settings/class-ur-settings-page.php';
+
+			if ( ! empty( $_GET['install_user_registration_pages'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification
+				UR_Install::create_pages();
+				UR_Admin_Notices::remove_notice( 'install' );
+				delete_option( 'user_registration_onboarding_skipped' );
+			}
 
 			$settings[] = include 'settings/class-ur-settings-general.php';
 			$settings[] = include 'settings/class-ur-settings-captcha.php';
@@ -150,6 +156,11 @@ class UR_Admin_Settings {
 				'ajax_url'         => admin_url( 'admin-ajax.php' ),
 				'user_registration_search_global_settings_nonce' => wp_create_nonce( 'user_registration_search_global_settings' ),
 				'i18n_nav_warning' => esc_html__( 'The changes you made will be lost if you navigate away from this page.', 'user-registration' ),
+				'i18n'             => array(
+					'captcha_success' => esc_html__( 'Captcha Test Successful !', 'user-registration' ),
+					'captcha_failed'  => esc_html__( 'Some error occured. Please verify that the keys you entered are valid.', 'user-registration' ),
+					'unsaved_changes' => esc_html__( 'You have some unsaved changes. Please save and try again.', 'user-registration' ),
+				),
 			)
 		);
 
@@ -185,7 +196,7 @@ class UR_Admin_Settings {
 			$GLOBALS['hide_save_button'] = true;
 		}
 
-		include dirname( __FILE__ ) . '/views/html-admin-settings.php';
+		include __DIR__ . '/views/html-admin-settings.php';
 	}
 
 	/**
@@ -1073,7 +1084,7 @@ class UR_Admin_Settings {
 										} else {
 											$autocomplete_results[ $index ]['value'] = admin_url( 'admin.php?page=user-registration-settings&tab=' . $section->id . '&searched_option=' . $value['id'] );
 										}
-										$index++;
+										++$index;
 									}
 								}
 								continue;
@@ -1101,7 +1112,6 @@ class UR_Admin_Settings {
 				)
 			);
 		}
-
 	}
 
 	/**
@@ -1130,7 +1140,7 @@ class UR_Admin_Settings {
 							$desc_tip                  = isset( $value['desc_tip'] ) && true !== $value['desc_tip'] ? $value['desc_tip'] : '';
 							$desc                      = isset( $value['desc'] ) && true !== $value['desc'] ? $value['desc'] : '';
 							$result[ $index ]['desc']  = ! empty( $desc_tip ) ? $desc_tip : $desc;
-							$index++;
+							++$index;
 							break;
 						}
 					}

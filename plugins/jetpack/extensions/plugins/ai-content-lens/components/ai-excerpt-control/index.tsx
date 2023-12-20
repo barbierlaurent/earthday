@@ -116,7 +116,12 @@ export function AiExcerptControl( {
 						label={ langLabel }
 					/>
 
-					<ToneDropdownMenu label={ toneLabel } value={ tone } onChange={ onToneChange } />
+					<ToneDropdownMenu
+						disabled={ disabled }
+						label={ toneLabel }
+						value={ tone }
+						onChange={ onToneChange }
+					/>
 
 					<AiModelSelectorControl
 						model={ model }
@@ -127,13 +132,13 @@ export function AiExcerptControl( {
 			) }
 
 			<RangeControl
-				label={ __( 'Choose length', 'jetpack' ) }
+				label={ __( 'Desired length', 'jetpack' ) }
 				value={ words }
 				onChange={ onWordsNumberChange }
 				min={ minWords }
 				max={ maxWords }
 				help={ __(
-					'Sets the limit for words in auto-generated excerpts. The final count may vary slightly due to sentence structure.',
+					'Sets the desired length in words for the auto-generated excerpt. The final count may vary due to how AI works.',
 					'jetpack'
 				) }
 				showTooltip={ false }

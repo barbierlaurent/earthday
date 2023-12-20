@@ -42,6 +42,12 @@
     },
     "helpText": {
       "type": "string"
+    },
+    "defaultValue": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "input.otter-form-input",
+      "attribute": "value"
     }
   },
   "supports": {

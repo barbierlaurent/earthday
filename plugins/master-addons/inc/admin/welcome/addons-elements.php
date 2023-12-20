@@ -13,23 +13,23 @@ use MasterAddons\Inc\Helper\Master_Addons_Helper;
 	<div class="jltma-master-addons-dashboard-filter float-right">
 		<div class="jltma-filter-right">
 			<button class="jltma-addons-enable-all">
-				<?php echo esc_html__('Enable All', 'master-addons' ); ?>
+				<?php echo esc_html__('Enable All', 'master-addons'); ?>
 			</button>
 			<button class="jltma-addons-disable-all">
-				<?php echo esc_html__('Disable All', 'master-addons' ); ?>
+				<?php echo esc_html__('Disable All', 'master-addons'); ?>
 			</button>
 
 			<div class="jltma-tab-dashboard-header-wrapper inline-block">
 				<div class="jltma-tab-dashboard-header-right">
 					<button type="submit" class="jltma-tab-element-save-setting jltma-button">
-						<?php _e('Save Settings', 'master-addons' ); ?>
+						<?php _e('Save Settings', 'master-addons'); ?>
 					</button>
 				</div>
 			</div>
 		</div>
 	</div><!-- /.master-addons-dashboard-filter -->
 
-	<h3 class="mt-0"><?php echo esc_html__('Content Elements', 'master-addons' ); ?></h3>
+	<h3 class="mt-0"><?php echo esc_html__('Content Elements', 'master-addons'); ?></h3>
 
 	<div class="jltma-master-addons-features-container mt-0 is-flex">
 		<?php foreach (JLTMA_Addon_Elements::$jltma_elements['jltma-addons']['elements'] as $key => $widget) : ?>
@@ -58,10 +58,9 @@ use MasterAddons\Inc\Helper\Master_Addons_Helper;
 					</div> <!-- .master-addons-content-inner -->
 
 					<div class="jltma-master-addons_feature-switchbox">
-						<label for="<?php echo esc_attr($widget['key']); ?>" class="switch switch-text switch-primary switch-pill
-							<?php if (!ma_el_fs()->can_use_premium_code() && isset($widget['is_pro']) && $widget['is_pro']) {
-								echo "ma-el-pro";
-							} ?>">
+						<label for="<?php echo esc_attr($widget['key']); ?>" class="switch switch-text switch-primary switch-pill <?php if (!ma_el_fs()->can_use_premium_code() && isset($widget['is_pro']) && $widget['is_pro']) {
+																																		echo "ma-el-pro disabled";
+																																	} ?>">
 
 							<?php if (ma_el_fs()->can_use_premium_code()) { ?>
 

@@ -50,7 +50,6 @@ class UR_User_Approval {
 		add_action( 'ur_user_user_denied', array( $this, 'disconnect_user_session' ) );
 
 		do_action( 'ur_user_construct' );
-
 	}
 
 	/**
@@ -78,7 +77,7 @@ class UR_User_Approval {
 
 		$form_id = ur_get_form_id_by_userid( $user->ID );
 
-		if ( 'admin_approval' === ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) ) ) {
+		if ( 'admin_approval' === ur_get_user_login_option( $user->ID ) ) {
 			$user_manager = new UR_Admin_User_Manager( $user );
 			$user_manager->save_first_access_flag();
 		}
@@ -96,7 +95,7 @@ class UR_User_Approval {
 
 		$form_id = ur_get_form_id_by_userid( $user_id );
 
-		if ( ! $alert_user && 'admin_approval' !== ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) ) ) {
+		if ( ! $alert_user && 'admin_approval' !== ur_get_user_login_option( $user_id ) ) {
 			return;
 		}
 
@@ -128,7 +127,6 @@ class UR_User_Approval {
 		if ( $this->is_admin_creation_process() ) {
 			return;
 		}
-
 	}
 
 	/**
@@ -140,7 +138,7 @@ class UR_User_Approval {
 	 */
 	public function set_user_status( $form_data, $form_id, $user_id ) {
 
-		if ( 'admin_approval' === ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) ) ) {
+		if ( 'admin_approval' === ur_get_user_login_option( $user_id ) ) {
 
 			$status = UR_Admin_User_Manager::PENDING;
 			// If the user is created by admin in the backend, than automatically approve him.
@@ -179,7 +177,7 @@ class UR_User_Approval {
 
 		$form_id = ur_get_form_id_by_userid( $user->ID );
 
-		$login_option = ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) );
+		$login_option = ur_get_user_login_option( $user->ID );
 
 		$user_manager = new UR_Admin_User_Manager( $user );
 
@@ -290,9 +288,7 @@ class UR_User_Approval {
 			return;
 		}
 
-		$form_id = ur_get_form_id_by_userid( get_current_user_id() );
-
-		if ( 'admin_approval' === ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) ) ) {
+		if ( 'admin_approval' === ur_get_user_login_option( get_current_user_id() ) ) {
 
 			// Try to hide the not approved users from any theme or plugin request in frontend.
 			$disable_pre_get = apply_filters( 'user_registration_disable_pre_get_users', 'no' );
@@ -334,9 +330,8 @@ class UR_User_Approval {
 	 * @param int $user_id User Id.
 	 */
 	public function disconnect_user_session( $user_id ) {
-		$form_id = ur_get_form_id_by_userid( $user_id );
 
-		if ( 'admin_approval' === ur_get_single_post_meta( $form_id, 'user_registration_form_setting_login_options', get_option( 'user_registration_general_setting_login_options', 'default' ) ) ) {
+		if ( 'admin_approval' === ur_get_user_login_option( $user_id ) ) {
 			// get all sessions for user with ID $user_id.
 			$sessions = WP_Session_Tokens::get_instance( $user_id );
 
