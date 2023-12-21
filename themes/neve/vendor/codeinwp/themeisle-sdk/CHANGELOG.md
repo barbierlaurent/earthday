@@ -1,3 +1,15 @@
+##### [Version 3.3.9](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.8...v3.3.9) (2023-11-16)
+
+- Fix: a debugging error when you activate Neve Pro after installing Otter & Otter Pro without the license.
+
+##### [Version 3.3.8](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.7...v3.3.8) (2023-11-14)
+
+- Add Product Telemetry
+
+##### [Version 3.3.7](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.6...v3.3.7) (2023-10-31)
+
+- fix: deprecating notice in Dashboard Widget
+
 ##### [Version 3.3.6](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.5...v3.3.6) (2023-10-05)
 
 - Fix duplicate notification in Neve FSE

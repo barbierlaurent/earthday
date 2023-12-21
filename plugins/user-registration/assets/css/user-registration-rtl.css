@@ -658,6 +658,12 @@
 .user-registration-swal2-container {
   z-index: 9999; }
 
+.ur-timepicker-range {
+  display: flex; }
+
+.timepicker-start {
+  margin-left: 1rem; }
+
 /**
 * Main User Registration styles
 */

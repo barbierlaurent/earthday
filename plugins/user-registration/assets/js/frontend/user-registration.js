@@ -125,23 +125,43 @@
 								});
 
 								if (field_type == "checkbox") {
-									if (
-										field.eq(0).attr("data-field") ==
-										"multiple_choice"
-									) {
-										var multi_choice = field_value;
-										var field_value_json = 0;
-										for (
-											var i = 0;
-											i < multi_choice.length;
-											i++
+									if ('' !== user_registration_params.is_payment_compatible ){
+										if (
+											field.eq(0).attr("data-field") ==
+											"multiple_choice"
 										) {
-											field_value_json +=
-												multi_choice[i] << 0;
+
+											$(document).trigger(
+												"user_registration_frontend_multiple_choice_data_filter",
+												[field_value, field]
+											);
+											field_value = field.closest(".field-multiple_choice").data("payment-value");
+
+											var field_value_json =
+												JSON.stringify(field_value);
+										} else {
+											var field_value_json =
+												JSON.stringify(field_value);
 										}
-									} else {
-										var field_value_json =
-											JSON.stringify(field_value);
+									}else {
+										if (
+											field.eq(0).attr("data-field") ==
+											"multiple_choice"
+										) {
+											var multi_choice = field_value;
+											var field_value_json = 0;
+											for (
+												var i = 0;
+												i < multi_choice.length;
+												i++
+											) {
+												field_value_json +=
+													multi_choice[i] << 0;
+											}
+										} else {
+											var field_value_json =
+												JSON.stringify(field_value);
+										}
 									}
 								} else if (field_type == "radio") {
 									var field_value_json = field_value[0];
@@ -322,6 +342,17 @@
 							// Check the position set by the admin and append message accordingly.
 							if ("1" === position) {
 								$submit_node.append(wrapper);
+							} else if ("2" === position) {
+								if (type == "message") {
+									$submit_node
+										.closest(".entry-content")
+										.prepend(wrapper);
+									$submit_node
+										.closest(".ur-frontend-form")
+										.hide();
+								} else {
+									$submit_node.append(wrapper);
+								}
 							} else {
 								$submit_node.prepend(wrapper);
 							}
@@ -633,7 +664,9 @@
 										user_registration_params.recaptcha_type
 									) {
 										captchaResponse = $this
-											.find('[name="cf-turnstile-response"]')
+											.find(
+												'[name="cf-turnstile-response"]'
+											)
 											.val();
 									} else {
 										captchaResponse = $this
@@ -761,6 +794,7 @@
 													var response = JSON.parse(
 														ajax_response.responseText
 													);
+
 													var timeout = response.data
 														.redirect_timeout
 														? response.data
@@ -933,10 +967,16 @@
 																window.setTimeout(
 																	function () {
 																		if (
-																			typeof response.data.redirect_url !== 'undefined' &&
-																			response.data.redirect_url
+																			typeof response
+																				.data
+																				.redirect_url !==
+																				"undefined" &&
+																			response
+																				.data
+																				.redirect_url
 																		) {
-																			window.location = response.data.redirect_url;
+																			window.location =
+																				response.data.redirect_url;
 																		} else {
 																			location.reload();
 																		}
@@ -1047,6 +1087,7 @@
 																	'">' +
 																	value +
 																	"</label>";
+
 																var wrapper =
 																	$this
 																		.find(
@@ -1054,6 +1095,8 @@
 																		)
 																		.find(
 																			"input[id='" +
+																				index +
+																				"'], textarea[id='" +
 																				index +
 																				"']"
 																		);
@@ -1442,9 +1485,13 @@
 														$field_id.push($id);
 													}
 												);
+
 												$.each(
 													response.data.message,
 													function (index, value) {
+														index =
+															"user_registration_" +
+															index;
 														if (
 															$field_id.includes(
 																index
@@ -1469,6 +1516,8 @@
 																)
 																.find(
 																	"input[id='" +
+																		index +
+																		"'], textarea[id='" +
 																		index +
 																		"']"
 																);

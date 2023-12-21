@@ -2440,6 +2440,7 @@ function bizberg_get_pro_link(){
 		case 'construction-sewa':
 		case 'creative-construction':
 		case 'construction-master':
+		case 'construction-solutions':
 			return 'https://bizbergthemes.com/downloads/building-construction-architecture-pro/';
 			break;
 
@@ -2447,6 +2448,7 @@ function bizberg_get_pro_link(){
 		case 'clean-charity':
 		case 'ngo-charity-hub':
 		case 'ngo-charity-connection':
+		case 'ngo-business':
 			return 'https://bizbergthemes.com/downloads/ngo-charity-fundraising-pro/';
 			break;
 

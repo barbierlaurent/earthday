@@ -3,17 +3,17 @@
  * Plugin Name: Xpro Elementor Addons
  * Description: A complete Elementor Addons Pack to enhance your web designing experience. Create amazing websites with 50+ FREE Widgets, Extensions & more.
  * Plugin URI:  https://elementor.wpxpro.com/
- * Version:     1.3.8
+ * Version:     1.4.1
  * Author:      Xpro
  * Author URI:  https://www.wpxpro.com/
  * Developer:   Xpro Team
  * Text Domain: xpro-elementor-addons
- * Elementor tested up to: 3.14.0
+ * Elementor tested up to: 3.17.3
  */
 
 defined( 'ABSPATH' ) || die();
 
-define( 'XPRO_ELEMENTOR_ADDONS_VERSION', '1.3.8' );
+define( 'XPRO_ELEMENTOR_ADDONS_VERSION', '1.4.1' );
 define( 'XPRO_ELEMENTOR_ADDONS__FILE__', __FILE__ );
 define( 'XPRO_ELEMENTOR_ADDONS_BASE', plugin_basename( __FILE__ ) );
 define( 'XPRO_ELEMENTOR_ADDONS_DIR_PATH', plugin_dir_path( XPRO_ELEMENTOR_ADDONS__FILE__ ) );
@@ -65,7 +65,7 @@ final class Xpro_Elementor_Addons {
 	 * @since 1.0.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.3.8';
+	const VERSION = '1.4.1';
 
 	/**
 	 * Minimum Elementor Version
@@ -148,6 +148,13 @@ final class Xpro_Elementor_Addons {
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
 			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_php_version' ) );
 			return;
+		}
+
+		//Render Black Friday Sales Notice
+		if ( is_admin() && ! get_option( 'xpro_sales_dismiss_notice' ) ){
+			add_action( 'admin_notices', array( $this, 'latest_sales_notices' ) );
+			add_action( 'admin_head', array( $this, 'notices_enqueue_scripts' ) );
+			add_action( 'wp_ajax_xpro_sales_dismiss_notice', array( $this, 'xpro_sales_dismiss_notice' ) );
 		}
 
 		//Render Theme Builder Notice
@@ -251,6 +258,34 @@ final class Xpro_Elementor_Addons {
 	}
 
 
+	public function latest_sales_notices() {
+		$screen = get_current_screen();
+		if ( 'plugins' === $screen->base ) { ?>
+			<div class="notice xpro-sales-notice is-dismissible xpro-sales-wrapper">
+				<div class="xpro-sales-inner">
+					<div class="xpro-sales-col-left">
+						<img src="<?php echo esc_url( XPRO_ELEMENTOR_ADDONS_ASSETS . 'admin/images/xpro.png' ); ?>" alt="xpro-logo"/>
+					</div>
+					<div class="xpro-sales-col-right">
+						<h3 class="xpro-sales-heading"><?php echo esc_html__( 'Black Friday Sale - 60% OFF!', 'xpro-elementor-addons' ); ?></h3>
+						<p class="xpro-sales-desc">
+							<?php echo esc_html__('Our Biggest sale of the year is happening right now, 60% OFF on all our PRO plans. Backed by our', 'xpro-elementor-addons'); ?>
+							<span class="money-back-guarantee"> <?php echo esc_html__('14 DAYS MONEY BACK GUARANTEE!', 'xpro-elementor-addons'); ?> </span>
+							<?php echo esc_html__('Act fast; this is a limited time only!', 'xpro-elementor-addons'); ?>
+						</p>
+					</div>
+					<div class="xpro-sales-col-right">
+					<div class="xpro-sales-action">
+							<a href="https://elementor.wpxpro.com/black-friday" target="_blank" class="xpro-sales-install-button"><?php echo esc_html__( 'Get This Offer', 'xpro-elementor-addons' ); ?></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+		}
+	}
+
+
 	/**
 	 * Theme Builder notices
 	 *
@@ -292,8 +327,12 @@ final class Xpro_Elementor_Addons {
 		wp_enqueue_script( 'xpro-admin-notices', XPRO_ELEMENTOR_ADDONS_ASSETS . 'admin/js/admin-notices.js', array( 'jquery' ), XPRO_ELEMENTOR_ADDONS_VERSION, true );
 	}
 
+	public function xpro_sales_dismiss_notice() {
+		add_option( 'xpro_sales_dismiss_notice', true );
+	}
+
 	public function xpro_theme_builder_dismiss_notice() {
-		add_option( 'xpro_theme_builder_dismiss_notice', true );
+		add_option( 'xpro_theme_builder_dismiss_notice', false );
 	}
 
 }

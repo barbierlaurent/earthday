@@ -7,6 +7,7 @@
 
 namespace ThemeIsle\GutenbergBlocks;
 
+use ThemeIsle\GutenbergBlocks\Plugins\LimitedOffers;
 use ThemeIsle\GutenbergBlocks\Server\Dashboard_Server;
 
 /**
@@ -44,6 +45,7 @@ class Main {
 		}
 
 		add_filter( 'otter_blocks_about_us_metadata', array( $this, 'about_page' ) );
+
 	}
 
 	/**
@@ -65,12 +67,14 @@ class Main {
 			'\ThemeIsle\GutenbergBlocks\Plugins\Block_Conditions',
 			'\ThemeIsle\GutenbergBlocks\Plugins\Dashboard',
 			'\ThemeIsle\GutenbergBlocks\Plugins\Dynamic_Content',
+			'\ThemeIsle\GutenbergBlocks\Plugins\FSE_Onboarding',
 			'\ThemeIsle\GutenbergBlocks\Plugins\Options_Settings',
 			'\ThemeIsle\GutenbergBlocks\Plugins\Stripe_API',
 			'\ThemeIsle\GutenbergBlocks\Render\Masonry_Variant',
 			'\ThemeIsle\GutenbergBlocks\Server\Dashboard_Server',
 			'\ThemeIsle\GutenbergBlocks\Server\Dynamic_Content_Server',
 			'\ThemeIsle\GutenbergBlocks\Server\Stripe_Server',
+			'\ThemeIsle\GutenbergBlocks\Server\FSE_Onboarding_Server',
 			'\ThemeIsle\GutenbergBlocks\Integration\Form_Providers',
 			'\ThemeIsle\GutenbergBlocks\Integration\Form_Email',
 			'\ThemeIsle\GutenbergBlocks\Server\Form_Server',

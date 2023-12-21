@@ -1,3 +1,23 @@
+= V 1.4.1 - 24 November 2023 =
+
+- Tweak: Remove Depreciated code
+- Tweak: Update Animated Heading
+
+
+= V 1.4.0 - 17 November 2023 =
+
+- Tweak: Mega Menu Update with PHP 8.1
+- Tweak: Woocommerce Compatibility
+
+
+= V 1.3.9 - 31 October 2023 =
+
+- Tweak: Minimize CSS & JS Files for Optimization
+- Tweak: Woocommerce Compatibility
+- Fix: Starter Sites Issues When Importing
+- Fix: PHP FATAL ERROR On PHP Version 8.1 Or Higher
+
+
 = V 1.3.8 - 25 July 2023 =
 
 - New: Hero Slider Widget Added [Free]

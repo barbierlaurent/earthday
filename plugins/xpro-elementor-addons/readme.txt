@@ -1,10 +1,10 @@
 === 130+ Widgets | Best Addons For Elementor - FREE ===
 Plugin Name: Xpro Addons For Elementor (130+ Widgets & Free Theme Builder)
-Version: 1.3.8
+Version: 1.4.1
 Contributors: Xpro
 Tags: elementor, elements, modules, widgets for elementor, elementor addons, elementor widgets, elementor theme builder, addons for elementor, woocommerce elementor
 Requires at least: 5.0
-Tested up to: 6.2
+Tested up to: 6.4.1
 Stable tag: trunk
 Requires PHP: 7.0 or higher
 License: GPLv2
@@ -312,6 +312,24 @@ It's simple: Our goal is to make your life easy with your website design process
 
 == Changelog ==
 
+= V 1.4.1 - 24 November 2023 =
+
+- Tweak: Remove Depreciated code
+- Tweak: Update Animated Heading
+
+= V 1.4.0 - 17 November 2023 =
+
+- Tweak: Mega Menu Update with PHP 8.1
+- Tweak: Woocommerce Compatibility
+
+
+= V 1.3.9 - 31 October 2023 =
+
+- Tweak: Minimize CSS & JS Files for Optimization
+- Tweak: Woocommerce Compatibility
+- Fix: Starter Sites Issues When Importing
+- Fix: PHP FATAL ERROR On PHP Version 8.1 Or Higher
+
 = V 1.3.8 - 25 July 2023 =
 
 - New: Hero Slider Widget Added [Free]
@@ -385,7 +403,6 @@ It's simple: Our goal is to make your life easy with your website design process
 - Tweak: Change Animated Heading name To Animated Headline
 - Tweak: Add Width Field In Mega Menu Vertical Layout
 - Tweak: Add Template Choosing Option In Hamburger Widget
-- Fix: PHP FATAL ERROR On PHP Version 8.1 Or Higher
 
 
 = V 1.3.1 - 09 May 2023  =

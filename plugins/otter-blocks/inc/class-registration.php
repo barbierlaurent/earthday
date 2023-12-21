@@ -8,6 +8,7 @@
 namespace ThemeIsle\GutenbergBlocks;
 
 use ThemeIsle\GutenbergBlocks\Main, ThemeIsle\GutenbergBlocks\Pro, ThemeIsle\GutenbergBlocks\Plugins\Stripe_API;
+use ThemeIsle\GutenbergBlocks\Plugins\LimitedOffers;
 
 /**
  * Class Registration.
@@ -36,23 +37,31 @@ class Registration {
 	public static $block_dependencies = array();
 
 	/**
+	 * The ids of the used widgets in the page.
+	 *
+	 * @var array<string>
+	 */
+	public static $widget_used = array(); // TODO: Monitor all the rendered widgets and enqueue the assets.
+
+	/**
 	 * Flag to mark that the scripts which have loaded.
 	 *
 	 * @var array
 	 */
 	public static $scripts_loaded = array(
-		'circle-counter' => false,
-		'countdown'      => false,
-		'form'           => false,
-		'google-map'     => false,
-		'leaflet-map'    => false,
-		'lottie'         => false,
-		'slider'         => false,
-		'sticky'         => false,
-		'tabs'           => false,
-		'popup'          => false,
-		'progress-bar'   => false,
-		'accordion'      => false,
+		'circle-counter'    => false,
+		'countdown'         => false,
+		'form'              => false,
+		'google-map'        => false,
+		'leaflet-map'       => false,
+		'lottie'            => false,
+		'slider'            => false,
+		'sticky'            => false,
+		'tabs'              => false,
+		'popup'             => false,
+		'progress-bar'      => false,
+		'accordion'         => false,
+		'condition_hide_on' => false,
 	);
 
 	/**
@@ -81,6 +90,8 @@ class Registration {
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
 		add_filter( 'render_block', array( $this, 'load_sticky' ), 900, 2 );
 		add_filter( 'render_block', array( $this, 'subscribe_fa' ), 10, 2 );
+		add_filter( 'dynamic_sidebar_params', array( $this, 'watch_used_widgets' ), 9999 );
+		add_filter( 'render_block', array( $this, 'load_condition_hide_on_styles' ), 10, 2 );
 
 		add_action(
 			'wp_footer',
@@ -272,6 +283,7 @@ class Registration {
 				'version'                 => OTTER_BLOCKS_VERSION,
 				'isRTL'                   => is_rtl(),
 				'highlightDynamicText'    => get_option( 'themeisle_blocks_settings_highlight_dynamic', true ),
+				'hasOpenAiKey'            => ! empty( get_option( 'themeisle_open_ai_api_key' ) ),
 			)
 		);
 
@@ -317,6 +329,8 @@ class Registration {
 			return;
 		}
 
+
+
 		if ( is_singular() ) {
 			$this->enqueue_dependencies();
 		} else {
@@ -348,7 +362,16 @@ class Registration {
 		}
 
 		if ( $has_widgets ) {
-			$this->enqueue_dependencies( 'widgets' );
+
+			add_filter(
+				'wp_footer',
+				function ( $content ) {
+					$this->enqueue_dependencies( 'widgets' );
+
+					return $content;
+				}
+			);
+
 		}
 
 		if ( function_exists( 'get_block_templates' ) && function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() && current_theme_supports( 'block-templates' ) ) {
@@ -383,7 +406,7 @@ class Registration {
 			$templates_parts = get_block_templates( array( 'slugs__in' => $slugs ), 'wp_template_part' );
 
 			foreach ( $templates_parts as $templates_part ) {
-				if ( isset( $templates_part->content ) && isset( $templates_part->slug ) && in_array( $templates_part->slug, $slugs ) ) {
+				if ( ! empty( $templates_part->content ) && ! empty( $templates_part->slug ) && in_array( $templates_part->slug, $slugs ) ) {
 					$content .= $templates_part->content;
 				}
 			}
@@ -952,7 +975,7 @@ class Registration {
 	}
 
 	/**
-	 * Add styles for sticky blocks.
+	 * Get styles for sticky blocks.
 	 *
 	 * @static
 	 * @since 2.0.14
@@ -963,27 +986,83 @@ class Registration {
 	}
 
 	/**
+	 * Load the Hide on condition styles.
+	 *
+	 * @param string $block_content The block content.
+	 * @param array  $block The block data.
+	 * @return string
+	 */
+	public function load_condition_hide_on_styles( $block_content, $block ) {
+		if ( self::$scripts_loaded['condition_hide_on'] ) {
+			return $block_content;
+		}
+
+		if ( empty( $block['attrs']['otterConditions'] ) || ! is_array( $block['attrs']['otterConditions'] ) ) {
+			return $block_content;
+		}
+
+		$has_condition = false;
+
+		foreach ( $block['attrs']['otterConditions'] as $group ) {
+			foreach ( $group as $condition ) {
+				if ( array_key_exists( 'type', $condition ) && 'screenSize' === $condition['type'] && isset( $condition['screen_sizes'] ) && is_array( $condition['screen_sizes'] ) ) {
+					$has_condition = true;
+					break;
+				}
+			}
+
+			if ( $has_condition ) {
+				break;
+			}
+		}
+
+		if ( ! $has_condition ) {
+			return $block_content;
+		}
+
+		add_action( 'wp_footer', array( $this, 'condition_hide_on_style' ) );
+		self::$scripts_loaded['condition_hide_on'] = true;
+
+		return $block_content;
+	}
+
+	/**
+	 * Get the styles for Hide on condition.
+	 *
+	 * @static
+	 * @since 2.4
+	 * @access public
+	 */
+	public static function condition_hide_on_style() {
+		echo '<style id="o-condition-hide-inline-css">@media (max-width:768px){.o-hide-on-mobile{display:none!important}}@media (min-width:767px) and (max-width:1024px){.o-hide-on-tablet{display:none!important}}@media (min-width:1023px){.o-hide-on-desktop{display:none!important}}</style>';
+	}
+
+	/**
 	 * Get the content of all active widgets.
 	 *
 	 * @return string
 	 */
 	public static function get_active_widgets_content() {
+		$content = '';
+
+		if ( 0 === count( self::$widget_used ) ) {
+			return $content;
+		}
+
 		global $wp_registered_widgets;
-		$content       = '';
 		$valid_widgets = array();
 		$widget_data   = get_option( 'widget_block', array() );
 
 		// Loop through all widgets, and add any that are active.
 		foreach ( $wp_registered_widgets as $widget_name => $widget ) {
-			// Get the active sidebar the widget is located in.
-			$sidebar = is_active_widget( $widget['callback'], $widget['id'] );
+			if ( ! in_array( $widget['id'], self::$widget_used, true ) ) {
+				continue;
+			}
 
-			if ( $sidebar && 'wp_inactive_widgets' !== $sidebar ) {
-				$key = $widget['params'][0]['number'];
+			$key = $widget['params'][0]['number'];
 
-				if ( isset( $widget_data[ $key ] ) ) {
-					$valid_widgets[] = (object) $widget_data[ $key ];
-				}
+			if ( isset( $widget_data[ $key ] ) ) {
+				$valid_widgets[] = (object) $widget_data[ $key ];
 			}
 		}
 
@@ -994,6 +1073,20 @@ class Registration {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Watch and save the used widgets.
+	 *
+	 * @param array $params The widget params.
+	 * @return mixed
+	 */
+	public function watch_used_widgets( $params ) {
+		if ( isset( $params[0]['widget_id'] ) && ! in_array( $params[0]['widget_id'], self::$widget_used ) ) {
+			self::$widget_used[] = $params[0]['widget_id'];
+		}
+
+		return $params;
 	}
 
 	/**

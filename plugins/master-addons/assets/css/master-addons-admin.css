@@ -219,6 +219,7 @@
     .master-addons-supports-list li:nth-child(odd) {
         padding-right: 7.5px;
     }
+
     .master-addons-supports-list li:nth-child(even) {
         padding-left: 7.55px;
     }
@@ -313,7 +314,7 @@
 }
 
 .master_addons_feature button:not(.addons-enable-all,
-.addons-disable-all),
+    .addons-disable-all),
 .master_addons_feature a.jltma-get-pro {
     background-image: -moz-linear-gradient(0deg, #df1dc6 0%, #6a14d1 100%);
     background-image: -webkit-linear-gradient(0deg, #df1dc6 0%, #6a14d1 100%);

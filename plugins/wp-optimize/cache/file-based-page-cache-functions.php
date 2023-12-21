@@ -179,7 +179,11 @@ function wpo_cache($buffer, $flags) {
 		 * @return boolean
 		 */
 		if (preg_match('#</html>#i', $buffer) && (apply_filters('wpo_cache_show_cached_by_comment', true) || (defined('WP_DEBUG') && WP_DEBUG))) {
-			$date_time_format = $GLOBALS['wpo_cache_config']['date_format'] . ' ' . $GLOBALS['wpo_cache_config']['time_format'];
+			$date_time_format = 'F j, Y g:i a';
+			if (!empty($GLOBALS['wpo_cache_config']['date_format']) && !empty($GLOBALS['wpo_cache_config']['time_format'])) {
+				$date_time_format = $GLOBALS['wpo_cache_config']['date_format'] . ' ' . $GLOBALS['wpo_cache_config']['time_format'];
+			}
+			
 			if (!empty($GLOBALS['wpo_cache_config']['enable_mobile_caching']) && wpo_is_mobile()) {
 				$add_to_footer .= "\n<!-- Cached by WP-Optimize - for mobile devices - https://getwpo.com - Last modified: " . gmdate($date_time_format, $modified_time) . " " . $timezone_postfix . "  -->\n";
 			} else {
@@ -1212,7 +1216,7 @@ function wpo_cache_add_footer_output($output = null) {
 		// Only add the line if it was a page, not something else (e.g. REST response)
 		if (function_exists('did_action') && did_action('wp_footer')) {
 			echo "\n<!-- WP Optimize page cache - https://getwpo.com - ".$buffered." -->\n";
-		} elseif (defined('WPO_CACHE_DEBUG') && WPO_CACHE_DEBUG) {
+		} elseif (defined('WPO_CACHE_DEBUG') && WPO_CACHE_DEBUG && (!defined('REST_REQUEST') || !REST_REQUEST)) {
 			error_log('[CACHE DEBUG] '.wpo_current_url() . ' - ' . $buffered);
 		}
 	} else {

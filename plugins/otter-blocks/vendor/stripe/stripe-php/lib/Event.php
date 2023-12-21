@@ -8,46 +8,47 @@ namespace Stripe;
  * Events are our way of letting you know when something interesting happens in
  * your account. When an interesting event occurs, we create a new <code>Event</code>
  * object. For example, when a charge succeeds, we create a <code>charge.succeeded</code>
- * event; and when an invoice payment attempt fails, we create an
- * <code>invoice.payment_failed</code> event. Note that many API requests may cause multiple
- * events to be created. For example, if you create a new subscription for a
- * customer, you will receive both a <code>customer.subscription.created</code> event and a
+ * event, and when an invoice payment attempt fails, we create an
+ * <code>invoice.payment_failed</code> event. Certain API requests might create multiple
+ * events. For example, if you create a new subscription for a
+ * customer, you receive both a <code>customer.subscription.created</code> event and a
  * <code>charge.succeeded</code> event.
  *
- * Events occur when the state of another API resource changes. The state of that
- * resource at the time of the change is embedded in the event's data field. For
- * example, a <code>charge.succeeded</code> event will contain a charge, and an
- * <code>invoice.payment_failed</code> event will contain an invoice.
+ * Events occur when the state of another API resource changes. The event's data
+ * field embeds the resource's state at the time of the change. For
+ * example, a <code>charge.succeeded</code> event contains a charge, and an
+ * <code>invoice.payment_failed</code> event contains an invoice.
  *
  * As with other API resources, you can use endpoints to retrieve an
  * <a href="https://stripe.com/docs/api#retrieve_event">individual event</a> or a <a href="https://stripe.com/docs/api#list_events">list of events</a>
  * from the API. We also have a separate
  * <a href="http://en.wikipedia.org/wiki/Webhook">webhooks</a> system for sending the
- * <code>Event</code> objects directly to an endpoint on your server. Webhooks are managed
- * in your
- * <a href="https://dashboard.stripe.com/account/webhooks">account settings</a>,
- * and our <a href="https://stripe.com/docs/webhooks">Using Webhooks</a> guide will help you get set up.
+ * <code>Event</code> objects directly to an endpoint on your server. You can manage
+ * webhooks in your
+ * <a href="https://dashboard.stripe.com/account/webhooks">account settings</a>. Learn how
+ * to <a href="https://stripe.com/docs/webhooks">listen for events</a>
+ * so that your integration can automatically trigger reactions.
  *
- * When using <a href="https://stripe.com/docs/connect">Connect</a>, you can also receive notifications of
- * events that occur in connected accounts. For these events, there will be an
+ * When using <a href="https://stripe.com/docs/connect">Connect</a>, you can also receive event notifications
+ * that occur in connected accounts. For these events, there's an
  * additional <code>account</code> attribute in the received <code>Event</code> object.
  *
- * <strong>NOTE:</strong> Right now, access to events through the <a href="https://stripe.com/docs/api#retrieve_event">Retrieve Event API</a> is
- * guaranteed only for 30 days.
+ * We only guarantee access to events through the <a href="https://stripe.com/docs/api#retrieve_event">Retrieve Event API</a>
+ * for 30 days.
  *
  * This class includes constants for the possible string representations of
  * event types. See https://stripe.com/docs/api#event_types for more details.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
- * @property null|string $account The connected account that originated the event.
- * @property null|string $api_version The Stripe API version used to render <code>data</code>. <em>Note: This property is populated only for events on or after October 31, 2014</em>.
+ * @property null|string $account The connected account that originates the event.
+ * @property null|string $api_version The Stripe API version used to render <code>data</code>. This property is populated only for events on or after October 31, 2014.
  * @property int $created Time at which the object was created. Measured in seconds since the Unix epoch.
  * @property \Stripe\StripeObject $data
  * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
- * @property int $pending_webhooks Number of webhooks that have yet to be successfully delivered (i.e., to return a 20x response) to the URLs you've specified.
- * @property null|\Stripe\StripeObject $request Information on the API request that instigated the event.
- * @property string $type Description of the event (e.g., <code>invoice.created</code> or <code>charge.refunded</code>).
+ * @property int $pending_webhooks Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
+ * @property null|\Stripe\StripeObject $request Information on the API request that triggers the event.
+ * @property string $type Description of the event (for example, <code>invoice.created</code> or <code>charge.refunded</code>).
  */
 class Event extends ApiResource
 {
@@ -88,6 +89,13 @@ class Event extends ApiResource
     const CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCEEDED = 'checkout.session.async_payment_succeeded';
     const CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed';
     const CHECKOUT_SESSION_EXPIRED = 'checkout.session.expired';
+    const CLIMATE_ORDER_CANCELED = 'climate.order.canceled';
+    const CLIMATE_ORDER_CREATED = 'climate.order.created';
+    const CLIMATE_ORDER_DELAYED = 'climate.order.delayed';
+    const CLIMATE_ORDER_DELIVERED = 'climate.order.delivered';
+    const CLIMATE_ORDER_PRODUCT_SUBSTITUTED = 'climate.order.product_substituted';
+    const CLIMATE_PRODUCT_CREATED = 'climate.product.created';
+    const CLIMATE_PRODUCT_PRICING_UPDATED = 'climate.product.pricing_updated';
     const COUPON_CREATED = 'coupon.created';
     const COUPON_DELETED = 'coupon.deleted';
     const COUPON_UPDATED = 'coupon.updated';
@@ -156,6 +164,8 @@ class Event extends ApiResource
     const ISSUING_DISPUTE_FUNDS_REINSTATED = 'issuing_dispute.funds_reinstated';
     const ISSUING_DISPUTE_SUBMITTED = 'issuing_dispute.submitted';
     const ISSUING_DISPUTE_UPDATED = 'issuing_dispute.updated';
+    const ISSUING_TOKEN_CREATED = 'issuing_token.created';
+    const ISSUING_TOKEN_UPDATED = 'issuing_token.updated';
     const ISSUING_TRANSACTION_CREATED = 'issuing_transaction.created';
     const ISSUING_TRANSACTION_UPDATED = 'issuing_transaction.updated';
     const MANDATE_UPDATED = 'mandate.updated';
@@ -312,6 +322,13 @@ class Event extends ApiResource
     const TYPE_CHECKOUT_SESSION_ASYNC_PAYMENT_SUCCEEDED = 'checkout.session.async_payment_succeeded';
     const TYPE_CHECKOUT_SESSION_COMPLETED = 'checkout.session.completed';
     const TYPE_CHECKOUT_SESSION_EXPIRED = 'checkout.session.expired';
+    const TYPE_CLIMATE_ORDER_CANCELED = 'climate.order.canceled';
+    const TYPE_CLIMATE_ORDER_CREATED = 'climate.order.created';
+    const TYPE_CLIMATE_ORDER_DELAYED = 'climate.order.delayed';
+    const TYPE_CLIMATE_ORDER_DELIVERED = 'climate.order.delivered';
+    const TYPE_CLIMATE_ORDER_PRODUCT_SUBSTITUTED = 'climate.order.product_substituted';
+    const TYPE_CLIMATE_PRODUCT_CREATED = 'climate.product.created';
+    const TYPE_CLIMATE_PRODUCT_PRICING_UPDATED = 'climate.product.pricing_updated';
     const TYPE_COUPON_CREATED = 'coupon.created';
     const TYPE_COUPON_DELETED = 'coupon.deleted';
     const TYPE_COUPON_UPDATED = 'coupon.updated';
@@ -380,6 +397,8 @@ class Event extends ApiResource
     const TYPE_ISSUING_DISPUTE_FUNDS_REINSTATED = 'issuing_dispute.funds_reinstated';
     const TYPE_ISSUING_DISPUTE_SUBMITTED = 'issuing_dispute.submitted';
     const TYPE_ISSUING_DISPUTE_UPDATED = 'issuing_dispute.updated';
+    const TYPE_ISSUING_TOKEN_CREATED = 'issuing_token.created';
+    const TYPE_ISSUING_TOKEN_UPDATED = 'issuing_token.updated';
     const TYPE_ISSUING_TRANSACTION_CREATED = 'issuing_transaction.created';
     const TYPE_ISSUING_TRANSACTION_UPDATED = 'issuing_transaction.updated';
     const TYPE_MANDATE_UPDATED = 'mandate.updated';
@@ -475,4 +494,32 @@ class Event extends ApiResource
     const TYPE_TRANSFER_CREATED = 'transfer.created';
     const TYPE_TRANSFER_REVERSED = 'transfer.reversed';
     const TYPE_TRANSFER_UPDATED = 'transfer.updated';
+    const TYPE_TREASURY_CREDIT_REVERSAL_CREATED = 'treasury.credit_reversal.created';
+    const TYPE_TREASURY_CREDIT_REVERSAL_POSTED = 'treasury.credit_reversal.posted';
+    const TYPE_TREASURY_DEBIT_REVERSAL_COMPLETED = 'treasury.debit_reversal.completed';
+    const TYPE_TREASURY_DEBIT_REVERSAL_CREATED = 'treasury.debit_reversal.created';
+    const TYPE_TREASURY_DEBIT_REVERSAL_INITIAL_CREDIT_GRANTED = 'treasury.debit_reversal.initial_credit_granted';
+    const TYPE_TREASURY_FINANCIAL_ACCOUNT_CLOSED = 'treasury.financial_account.closed';
+    const TYPE_TREASURY_FINANCIAL_ACCOUNT_CREATED = 'treasury.financial_account.created';
+    const TYPE_TREASURY_FINANCIAL_ACCOUNT_FEATURES_STATUS_UPDATED = 'treasury.financial_account.features_status_updated';
+    const TYPE_TREASURY_INBOUND_TRANSFER_CANCELED = 'treasury.inbound_transfer.canceled';
+    const TYPE_TREASURY_INBOUND_TRANSFER_CREATED = 'treasury.inbound_transfer.created';
+    const TYPE_TREASURY_INBOUND_TRANSFER_FAILED = 'treasury.inbound_transfer.failed';
+    const TYPE_TREASURY_INBOUND_TRANSFER_SUCCEEDED = 'treasury.inbound_transfer.succeeded';
+    const TYPE_TREASURY_OUTBOUND_PAYMENT_CANCELED = 'treasury.outbound_payment.canceled';
+    const TYPE_TREASURY_OUTBOUND_PAYMENT_CREATED = 'treasury.outbound_payment.created';
+    const TYPE_TREASURY_OUTBOUND_PAYMENT_EXPECTED_ARRIVAL_DATE_UPDATED = 'treasury.outbound_payment.expected_arrival_date_updated';
+    const TYPE_TREASURY_OUTBOUND_PAYMENT_FAILED = 'treasury.outbound_payment.failed';
+    const TYPE_TREASURY_OUTBOUND_PAYMENT_POSTED = 'treasury.outbound_payment.posted';
+    const TYPE_TREASURY_OUTBOUND_PAYMENT_RETURNED = 'treasury.outbound_payment.returned';
+    const TYPE_TREASURY_OUTBOUND_TRANSFER_CANCELED = 'treasury.outbound_transfer.canceled';
+    const TYPE_TREASURY_OUTBOUND_TRANSFER_CREATED = 'treasury.outbound_transfer.created';
+    const TYPE_TREASURY_OUTBOUND_TRANSFER_EXPECTED_ARRIVAL_DATE_UPDATED = 'treasury.outbound_transfer.expected_arrival_date_updated';
+    const TYPE_TREASURY_OUTBOUND_TRANSFER_FAILED = 'treasury.outbound_transfer.failed';
+    const TYPE_TREASURY_OUTBOUND_TRANSFER_POSTED = 'treasury.outbound_transfer.posted';
+    const TYPE_TREASURY_OUTBOUND_TRANSFER_RETURNED = 'treasury.outbound_transfer.returned';
+    const TYPE_TREASURY_RECEIVED_CREDIT_CREATED = 'treasury.received_credit.created';
+    const TYPE_TREASURY_RECEIVED_CREDIT_FAILED = 'treasury.received_credit.failed';
+    const TYPE_TREASURY_RECEIVED_CREDIT_SUCCEEDED = 'treasury.received_credit.succeeded';
+    const TYPE_TREASURY_RECEIVED_DEBIT_CREATED = 'treasury.received_debit.created';
 }

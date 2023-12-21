@@ -937,10 +937,10 @@ function xpro_megamenu_option( $key, $default = '' ) {
 function xpro_megamenu_save_option( $key, $value = '' ) {
 	$option_key = 'xpro_megamenu_options';
 	$data_all   = get_option( $option_key );
-	if ( isset( $data_all[ $key ] ) ) {
+	// if ( isset( $data_all[ $key ] ) ) {
 		$data_all[ $key ] = $value;
 		update_option( 'xpro_megamenu_options', $data_all );
-	}
+	// }
 }
 
 function xpro_get_page_by_title( $page_title, $output = OBJECT, $post_type = 'page' ) {

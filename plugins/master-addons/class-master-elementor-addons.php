@@ -6,6 +6,9 @@ use  MasterAddons\Admin\Dashboard\Master_Addons_Admin_Settings ;
 use  MasterAddons\Admin\Dashboard\Addons\Extensions\JLTMA_Addon_Extensions ;
 use  MasterAddons\Admin\Dashboard\Addons\Elements\JLTMA_Addon_Elements ;
 use  MasterAddons\Inc\Helper\Master_Addons_Helper ;
+use  MasterAddons\Inc\Classes\Feedback ;
+use  MasterAddons\Inc\Classes\Pro_Upgrade ;
+use  MasterAddons\Inc\Classes\Recommended_Plugins ;
 use  MasterAddons\Inc\Classes\Master_Addons_White_Label ;
 if ( !defined( 'ABSPATH' ) ) {
     exit;
@@ -77,11 +80,13 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
             ma_el_fs()->add_filter( 'support_forum_url', [ $this, 'jltma_support_forum_url' ] );
             ma_el_fs()->add_filter( 'freemius_pricing_js_path', [ $this, 'jltma_new_freemius_pricing_js' ] );
             ma_el_fs()->add_filter( 'plugin_icon', [ $this, 'jltma_freemius_logo_icon' ] );
+            // Disable deactivation feedback form
+            ma_el_fs()->add_filter( 'show_deactivation_feedback_form', '__return_false' );
         }
         
         public function jltma_freemius_logo_icon()
         {
-            return JLTMA_IMAGE_DIR . 'master-addons.png';
+            return $this->jltma_plugin_path() . '/assets/images/master-addons.png';
         }
         
         public function jltma_is_plugin_row_meta_and_actions_link()
@@ -100,10 +105,6 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
             $this->jltma_image_size();
             //Redirect Hook
             add_action( 'admin_init', [ $this, 'jltma_add_redirect_hook' ] );
-            // Featured Plugins List
-            if ( is_admin() ) {
-                add_filter( 'install_plugins_table_api_args_featured', [ $this, 'jltma_featured_plugins_tab' ] );
-            }
         }
         
         public function jltma_override_support_menu_text()
@@ -721,6 +722,27 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
             require_once JLTMA_PATH . '/inc/classes/Animation.php';
             // Traits: Global Controls
             require_once JLTMA_PATH . '/inc/traits/swiper-controls.php';
+            // Recommeded Plugins
+            require_once JLTMA_PATH . '/lib/Recommended.php';
+            require_once JLTMA_PATH . '/inc/classes/Recommended_Plugins.php';
+            // Notifications
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Base/Date.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Base/Data.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Base/User_Data.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Model/Notification.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Model/Notice.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Model/Popup.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Latest_Updates.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Ask_For_Rating.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Subscribe.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/What_We_Collect.php';
+            require_once JLTMA_PATH . '/inc/classes/Pro_Upgrade.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Upgrade_Notice.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Manager.php';
+            require_once JLTMA_PATH . '/inc/classes/Notifications/Notifications.php';
+            require_once JLTMA_PATH . '/inc/classes/Feedback.php';
+            require_once JLTMA_PATH . '/lib/Featured.php';
+            new Feedback();
         }
         
         public function jltma_body_class( $classes )
@@ -813,92 +835,6 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
                 self::MINIMUM_PHP_VERSION
             );
             printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-        }
-        
-        /**
-         * Helper function for adding plugins to fav list.
-         *
-         * @param [type] $args
-         * @return void
-         */
-        public function jltma_featured_plugins_tab( $args )
-        {
-            add_filter(
-                'plugins_api_result',
-                [ $this, 'jltma_plugins_api_result' ],
-                10,
-                3
-            );
-            return $args;
-        }
-        
-        /**
-         * Add our plugins to recommended list.
-         *
-         * @param [type] $res
-         * @param [type] $action
-         * @param [type] $args
-         * @return void
-         */
-        public function jltma_plugins_api_result( $res, $action, $args )
-        {
-            remove_filter(
-                'plugins_api_result',
-                [ $this, 'jltma_plugins_api_result' ],
-                10,
-                1
-            );
-            // Plugin list which you want to show as feature in dashboard.
-            // $res = $this->jltma_add_plugin_favs('image-hover-effects-elementor-addon', $res);
-            $res = $this->jltma_add_plugin_favs( 'ultimate-blocks-for-gutenberg', $res );
-            $res = $this->jltma_add_plugin_favs( 'adminify', $res );
-            return $res;
-        }
-        
-        /**
-         * Add single plugin to list of favs.
-         *
-         * @param [type] $plugin_slug
-         * @param [type] $res
-         * @return void
-         */
-        public function jltma_add_plugin_favs( $plugin_slug, $res )
-        {
-            
-            if ( !empty($res->plugins) && is_array( $res->plugins ) ) {
-                foreach ( $res->plugins as $plugin ) {
-                    if ( is_object( $plugin ) && !empty($plugin->slug) && $plugin->slug == $plugin_slug ) {
-                        return $res;
-                    }
-                }
-                // foreach
-            }
-            
-            
-            if ( $plugin_info = get_transient( 'jltma-plugin-info-' . $plugin_slug ) ) {
-                array_unshift( $res->plugins, $plugin_info );
-            } else {
-                $plugin_info = plugins_api( 'plugin_information', array(
-                    'slug'   => $plugin_slug,
-                    'is_ssl' => is_ssl(),
-                    'fields' => array(
-                    'banners'           => true,
-                    'reviews'           => true,
-                    'downloaded'        => true,
-                    'active_installs'   => true,
-                    'icons'             => true,
-                    'short_description' => true,
-                ),
-                ) );
-                
-                if ( !is_wp_error( $plugin_info ) ) {
-                    $res->plugins[] = $plugin_info;
-                    set_transient( 'jltma-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7 );
-                }
-            
-            }
-            
-            return $res;
         }
     
     }

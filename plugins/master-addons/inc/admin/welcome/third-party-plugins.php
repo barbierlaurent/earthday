@@ -13,7 +13,7 @@ use MasterAddons\Admin\Dashboard\Addons\Extensions\JLTMA_Third_Party_Extensions;
  */
 ?>
 
-<h3><?php echo esc_html__('Third Party Plugins', 'master-addons' ); ?></h3>
+<h3><?php echo esc_html__('Third Party Plugins', 'master-addons'); ?></h3>
 
 <div class="jltma-master-addons-features-container is-flex">
 	<!-- Third Party Plugins -->
@@ -45,14 +45,14 @@ use MasterAddons\Admin\Dashboard\Addons\Extensions\JLTMA_Third_Party_Extensions;
 								}
 								if (!jltma_is_plugin_active($plugin_file)) {
 									$activation_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . $plugin_file . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $plugin_file);
-									$html = '<a class="jltma-external-plugin-download jltma-external-plugin-download-active" href="' . $activation_url . '" ><span class="jltma-external-plugin-download jltma-external-plugin-download-active pr-1">' . esc_html__('Activate', 'master-addons' ) . '</span><i class="dashicons dashicons-yes-alt"></i></a>';
+									$html = '<a class="jltma-external-plugin-download jltma-external-plugin-download-active" href="' . $activation_url . '" ><span class="jltma-external-plugin-download jltma-external-plugin-download-active pr-1">' . esc_html__('Activate', 'master-addons') . '</span><i class="dashicons dashicons-yes-alt"></i></a>';
 								} else {
 									$html = '';
 								}
 							} else {
 
 								$install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=' . $plugin_slug), 'install-plugin_' . $plugin_slug);
-								$html = '<a class="jltma-external-plugin-download" href="' . $install_url . '"><span class="jltma-external-plugin-download-text">' . esc_html__('Download', 'master-addons' ) . '</span><i class="dashicons dashicons-download"></i></a>';
+								$html = '<a class="jltma-external-plugin-download" href="' . $install_url . '"><span class="jltma-external-plugin-download-text">' . esc_html__('Download', 'master-addons') . '</span><i class="dashicons dashicons-download"></i></a>';
 
 								activate_plugin($plugin_file);
 							}
@@ -64,10 +64,9 @@ use MasterAddons\Admin\Dashboard\Addons\Extensions\JLTMA_Third_Party_Extensions;
 
 
 				<div class="jltma-master-addons_feature-switchbox">
-					<label for="<?php echo esc_attr($jltma_plugins['key']); ?>" class="switch switch-text switch-primary switch-pill
-					<?php if (!ma_el_fs()->can_use_premium_code() && isset($jltma_plugins['is_pro']) && $jltma_plugins['is_pro']) {
-						echo "ma-el-pro";
-					} ?>">
+					<label for="<?php echo esc_attr($jltma_plugins['key']); ?>" class="switch switch-text switch-primary switch-pill <?php if (!ma_el_fs()->can_use_premium_code() && isset($jltma_plugins['is_pro']) && $jltma_plugins['is_pro']) {
+																																			echo "ma-el-pro disabled";
+																																		} ?>">
 
 						<?php if (ma_el_fs()->can_use_premium_code()) { ?>
 

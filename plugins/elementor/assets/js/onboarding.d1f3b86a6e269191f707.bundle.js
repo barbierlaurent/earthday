@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:plugins/elementor/assets/js/onboarding.f2f8af9f7327abc100f1.bundle.js
+/*! elementor - v3.18.0 - 20-12-2023 */
+========
 /*! elementor - v3.16.0 - 09-10-2023 */
+>>>>>>>> main:plugins/elementor/assets/js/onboarding.d1f3b86a6e269191f707.bundle.js
 "use strict";
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["onboarding"],{
 
@@ -1273,6 +1277,7 @@ function Account() {
     stateToUpdate.isLibraryConnected = true;
     elementorCommon.config.library_connect.is_connected = true;
     elementorCommon.config.library_connect.current_access_level = data.kits_access_level || data.access_level || 0;
+    elementorCommon.config.library_connect.current_access_tier = data.access_tier;
     updateState(stateToUpdate);
     elementorCommon.events.dispatchEvent({
       event: 'indication prompt',
@@ -1398,7 +1403,7 @@ function GoodToGo() {
     name: "template",
     image: elementorCommon.config.urls.assets + 'images/app/onboarding/Library.svg',
     imageAlt: __('Click here to go to Elementor\'s Kit Library', 'elementor'),
-    text: __('Browse from +100 templates or import your own', 'elementor'),
+    text: __('Choose a professionally-designed template or import your own', 'elementor'),
     link: kitLibraryLink,
     clickAction: function clickAction() {
       // The location is reloaded to make sure the Kit Library's state is re-created.
@@ -2346,6 +2351,7 @@ function Connect(props) {
     var stateToUpdate = getStateObjectToUpdate(state, 'steps', 'account', 'completed');
     elementorCommon.config.library_connect.is_connected = true;
     elementorCommon.config.library_connect.current_access_level = data.kits_access_level || data.access_level || 0;
+    elementorCommon.config.library_connect.current_access_tier = data.access_tier;
     stateToUpdate.isLibraryConnected = true;
     updateState(stateToUpdate);
   };
@@ -2376,4 +2382,8 @@ Connect.propTypes = {
 /***/ })
 
 }]);
+<<<<<<<< HEAD:plugins/elementor/assets/js/onboarding.f2f8af9f7327abc100f1.bundle.js
+//# sourceMappingURL=onboarding.f2f8af9f7327abc100f1.bundle.js.map
+========
 //# sourceMappingURL=onboarding.d1f3b86a6e269191f707.bundle.js.map
+>>>>>>>> main:plugins/elementor/assets/js/onboarding.d1f3b86a6e269191f707.bundle.js

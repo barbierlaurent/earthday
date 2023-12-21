@@ -1,35 +1,31 @@
-[26/Sep/2023:02:59:48] (I): WordPress Instance Info:
-[26/Sep/2023:02:59:48] (I): Home URL : http://localhost/earthday
-[26/Sep/2023:02:59:48] (I): Site URL : http://localhost/earthday
-[26/Sep/2023:02:59:48] (I): WordPress Version : 6.3
-[26/Sep/2023:02:59:48] (I): Onboarding Version : 1.1.39
-[26/Sep/2023:02:59:48] (I): Multisite : No
-[26/Sep/2023:02:59:48] (I): Server Info : Apache/2.4.57 (Unix) PHP/8.2.9
-[26/Sep/2023:02:59:48] (I): PHP Version : 8.2.9
-[26/Sep/2023:02:59:48] (I): HTTPS : No
-[26/Sep/2023:02:59:48] (I): PHP Max Execution Time : 30
-[26/Sep/2023:02:59:48] (I): PHP Max Input Vars : 1000
-[26/Sep/2023:02:59:48] (I): Max Upload Size : 2097152
-[26/Sep/2023:02:59:48] (I): Plugins:
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Advanced Custom Fields : v6.2.0 (WP Engine)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Contact Form 7 : v5.8 (Takayuki Miyoshi)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Custom Post Type UI : v1.14.0 (WebDevStudios)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] DreamHost Panel Login : v1.0.0 (DreamHost, danielbachhuber)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Elementor : v3.15.3 (Elementor.com)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Formidable Forms Pro : v6.4.2 (Strategy11)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Formidable Visual Views : v5.4.1 (Strategy11)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Formidable Forms : v6.4.2 (Strategy11 Form Builder Team)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Master Addons for Elementor : v2.0.3 (Jewel Theme)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Members : v3.2.7 (MemberPress)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Opportunity Custom Plugin : v1.0 (Gravel)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Image optimization service by Optimole : v3.9.2 (Optimole)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Otter – Page Builder Blocks &amp; Extensions for Gutenberg : v2.3.4 (ThemeIsle)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Responsive Starter Templates : v2.8.4 (CyberChimps)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Templates Patterns Collection : v1.1.39 (ThemeIsle)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] UpdraftPlus - Backup/Restore : v1.23.9 (UpdraftPlus.com, DavidAnderson)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] User Menus : v1.3.2 (Code Atlantic)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] User Registration : v3.0.3 (WPEverest)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] WP User Frontend : v3.6.7 (weDevs)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] WPForms Lite : v1.8.3.1 (WPForms)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Xpro Elementor Addons : v1.3.8 (Xpro)
-[26/Sep/2023:02:59:48] (I): [PLUGIN] Xpro Elementor Theme Builder : v1.2.4 (Xpro)
+[01/Sep/2023:20:24:32] (I): WordPress Instance Info:
+[01/Sep/2023:20:24:32] (I): Home URL : http://localhost/html/earthday
+[01/Sep/2023:20:24:32] (I): Site URL : http://localhost/html/earthday
+[01/Sep/2023:20:24:32] (I): WordPress Version : 6.3.1
+[01/Sep/2023:20:24:32] (I): Onboarding Version : 1.1.39
+[01/Sep/2023:20:24:32] (I): Multisite : No
+[01/Sep/2023:20:24:32] (I): Server Info : Apache/2.4.57 (Unix) PHP/8.2.8
+[01/Sep/2023:20:24:32] (I): PHP Version : 8.2.8
+[01/Sep/2023:20:24:32] (I): HTTPS : No
+[01/Sep/2023:20:24:32] (I): PHP Max Execution Time : 30
+[01/Sep/2023:20:24:32] (I): PHP Max Input Vars : 1000
+[01/Sep/2023:20:24:32] (I): Max Upload Size : 2097152
+[01/Sep/2023:20:24:32] (I): Plugins:
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Advanced Custom Fields : v6.2.0 (WP Engine)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Contact Form 7 : v5.8 (Takayuki Miyoshi)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Custom Post Type UI : v1.14.0 (WebDevStudios)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] DreamHost Panel Login : v1.0.0 (DreamHost, danielbachhuber)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Elementor : v3.15.3 (Elementor.com)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Formidable Forms : v6.4.2 (Strategy11 Form Builder Team)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Master Addons for Elementor : v2.0.3 (Jewel Theme)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Members : v3.2.7 (MemberPress)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Opportunity Custom Plugin : v1.0 (Gravel)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Image optimization service by Optimole : v3.9.2 (Optimole)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Otter – Page Builder Blocks &amp; Extensions for Gutenberg : v2.3.4 (ThemeIsle)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Templates Patterns Collection : v1.1.39 (ThemeIsle)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] UpdraftPlus - Backup/Restore : v1.23.9 (UpdraftPlus.Com, DavidAnderson)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] User Menus : v1.3.2 (Code Atlantic)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] User Registration : v3.0.3 (WPEverest)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] WP User Frontend : v3.6.8 (weDevs)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Xpro Elementor Addons : v1.3.8 (Xpro)
+[01/Sep/2023:20:24:32] (I): [PLUGIN] Xpro Elementor Theme Builder : v1.2.4 (Xpro)
